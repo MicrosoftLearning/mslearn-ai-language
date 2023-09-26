@@ -1,3 +1,9 @@
+---
+lab:
+    title: 'Extract custom entities'
+    module: 'Module 3 - Getting Started with Natural Language Processing'
+---
+
 In addition to other natural language processing capabilities, Azure AI Language Service enables you to extract custom entities from various files.
 
 To test the custom entity extraction, we'll create a model and train it through Azure AI Language Studio, then use a command line application to test it.

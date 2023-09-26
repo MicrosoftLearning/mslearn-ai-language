@@ -1,3 +1,9 @@
+---
+lab:
+    title: 'Custom text classification'
+    module: 'Module 3 - Getting Started with Natural Language Processing'
+---
+
 Azure AI Language provides several NLP capabilities, including the key phrase identification, text summarization, and sentiment analysis. The Language service also provides custom features like custom question answering and custom text classification.
 
 To test the custom text classification of the Azure AI Language service, we'll configure the model using Language Studio then use a small command-line application that runs in the Cloud Shell to test it. The same pattern and functionality used here can be followed for real-world applications.
