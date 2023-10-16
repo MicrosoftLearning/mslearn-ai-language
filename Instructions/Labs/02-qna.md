@@ -153,34 +153,6 @@ The knowledge base provides a back-end service that client applications can use 
 
 1. In the terminal pane, enter the command `ask-question.sh` to run the script and view the JSON response that is returned by the service, which should contain an appropriate answer to the question *What is a learning path?*.
 
-## Create a bot for the knowledge base
-
-Most commonly, the client applications used to retrieve answers from a knowledge base are bots.
-
-1. Return to Language Studio in the browser, and in the **Deploy knowledge base** page, select **Create Bot**. This opens the Azure portal in a new browser tab so you can create a bot in your Azure subscription (if prompted, sign in).
-1. In the Azure portal, create a bot with the following settings (most of these will be pre-populated for you):
-
-    *If some values are missing, refresh your browser.*  
-
-    - **Bot handle**: *A unique name for your bot*
-    - **Subscription**: *Your Azure subscription*
-    - **Resource group**: *The resource group containing your Language resource*
-    - **Pricing tier**: Standard.
-    - **Creation type**: Create new User-assigned managed identity.
-
-1. Select **Next**, then set the following if not already populated automatically:
-
-    - **App name**: *Same as the **Bot handle** with a unique ID and *.azurewebsites.net* appended automatically.*
-    - **SDK language**: *Choose either C# or Node.js*
-    - **Creation type**: *This may be set automatically to a suitable plan if one exists. If not, select **Create a new app service plan***.
-    - **Language Resource Key**: *They key you copied earlier*.
-1. Select **Review + create**. Then select **Create**.
-
-1. Wait for your bot to be created. Then select **Go to resource group** (or alternatively, on the home page, select **Resource groups**).
-1. To open the  bot, select the Azure Bot resource in the resources list.
-1. In the overview pane for your bot, select the **Test in Web Chat** page, and wait until the bot displays the message **Hello and welcome!** (it may take a few seconds to initialize).
-1. Use the test chat interface to ensure your bot answers questions from your knowledge base as expected. For example, try submitting `What is Microsoft certification?`.
-
 ## More information
 
 To learn more about question answering in  Azure AI Language, see the [Azure AI Language documentation](azure/ai-services/language-service/question-answering/overview).

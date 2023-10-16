@@ -17,12 +17,8 @@ namespace text_analysis
                 // Get config settings from AppSettings
                 IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
                 IConfigurationRoot configuration = builder.Build();
-                string cogSvcEndpoint = configuration["CognitiveServicesEndpoint"];
-                string cogSvcKey = configuration["CognitiveServiceKey"];
-
-                // Set console encoding to unicode
-                Console.InputEncoding = Encoding.Unicode;
-                Console.OutputEncoding = Encoding.Unicode;
+                string aiSvcEndpoint = configuration["AIServicesEndpoint"];
+                string aiSvcKey = configuration["AIServicesKey"];
 
                 // Create client using endpoint and key
 

@@ -1,7 +1,7 @@
 ---
 lab:
-    title: 'Analyze Text'
-    module: 'Module 3 - Getting Started with Natural Language Processing'
+    title: 'Analyze text'
+    module: 'Module 3 - Develop natural language processing solutions'
 ---
 
 # Analyze Text
@@ -22,7 +22,7 @@ If you don't already have one in your subscription, you'll need to provision an 
     - **Resource group**: *Choose or create a resource group (if you are using a restricted subscription, you may not have permission to create a new resource group - use the one provided)*.
     - **Region**:*Choose any available region*
     - **Name**: *Enter a unique name*.
-    - **Pricing tier**: Select either **Free (F0)** or **Standard (S)* *tier if Free is not available.
+    - **Pricing tier**: Select either **Free (F0)** or **Standard (S)** tier if Free is not available.
     - **Responsible AI Notice**: Agree.
 1. Select **Review + create**.
 1. Wait for deployment to complete, and then view the deployment details.
@@ -119,17 +119,17 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```C#
     // Create client using endpoint and key
-    AzureKeyCredential credentials = new AzureKeyCredential(cogSvcKey);
-    Uri endpoint = new Uri(cogSvcEndpoint);
-    TextAnalyticsClient CogClient = new TextAnalyticsClient(endpoint, credentials);
+    AzureKeyCredential credentials = new AzureKeyCredential(aiSvcKey);
+    Uri endpoint = new Uri(aiSvcEndpoint);
+    TextAnalyticsClient aiClient = new TextAnalyticsClient(endpoint, credentials);
     ```
 
     **Python**
 
     ```Python
     # Create client using endpoint and key
-    credential = AzureKeyCredential(cog_key)
-    cog_client = TextAnalyticsClient(endpoint=cog_endpoint, credential=credential)
+    credential = AzureKeyCredential(ai_key)
+    ai_client = TextAnalyticsClient(endpoint=ai_endpoint, credential=credential)
     ```
 
 1. Save your changes and return to the integrated terminal for the **text-analysis** folder, and enter the following command to run the program:
@@ -158,7 +158,7 @@ Now that you have created a client for the API, let's use it to detect the langu
 
     ```csharp
     // Get language
-    DetectedLanguage detectedLanguage = CogClient.DetectLanguage(text);
+    DetectedLanguage detectedLanguage = aiClient.DetectLanguage(text);
     Console.WriteLine($"\nLanguage: {detectedLanguage.Name}");
     ```
 
@@ -166,7 +166,7 @@ Now that you have created a client for the API, let's use it to detect the langu
 
     ```python
     # Get language
-    detectedLanguage = cog_client.detect_language(documents=[text])[0]
+    detectedLanguage = ai_client.detect_language(documents=[text])[0]
     print('\nLanguage: {}'.format(detectedLanguage.primary_language.name))
     ```
 
@@ -198,7 +198,7 @@ Now that you have created a client for the API, let's use it to detect the langu
 
     ```csharp
     // Get sentiment
-    DocumentSentiment sentimentAnalysis = CogClient.AnalyzeSentiment(text);
+    DocumentSentiment sentimentAnalysis = aiClient.AnalyzeSentiment(text);
     Console.WriteLine($"\nSentiment: {sentimentAnalysis.Sentiment}");
     ```
 
@@ -206,7 +206,7 @@ Now that you have created a client for the API, let's use it to detect the langu
 
     ```python
     # Get sentiment
-    sentimentAnalysis = cog_client.analyze_sentiment(documents=[text])[0]
+    sentimentAnalysis = ai_client.analyze_sentiment(documents=[text])[0]
     print("\nSentiment: {}".format(sentimentAnalysis.sentiment))
     ```
 
@@ -236,7 +236,7 @@ It can be useful to identify key phrases in a body of text to help determine the
 
     ```csharp
     // Get key phrases
-    KeyPhraseCollection phrases = CogClient.ExtractKeyPhrases(text);
+    KeyPhraseCollection phrases = aiClient.ExtractKeyPhrases(text);
     if (phrases.Count > 0)
     {
         Console.WriteLine("\nKey Phrases:");
@@ -251,7 +251,7 @@ It can be useful to identify key phrases in a body of text to help determine the
 
     ```python
     # Get key phrases
-    phrases = cog_client.extract_key_phrases(documents=[text])[0].key_phrases
+    phrases = ai_client.extract_key_phrases(documents=[text])[0].key_phrases
     if len(phrases) > 0:
         print("\nKey Phrases:")
         for phrase in phrases:
@@ -284,7 +284,7 @@ Often, documents or other bodies of text mention people, places, time periods, o
 
     ```csharp
     // Get entities
-    CategorizedEntityCollection entities = CogClient.RecognizeEntities(text);
+    CategorizedEntityCollection entities = aiClient.RecognizeEntities(text);
     if (entities.Count > 0)
     {
         Console.WriteLine("\nEntities:");
@@ -299,7 +299,7 @@ Often, documents or other bodies of text mention people, places, time periods, o
 
     ```python
     # Get entities
-    entities = cog_client.recognize_entities(documents=[text])[0].entities
+    entities = ai_client.recognize_entities(documents=[text])[0].entities
     if len(entities) > 0:
         print("\nEntities")
         for entity in entities:
@@ -332,7 +332,7 @@ In addition to categorized entities, the Text Analytics API can detect entities 
 
     ```csharp
     // Get linked entities
-    LinkedEntityCollection linkedEntities = CogClient.RecognizeLinkedEntities(text);
+    LinkedEntityCollection linkedEntities = aiClient.RecognizeLinkedEntities(text);
     if (linkedEntities.Count > 0)
     {
         Console.WriteLine("\nLinks:");
@@ -347,7 +347,7 @@ In addition to categorized entities, the Text Analytics API can detect entities 
 
     ```python
     # Get linked entities
-    entities = cog_client.recognize_linked_entities(documents=[text])[0].entities
+    entities = ai_client.recognize_linked_entities(documents=[text])[0].entities
     if len(entities) > 0:
         print("\nLinks")
         for linked_entity in entities:
