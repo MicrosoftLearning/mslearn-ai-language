@@ -14,8 +14,16 @@ If you have already cloned **AI-102-AIEngineer** code repository to the environm
 
 1. Start Visual Studio Code.
 
-2. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/AI-102-AIEngineer` repository to a local folder (it doesn't matter which folder).
+2. Open the palette (SHIFT+CTRL+P) and run the following commands to download a copy of the repo into your Cloud Shell:
 
+    ```bash
+    rm -r ai-language -f
+    git clone https://github.com/MicrosoftLearning/mslearn-ai-language ai-language
+    ```
+  
+    > **TIP**
+    > If you recently used this command in another lab to clone the *ai-language* repository, you can skip this step.
+ 
 3. When the repository has been cloned, open the folder in Visual Studio Code.
 
 4. Wait while additional files are installed to support the C# code projects in the repo.

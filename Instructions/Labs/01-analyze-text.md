@@ -41,17 +41,20 @@ Open up a new browser tab to work with Cloud Shell. If you haven't cloned this r
 
 4. Make sure the type of shell indicated on the top left of the Cloud Shell pane is switched to *Bash*. If it's *PowerShell*, switch to *Bash* by using the drop-down menu.
 
-5. Once the terminal starts, enter the following command to download the sample application and save it to a folder called `azure-ai-eng`.
+5. Once the terminal starts, enter the following command to download the sample application and save it to a folder called `ai-language`.
 
     ```bash
-   rm -r azure-ai-eng -f
-   git clone https://github.com/MicrosoftLearning/AI-102-AIEngineer azure-ai-eng
+   rm -r ai-language -f
+   git clone https://github.com/MicrosoftLearning/mslearn-ai-language ai-language
     ```
   
-6. The files are downloaded to a folder named **azure-ai-eng**. Navigate to the lab files for this exercise using the following command.
+    > **TIP**
+    > If you recently used this command in another lab to clone the *ai-language* repository, you can skip this step.
+  
+6. The files are downloaded to a folder named **ai-language**. Navigate to the lab files for this exercise using the following command.
 
     ```bash
-   cd azure-ai-eng/05-analyze-text
+   cd ai-language/01-analyze-text
     ```
 
 Applications for both C# and Python have been provided, as well as a supporting files you'll use to test the feature. Both apps feature the same functionality. Navigate to the folder of your preferred language.
@@ -66,10 +69,10 @@ code .
 
 In this exercise, you'll complete a partially implemented client application that uses the Azure AI Language text analytics SDK to analyze hotel reviews.
 
-> [!NOTE]
+> **NOTE**
 > > You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
 
-1. In Cloud Shell, ensure you are in the **05-analyze-text** folder and have navigated to the **C-Sharp** or **Python** folder depending on your language preference.
+1. In Cloud Shell, ensure you are in the **01-analyze-text** folder and have navigated to the **C-Sharp** or **Python** folder depending on your language preference.
 1. Install the Text Analytics SDK package by running the appropriate command for your language preference:
 
     **C#**

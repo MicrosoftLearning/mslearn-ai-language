@@ -13,7 +13,7 @@ lab:
 
 In this exercise, you'll use both of these APIs to implement a speaking clock application.
 
-> [!NOTE]
+> **NOTE**
 > This exercise requires that you are using a computer with speakers/headphones. For the best experience, a microphone is also required. Some hosted virtual environments may be able to capture audio from your local microphone, but if this doesn't work (or you don't have a microphone at all), you can use a provided audio file for speech input. Follow the instructions carefully, as you'll need to choose different options depending on whether you are using a microphone or the audio file.
 
 ## Clone the repository for this course
@@ -21,11 +21,15 @@ In this exercise, you'll use both of these APIs to implement a speaking clock ap
 If you have not already cloned **AI-102-AIEngineer** code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
 
 1. Start Visual Studio Code.
-1. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/AI-102-AIEngineer` repository to a local folder (it doesn't matter which folder).
+1. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-language` repository to a local folder (it doesn't matter which folder).
+  
+    > **TIP**
+    > If you recently used this command in another lab to clone the *ai-language* repository, you can skip this step.
+ 
 1. When the repository has been cloned, open the folder in Visual Studio Code.
 1. Wait while additional files are installed to support the C# code projects in the repo.
 
-> [!NOTE]
+> **NOTE**
 > If you are prompted to add required assets to build and debug, select **Not Now**.
 
 ## Provision an Azure AI Speech resource
@@ -49,7 +53,7 @@ If you don't already have on in your subscription, you'll need to provision a **
 
 In this exercise, you'll complete a partially implemented client application that uses the Azure AI Speech SDK to recognize and synthesize speech.
 
-> [!NOTE]
+> **NOTE**
 > You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
 
 1. In Visual Studio Code, in the **Explorer** pane, browse to the **07-speech** folder and expand the **C-Sharp** or **Python** folder depending on your language preference.
@@ -299,7 +303,7 @@ Your speaking clock application accepts spoken input, but it doesn't actually sp
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
 
-> [!NOTE]
+> **NOTE**
 >  *The default audio configuration uses the default system audio device for output, so you don't need to explicitly provide an **AudioConfig**. If you need to     redirect     audio output to a file, you can use an **AudioConfig** with a filepath to do so.*
 
 1. In the **TellTime** function, under the comment **Synthesize spoken output**, add the following code to generate spoken output, being careful not to replace the code at the end of the function that prints the response:

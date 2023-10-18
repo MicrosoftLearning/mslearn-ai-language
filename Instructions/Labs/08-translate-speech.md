@@ -8,7 +8,7 @@ lab:
 
 Azure AI Speech includes a speech translation API that you can use to translate spoken language. For example, suppose you want to develop a translator application that people can use when traveling in places where they don't speak the local language. They would be able to say phrases such as "Where is the station?" or "I need to find a pharmacy" in their own language, and have it translate them to the local language.
 
-> [!NOTE]
+> **NOTE**
 > This exercise requires that you are using a computer with speakers/headphones. For the best experience, a microphone is also required. Some hosted virtual environments may be able to capture audio from your local microphone, but if this doesn't work (or you don't have a microphone at all), you can use a provided audio file for speech input. Follow the instructions carefully, as you'll need to choose different options depending on whether you are using a microphone or the audio file.
 
 ## Clone the repository for this course
@@ -16,11 +16,15 @@ Azure AI Speech includes a speech translation API that you can use to translate 
 If you have already cloned **AI-102-AIEngineer** code repository to the environment where you're working on this lab, open it in Visual Studio Code; otherwise, follow these steps to clone it now.
 
 1. Start Visual Studio Code.
-1. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/AI-102-AIEngineer` repository to a local folder (it doesn't matter which folder).
+1. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-language` repository to a local folder (it doesn't matter which folder).
+  
+    > **TIP**
+    > If you recently used this command in another lab to clone the *ai-language* repository, you can skip this step.
+ 
 1. When the repository has been cloned, open the folder in Visual Studio Code.
 1. Wait while additional files are installed to support the C# code projects in the repo.
 
-    > [!NOTE]
+    > **NOTE**
 >  If you are prompted to add required assets to build and debug, select **Not Now**.
 
 ## Provision an Azure AI Speech resource
@@ -44,7 +48,7 @@ If you don't already have on in your subscription, you'll need to provision a **
 
 In this exercise, you'll complete a partially implemented client application that uses the Azure AI Speech SDK to recognize, translate, and synthesize speech.
 
-> [!NOTE]
+> **NOTE**
 > You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
 
 1. In Visual Studio Code, in the **Explorer** pane, browse to the **08-speech-translation** folder and expand the **C-Sharp** or **Python** folder depending on your language preference.
@@ -184,7 +188,7 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
     print(translation)
     ```
 
-> [!NOTE]
+> **NOTE**
 >  The code in your application translates the input to all three languages in a single call. Only the translation for the specific language is displayed, but you could retrieve any of the translations by specifying the target language code in the **translations** collection of the result.
 
 1. Now skip ahead to the **Run the program** section below.
@@ -253,7 +257,7 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
     print(translation)
     ```
 
-> [!NOTE]
+> **NOTE**
 >The code in your application translates the input to all three languages in a single call. Only the translation for the specific language is displayed, but you could retrieve any of the translations by specifying the target language code in the **translations** collection of the result.
 
 ### Run the program
@@ -274,7 +278,7 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
 
 1. When prompted, enter a valid language code (*fr*, *es*, or *hi*), and then, if using a microphone, speak clearly and say "where is the station?" or some other phrase you might use when traveling abroad. The program should transcribe your spoken input and translate it to the language you specified (French, Spanish, or Hindi). Repeat this process, trying each language supported by the application. When you're finished, press ENTER to end the program.
 
-> [!NOTE]
+> **NOTE**
 > The TranslationRecognizer gives you around 5 seconds to speak. If it detects no spoken input, it produces a "No match" result. The translation to Hindi may not always be displayed correctly in the Console window due to character encoding issues.
 
 ## Synthesize the translation to speech
@@ -334,7 +338,7 @@ So far, your application translates spoken input to text; which might be suffici
 
 1. When prompted, enter a valid language code (*fr*, *es*, or *hi*), and then speak clearly into the microphone and say a phrase you might use when traveling abroad. The program should transcribe your spoken input and respond with a spoken translation. Repeat this process, trying each language supported by the application. When you're finished, press **ENTER** to end the program.
 
-> [!NOTE]
+> **NOTE**
 > *In this example, you've used a **SpeechTranslationConfig** to translate speech to text, and then used a **SpeechConfig** to synthesize the translation as speech. You can in fact use the **SpeechTranslationConfig** to synthesize the translation directly, but this only works when translating to a single language, and results in an audio stream that is typically saved as a file rather than sent directly to a speaker.*
 
 ## More information

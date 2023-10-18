@@ -23,14 +23,17 @@ For example, suppose a travel agency wants to examine hotel reviews that have be
 1. Once the terminal starts, run the following commands to download a copy of the repo into your Cloud Shell:
 
     ```bash
-    rm -r azure-ai-eng -f
-    git clone https://github.com/MicrosoftLearning/AI-102-AIEngineer azure-ai-eng
+    rm -r ai-language -f
+    git clone https://github.com/MicrosoftLearning/mslearn-ai-language ai-language
     ```
-
-1. The files have been downloaded into a folder called **azure-ai-eng**. Let's use the Cloud Shell Code editor to open the appropriate folder by running:
+  
+    > **TIP**
+    > If you recently used this command in another lab to clone the *ai-language* repository, you can skip this step.
+ 
+1. The files have been downloaded into a folder called **ai-language**. Let's use the Cloud Shell Code editor to open the appropriate folder by running:
 
     ```bash
-        code azure-ai-eng/06-translate-text
+    code ai-language/06-translate-text
     ```
 
 ## Provision an Azure AI Translator resource
@@ -53,7 +56,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 In this exercise, you'll complete a partially implemented client application that uses the Azure AI Translator REST API to translate hotel reviews.
 
-> [!NOTE]
+> **NOTE**
 > You can choose to use the API from either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
 
 1. In your Cloud Shell editor, expand the **06-translate-text** folder, and then the **C-Sharp** or **Python** folder depending on your language preference.

@@ -26,7 +26,7 @@ If you haven't already done so, create an **Azure AI Language Service** resource
       - **Storage account type**: Standard LRS
     - **Responsible AI notice**: Selected.
 
-    > [!TIP]
+    > **TIP**
     > You can reuse existing resources from previous labs if you have them available. Be sure to use a new container in the storage account to connect the custom entity extraction project to.
 
 3. Review and create the resource.
@@ -46,7 +46,7 @@ After you've created the Azure AI Language Service and storage account, you'll n
 
 3. In your storage account, select **Containers** from the left menu, located below **Data storage**. On the screen that appears, select **+ Container**. Give the container a name `customner`, and set **Public access level** to *Container (anonymous read access for containers and blobs)*.
 
-    > [!NOTE]
+    > **NOTE**
     > When you configure a storage account outside of this module, be careful to assign the appropriate access level. To learn more about each access level, see the [docs on Azure Storage](/azure/storage/blobs/anonymous-read-access-configure).
 
 4. After creating the container, select it and click the **Upload** button to upload the sample ads you downloaded.
@@ -55,12 +55,12 @@ After you've created the Azure AI Language Service and storage account, you'll n
 
 Once configuration is complete, create a custom named entity recognition project. This project provides a working place to build, train, and deploy your model.
 
-> [!NOTE]
+> **NOTE**
 > You can also create, build, train, and deploy your model through the REST API
 
 1. Log into the [Azure AI Language Studio](https://aka.ms/languageStudio) with your Azure account, and select the Azure subscription that you created your Azure AI Language resource in, and select your Azure AI Language resource
 
-    > [!NOTE]
+    > **NOTE**
     > If you've previously logged into Azure AI Language Studio, it's already linked to your previous Azure AI Language resource. When creating the project in the following steps, be sure to switch that project to the correct resource.
 
 2. Under the **Extract information** section, select **Custom named entity recognition**
@@ -96,7 +96,7 @@ After you've labeled your data, you need to train your model.
 4. Enter a name `ExtractAds`
 5. Choose **Automatically split the testing set from training data**
 
-    > [!TIP]
+    > **TIP**
     > In your own extraction projects, use the testing split that best suits your data. For more consistent data and larger datasets, the Azure AI Language Service will automatically split the testing set by percentage. With smaller datasets, it's important to train with the right variety of possible input documents.
 
 5. Click **Train**
@@ -145,16 +145,17 @@ Now that you have a custom model, you can run a client application that uses the
 1. In the command shell, enter the following command to download the sample application and save it to a folder called ai-language.
 
     ```powershell
-    git clone https://github.com/MicrosoftLearning/ai-language ai-language
+    rm -r ai-language -f
+    git clone https://github.com/MicrosoftLearning/mslearn-ai-language ai-language
     ```
   
-    > [!TIP]
-    > If you already used this command in another lab to clone the *ai-language* repository, you can skip this step.
+    > **TIP**
+    > If you recently used this command in another lab to clone the *ai-language* repository, you can skip this step.
 
 2. The files are downloaded to a folder named **ai-language**. Now we want to see all of the files in your Cloud Shell storage and work with them. In the shell, enter the following commands:
 
     ```powershell
-    cd ai-language/named-entity-recognition
+    cd ai-language/05-custom-entity-recognition
     ```
 
     ```powershell
@@ -163,7 +164,7 @@ Now that you have a custom model, you can run a client application that uses the
 
 3. In `extract-entities.ps1`, note the top two lines of the script with places for your Azure AI Language Service key and endpoint, as well as your project and model names. Replace the placeholders for `$key` and `$endpoint` with your resource values (`$projectName`, and `$modelName` should match what you entered above), and save the file.
 
-    > [!TIP]
+    > **TIP**
     > If you don't have these values readily available, navigate to the [Azure portal](https://portal.azure.com?azure-portal=true), find the Azure AI Language resource you created earlier, and select the **Keys and endpoint** page on the left
 
 4. Run the following command to call your model and extract the entities from the test file. Review the output.
@@ -172,7 +173,7 @@ Now that you have a custom model, you can run a client application that uses the
     .\extract-entities.ps1 test1.txt
     ```
 
-    > [!NOTE]
+    > **NOTE**
     > You can update the script variable `$verbose` to `$true`to see the raw response JSON
 
 5. Run the following command again, this time with a different file to extract. Review the output.

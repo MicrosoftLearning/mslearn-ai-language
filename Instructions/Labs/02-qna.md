@@ -10,7 +10,7 @@ One of the most common conversational scenarios is providing support through a k
 
 **Azure AI Language** includes a *question answering* capability that enables you to create a knowledge base of question and answer pairs that can be queried using natural language input, and is most commonly used as a resource that a bot can use to look up answers to questions submitted by users.
 
-> [!NOTE]
+> **NOTE**
 > The question answering capability in Azure AI Language is a newer version of the QnA Maker service - which is still available as a separate service, but to be retired in the near future.
 
 ## Clone the repository for this course to Azure Cloud Shell
@@ -30,14 +30,17 @@ Open up a new browser tab to work with Cloud Shell. If you haven't cloned this r
 5. Once the terminal starts, run the following commands to download a copy of the repo into your Cloud Shell:
 
     ```bash
-    rm -r azure-ai-eng -f
-   git clone https://github.com/MicrosoftLearning/AI-102-AIEngineer azure-ai-eng
+    rm -r ai-language -f
+   git clone https://github.com/MicrosoftLearning/mslearn-ai-language ai-language
     ```
-
-6. The files have been downloaded into a folder called **azure-ai-eng**. Let's change into that folder by running:
+  
+    > **TIP**
+    > If you recently used this command in another lab to clone the *ai-language* repository, you can skip this step.
+ 
+6. The files have been downloaded into a folder called **ai-language**. Let's change into that folder by running:
 
     ```bash
-    cd azure-ai-eng/12-qna
+    cd ai-language/02-qna
     ```
 
 ## Create a Azure AI Language resource
@@ -59,7 +62,7 @@ To create and host a knowledge base for question answering, you need an **Azure 
     - **Responsible AI Notice**: *Agree*
 
 1. Select **Create + review**, then select **Create**.
-    > [!NOTE]
+    > **NOTE**
     > Custom Question Answering uses Azure Search to index and query the knowledge base of questions and answers.
 
 1. Wait for deployment to complete, and then view the deployment details.
