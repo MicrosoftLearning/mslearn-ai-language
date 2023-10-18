@@ -33,7 +33,7 @@ For example, suppose a travel agency wants to examine hotel reviews that have be
 1. The files have been downloaded into a folder called **ai-language**. Let's use the Cloud Shell Code editor to open the appropriate folder by running:
 
     ```bash
-    code ai-language/06-translate-text
+    code ai-language/Labfiles/06-translate-text
     ```
 
 ## Provision an Azure AI Translator resource

@@ -155,7 +155,7 @@ Now that you have a custom model, you can run a client application that uses the
 2. The files are downloaded to a folder named **ai-language**. Now we want to see all of the files in your Cloud Shell storage and work with them. In the shell, enter the following commands:
 
     ```powershell
-    cd ai-language/05-custom-entity-recognition
+    cd ai-language/Labfiles/05-custom-entity-recognition
     ```
 
     ```powershell

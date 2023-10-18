@@ -40,7 +40,7 @@ Open up a new browser tab to work with Cloud Shell. If you haven't cloned this r
 6. The files have been downloaded into a folder called **ai-language**. Let's change into that folder by running:
 
     ```bash
-    cd ai-language/02-qna
+    cd ai-language/Labfiles/02-qna
     ```
 
 ## Create a Azure AI Language resource

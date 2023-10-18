@@ -54,7 +54,7 @@ Open up a new browser tab to work with Cloud Shell. If you haven't cloned this r
 6. The files are downloaded to a folder named **ai-language**. Navigate to the lab files for this exercise using the following command.
 
     ```bash
-   cd ai-language/01-analyze-text
+   cd ai-language/Labfiles/01-analyze-text
     ```
 
 Applications for both C# and Python have been provided, as well as a supporting files you'll use to test the feature. Both apps feature the same functionality. Navigate to the folder of your preferred language.

@@ -178,7 +178,7 @@ Now that you have a custom model, you can run a client application that uses the
 1. The files are downloaded to a folder named **ai-language**. Now we want to see all of the files in your Cloud Shell storage and work with them. To navigate to the **Text Classification** folder, run the following command:
 
     ```powershell
-    cd ai-language/04-text-classification
+    cd ai-language/Labfiles/04-text-classification
     ```
 
 1. Type and run the following command into the shell:
