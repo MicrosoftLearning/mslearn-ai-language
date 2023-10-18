@@ -101,7 +101,7 @@ After you've labeled your data, you need to train your model.
 
 5. Click **Train**
 
-> [!IMPORTANT]
+> **IMPORTANT**
 > Training your model can sometimes take several minutes. You'll get a notification when it's complete.
 
 ## Evaluate your model
