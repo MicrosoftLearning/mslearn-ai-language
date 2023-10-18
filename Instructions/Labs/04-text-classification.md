@@ -82,7 +82,7 @@ Now that your project is created, you need to label, or tag, your data to train 
 1. On the left, select **Data labeling**, if not already selected. You'll see a list of the files you uploaded to your storage account.
 1. On the right side, in the **Activity** pane, select **+ Add class**.  The articles in this lab fall into four classes you'll need to create: **Classifieds**, **Sports**, **News**, and **Entertainment**.
 
-    :::image type="content" source="../media/tag-data-add-class-new-small.png" alt-text="Screenshot showing the tag data page and the add class button."lightbox="../media/tag-data-add-class-new.png":::
+    ![Screenshot showing the tag data page and the add class button.](../media/tag-data-add-class-new.png#lightbox)
 
 1. After you've created your four classes, select **Article 1** to start. Here you can read the article, define which class this file is, and which dataset to assign it to.
 1. Assign each article the appropriate class and dataset (training or testing) using the Activity pane on the right.  You can select a label from the list of lables on the right, and set each article to training or testing using the options at the bottom of the Activity pane. You  select **Next document** to move to the next document. For the purposes of this lab, we'll define which are to be used for training the model and testing the model:
@@ -149,7 +149,7 @@ To test the text analytics capabilities of the Azure AI Language service, we'll 
 
 1. In the [Azure portal](https://portal.azure.com?azure-portal=true), select the **[>_]** (*Cloud Shell*) button at the top of the page to the right of the search box. This button opens a Cloud Shell pane at the bottom of the portal.
 
-    :::image type="content" source="../media/powershell-portal-guide-1-small.png" alt-text="Screenshot of starting the Cloud Shell by clicking on the icon to the right of the top search box." lightbox="../media/powershell-portal-guide-1.png":::
+    ![Screenshot of starting Cloud Shell by clicking on the icon to the right of the top search box.](../media/cloudshell-launch-portal.png#lightbox)
 
 1. The first time you open the Cloud Shell, you may be prompted to choose the type of shell you want to use (Bash or PowerShell). Select **PowerShell**. If you don't see this option, skip this step.  
 
@@ -159,7 +159,7 @@ To test the text analytics capabilities of the Azure AI Language service, we'll 
 
 1. Wait for PowerShell to start. You should see the following screen in the Azure portal:  
 
-    :::image type="content" source="../media/powershell-prompt-small.png" alt-text="Screenshot of waiting for PowerShell to start." lightbox="../media/powershell-prompt.png":::
+    ![Screenshot of waiting for PowerShell to start.](../media/powershell-prompt.png#lightbox)
 
 ### Configure and run PowerShell
 
