@@ -69,8 +69,7 @@ code .
 
 In this exercise, you'll complete a partially implemented client application that uses the Azure AI Language text analytics SDK to analyze hotel reviews.
 
-> **NOTE**
-> > You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
+> **NOTE** : You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
 
 1. In Cloud Shell, ensure you are in the **01-analyze-text** folder and have navigated to the **C-Sharp** or **Python** folder depending on your language preference.
 1. Install the Text Analytics SDK package by running the appropriate command for your language preference:
@@ -78,12 +77,14 @@ In this exercise, you'll complete a partially implemented client application tha
     **C#**
 
     ```bash
+    cd C-Sharp/text-analysis
     dotnet add package Azure.AI.TextAnalytics --version 5.3.0
     ```
 
     **Python**
 
     ```bash
+    cd Python/text-analysis
     pip install azure-ai-textanalytics==5.3.0
     ```
 
