@@ -1,6 +1,6 @@
 # Update these with your service and model values
-$key="mysupersecretkey"
-$endpoint="ivorberrysEndpoint"
+$key="<YOUR-KEY>"
+$endpoint="<YOUR-ENDPOINT>"
 $projectName = "customNERLab"
 $modelName = "customExtractAds"
 $verbose = $false
@@ -27,21 +27,22 @@ catch {
 
 # Build body of for API call
 $data = @{
-    "tasks" = @{
-        "customEntityRecognitionTasks" = @(
-            @{
-                "parameters"= @{
-                      "project-name" = $projectName
-                      "deployment-name" = $modelName
-                }
+    "tasks" = @(
+        @{
+            "kind" = "CustomEntityRecognition";
+            "taskName" = "Entity Recognition";
+            "parameters" = @{
+                "projectName" = $projectName;
+                "deploymentName" = $modelName;
             }
-        )
-    }
+        }
+    )
     "analysisInput" = @{
         "documents" = @(
             @{
-                "id" = "document_extractEntities"
-                "text" = $contents
+                "id" = "document_extractEntities";
+                "language" = "en-us";
+                "text" = $contents;
             }
         )
     }
@@ -81,7 +82,7 @@ Write-Host "...Done`n"
 
 # Access the relevant fields from the analysis
 $extraction = $result | ConvertFrom-Json
-$docs = $extraction.tasks.customEntityRecognitionTasks[0].results.documents
+$docs = $extraction.tasks.items[0].results.documents
 
 # Output response if desired
 if ($verbose) {
