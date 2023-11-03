@@ -40,23 +40,25 @@ If you haven't already done so, create an **Azure AI Language Service** resource
 
 After you've created the Azure AI Language Service and storage account, you'll need to upload example ads to train your model later.
 
-1. [Download sample classified ads](https://aka.ms/entity-extraction-ads) from this repo on GitHub. Extract the files from the `.zip` provided.
+1. [Download sample classified ads](https://aka.ms/entity-extraction-ads) from this repo on GitHub and extract the files to a folder of your choice.
 
-2. In the [Azure portal](https://portal.azure.com?azure-portal=true), navigate to the storage account you created, and select it
+2. In the [Azure portal](https://portal.azure.com?azure-portal=true), navigate to the storage account you created, and select it.
 
-3. In your storage account, select **Containers** from the left menu, located below **Data storage**. On the screen that appears, select **+ Container**. Give the container a name `customner`, and set **Public access level** to *Container (anonymous read access for containers and blobs)*.
+3. In your storage account select **Configuration**, located below **Settings**, and screen enable the option to **Allow Blob anonymous access** then select **Save**.
+
+4. Select **Containers** from the left menu, located below **Data storage**. On the screen that appears, select **+ Container**. Give the container the name `customer`, and set *Anonymous access level* to **Container (anonymous read access for containers and blobs)**.
 
     > **NOTE**
     > When you configure a storage account outside of this module, be careful to assign the appropriate access level. To learn more about each access level, see the [docs on Azure Storage](/azure/storage/blobs/anonymous-read-access-configure).
 
-4. After creating the container, select it and click the **Upload** button to upload the sample ads you downloaded.
+5. After creating the container, select it and click the **Upload** button to upload the sample ads you downloaded.
 
 ## Create a custom named entity recognition project
 
 Once configuration is complete, create a custom named entity recognition project. This project provides a working place to build, train, and deploy your model.
 
 > **NOTE**
-> You can also create, build, train, and deploy your model through the REST API
+> You can also create, build, train, and deploy your model through the REST API.
 
 1. Log into the [Azure AI Language Studio](https://aka.ms/languageStudio) with your Azure account, and select the Azure subscription that you created your Azure AI Language resource in, and select your Azure AI Language resource
 
@@ -78,9 +80,9 @@ Once configuration is complete, create a custom named entity recognition project
 Now that your project is created, you need to label your data to train your model how to identity entities.
 
 1. On the left, click on **Label data**. You'll see a list of the files you uploaded to your storage account.
-2. On the right side, in the **Labeling** pane, click on **Add entity**. The files for this lab contain three you'll need to create: ItemForSale, Price, and Location
+2. On the right side, in the **Labeling** pane, click on **Add entity**. The files for this lab contain three you'll need to create: ItemForSale, Price, and Location.
 
-    ![Label data and add entity.](../media/tag-data-add-entity.png#lightbox)
+
 
 3. After you've created your three entities, start by clicking on *Ad 1*. Here you can read the ad, specify the entity, and which dataset to assign it to.
 4. Assign the entities for each ad to their respective values by selecting the beginning and end, which will then highlight the entity. Specify which entity it is.
@@ -92,9 +94,9 @@ Now that your project is created, you need to label your data to train your mode
 After you've labeled your data, you need to train your model.
 
 1. Select **Training jobs** on the left side menu
-3. Click **Start a training job**
-4. Enter a name `ExtractAds`
-5. Choose **Automatically split the testing set from training data**
+2. Click **Start a training job**
+3. Enter a name `ExtractAds`
+4. Choose **Automatically split the testing set from training data**
 
     > **TIP**
     > In your own extraction projects, use the testing split that best suits your data. For more consistent data and larger datasets, the Azure AI Language Service will automatically split the testing set by percentage. With smaller datasets, it's important to train with the right variety of possible input documents.
@@ -108,7 +110,7 @@ After you've labeled your data, you need to train your model.
 
 In real world applications, it's important to evaluate and improve your model to verify it's performing as you expect. Two pages on the left show you the details of your trained model, and any testing that failed.
 
-1. Select **Model performance** on the left side menu, and select your `ExtractAds` model. There you can see the scoring of your model, performance metrics, and when it was trained. You'll be able to see if any testing documents failed, and these failures help you understand where to improve.
+Select **Model performance** on the left side menu, and select your `ExtractAds` model. There you can see the scoring of your model, performance metrics, and when it was trained. You'll be able to see if any testing documents failed, and these failures help you understand where to improve.
 
 ## Deploy your model
 
