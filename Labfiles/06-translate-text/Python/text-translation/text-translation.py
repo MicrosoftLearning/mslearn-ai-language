@@ -38,7 +38,7 @@ def GetLanguage(text):
     # Default language is English
     language = 'en'
 
-    # Use the Translator detect function
+    # Use the Azure AI Translator detect function
 
 
     # Return the language
@@ -47,7 +47,7 @@ def GetLanguage(text):
 def Translate(text, source_language):
     translation = ''
 
-    # Use the Translator translate function
+    # Use the Azure AI Translator translate function
 
 
     # Return the translation
