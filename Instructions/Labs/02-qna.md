@@ -140,7 +140,7 @@ The knowledge base provides a back-end service that client applications can use 
 1. In the **LearnFAQ** project in Language Studio, select the **Deploy knowledge base** page.
 1. At the top of the page, select **Deploy**. Then select **Deploy** to confirm you want to deploy the knowledge base.
 1. When deployment is complete, select **Get prediction URL** to view the REST endpoint for your knowledge base, and copy it to the clipboard (but don't close the dialog box yet).
-1. In your Azure Cloud Shell, in the **12-qna** folder, open **ask-question.sh** by running `code ask-question.sh`. This script uses *Curl* to call the REST interface of a question answering endpoint.
+1. In your Azure Cloud Shell, in the **02-qna** folder, open **ask-question.sh** by running `code ask-question.sh`. This script uses *Curl* to call the REST interface of a question answering endpoint.
 1. In the script, replace ***YOUR_PREDICTION_ENDPOINT*** with the prediction endpoint you copied (ensuring it is enclosed in the quotation marks). Select **CTRL+ Save** to save your changes.
 1. Return to the browser and in the **Get prediction URL** dialog box, note that the sample request includes a value for the **Ocp-Apim-Subscription-Key** parameter, which looks similar to *ab12c345de678fg9hijk01lmno2pqrs34*. This is the authorization key for your resource. Copy it to the clipboard, save it somewhere, and then select **Close** to close the dialog box.
 1. Return to your Cloud Shell, and in the **ask-question.sh** script, replace *YOUR_KEY* with the key you copied (ensuring it is enclosed in the quotation marks). Select **CTRL+ Save** to save your changes.
@@ -154,7 +154,7 @@ The knowledge base provides a back-end service that client applications can use 
     curl -X POST $prediction_url -H "Ocp-Apim-Subscription-Key: $key" -H "Content-Type: application/json" -d "{'question': 'What is a learning Path?' }"
     ```
 
-1. In the terminal pane, enter the command `ask-question.sh` to run the script and view the JSON response that is returned by the service, which should contain an appropriate answer to the question *What is a learning path?*.
+1. In the terminal pane, enter the command `bash ask-question.sh` to run the script and view the JSON response that is returned by the service, which should contain an appropriate answer to the question *What is a learning path?*.
 
 ## More information
 
