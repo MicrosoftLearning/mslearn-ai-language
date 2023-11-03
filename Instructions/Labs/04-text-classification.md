@@ -42,11 +42,13 @@ If you haven't already done so, create an **Azure AI Language service** resource
 
 Once you've created the Azure AI Language service and storage account, you'll need to upload example articles to train your model later.
 
-1. [Download sample articles](https://aka.ms/classification-articles) from this repository on GitHub. Extract the files in the `.zip` provided.
+1. [Download sample articles](https://aka.ms/classification-articles) from this repository on GitHub and extract the files to a folder of your choice.
 
 1. In the [Azure portal](https://portal.azure.com?azure-portal=true), navigate to the storage account you created, and select it
 
-1. In your storage account, select **Containers** from the left menu, located below **Data storage**. On the screen that appears, select **+ Container**. Give the container the name `articles`, and set **Public access level** to **Container (anonymous read access for containers and blobs)**.
+1. In your storage account select **Configuration**,located below **Settings**. In the Configuration screen enable the option to **Allow Blob anonymous access** then select **Save**.
+1. Select **Containers** from the left menu, located below **Data storage**. On the screen that appears, select **+ Container**. Give the container the name `articles`, and set **Public access level** to **Container (anonymous read access for containers and blobs)**.
+1. Select **Containers** from the left menu, located below **Data storage**. On the screen that appears, select **+ Container**. Give the container the name `articles`, and set *Anonymous access level* to **Container (anonymous read access for containers and blobs)**.
 
     > **NOTE**
     > When you configure a storage account outside of this module, be careful to assign the appropriate access level. To learn more about each access level, see the [docs on Azure Storage](/azure/storage/blobs/anonymous-read-access-configure) .
@@ -71,7 +73,7 @@ After configuration is complete, create a custom text classification project. Th
     - Set the **Description** to **Custom text lab**.
 
 1. Select **Next**.
-1. On the **Choose container** page, set the **Blob store container** dropdown to your articles container.
+1. On the **Choose container** page, set the **Blob store container** dropdown to your *articles* container.
 1. Select the  **No, I need to label my files as part of this project** option. Then select **Next**.
 1. Select **Create project**.
 
