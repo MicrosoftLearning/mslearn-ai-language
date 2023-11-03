@@ -27,30 +27,31 @@ catch {
 
 # Build body of for API call
 $data = @{
-    "tasks" = @{
-        "customClassificationTasks" = @(
-            @{
-                "parameters"= @{
-                      "project-name" = $projectName
-                      "deployment-name" = $deploymentName
-                }
+    "tasks" = @(
+        @{
+            "kind" = "CustomSingleLabelClassification";
+            "taskName" = "Single Classification Label";
+            "parameters" = @{
+                "projectName" = $projectName;
+                "deploymentName" = $deploymentName;
             }
-        )
-    }
+        }
+    )  
     "analysisInput" = @{
         "documents" = @(
             @{
-                "id" = "document_singleClassification"
-                "text" = $contents
+                "id" = "doc1";
+                "language" = "en-us";
+                "text" = $contents;
             }
         )
     }
-} | ConvertTo-Json -Depth 2
+} | ConvertTo-Json -Depth 3
 
 # Post text for classification
 Write-Host("`n***Submitting text classification task***")
 $response = Invoke-WebRequest -Method Post `
-          -Uri "$($endpoint)text/analytics/v3.2-preview.2/analyze" `
+          -Uri "$($endpoint)language/analyze-text/jobs?api-version=2023-04-01" `
           -Headers $headers `
           -Body $data
 
@@ -81,7 +82,7 @@ Write-Host "...Done`n"
 
 # Access the relevant fields from the analysis
 $classification = $result | ConvertFrom-Json
-$docs = $classification.tasks.customSingleClassificationTasks[0].results.documents
+$docs = $classification.tasks.items[0].results.documents
 
 # Output response if desired
 if ($verbose) {
@@ -91,6 +92,6 @@ if ($verbose) {
 for (($idx = 0); $idx -lt $docs.Length; $idx++) {
     $item = $docs[$idx] 
     Write-Host ("Document #", ($idx+1))
-    Write-Host ("  - Predicted Category: ", $($item.classification.category))
-    Write-Host ("  - Confidence: ",$($item.classification.confidenceScore))
+    Write-Host ("  - Predicted Category: ", $($item.class[0].category))
+    Write-Host ("  - Confidence: ",$($item.class[0].confidenceScore))
 }
