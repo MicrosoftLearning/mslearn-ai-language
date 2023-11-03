@@ -44,9 +44,9 @@ Once you've created the Azure AI Language service and storage account, you'll ne
 
 1. [Download sample articles](https://aka.ms/classification-articles) from this repository on GitHub and extract the files to a folder of your choice.
 
-1. In the [Azure portal](https://portal.azure.com?azure-portal=true), navigate to the storage account you created, and select it
+1. In the [Azure portal](https://portal.azure.com?azure-portal=true), navigate to the storage account you created, and select it.
 
-1. In your storage account select **Configuration**,located below **Settings**. In the Configuration screen enable the option to **Allow Blob anonymous access** then select **Save**.
+1. In your storage account select **Configuration**, located below **Settings**. In the Configuration screen enable the option to **Allow Blob anonymous access** then select **Save**.
 1. Select **Containers** from the left menu, located below **Data storage**. On the screen that appears, select **+ Container**. Give the container the name `articles`, and set **Public access level** to **Container (anonymous read access for containers and blobs)**.
 1. Select **Containers** from the left menu, located below **Data storage**. On the screen that appears, select **+ Container**. Give the container the name `articles`, and set *Anonymous access level* to **Container (anonymous read access for containers and blobs)**.
 
