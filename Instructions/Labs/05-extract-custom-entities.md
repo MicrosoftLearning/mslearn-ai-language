@@ -82,7 +82,7 @@ Now that your project is created, you need to label your data to train your mode
 1. On the left, click on **Label data**. You'll see a list of the files you uploaded to your storage account.
 2. On the right side, in the **Labeling** pane, click on **Add entity**. The files for this lab contain three you'll need to create: ItemForSale, Price, and Location.
 
-    ![Label data and add entity.](../media/tag-data-add-entity.png#lightbox)
+
 
 3. After you've created your three entities, start by clicking on *Ad 1*. Here you can read the ad, specify the entity, and which dataset to assign it to.
 4. Assign the entities for each ad to their respective values by selecting the beginning and end, which will then highlight the entity. Specify which entity it is.
