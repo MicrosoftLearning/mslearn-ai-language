@@ -3,7 +3,7 @@ $key="<YOUR-KEY>"
 $endpoint="<YOUR-ENDPOINT>"
 $projectName = "ClassifyLab"
 $deploymentName = "articles"
-$verbose = $false
+$verbose = $true
 
 # Set up headers for API call
 $headers = @{}
