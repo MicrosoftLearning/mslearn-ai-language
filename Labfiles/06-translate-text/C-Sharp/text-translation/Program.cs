@@ -65,7 +65,7 @@ namespace translate_text
             // Default language is English
             string language = "en";
 
-            // Use the Translator detect function
+            // Use the Azure AI Translator detect function
 
 
             // return the language
@@ -76,7 +76,7 @@ namespace translate_text
         {
             string translation = "";
 
-            // Use the Translator translate function
+            // Use the Azure AI Translator translate function
 
 
             // Return the translation

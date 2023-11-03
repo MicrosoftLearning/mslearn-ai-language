@@ -22,17 +22,17 @@ For example, suppose a travel agency wants to examine hotel reviews that have be
 
 1. Once the terminal starts, run the following commands to download a copy of the repo into your Cloud Shell:
 
-    ```bash
+    ```powershell
     rm -r ai-language -f
     git clone https://github.com/MicrosoftLearning/mslearn-ai-language ai-language
     ```
   
     > **TIP**
     > If you recently used this command in another lab to clone the *ai-language* repository, you can skip this step.
- 
+
 1. The files have been downloaded into a folder called **ai-language**. Let's use the Cloud Shell Code editor to open the appropriate folder by running:
 
-    ```bash
+    ```powershell
     code ai-language/Labfiles/06-translate-text
     ```
 
@@ -78,31 +78,31 @@ In this exercise, you'll complete a partially implemented client application tha
 
     **C#**
 
-    ```bash
-    cd AI-Engineer/06-translate-text/C-Sharp/text-translation
+    ```powershell
+    cd ai-language/Labfiles/06-translate-text/C-Sharp/text-translation
     ```
 
     **C#**
 
-    ```bash
+    ```powershell
     dotnet run
     ```
 
     **Python**
 
-    ```bash
-    cd AI-Engineer/06-translate-text/Python/text-translation
+    ```powershell
+    cd ai-language/Labfiles/06-translate-text/Python/text-translation
     ```
 
     **Python**
 
-    ```bash
+    ```powershell
     pip install python-dotenv
     ```
 
     **Python**
 
-    ```bash
+    ```powershell
     python text-translation.py
     ```
 
@@ -179,13 +179,13 @@ Azure AI Translator can automatically detect the source language of text to be t
 
     **C#**
 
-    ```bash
+    ```powershell
     dotnet run
     ```
 
     **Python**
 
-    ```bash
+    ```powershell
     python text-translation.py
     ```
 
@@ -264,13 +264,13 @@ translation = response[0]["translations"][0]["text"]
 
     **C#**
 
-    ```bash
+    ```powershell
     dotnet run
     ```
 
     **Python**
 
-    ```bash
+    ```powershell
     python text-translation.py
     ```
 
