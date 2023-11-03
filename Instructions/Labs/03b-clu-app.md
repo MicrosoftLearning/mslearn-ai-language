@@ -87,11 +87,11 @@ If you already have a **Clock** project from a previous lab or exercise, you can
 
 6. At the left of the Language Studio portal, select **Training jobs** to train the app. Click **Start a training job**, name the model **Clock** and keep default training mode (Standard) and data splitting. Select **Train**. Training may take several minutes to complete.
 
-    > **Note**: Because the model name **Clock** is hard-coded in the clock-client code (used later in the lab), capitalize and spell the name exactly as described. 
+    > **Note**: Because the model name **Clock** is hard-coded in the clock-client code (used later in the lab), capitalize and spell the name exactly as described.
 
 7. At the left of the Language Studio portal, select **Deploying a model** and use **Add deployment** to create deployment for the Clock model that's named **production**.
 
-    > **Note**: Because the deployment name **production** is hard-coded in the clock-client code (used later in the lab), capitalize and spell the name exactly as described. 
+    > **Note**: Because the deployment name **production** is hard-coded in the clock-client code (used later in the lab), capitalize and spell the name exactly as described.
 
 8. The client applications needs the **Endpoint URL** and **Primary key** to use your deployed model. To get those parameters, after deployment has completed open the Azure portal at [https://portal.azure.com](https://portal.azure.com/?azure-portal=true), and sign in using the Microsoft account associated with your Azure subscription. On the Search bar, search for **Language** and select it to choose the *Azure AI Services|Language service*.
 
@@ -109,20 +109,22 @@ In this exercise, you'll complete a partially implemented client application tha
 
 > **Note**: You can choose to use the SDK for either **.NET** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
 
-1. In Visual Studio Code, in the **Explorer** pane, browse to the **10b-clu-client-(preview)** folder and expand the **C-Sharp** or **Python** folder depending on your language preference.
+1. In Visual Studio Code, clone the *ai-language* repository by opening up a new terminal and running the following command: `git clone https://github.com/MicrosoftLearning/mslearn-ai-language`
+
+1. in the **Explorer** pane, browse to the **Labfiles\03b-language-app** folder and expand the **C-Sharp** or **Python** folder depending on your language preference.
 
 2. Right-click the **clock-client** folder and then select **Open in Integrated Terminal**. Then install the Conversational Language Service SDK package by running the appropriate command for your language preference:
 
     **C#**
 
-    ```
+    ```pwsh
     dotnet add package Azure.AI.Language.Conversations --version 1.1.0
     dotnet add package Azure.Core
     ```
 
     **Python**
 
-    ```
+    ```pwsh
     pip install azure-ai-language-conversations
     python -m pip install python-dotenv
     python -m pip install python-dateutil
@@ -387,20 +389,20 @@ Now you're ready to implement code that uses the SDK to get a prediction from yo
 
     **C#**
 
-    ```
+    ```pwsh
     dotnet run
     ```
 
     **Python**
 
-    ```
+    ```pwsh
     python clock-client.py
     ```
 
 5. When prompted, enter utterances to test the application. For example, try:
 
     *Hello*
-    
+
     *What time is it?*
 
     *What's the time in London?*
