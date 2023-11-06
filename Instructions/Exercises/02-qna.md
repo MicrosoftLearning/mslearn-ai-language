@@ -251,6 +251,16 @@ Now you're ready to add the code necessary to import the required SDK libraries,
 1. Review the answer that is returned.
 1. Ask more questions. When you're done, enter `quit`.
 
+## Clean up resources
+
+If you're finished exploring the Azure AI Language service, you can delete the resources you created in this exercise. Here's how:
+
+1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
+
+2. Browse to the Azure AI Language resource you created in this lab.
+
+3. On the resource page, select **Delete** and follow the instructions to delete the resource.
+
 ## More information
 
-To learn more about question answering in  Azure AI Language, see the [Azure AI Language documentation](azure/ai-services/language-service/question-answering/overview).
+To learn more about question answering in  Azure AI Language, see the [Azure AI Language documentation](https://learn.microsoft.com/azure/ai-services/language-service/question-answering/overview).
