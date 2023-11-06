@@ -101,7 +101,7 @@ Now that you have a knowledge base, you can test it in Language Studio.
 1. In the test pane, at the bottom enter the message `What is Microsoft Learn?`. An appropriate response from the FAQ should be returned.
 1. Enter the message `Thanks!` An appropriate chit-chat response should be returned.
 1. Enter the message `Tell me about Microsoft credentials`. The answer you created should be returned along with a follow-up prompt link.
-1. Select the **Learn more about certification** follow-up link. The follow-up answer with a link to the certification page should be returned.
+1. Select the **Learn more about credentials** follow-up link. The follow-up answer with a link to the certification page should be returned.
 1. When you're done testing the knowledge base, close the test pane.
 
 ## Deploy and test the knowledge base
