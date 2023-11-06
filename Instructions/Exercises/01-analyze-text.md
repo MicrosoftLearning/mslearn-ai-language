@@ -22,7 +22,7 @@ If you don't already have one in your subscription, you'll need to provision an 
     - **Resource group**: *Choose or create a resource group*.
     - **Region**:*Choose any available region*
     - **Name**: *Enter a unique name*.
-    - **Pricing tier**: Select **Free (F0)** (or **Standard (S)** if Free is not available.)
+    - **Pricing tier**: Select **F0** (*free*), or **S** (*standard*) if F is not available.
     - **Responsible AI Notice**: Agree.
 1. Select **Review + create**.
 1. Wait for deployment to complete, and then go to the deployed resource.
@@ -282,7 +282,7 @@ If you're finished exploring the Azure AI Language service, you can delete the r
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
 
-2. In the top search bar, search for *Azure AI Language, and select the Azure AI Language resource you created in this lab.
+2. Browse to the Azure AI Language resource you created in this lab.
 
 3. On the resource page, select **Delete** and follow the instructions to delete the resource.
 
