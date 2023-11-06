@@ -10,42 +10,9 @@ One of the most common conversational scenarios is providing support through a k
 
 **Azure AI Language** includes a *question answering* capability that enables you to create a knowledge base of question and answer pairs that can be queried using natural language input, and is most commonly used as a resource that a bot can use to look up answers to questions submitted by users.
 
-> **NOTE**
-> The question answering capability in Azure AI Language is a newer version of the QnA Maker service - which is still available as a separate service, but to be retired in the near future.
+## Provision an Azure AI Language resource
 
-## Clone the repository for this course to Azure Cloud Shell
-
-Open up a new browser tab to work with Cloud Shell. If you haven't cloned this repository to Cloud Shell recently, follow the steps below to make sure you have the most recent version. Otherwise, open Cloud Shell and navigate to your clone.
-
-1. In the [Azure portal](https://portal.azure.com?azure-portal=true), select the **[>_]** (*Cloud Shell*) button at the top of the page to the right of the search box. A Cloud Shell pane will open at the bottom of the portal.
-
-    ![Screenshot of starting Cloud Shell by clicking on the icon to the right of the top search box.](../media/cloudshell-launch-portal.png#lightbox)
-
-2. The first time you open the Cloud Shell, you may be prompted to choose the type of shell you want to use (*Bash* or *PowerShell*). Select **Bash**. If you don't see this option, skip the step.  
-
-3. If you're prompted to create storage for your Cloud Shell, ensure your subscription is specified and select **Create storage**. Then wait a minute or so for the storage to be created.
-
-4. Make sure the type of shell indicated on the top left of the Cloud Shell pane is switched to *Bash*. If it's *PowerShell*, switch to *Bash* by using the drop-down menu.
-
-5. Once the terminal starts, run the following commands to download a copy of the repo into your Cloud Shell:
-
-    ```bash
-    rm -r ai-language -f
-   git clone https://github.com/MicrosoftLearning/mslearn-ai-language ai-language
-    ```
-  
-    > **TIP**
-    > If you recently used this command in another lab to clone the *ai-language* repository, you can skip this step.
- 
-6. The files have been downloaded into a folder called **ai-language**. Let's change into that folder by running:
-
-    ```bash
-    cd ai-language/Labfiles/02-qna
-    ```
-
-## Create a Azure AI Language resource
-
-To create and host a knowledge base for question answering, you need an **Azure AI Language** resource in your Azure subscription.
+If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource. Additionally, to create and host a knowledge base for question answering, you need to enable the Question Answering feature.
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
 1. In the search field at the top enter **Azure AI services**, then press **Enter**.
@@ -53,10 +20,10 @@ To create and host a knowledge base for question answering, you need an **Azure 
 1. **Select** the **Custom question answering** block. Then select **Continue to create your resource**. You will need to enter the following settings:
 
     - **Subscription**: *Your Azure subscription*
-    - **Resource group**: *Choose or create a resource group (if you are using a restricted subscription, you may not have permission to create a new resource group - use the one provided)*
+    - **Resource group**: *Choose or create a resource group*.
     - **Region**: *Choose any available location*
     - **Name**: *Enter a unique name*
-    - **Pricing tier**: Standard S
+    - **Pricing tier**: Select **F0** (*free*), or **S** (*standard*) if F is not available.
     - **Azure Search region**: *Choose a location in the same global region as your Language resource*
     - **Azure Search pricing tier**: Free (F) (*If this tier is not available, select Basic (B)*)
     - **Responsible AI Notice**: *Agree*
@@ -65,7 +32,8 @@ To create and host a knowledge base for question answering, you need an **Azure 
     > **NOTE**
     > Custom Question Answering uses Azure Search to index and query the knowledge base of questions and answers.
 
-1. Wait for deployment to complete, and then view the deployment details.
+1. Wait for deployment to complete, and then go to the deployed resource.
+1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
 
 ## Create a question answering project
 
@@ -135,6 +103,8 @@ Now that you have a knowledge base, you can test it in Language Studio.
 
 ## Deploy and test the knowledge base
 
+# !!!Update to use a C# or Python App!!!
+
 The knowledge base provides a back-end service that client applications can use to answer questions. Now you are ready to publish your knowledge base and access its REST interface from a client.
 
 1. In the **LearnFAQ** project in Language Studio, select the **Deploy knowledge base** page.
@@ -155,6 +125,46 @@ The knowledge base provides a back-end service that client applications can use 
     ```
 
 1. In the terminal pane, enter the command `bash ask-question.sh` to run the script and view the JSON response that is returned by the service, which should contain an appropriate answer to the question *What is a learning path?*.
+
+## Prepare to develop an app in Visual Studio Code
+
+You'll develop your text analytics app using Visual Studio Code. The code files for your app have been provided in a GitHub repo.
+
+> **Tip**: If you have already cloned the **mslearn-ai-language** repo, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.
+
+1. Start Visual Studio Code.
+2. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-language` repository to a local folder (it doesn't matter which folder).
+3. When the repository has been cloned, open the folder in Visual Studio Code.
+4. Wait while additional files are installed to support the C# code projects in the repo.
+
+    > **Note**: If you are prompted to add required assets to build and debug, select **Not Now**.
+
+## Configure your application
+
+Applications for both C# and Python have been provided, as well as a sample text file you'll use to test the summarization. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Language resource.
+
+1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/01-analyze-text** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **text-analytics** folder it contains. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language text analytics functionality.
+2. Right-click the **text-analytics** folder containing your code files and open an integrated terminal. Then install the Azure AI Language Text Analytics SDK package by running the appropriate command for your language preference:
+
+    **C#**:
+
+    ```
+    dotnet add package Azure.AI.Language.QuestionAnswering
+    ```
+
+    **Python**:
+
+    ```
+    pip install azure-ai-language-questionanswering
+    ```
+
+3. In the **Explorer** pane, in the **text-analytics** folder, open the configuration file for your preferred language
+
+    - **C#**: appsettings.json
+    - **Python**: .env
+    
+4. Update the configuration values to include the  **endpoint** and a **key** from the Azure Language resource you created (available on the **Keys and Endpoint** page for your Azure AI Language resource in the Azure portal)
+5. Save the configuration file.
 
 ## More information
 
