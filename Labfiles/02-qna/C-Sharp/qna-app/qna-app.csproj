@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
-    <RootNamespace>qna-app</RootNamespace>
+    <RootNamespace>qna_app</RootNamespace>
   </PropertyGroup>
 
     <ItemGroup>

@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 // Import namespaces
 
 
-namespace qna-app
+namespace qna_app
 {
     class Program
     {
@@ -19,6 +19,8 @@ namespace qna-app
                 IConfigurationRoot configuration = builder.Build();
                 string aiSvcEndpoint = configuration["AIServicesEndpoint"];
                 string aiSvcKey = configuration["AIServicesKey"];
+                string projectName = configuration["QAProjectName"];
+                string deploymentName = configuration["QADeploymentName"];
 
                 // Create client using endpoint and key
 
@@ -26,7 +28,6 @@ namespace qna-app
                 // Submit a question and display the answer
                 
 
-                }
             }
             catch (Exception ex)
             {
