@@ -104,7 +104,7 @@ Now that you have a knowledge base, you can test it in Language Studio.
 1. Select the **Learn more about credentials** follow-up link. The follow-up answer with a link to the certification page should be returned.
 1. When you're done testing the knowledge base, close the test pane.
 
-## Deploy and test the knowledge base
+## Deploy the knowledge base
 
 The knowledge base provides a back-end service that client applications can use to answer questions. Now you are ready to publish your knowledge base and access its REST interface from a client.
 
