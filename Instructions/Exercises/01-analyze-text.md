@@ -12,7 +12,7 @@ For example, suppose a travel agency wants to process hotel reviews that have be
 
 ## Provision an Azure AI Language resource
 
-If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource in a supported region.
+If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource in your Azure subscription.
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
 1. In the search field at the top, search for **Azure AI services**. Then, in the results, select **Create** under **Language Service**.

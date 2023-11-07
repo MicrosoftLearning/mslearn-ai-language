@@ -29,6 +29,7 @@ If you don't already have one in your subscription, you'll need to provision an 
     - **Responsible AI Notice**: *Agree*
 
 1. Select **Create + review**, then select **Create**.
+
     > **NOTE**
     > Custom Question Answering uses Azure Search to index and query the knowledge base of questions and answers.
 
@@ -117,7 +118,7 @@ The knowledge base provides a back-end service that client applications can use 
 
 ## Prepare to develop an app in Visual Studio Code
 
-You'll develop your text analytics app using Visual Studio Code. The code files for your app have been provided in a GitHub repo.
+You'll develop your question answering app using Visual Studio Code. The code files for your app have been provided in a GitHub repo.
 
 > **Tip**: If you have already cloned the **mslearn-ai-language** repo, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.
 
@@ -133,7 +134,7 @@ You'll develop your text analytics app using Visual Studio Code. The code files 
 Applications for both C# and Python have been provided, as well as a sample text file you'll use to test the summarization. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Language resource.
 
 1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/02-qna** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **qna-app** folder it contains. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language question answering functionality.
-2. Right-click the **qna-app** folder containing your code files and open an integrated terminal. Then install the Azure AI Language Text Analytics SDK package by running the appropriate command for your language preference:
+2. Right-click the **qna-app** folder containing your code files and open an integrated terminal. Then install the Azure AI Language question answering SDK package by running the appropriate command for your language preference:
 
     **C#**:
 
@@ -147,7 +148,7 @@ Applications for both C# and Python have been provided, as well as a sample text
     pip install azure-ai-language-questionanswering
     ```
 
-3. In the **Explorer** pane, in the **text-analytics** folder, open the configuration file for your preferred language
+3. In the **Explorer** pane, in the **qna-app** folder, open the configuration file for your preferred language
 
     - **C#**: appsettings.json
     - **Python**: .env
@@ -256,9 +257,7 @@ Now you're ready to add the code necessary to import the required SDK libraries,
 If you're finished exploring the Azure AI Language service, you can delete the resources you created in this exercise. Here's how:
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-
 2. Browse to the Azure AI Language resource you created in this lab.
-
 3. On the resource page, select **Delete** and follow the instructions to delete the resource.
 
 ## More information
