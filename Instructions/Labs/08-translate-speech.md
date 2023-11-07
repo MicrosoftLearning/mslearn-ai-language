@@ -13,7 +13,7 @@ Azure AI Speech includes a speech translation API that you can use to translate 
 
 ## Clone the repository for this course
 
-If you have already cloned **AI-102-AIEngineer** code repository to the environment where you're working on this lab, open it in Visual Studio Code; otherwise, follow these steps to clone it now.
+If you have already cloned **ai-language** code repository to the environment where you're working on this lab, open it in Visual Studio Code; otherwise, follow these steps to clone it now.
 
 1. Start Visual Studio Code.
 1. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-language` repository to a local folder (it doesn't matter which folder).
@@ -25,7 +25,7 @@ If you have already cloned **AI-102-AIEngineer** code repository to the environm
 1. Wait while additional files are installed to support the C# code projects in the repo.
 
     > **NOTE**
->  If you are prompted to add required assets to build and debug, select **Not Now**.
+    >  If you are prompted to add required assets to build and debug, select **Not Now**.
 
 ## Provision an Azure AI Speech resource
 
@@ -188,8 +188,8 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
     print(translation)
     ```
 
-> **NOTE**
->  The code in your application translates the input to all three languages in a single call. Only the translation for the specific language is displayed, but you could retrieve any of the translations by specifying the target language code in the **translations** collection of the result.
+    > **NOTE**
+    >  The code in your application translates the input to all three languages in a single call. Only the translation for the specific language is displayed, but you could retrieve any of the translations by specifying the target language code in the **translations** collection of the result.
 
 1. Now skip ahead to the **Run the program** section below.
 
@@ -343,4 +343,4 @@ So far, your application translates spoken input to text; which might be suffici
 
 ## More information
 
-For more information about using the Azure AI Speech translation API, see the [Speech translation documentation](/azure/ai-services/speech-service/speech-translation).
+For more information about using the Azure AI Speech translation API, see the [Speech translation documentation](https://learn.microsoft.com/en-us/azure/ai-services/translator/text-translation-overview).
