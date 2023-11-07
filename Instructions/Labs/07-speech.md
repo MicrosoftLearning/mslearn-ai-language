@@ -18,7 +18,7 @@ In this exercise, you'll use both of these APIs to implement a speaking clock ap
 
 ## Clone the repository for this course
 
-If you have not already cloned **AI-102-AIEngineer** code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
+If you have not already cloned **ai-language** code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
 
 1. Start Visual Studio Code.
 1. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-language` repository to a local folder (it doesn't matter which folder).
@@ -303,8 +303,8 @@ Your speaking clock application accepts spoken input, but it doesn't actually sp
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
 
-> **NOTE**
->  *The default audio configuration uses the default system audio device for output, so you don't need to explicitly provide an **AudioConfig**. If you need to     redirect     audio output to a file, you can use an **AudioConfig** with a filepath to do so.*
+    > **NOTE**
+    >  *The default audio configuration uses the default system audio device for output, so you don't need to explicitly provide an **AudioConfig**. If you need to     redirect     audio output to a file, you can use an **AudioConfig** with a filepath to do so.*
 
 1. In the **TellTime** function, under the comment **Synthesize spoken output**, add the following code to generate spoken output, being careful not to replace the code at the end of the function that prints the response:
 
@@ -348,7 +348,7 @@ Your speaking clock application accepts spoken input, but it doesn't actually sp
 
 Your speaking clock application uses a default voice, which you can change. The Speech service supports a range of *standard* voices as well as more human-like *neural* voices. You can also create *custom* voices.
 
-> **Note**: For a list of neural and standard voices, see [Language and voice support](/azure/ai-services/speech-service/language-support?tabs=stt#text-to-speech) in the Speech service documentation.
+> **Note**: For a list of neural and standard voices, see [Voice Gallery](https://speech.microsoft.com/portal/voicegallery) in the Speech Studio.
 
 1. In the **TellTime** function, under the comment **Configure speech synthesis**, modify the code as follows to specify an alternative voice before creating the **SpeechSynthesizer** client:
 
@@ -444,4 +444,4 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
 
 ## More information
 
-For more information about using the **Speech-to-text** and **Text-to-speech** APIs, see the [Speech-to-text documentation](/azure/ai-services/speech-service/index-speech-to-text) and [Text-to-speech documentation](/azure/ai-services/speech-service/index-text-to-speech).
+For more information about using the **Speech-to-text** and **Text-to-speech** APIs, see the [Speech-to-text documentation](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-speech-to-text) and [Text-to-speech documentation](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-text-to-speech?tabs=streaming).
