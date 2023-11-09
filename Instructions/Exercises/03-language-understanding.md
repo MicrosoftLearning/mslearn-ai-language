@@ -312,7 +312,7 @@ You'll develop your language udnerstanding app using Visual Studio Code. The cod
 
 Applications for both C# and Python have been provided, as well as a sample text file you'll use to test the summarization. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Language resource.
 
-1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/03b-language-app** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **clock-client** folder it contains. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language question answering functionality.
+1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/03-language** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **clock-client** folder it contains. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language question answering functionality.
 2. Right-click the **clock-client** folder containing your code files and open an integrated terminal. Then install the Azure AI Language conversational language understanding SDK package by running the appropriate command for your language preference:
 
     **C#**:
