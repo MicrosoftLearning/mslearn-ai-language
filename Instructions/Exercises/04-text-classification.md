@@ -161,28 +161,156 @@ To test the text analytics capabilities of the Azure AI Language service, we'll 
 
     > **Note**: If you are prompted to add required assets to build and debug, select **Not Now**.
 
-### Configure and run the PowerShell script
+## Configure your application
 
-Now that you have a custom model, you can run a script that uses the Azure AI Language service.
+Applications for both C# and Python have been provided, as well as a sample text file you'll use to test the summarization. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Language resource.
 
-1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/04-text-classification** folder and open the classify-text.ps1 PowerShell script file.
-1. Edit the top two lines of the script to replace the placeholders for **$key** and **$endpoint** with the key and endpoint got your Azure AI Language resource, and ensure that **$projectName**, and **$modelName** match what you entered above. Then save the changes to the file.
-1. Right-click the **04-text-classification** folder and open an integrated terminal.
+1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/04-text-classification** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **classify-text** folder it contains. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language text classification functionality.
+1. Right-click the **classify-text** folder containing your code files and open an integrated terminal. Then install the Azure AI Language Text Analytics SDK package by running the appropriate command for your language preference:
 
-1. Run the following command to run the script and classify the **test1.txt** document. The script will only display the first few lines of the file and the predicted classification.
+    **C#**:
 
-    ```powershell
-    .\classify-text.ps1 test1.txt
+    ```
+    dotnet add package Azure.AI.TextAnalytics --version 5.3.0
     ```
 
-    > **NOTE**
-    > You can update the script variable `$verbose` to `$true` to see the raw response JSON.
+    **Python**:
 
-1. Run the following command again, this time with a different file to classify:
-
-    ```powershell
-    .\classify-text.ps1 test2.txt
     ```
+    pip install azure-ai-textanalytics==5.3.0
+    ```
+
+1. In the **Explorer** pane, in the **classify-text** folder, open the configuration file for your preferred language
+
+    - **C#**: appsettings.json
+    - **Python**: .env
+    
+1. Update the configuration values to include the  **endpoint** and a **key** from the Azure Language resource you created (available on the **Keys and Endpoint** page for your Azure AI Language resource in the Azure portal). The fil should already contain the project and deployment names for your text classification model.
+1. Save the configuration file.
+
+## Add code to classify documents
+
+Now you're ready to use the Azure AI Language service to classify documents.
+
+1. Expand the **articles** folder in the **classify-text** folder to view the text articles that your application will classify.
+1. In the **classify-text** folder, open the code file for the client application:
+
+    - **C#**: Program.cs
+    - **Python**: classify-text.py
+
+1. Find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Text Analytics SDK:
+
+    **C#**: Programs.cs
+
+    ```csharp
+    // import namespaces
+    using Azure;
+    using Azure.AI.TextAnalytics;
+    ```
+
+    **Python**: classify-text.py
+
+    ```python
+    # import namespaces
+    from azure.core.credentials import AzureKeyCredential
+    from azure.ai.textanalytics import TextAnalyticsClient
+    ```
+
+1. In the **Main** function, note that code to load the Azure AI Language service endpoint and key and the project and deployment names from the configuration file has already been provided. Then find the comment **Create client using endpoint and key**, and add the following code to create a client for the Text Analysis API:
+
+    **C#**: Programs.cs
+
+    ```csharp
+    // Create client using endpoint and key
+    AzureKeyCredential credentials = new AzureKeyCredential(aiSvcKey);
+    Uri endpoint = new Uri(aiSvcEndpoint);
+    TextAnalyticsClient aiClient = new TextAnalyticsClient(endpoint, credentials);
+    ```
+
+    **Python**: text-analysis.py
+
+    ```Python
+    # Create client using endpoint and key
+    credential = AzureKeyCredential(ai_key)
+    ai_client = TextAnalyticsClient(endpoint=ai_endpoint, credential=credential)
+    ```
+
+1. in the **Main** function, note that the existing code reads all of the files in the **articles** folder and creates a list containing their contents. Then find the comment **Get Classifications** and add the following code:
+
+    **C#**: Program.cs
+
+    ```csharp
+    // Get Classifications
+    ClassifyDocumentOperation operation = await aiClient.SingleLabelClassifyAsync(WaitUntil.Completed, batchedDocuments, projectName, deploymentName);
+
+    int fileNo = 0;
+    await foreach (ClassifyDocumentResultCollection documentsInPage in operation.Value)
+    {
+        
+        foreach (ClassifyDocumentResult documentResult in documentsInPage)
+        {
+            Console.WriteLine(files[fileNo].Name);
+            if (documentResult.HasError)
+            {
+                Console.WriteLine($"  Error!");
+                Console.WriteLine($"  Document error code: {documentResult.Error.ErrorCode}");
+                Console.WriteLine($"  Message: {documentResult.Error.Message}");
+                continue;
+            }
+
+            Console.WriteLine($"  Predicted the following class:");
+            Console.WriteLine();
+
+            foreach (ClassificationCategory classification in documentResult.ClassificationCategories)
+            {
+                Console.WriteLine($"  Category: {classification.Category}");
+                Console.WriteLine($"  Confidence score: {classification.ConfidenceScore}");
+                Console.WriteLine();
+            }
+            fileNo++;
+        }
+    }
+    ```
+    
+    **Python**: classify-text.py
+
+    ```Python
+    # Get Classifications
+    operation = ai_client.begin_single_label_classify(
+        batchedDocuments,
+        project_name=project_name,
+        deployment_name=deployment_name
+    )
+
+    document_results = operation.result()
+
+    for doc, classification_result in zip(files, document_results):
+        if classification_result.kind == "CustomDocumentClassification":
+            classification = classification_result.classifications[0]
+            print("{} was classified as '{}' with confidence score {}.".format(
+                doc, classification.category, classification.confidence_score)
+            )
+        elif classification_result.is_error is True:
+            print("{} has an error with code '{}' and message '{}'".format(
+                doc, classification_result.error.code, classification_result.error.message)
+            )
+    ```
+
+1. Save the changes to your code file.
+
+## Test your application
+
+Now your application is ready to test.
+
+1. In the integrated terminal for the **classify-text** folder, and enter the following command to run the program:
+
+    - **C#**: `dotnet run`
+    - **Python**: `python classify-text.py`
+
+    > **Tip**: You can use the **Maximize panel size** (**^**) icon in the terminal toolbar to see more of the console text.
+
+1. Observe the output. The application should list a classification and confidence score for each text file.
+
 
 ## Clean up
 
