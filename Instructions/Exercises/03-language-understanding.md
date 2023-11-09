@@ -42,7 +42,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 Now that you have created an authoring resource, you can use it to create a conversational language understanding project.
 
-1. In a new browser tab, open the Language Studio portal at `https://language.cognitive.azure.com/` and sign in using the Microsoft account associated with your Azure subscription.
+1. In a new browser tab, open the Azure AI Language Studio portal at `https://language.cognitive.azure.com/` and sign in using the Microsoft account associated with your Azure subscription.
 
 1. If prompted to choose a Language resource, select the following settings:
 
