@@ -12,8 +12,8 @@ To test the custom text classification of the Azure AI Language service, we'll c
 
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource. Additionally, use custom text classification, you need to enable the **Custom text classification & extraction** feature.
 
-1. In a browser, open the [Azure portal](https://portal.azure.com?azure-portal=true), and sign in with your Microsoft account.
-1. Select the search field at the top of the portal, search for **Azure AI services**, and create a **Language Service** resource.
+1. In a browser, open the Azure portal at `https://portal.azure.com`, and sign in with your Microsoft account.
+1. Select the search field at the top of the portal, search for `Azure AI services`, and create a **Language Service** resource.
 1. Select the box that includes **Custom text classification**. Then select **Continue to create your resource**.
 1. Create a resource with the following settings:
     - **Subscription**: *Your Azure subscription*.
@@ -69,8 +69,7 @@ After configuration is complete, create a custom text classification project. Th
     3. Select the language resource you just created, and click **Switch resource**.
     4. At the top of the page, click **Language Studio** to return to the Language Studio home page
 
-1. Under the **Classify text** tab, select **Custom text classification**.
-1. Select **+ Create new project**.
+1. At the top of the portal, in the **Create new** menu, select **Custom text classification**.
 1. The **Connect storage** page appears. All values will already have been filled. So select **Next**.
 1. On the **Select project type** page, select **Single label classification**. Then select **Next**.
 1. On the **Enter basic information** pane, set the following:
@@ -92,8 +91,8 @@ Now that your project is created, you need to label, or tag, your data to train 
 
     ![Screenshot showing the tag data page and the add class button.](../media/tag-data-add-class-new.png#lightbox)
 
-1. After you've created your four classes, select **Article 1** to start. Here you can read the article, define which class this file is, and which dataset to assign it to.
-1. Assign each article the appropriate class and dataset (training or testing) using the **Activity** pane on the right.  You can select a label from the list of labels on the right, and set each article to training or testing using the options at the bottom of the Activity pane. You  select **Next document** to move to the next document. For the purposes of this lab, we'll define which are to be used for training the model and testing the model:
+1. After you've created your four classes, select **Article 1** to start. Here you can read the article, define which class this file is, and which dataset (training or testing) to assign it to.
+1. Assign each article the appropriate class and dataset (training or testing) using the **Activity** pane on the right.  You can select a label from the list of labels on the right, and set each article to **training** or **testing** using the options at the bottom of the Activity pane. You  select **Next document** to move to the next document. For the purposes of this lab, we'll define which are to be used for training the model and testing the model:
 
     | Article  | Class  | Dataset  |
     |---------|---------|---------|
