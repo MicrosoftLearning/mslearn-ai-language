@@ -4,6 +4,8 @@ lab:
     module: 'Module 3 - Getting Started with Natural Language Processing'
 ---
 
+# Custom text classification
+
 Azure AI Language provides several NLP capabilities, including the key phrase identification, text summarization, and sentiment analysis. The Language service also provides custom features like custom question answering and custom text classification.
 
 To test the custom text classification of the Azure AI Language service, we'll configure the model using Language Studio then use a small command-line application that runs in the Cloud Shell to test it. The same pattern and functionality used here can be followed for real-world applications.
@@ -42,8 +44,7 @@ Once you've created the Azure AI Language service and storage account, you'll ne
 
 1. Select **Containers** in the left menu, located below **Data storage**. On the screen that appears, select **+ Container**. Give the container the name `articles`, and set **Anonymous access level** to **Container (anonymous read access for containers and blobs)**.
 
-    > **NOTE**
-    > When you configure a storage account for a real solution, be careful to assign the appropriate access level. To learn more about each access level, see the [Azure Storage documentation](https://learn.microsoft.com/azure/storage/blobs/anonymous-read-access-configure).
+    > **NOTE**: When you configure a storage account for a real solution, be careful to assign the appropriate access level. To learn more about each access level, see the [Azure Storage documentation](https://learn.microsoft.com/azure/storage/blobs/anonymous-read-access-configure).
 
 1. After you've created the container, select it then select the **Upload** button. Select **Browse for files** to browse for the sample articles you downloaded. Then select **Upload**.
 
@@ -51,8 +52,7 @@ Once you've created the Azure AI Language service and storage account, you'll ne
 
 After configuration is complete, create a custom text classification project. This project provides a working place to build, train, and deploy your model.
 
-> **NOTE**
-> This lab utilizes **Language Studio**, but you can also create, build, train, and deploy your model through the REST API.
+> **NOTE**: This lab utilizes **Language Studio**, but you can also create, build, train, and deploy your model through the REST API.
 
 1. In a new browser tab, open the Azure AI Language Studio portal at `https://language.cognitive.azure.com/` and sign in using the Microsoft account associated with your Azure subscription.
 1. If prompted to choose a Language resource, select the following settings:
