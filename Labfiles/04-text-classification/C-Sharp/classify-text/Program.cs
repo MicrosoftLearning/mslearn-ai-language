@@ -26,7 +26,7 @@ namespace classify_text
                 // Create client using endpoint and key
 
 
-                // Read each text file in the reviews folder
+                // Read each text file in the articles folder
                 List<string> batchedDocuments = new List<string>();
                 
                 var folderPath = Path.GetFullPath("./articles");  

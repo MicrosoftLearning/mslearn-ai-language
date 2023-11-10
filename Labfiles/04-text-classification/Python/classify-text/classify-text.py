@@ -16,7 +16,7 @@ def main():
         # Create client using endpoint and key
 
 
-        # Read each text file in the reviews folder
+        # Read each text file in the articles folder
         batchedDocuments = []
         articles_folder = 'articles'
         files = os.listdir(articles_folder)

@@ -150,7 +150,7 @@ When you're satisfied with the training of your model, it's time to deploy it, w
 
 ## Prepare to develop an app in Visual Studio Code
 
-To test the text analytics capabilities of the Azure AI Language service, we'll use a simple PowerShell script in Visual Studio Code.
+To test the custom text classification capabilities of the Azure AI Language service, you'll develop a simple console application in Visual Studio Code.
 
 > **Tip**: If you have already cloned the **mslearn-ai-language** repo, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.
 
@@ -227,7 +227,7 @@ Now you're ready to use the Azure AI Language service to classify documents.
     TextAnalyticsClient aiClient = new TextAnalyticsClient(endpoint, credentials);
     ```
 
-    **Python**: text-analysis.py
+    **Python**: classify-text.py
 
     ```Python
     # Create client using endpoint and key

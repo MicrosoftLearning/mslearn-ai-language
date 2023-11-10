@@ -4,7 +4,8 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-// Import namespaces
+// import namespaces
+
 
 
 namespace custom_entities
@@ -26,11 +27,10 @@ namespace custom_entities
                 // Create client using endpoint and key
 
 
-                // Read each text file in the reviews folder
-                List<string> batchedDocuments = new List<string>();
-                
-                var folderPath = Path.GetFullPath("./articles");  
-                DirectoryInfo folder = new DirectoryInfo(folderPath);
+                // Read each text file in the ads folder
+                List<TextDocumentInput> batchedDocuments = new();              
+                var folderPath = Path.GetFullPath("./ads");  
+                DirectoryInfo folder = new(folderPath);
                 FileInfo[] files = folder.GetFiles("*.txt");
                 foreach (var file in files)
                 {
@@ -38,10 +38,15 @@ namespace custom_entities
                     StreamReader sr = file.OpenText();
                     var text = sr.ReadToEnd();
                     sr.Close();
-                    batchedDocuments.Add(text);
+                    TextDocumentInput doc = new(file.Name, text)
+                    {
+                        Language = "en",
+                    };
+                    batchedDocuments.Add(doc);
                 }
 
-                // Get Classifications
+                // Extract entities
+
 
 
             }

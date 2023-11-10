@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 
-# Import namespaces
+# import namespaces
 
 
 def main():
@@ -18,15 +18,15 @@ def main():
 
         # Read each text file in the reviews folder
         batchedDocuments = []
-        articles_folder = 'articles'
+        articles_folder = 'ads'
         files = os.listdir(articles_folder)
         for file_name in files:
             # Read the file contents
             text = open(os.path.join(articles_folder, file_name), encoding='utf8').read()
             batchedDocuments.append(text)
 
-        # Get Classifications
-
+        
+        
 
 
     except Exception as ex:
