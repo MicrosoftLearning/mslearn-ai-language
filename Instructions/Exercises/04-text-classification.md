@@ -10,7 +10,7 @@ Azure AI Language provides several NLP capabilities, including the key phrase id
 
 To test the custom text classification of the Azure AI Language service, we'll configure the model using Language Studio then use a small command-line application that runs in the Cloud Shell to test it. The same pattern and functionality used here can be followed for real-world applications.
 
-## Create an Azure AI Language service resource
+## Provision an *Azure AI Language* resource
 
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource. Additionally, use custom text classification, you need to enable the **Custom text classification & extraction** feature.
 

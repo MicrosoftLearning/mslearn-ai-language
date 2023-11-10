@@ -10,7 +10,7 @@ In addition to other natural language processing capabilities, Azure AI Language
 
 To test the custom entity extraction, we'll create a model and train it through Azure AI Language Studio, then use a command line application to test it.
 
-## Create an *Azure AI Language Service* resource
+## Provision an *Azure AI Language* resource
 
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource. Additionally, use custom text classification, you need to enable the **Custom text classification & extraction** feature.
 
