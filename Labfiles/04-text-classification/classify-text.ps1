@@ -24,6 +24,7 @@ catch {
     Write-Host "`nError reading provided file, please verify file exists`n"
     Exit
 }
+Write-Host $contents
 
 # Build body of for API call
 $data = @{
@@ -42,7 +43,7 @@ $data = @{
             @{
                 "id" = "doc1";
                 "language" = "en-us";
-                "text" = $contents;
+                "text" = '$contents';
             }
         )
     }
