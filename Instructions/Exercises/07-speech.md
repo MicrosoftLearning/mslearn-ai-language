@@ -21,7 +21,7 @@ In this exercise, you'll use both of these APIs to implement a speaking clock ap
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Speech** resource.
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-1. In the search field at the top, search for **Azure AI services** and press **Enter**, then select **Create** under **Speech** in the results.
+1. In the search field at the top, search for **Azure AI services** and press **Enter**, then select **Create** under **Speech service** in the results.
 1. Create a resource with the following settings:
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Choose or create a resource group*
@@ -55,13 +55,13 @@ Applications for both C# and Python have been provided. Both apps feature the sa
 
     **C#**
 
-    ```bash
+    ```
     dotnet add package Microsoft.CognitiveServices.Speech --version 1.30.0
     ```
 
     **Python**
 
-    ```bash
+    ```
     pip install azure-cognitiveservices-speech==1.30.0
     ```
 
@@ -106,7 +106,7 @@ Applications for both C# and Python have been provided. Both apps feature the sa
 
     ```csharp
     // Configure speech service
-    speechConfig = SpeechConfig.FromSubscription(cogSvcKey, cogSvcRegion);
+    speechConfig = SpeechConfig.FromSubscription(aiSvcKey, aiSvcRegion);
     Console.WriteLine("Ready to use speech service in " + speechConfig.Region);
     
     // Configure voice
@@ -117,7 +117,7 @@ Applications for both C# and Python have been provided. Both apps feature the sa
 
     ```python
     # Configure speech service
-    speech_config = speech_sdk.SpeechConfig(cog_key, cog_region)
+    speech_config = speech_sdk.SpeechConfig(ai_key, ai_region)
     print('Ready to use speech service in:', speech_config.region)
     ```
 
@@ -167,6 +167,8 @@ Now that you have a **SpeechConfig** for the speech service in your Azure AI Spe
     ```
 
 1. Now skip ahead to the **Add code to process the transcribed command** section below.
+
+---
 
 ### Alternatively, use audio input from a file
 
@@ -221,6 +223,8 @@ Now that you have a **SpeechConfig** for the speech service in your Azure AI Spe
     audio_config = speech_sdk.AudioConfig(filename=audioFile)
     speech_recognizer = speech_sdk.SpeechRecognizer(speech_config, audio_config)
     ```
+
+---
 
 ### Add code to process the transcribed command
 

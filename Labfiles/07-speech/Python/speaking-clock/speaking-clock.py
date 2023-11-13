@@ -11,8 +11,8 @@ def main():
 
         # Get Configuration Settings
         load_dotenv()
-        cog_key = os.getenv('COG_SERVICE_KEY')
-        cog_region = os.getenv('COG_SERVICE_REGION')
+        ai_key = os.getenv('SPEECH_KEY')
+        ai_region = os.getenv('SPEECH_REGION')
 
         # Configure speech service
         
