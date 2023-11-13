@@ -176,7 +176,6 @@ Now you're ready to use Azure AI Translator to translate text.
             Response<IReadOnlyList<TranslatedTextItem>> translationResponse = await client.TranslateAsync(targetLanguage, inputText).ConfigureAwait(false);
             IReadOnlyList<TranslatedTextItem> translations = translationResponse.Value;
             TranslatedTextItem translation = translations[0];
-
             string sourceLanguage = translation?.DetectedLanguage?.Language;
             Console.WriteLine($"'{inputText}' translated from {sourceLanguage} to {translation?.Translations[0].To} as '{translation?.Translations?[0]?.Text}'.");
         }
@@ -194,7 +193,6 @@ Now you're ready to use Azure AI Translator to translate text.
             input_text_elements = [InputTextItem(text=inputText)]
             translationResponse = client.translate(content=input_text_elements, to=[targetLanguage])
             translation = translationResponse[0] if translationResponse else None
-
             if translation:
                 sourceLanguage = translation.detected_language
                 for translated_text in translation.translations:
