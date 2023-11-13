@@ -196,7 +196,7 @@ Now you're ready to use Azure AI Translator to translate text.
             if translation:
                 sourceLanguage = translation.detected_language
                 for translated_text in translation.translations:
-                    print(f"'{inputText}' was translated from {sourceLanguage.language} to {translated_text.to} as '{translated_text.text}.")
+                    print(f"'{inputText}' was translated from {sourceLanguage.language} to {translated_text.to} as '{translated_text.text}'.")
     ```
 
 1. Save the changes to your code file.
