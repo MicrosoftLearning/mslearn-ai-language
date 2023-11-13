@@ -26,6 +26,11 @@ namespace translate_text
                 string translatorRegion = configuration["TranslatorRegion"];
                 string translatorKey = configuration["TranslatorKey"];
 
+
+                // Create client using endpoint and key
+
+
+
                 // Choose target language
                 string targetLanguage = "xx";
                 var languages = new List<string> {"en", "fr", "es", "hi", "ja", "ru"};
@@ -39,11 +44,6 @@ namespace translate_text
                     Console.WriteLine(":");
                     targetLanguage = Console.ReadLine();
                 }
-
-
-
-                // Create client using endpoint and key
-
 
 
                 // Translate text
