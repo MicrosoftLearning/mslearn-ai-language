@@ -176,13 +176,13 @@ Now that you have a **SpeechConfig** for the speech service in your Azure AI Spe
 
     **C#**
 
-    ```bash
+    ```
     dotnet add package System.Windows.Extensions --version 4.6.0 
     ```
 
     **Python**
 
-    ```bash
+    ```
     pip install playsound==1.3.0
     ```
 
