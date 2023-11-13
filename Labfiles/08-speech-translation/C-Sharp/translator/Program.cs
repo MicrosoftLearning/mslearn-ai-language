@@ -24,6 +24,10 @@ namespace speech_translation
                 string aiSvcKey = configuration["SpeechKey"];
                 string aiSvcRegion = configuration["SpeechRegion"];
 
+                // Set console encoding to unicode
+                Console.InputEncoding = Encoding.Unicode;
+                Console.OutputEncoding = Encoding.Unicode;
+
 
                 // Configure translation
 

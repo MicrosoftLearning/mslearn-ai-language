@@ -80,7 +80,7 @@ Applications for both C# and Python have been provided. Both apps feature the sa
 
     Open the code file and at the top, under the existing namespace references, find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Azure AI Speech SDK:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     // Import namespaces
@@ -89,7 +89,7 @@ Applications for both C# and Python have been provided. Both apps feature the sa
     using Microsoft.CognitiveServices.Speech.Translation;
     ```
 
-    **Python**
+    **Python**: translator.py
 
     ```python
     # Import namespaces
@@ -98,7 +98,7 @@ Applications for both C# and Python have been provided. Both apps feature the sa
 
 1. In the **Main** function, note that code to load the Azure AI Speech service key and region from the configuration file has already been provided. You must use these variables to create a **SpeechTranslationConfig** for your Azure AI Speech resource, which you will use to translate spoken input. Add the following code under the comment **Configure translation**:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     // Configure translation
@@ -110,7 +110,7 @@ Applications for both C# and Python have been provided. Both apps feature the sa
     Console.WriteLine("Ready to translate from " + translationConfig.SpeechRecognitionLanguage);
     ```
 
-    **Python**
+    **Python**: translator.py
 
     ```python
     # Configure translation
@@ -124,14 +124,14 @@ Applications for both C# and Python have been provided. Both apps feature the sa
 
 1. You will use the **SpeechTranslationConfig** to translate speech into text, but you will also use a **SpeechConfig** to synthesize translations into speech. Add the following code under the comment **Configure speech**:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     // Configure speech
     speechConfig = SpeechConfig.FromSubscription(aiSvcKey, aiSvcRegion);
     ```
 
-    **Python**
+    **Python**: translator.py
 
     ```python
     # Configure speech
@@ -142,17 +142,17 @@ Applications for both C# and Python have been provided. Both apps feature the sa
 
     **C#**
 
-    ```csharp
+    ```
     dotnet run
     ```
 
     **Python**
 
-    ```python
+    ```
     python translator.py
     ```
 
-1. If you are using C#, you can ignore any warnings about using the **await** operator in asynchronous methods - we'll fix that later. The code should display a message that it is ready to translate from en-US. Press ENTER to end the program.
+1. If you are using C#, you can ignore any warnings about using the **await** operator in asynchronous methods - we'll fix that later. The code should display a message that it is ready to translate from en-US and prompt you for a target language. Press ENTER to end the program.
 
 ## Implement speech translation
 
@@ -165,7 +165,7 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
 1. In the **Main** function for your program, note that the code uses the **Translate** function to translate spoken input.
 1. In the **Translate** function, under the comment **Translate speech**, add the following code to create a **TranslationRecognizer** client that can be used to recognize and translate speech using the default system microphone for input.
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     // Translate speech
@@ -179,7 +179,7 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
     Console.WriteLine(translation);
     ```
 
-    **Python**
+    **Python**: translator.py
 
     ```python
     # Translate speech
@@ -203,13 +203,13 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
 
 1. In the terminal window, enter the following command to install a library that you can use to play the audio file:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     dotnet add package System.Windows.Extensions --version 4.6.0 
     ```
 
-    **Python**
+    **Python**: translator.py
 
     ```python
     pip install playsound==1.3.0
@@ -217,13 +217,13 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
 
 1. In the code file for your program, under the existing namespace imports, add the following code to import the library you just installed:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     using System.Media;
     ```
 
-    **Python**
+    **Python**: translator.py
 
     ```python
     from playsound import playsound
@@ -231,7 +231,7 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
 
 1. In the **Main** function for your program, note that the code uses the **Translate** function to translate spoken input. Then in the **Translate** function, under the comment **Translate speech**, add the following code to create a **TranslationRecognizer** client that can be used to recognize and translate speech from a file.
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     // Translate speech
@@ -248,7 +248,7 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
     Console.WriteLine(translation);
     ```
 
-    **Python**
+    **Python**: translator.py
 
     ```python
     # Translate speech
@@ -271,13 +271,13 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
 
     **C#**
 
-    ```csharp
+    ```
     dotnet run
     ```
 
     **Python**
 
-    ```python
+    ```
     python translator.py
     ```
 
@@ -293,7 +293,7 @@ So far, your application translates spoken input to text; which might be suffici
 
 1. In the **Translate** function, under the comment **Synthesize translation**, add the following code to use a **SpeechSynthesizer** client to synthesize the translation as speech through the default speaker:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     // Synthesize translation
@@ -312,7 +312,7 @@ So far, your application translates spoken input to text; which might be suffici
     }
     ```
 
-    **Python**
+    **Python**: translator.py
 
     ```python
     # Synthesize translation
@@ -332,13 +332,13 @@ So far, your application translates spoken input to text; which might be suffici
 
     **C#**
 
-    ```csharp
+    ```
     dotnet run
     ```
 
     **Python**
 
-    ```python
+    ```
     python translator.py
     ```
 
