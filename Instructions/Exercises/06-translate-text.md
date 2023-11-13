@@ -29,7 +29,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 ## Prepare to develop an app in Visual Studio Code
 
-You'll develop your text trsnalation app using Visual Studio Code. The code files for your app have been provided in a GitHub repo.
+You'll develop your text translation app using Visual Studio Code. The code files for your app have been provided in a GitHub repo.
 
 > **Tip**: If you have already cloned the **mslearn-ai-language** repo, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.
 
@@ -93,10 +93,11 @@ Now you're ready to use Azure AI Translator to translate text.
 
     ```python
     # import namespaces
-    from azure.ai.translation.text import TextTranslationClient
+    from azure.ai.translation.text import *
+    from azure.ai.translation.text.models import InputTextItem
     ```
 
-1. In the **Main** function, note that the code  reads the configuration settings and then prompts the user to select a target language from a list of available languages.
+1. In the **Main** function, note that the existing code reads the configuration settings.
 1. Find the comment **Create client using endpoint and key** and add the following code:
 
     **C#**: Programs.cs
@@ -110,7 +111,54 @@ Now you're ready to use Azure AI Translator to translate text.
     **Python**: translate.py
 
     ```python
-    # TBA
+    # Create client using endpoint and key
+    credential = TranslatorCredential(translatorKey, translatorRegion)
+    client = TextTranslationClient(credential)
+    ```
+
+1. Find the comment **Choose target language** and add the following code, which uses the Text Translator service to return  list of supported languages for translation, and prompts the user to select a language code for the target language.
+
+    **C#**: Programs.cs
+
+    ```csharp
+    // Choose target language
+    Response<GetLanguagesResult> languagesResponse = await client.GetLanguagesAsync(scope:"translation").ConfigureAwait(false);
+    GetLanguagesResult languages = languagesResponse.Value;
+    Console.WriteLine($"{languages.Translation.Count} languages available.\n(See https://learn.microsoft.com/azure/ai-services/translator/language-support#translation)");
+    Console.WriteLine("Enter a target language code for translation (for example, 'en'):");
+    string targetLanguage = "xx";
+    bool languageSupported = false;
+    while (!languageSupported)
+    {
+        targetLanguage = Console.ReadLine();
+        if (languages.Translation.ContainsKey(targetLanguage))
+        {
+            languageSupported = true;
+        }
+        else
+        {
+            Console.WriteLine($"({targetLanguage} is not a supported language.");
+        }
+
+    }
+    ```
+
+    **Python**: translate.py
+
+    ```python
+    # Choose target language
+    languagesResponse = client.get_languages(scope="translation")
+    print("{} languages supported.".format(len(languagesResponse.translation)))
+    print("(See https://learn.microsoft.com/azure/ai-services/translator/language-support#translation)")
+    print("Enter a target language code for translation (for example, 'en'):")
+    targetLanguage = "xx"
+    supportedLanguage = False
+    while supportedLanguage == False:
+        targetLanguage = input()
+        if  targetLanguage in languagesResponse.translation.keys():
+            supportedLanguage = True
+        else:
+            print("{} is not a supported language.".format(targetLanguage))
     ```
 
 1. Find the comment **Translate text** and add the following code, which repeatedly prompts the user for text to be translated, uses the Azure AI Translator service to translate it to the target language (detecting the source language automatically), and displays the results until the user enters *quit*.
@@ -123,12 +171,10 @@ Now you're ready to use Azure AI Translator to translate text.
     while (inputText.ToLower() != "quit")
     {
         Console.WriteLine("Enter text to translate ('quit' to exit)");
-        inputText = Console.ReadLine();
-
-        if (inputText.ToLower() != "quit")
+        inputText = Console.ReadLine();if (inputText.ToLower() != "quit")
         {
-            Response<IReadOnlyList<TranslatedTextItem>> response = await client.TranslateAsync(targetLanguage, inputText).ConfigureAwait(false);
-            IReadOnlyList<TranslatedTextItem> translations = response.Value;
+            Response<IReadOnlyList<TranslatedTextItem>> translationResponse = await client.TranslateAsync(targetLanguage, inputText).ConfigureAwait(false);
+            IReadOnlyList<TranslatedTextItem> translations = translationResponse.Value;
             TranslatedTextItem translation = translations[0];
 
             string sourceLanguage = translation?.DetectedLanguage?.Language;
@@ -140,7 +186,19 @@ Now you're ready to use Azure AI Translator to translate text.
     **Python**: translate.py
 
     ```python
-    # TBA
+    # Translate text
+    inputText = ""
+    while inputText.lower() != "quit":
+        inputText = input("Enter text to translate ('quit' to exit):")
+        if inputText != "quit":
+            input_text_elements = [InputTextItem(text=inputText)]
+            translationResponse = client.translate(content=input_text_elements, to=[targetLanguage])
+            translation = translationResponse[0] if translationResponse else None
+
+            if translation:
+                sourceLanguage = translation.detected_language
+                for translated_text in translation.translations:
+                    print(f"'{inputText}' was translated from {sourceLanguage.language} to {translated_text.to} as '{translated_text.text}.")
     ```
 
 1. Save the changes to your code file.
@@ -152,7 +210,7 @@ Now your application is ready to test.
 1. In the integrated terminal for the **Translate text** folder, and enter the following command to run the program:
 
     - **C#**: `dotnet run`
-    - **Python**: `python trabslate.py`
+    - **Python**: `python translate.py`
 
     > **Tip**: You can use the **Maximize panel size** (**^**) icon in the terminal toolbar to see more of the console text.
 

@@ -1,7 +1,8 @@
 from dotenv import load_dotenv
 import os
 
-# Import namespaces
+# import namespaces
+
 
 
 def main():
@@ -12,10 +13,12 @@ def main():
         translatorKey = os.getenv('TRANSLATOR_KEY')
 
         # Create client using endpoint and key
+        
 
 
         ## Choose target language
-        
+
+
 
         # Translate text
 

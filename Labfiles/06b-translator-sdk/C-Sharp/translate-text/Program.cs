@@ -5,7 +5,8 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 
-// Import namespaces
+// import namespaces
+
 
 
 namespace translate_text
@@ -32,21 +33,11 @@ namespace translate_text
 
 
                 // Choose target language
-                string targetLanguage = "xx";
-                var languages = new List<string> {"en", "fr", "es", "hi", "ja", "ru"};
-                while (!languages.Contains(targetLanguage))
-                {
-                    Console.WriteLine("Choose a target language.");
-                    foreach (string language in languages)
-                    {
-                        Console.Write(language + " ");
-                    }
-                    Console.WriteLine(":");
-                    targetLanguage = Console.ReadLine();
-                }
+
 
 
                 // Translate text
+
 
                 
 
