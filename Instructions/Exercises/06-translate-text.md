@@ -43,7 +43,7 @@ You'll develop your text translation app using Visual Studio Code. The code file
 Applications for both C# and Python have been provided. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Translator resource.
 
 1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/06b-translator-sdk** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **translate-text** folder it contains. Each folder contains the language-specific code files for an app into which you're you're going to integrate Azure AI Translator functionality.
-2. Right-click the **translate-text** folder containing your code files and open an integrated terminal. Then install the Azure AI Language Text Analytics SDK package by running the appropriate command for your language preference:
+2. Right-click the **translate-text** folder containing your code files and open an integrated terminal. Then install the Azure AI Translator SDK package by running the appropriate command for your language preference:
 
     **C#**:
 

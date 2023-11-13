@@ -16,48 +16,42 @@ In this exercise, you'll use both of these APIs to implement a speaking clock ap
 > **NOTE**
 > This exercise requires that you are using a computer with speakers/headphones. For the best experience, a microphone is also required. Some hosted virtual environments may be able to capture audio from your local microphone, but if this doesn't work (or you don't have a microphone at all), you can use a provided audio file for speech input. Follow the instructions carefully, as you'll need to choose different options depending on whether you are using a microphone or the audio file.
 
-## Clone the repository for this course
+## Provision an *Azure AI Speech* resource
 
-If you have not already cloned **ai-language** code repository to the environment where you're working on this lab, follow these steps to do so. Otherwise, open the cloned folder in Visual Studio Code.
+If you don't already have one in your subscription, you'll need to provision an **Azure AI Speech** resource.
+
+1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
+1. In the search field at the top, search for **Azure AI services** and press **Enter**, then select **Create** under **Speech** in the results.
+1. Create a resource with the following settings:
+    - **Subscription**: *Your Azure subscription*
+    - **Resource group**: *Choose or create a resource group*
+    - **Region**: *Choose any available region*
+    - **Name**: *Enter a unique name*
+    - **Pricing tier**: Select **F0** (*free*), or **S** (*standard*) if F is not available.
+    - **Responsible AI Notice**: Agree.
+1. Select **Review + create**.
+1. Wait for deployment to complete, and then go to the deployed resource.
+1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
+
+## Prepare to develop an app in Visual Studio Code
+
+You'll develop your speech app using Visual Studio Code. The code files for your app have been provided in a GitHub repo.
+
+> **Tip**: If you have already cloned the **mslearn-ai-language** repo, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.
 
 1. Start Visual Studio Code.
 1. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-language` repository to a local folder (it doesn't matter which folder).
-  
-    > **TIP**
-    > If you recently used this command in another lab to clone the *ai-language* repository, you can skip this step.
- 
 1. When the repository has been cloned, open the folder in Visual Studio Code.
 1. Wait while additional files are installed to support the C# code projects in the repo.
 
-> **NOTE**
-> If you are prompted to add required assets to build and debug, select **Not Now**.
+    > **Note**: If you are prompted to add required assets to build and debug, select **Not Now**.
 
-## Provision an Azure AI Speech resource
+## Configure your application
 
-If you don't already have on in your subscription, you'll need to provision a **Azure AI Speech service** resource.
+Applications for both C# and Python have been provided. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Speech resource.
 
-1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-1. Enter **Azure AI** in the search field at the top of the portal. Then select **Azure AI services** in the suggestions dropdown that appears.
-1. Select **Create** under **Speech service** in the results page.
-1. Create a resource with the following settings:
-    - **Subscription**: *Your Azure subscription*
-    - **Resource group**: *Choose or create a resource group (if you are using a restricted subscription, you may not have permission to create a new resource group - use the one provided)*
-    - **Region**: *Choose any available region*
-    - **Name**: *Enter a unique name*
-    - **Pricing tier**: Standard S0
-1. Select **Review + Create,** then select **Create**.
-1. Wait for deployment to complete, and then view the deployment details.
-1. When the resource has been deployed, go to it and view its **Keys and Endpoint** page. You will need one of the keys and the location in which the service is provisioned from this page in the next procedure.
-
-## Prepare to use the Azure AI Speech service
-
-In this exercise, you'll complete a partially implemented client application that uses the Azure AI Speech SDK to recognize and synthesize speech.
-
-> **NOTE**
-> You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
-
-1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/07-speech** folder and expand the **C-Sharp** or **Python** folder depending on your language preference.
-1. Right-click the **speaking-clock** folder and open an integrated terminal. Then install the Speech SDK package by running the appropriate command for your language preference:
+1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/07-speech** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **speaking-clock** folder it contains. Each folder contains the language-specific code files for an app into which you're you're going to integrate Azure AI Speech functionality.
+1. Right-click the **speaking-clock** folder containing your code files and open an integrated terminal. Then install the Azure AI Speech SDK package by running the appropriate command for your language preference:
 
     **C#**
 
@@ -71,11 +65,19 @@ In this exercise, you'll complete a partially implemented client application tha
     pip install azure-cognitiveservices-speech==1.30.0
     ```
 
-1. View the contents of the **speaking-clock** folder, and note that it contains a file for configuration settings:
+1. In the **Explorer** pane, in the **speaking-clock** folder, open the configuration file for your preferred language
+
     - **C#**: appsettings.json
     - **Python**: .env
 
-    Open the configuration file and update the configuration values it contains to include an authentication **key** for Azure AI Speech resource, and the **location** where it is deployed. Save your changes.
+1. Update the configuration values to include the  **region** and a **key** from the Azure AI Speech resource you created (available on the **Keys and Endpoint** page for your Azure AI Speech resource in the Azure portal).
+
+    > **NOTE**: Be sure to add the *region* for your resource, <u>not</u> the endpoint!
+
+1. Save the configuration file.
+
+## Add code to use the Azure AI Speech SDK
+
 1. Note that the **speaking-clock** folder contains a code file for the client application:
 
     - **C#**: Program.cs
@@ -83,7 +85,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     Open the code file and at the top, under the existing namespace references, find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Azure AI Speech SDK:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     // Import namespaces
@@ -91,7 +93,7 @@ In this exercise, you'll complete a partially implemented client application tha
     using Microsoft.CognitiveServices.Speech.Audio;
     ```
 
-    **Python**
+    **Python**: speaking-clock.py
 
     ```python
     # Import namespaces
@@ -100,7 +102,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
 1. In the **Main** function, note that code to load the service key and region from the configuration file has already been provided. You must use these variables to create a **SpeechConfig** for your Azure AI Speech resource. Add the following code under the comment **Configure speech service**:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     // Configure speech service
@@ -111,7 +113,7 @@ In this exercise, you'll complete a partially implemented client application tha
     speechConfig.SpeechSynthesisVoiceName = "en-US-AriaNeural";
     ```
 
-    **Python**
+    **Python**: speaking-clock.py
 
     ```python
     # Configure speech service
@@ -123,21 +125,23 @@ In this exercise, you'll complete a partially implemented client application tha
 
     **C#**
 
-    ```bash
+    ```
     dotnet run
     ```
 
     **Python**
 
-    ```bash
+    ```
     python speaking-clock.py
     ```
 
 1. If you are using C#, you can ignore any warnings about using the **await** operator in asynchronous methods - we'll fix that later. The code should display the region of the speech service resource the application will use.
 
-## Recognize speech
+## Add code to recognize speech
 
 Now that you have a **SpeechConfig** for the speech service in your Azure AI Speech resource, you can use the **Speech-to-text** API to recognize speech and transcribe it to text.
+
+> **IMPORTANT**: This section includes instructions for two alternative procedures. Follow the first procedure if you have a working microphone. Follow the second procedure if you want to simulate spoken input by using an audio file.
 
 ### If you have a working microphone
 
@@ -182,13 +186,13 @@ Now that you have a **SpeechConfig** for the speech service in your Azure AI Spe
 
 1. In the code file for your program, under the existing namespace imports, add the following code to import the library you just installed:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     using System.Media;
     ```
 
-    **Python**
+    **Python**: speaking-clock.py
 
     ```python
     from playsound import playsound
@@ -196,7 +200,7 @@ Now that you have a **SpeechConfig** for the speech service in your Azure AI Spe
 
 1. In the **Main** function, note that the code uses the **TranscribeCommand** function to accept spoken input. Then in the **TranscribeCommand** function, under the comment **Configure speech recognition**, add the appropriate code below to create a **SpeechRecognizer** client that can be used to recognize and transcribe speech from an audio file:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     // Configure speech recognition
@@ -207,7 +211,7 @@ Now that you have a **SpeechConfig** for the speech service in your Azure AI Spe
     using SpeechRecognizer speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
     ```
 
-    **Python**
+    **Python**: speaking-clock.py
 
     ```python
     # Configure speech recognition
@@ -222,7 +226,7 @@ Now that you have a **SpeechConfig** for the speech service in your Azure AI Spe
 
 1. In the **TranscribeCommand** function, under the comment **Process speech input**, add the following code to listen for spoken input, being careful not to replace the code at the end of the function that returns the command:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     // Process speech input
@@ -244,7 +248,7 @@ Now that you have a **SpeechConfig** for the speech service in your Azure AI Spe
     }
     ```
 
-    **Python**
+    **Python**: speaking-clock.py
 
     ```python
     # Process speech input
@@ -264,13 +268,13 @@ Now that you have a **SpeechConfig** for the speech service in your Azure AI Spe
 
     **C#**
 
-    ```bash
+    ```
     dotnet run
     ```
 
     **Python**
 
-    ```bash
+    ```
     python speaking-clock.py
     ```
 
@@ -287,7 +291,7 @@ Your speaking clock application accepts spoken input, but it doesn't actually sp
 1. In the **Main** function for your program, note that the code uses the **TellTime** function to tell the user the current time.
 1. In the **TellTime** function, under the comment **Configure speech synthesis**, add the following code to create a **SpeechSynthesizer** client that can be used to generate spoken output:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     // Configure speech synthesis
@@ -295,7 +299,7 @@ Your speaking clock application accepts spoken input, but it doesn't actually sp
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
 
-    **Python**
+    **Python**: speaking-clock.py
 
     ```python
     # Configure speech synthesis
@@ -303,12 +307,11 @@ Your speaking clock application accepts spoken input, but it doesn't actually sp
     speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config)
     ```
 
-    > **NOTE**
-    >  *The default audio configuration uses the default system audio device for output, so you don't need to explicitly provide an **AudioConfig**. If you need to     redirect     audio output to a file, you can use an **AudioConfig** with a filepath to do so.*
+    > **NOTE** The default audio configuration uses the default system audio device for output, so you don't need to explicitly provide an **AudioConfig**. If you need to redirect audio output to a file, you can use an **AudioConfig** with a filepath to do so.
 
 1. In the **TellTime** function, under the comment **Synthesize spoken output**, add the following code to generate spoken output, being careful not to replace the code at the end of the function that prints the response:
 
-    **C#**
+    **C#**: Program.cs
 
     ```csharp
     // Synthesize spoken output
@@ -319,7 +322,7 @@ Your speaking clock application accepts spoken input, but it doesn't actually sp
     }
     ```
 
-    **Python**
+    **Python**: speaking-clock.py
 
     ```python
     # Synthesize spoken output
@@ -332,13 +335,13 @@ Your speaking clock application accepts spoken input, but it doesn't actually sp
 
     **C#**
 
-    ```bash
+    ```
     dotnet run
     ```
 
     **Python**
 
-    ```bash
+    ```
     python speaking-clock.py
     ```
 
@@ -352,7 +355,7 @@ Your speaking clock application uses a default voice, which you can change. The 
 
 1. In the **TellTime** function, under the comment **Configure speech synthesis**, modify the code as follows to specify an alternative voice before creating the **SpeechSynthesizer** client:
 
-   **C#**
+   **C#**: Program.cs
 
     ```csharp
     // Configure speech synthesis
@@ -360,7 +363,7 @@ Your speaking clock application uses a default voice, which you can change. The 
     using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig);
     ```
 
-    **Python**
+    **Python**: speaking-clock.py
 
     ```python
     # Configure speech synthesis
@@ -372,13 +375,13 @@ Your speaking clock application uses a default voice, which you can change. The 
 
     **C#**
 
-    ```bash
+    ```
     dotnet run
     ```
 
     **Python**
 
-    ```bash
+    ```
     python speaking-clock.py
     ```
 
@@ -390,7 +393,7 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
 
 1. In the **TellTime** function, replace all of the current code under the comment **Synthesize spoken output** with the following code (leave the code under the comment **Print the response**):
 
-   **C#**
+   **C#**: Program.cs
 
     ```csharp
     // Synthesize spoken output
@@ -409,7 +412,7 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
     }
     ```
 
-    **Python**
+    **Python**: speaking-clock.py
 
     ```python
     # Synthesize spoken output
@@ -430,18 +433,18 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
 
     **C#**
 
-    ```bash
+    ```
     dotnet run
     ```
 
     **Python**
 
-    ```bash
+    ```
     python speaking-clock.py
     ```
 
-1. When prompted, speak clearly into the microphone and say "what time is it?". The program should speak in the voice that is specified in the SSML (overriding the voice specified in the SpeechConfig), telling you the time, and then after a pause telling you it's time to end this lab - which it is!
+1. When prompted, speak clearly into the microphone and say "what time is it?". The program should speak in the voice that is specified in the SSML (overriding the voice specified in the SpeechConfig), telling you the time, and then after a pause, telling you it's time to end this lab - which it is!
 
 ## More information
 
-For more information about using the **Speech-to-text** and **Text-to-speech** APIs, see the [Speech-to-text documentation](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-speech-to-text) and [Text-to-speech documentation](https://learn.microsoft.com/en-us/azure/ai-services/speech-service/rest-text-to-speech?tabs=streaming).
+For more information about using the **Speech-to-text** and **Text-to-speech** APIs, see the [Speech-to-text documentation](https://learn.microsoft.com/azure/ai-services/speech-service/index-speech-to-text) and [Text-to-speech documentation](https://learn.microsoft.com/azure/ai-services/speech-service/index-text-to-speech).
