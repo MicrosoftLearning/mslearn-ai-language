@@ -11,66 +11,68 @@ Azure AI Speech includes a speech translation API that you can use to translate 
 > **NOTE**
 > This exercise requires that you are using a computer with speakers/headphones. For the best experience, a microphone is also required. Some hosted virtual environments may be able to capture audio from your local microphone, but if this doesn't work (or you don't have a microphone at all), you can use a provided audio file for speech input. Follow the instructions carefully, as you'll need to choose different options depending on whether you are using a microphone or the audio file.
 
-## Clone the repository for this course
+## Provision an *Azure AI Speech* resource
 
-If you have already cloned **ai-language** code repository to the environment where you're working on this lab, open it in Visual Studio Code; otherwise, follow these steps to clone it now.
+If you don't already have one in your subscription, you'll need to provision an **Azure AI Speech** resource.
+
+1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
+1. In the search field at the top, search for **Azure AI services** and press **Enter**, then select **Create** under **Speech service** in the results.
+1. Create a resource with the following settings:
+    - **Subscription**: *Your Azure subscription*
+    - **Resource group**: *Choose or create a resource group*
+    - **Region**: *Choose any available region*
+    - **Name**: *Enter a unique name*
+    - **Pricing tier**: Select **F0** (*free*), or **S** (*standard*) if F is not available.
+    - **Responsible AI Notice**: Agree.
+1. Select **Review + create**.
+1. Wait for deployment to complete, and then go to the deployed resource.
+1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
+
+## Prepare to develop an app in Visual Studio Code
+
+You'll develop your speech app using Visual Studio Code. The code files for your app have been provided in a GitHub repo.
+
+> **Tip**: If you have already cloned the **mslearn-ai-language** repo, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.
 
 1. Start Visual Studio Code.
 1. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-language` repository to a local folder (it doesn't matter which folder).
-  
-    > **TIP**
-    > If you recently used this command in another lab to clone the *ai-language* repository, you can skip this step.
- 
 1. When the repository has been cloned, open the folder in Visual Studio Code.
 1. Wait while additional files are installed to support the C# code projects in the repo.
 
-    > **NOTE**
-    >  If you are prompted to add required assets to build and debug, select **Not Now**.
+    > **Note**: If you are prompted to add required assets to build and debug, select **Not Now**.
 
-## Provision an Azure AI Speech resource
+## Configure your application
 
-If you don't already have on in your subscription, you'll need to provision a **Azure AI Speech service** resource.
+Applications for both C# and Python have been provided. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Speech resource.
 
-1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-1. Enter **Azure AI** in the search field at the top of the portal. Then select **Azure AI services** in the suggestions dropdown that appears.
-1. Select **Create** under **Speech service** in the results page.
-1. Create a resource with the following settings:
-    - **Subscription**: *Your Azure subscription*
-    - **Resource group**: *Choose or create a resource group (if you are using a restricted subscription, you may not have permission to create a new resource group - use the one provided)*
-    - **Region**: *Choose any available region*
-    - **Name**: *Enter a unique name*
-    - **Pricing tier**: Standard S0
-1. Select **Review + Create,** then select **Create**.
-1. Wait for deployment to complete, and then view the deployment details.
-1. When the resource has been deployed, go to it and view its **Keys and Endpoint** page. You will need one of the keys and the location in which the service is provisioned from this page in the next procedure.
-
-## Prepare to use the Azure AI Speech Translation service
-
-In this exercise, you'll complete a partially implemented client application that uses the Azure AI Speech SDK to recognize, translate, and synthesize speech.
-
-> **NOTE**
-> You can choose to use the SDK for either **C#** or **Python**. In the steps below, perform the actions appropriate for your preferred language.
-
-1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/08-speech-translation** folder and expand the **C-Sharp** or **Python** folder depending on your language preference.
-1. Right-click the **translator** folder and open an integrated terminal. Then install the Speech SDK package by running the appropriate command for your language preference:
+1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/08-speech-translation** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **translator** folder it contains. Each folder contains the language-specific code files for an app into which you're you're going to integrate Azure AI Speech functionality.
+1. Right-click the **translator** folder containing your code files and open an integrated terminal. Then install the Azure AI Speech SDK package by running the appropriate command for your language preference:
 
     **C#**
 
-    ```csharp
+    ```
     dotnet add package Microsoft.CognitiveServices.Speech --version 1.30.0
     ```
 
     **Python**
 
-    ```python
+    ```
     pip install azure-cognitiveservices-speech==1.30.0
     ```
 
-1. View the contents of the **translator** folder, and note that it contains a file for configuration settings:
+1. In the **Explorer** pane, in the **translator** folder, open the configuration file for your preferred language
+
     - **C#**: appsettings.json
     - **Python**: .env
 
-    Open the configuration file and update the configuration values it contains to include an authentication **key** for your Azure AI Speech resource, and the **location** where it is deployed. Save your changes.
+1. Update the configuration values to include the  **region** and a **key** from the Azure AI Speech resource you created (available on the **Keys and Endpoint** page for your Azure AI Speech resource in the Azure portal).
+
+    > **NOTE**: Be sure to add the *region* for your resource, <u>not</u> the endpoint!
+
+1. Save the configuration file.
+
+## Add code to use the Speech SDK
+
 1. Note that the **translator** folder contains a code file for the client application:
 
     - **C#**: Program.cs
@@ -100,7 +102,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```csharp
     // Configure translation
-    translationConfig = SpeechTranslationConfig.FromSubscription(cogSvcKey, cogSvcRegion);
+    translationConfig = SpeechTranslationConfig.FromSubscription(aiSvcKey, aiSvcRegion);
     translationConfig.SpeechRecognitionLanguage = "en-US";
     translationConfig.AddTargetLanguage("fr");
     translationConfig.AddTargetLanguage("es");
@@ -112,7 +114,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```python
     # Configure translation
-    translation_config = speech_sdk.translation.SpeechTranslationConfig(cog_key, cog_region)
+    translation_config = speech_sdk.translation.SpeechTranslationConfig(ai_key, ai_region)
     translation_config.speech_recognition_language = 'en-US'
     translation_config.add_target_language('fr')
     translation_config.add_target_language('es')
@@ -126,14 +128,14 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```csharp
     // Configure speech
-    speechConfig = SpeechConfig.FromSubscription(cogSvcKey, cogSvcRegion);
+    speechConfig = SpeechConfig.FromSubscription(aiSvcKey, aiSvcRegion);
     ```
 
     **Python**
 
     ```python
     # Configure speech
-    speech_config = speech_sdk.SpeechConfig(cog_key, cog_region)
+    speech_config = speech_sdk.SpeechConfig(ai_key, ai_region)
     ```
 
 1. Save your changes and return to the integrated terminal for the **translator** folder, and enter the following command to run the program:
@@ -155,6 +157,8 @@ In this exercise, you'll complete a partially implemented client application tha
 ## Implement speech translation
 
 Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service, you can use the Azure AI Speech translation API to recognize and translate speech.
+
+> **IMPORTANT**: This section includes instructions for two alternative procedures. Follow the first procedure if you have a working microphone. Follow the second procedure if you want to simulate spoken input by using an audio file.
 
 ### If you have a working microphone
 
@@ -192,6 +196,8 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
     >  The code in your application translates the input to all three languages in a single call. Only the translation for the specific language is displayed, but you could retrieve any of the translations by specifying the target language code in the **translations** collection of the result.
 
 1. Now skip ahead to the **Run the program** section below.
+
+---
 
 ### Alternatively, use audio input from a file
 
@@ -257,8 +263,7 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
     print(translation)
     ```
 
-> **NOTE**
->The code in your application translates the input to all three languages in a single call. Only the translation for the specific language is displayed, but you could retrieve any of the translations by specifying the target language code in the **translations** collection of the result.
+---
 
 ### Run the program
 
@@ -278,8 +283,9 @@ Now that you have a **SpeechTranslationConfig** for the Azure AI Speech service,
 
 1. When prompted, enter a valid language code (*fr*, *es*, or *hi*), and then, if using a microphone, speak clearly and say "where is the station?" or some other phrase you might use when traveling abroad. The program should transcribe your spoken input and translate it to the language you specified (French, Spanish, or Hindi). Repeat this process, trying each language supported by the application. When you're finished, press ENTER to end the program.
 
-> **NOTE**
-> The TranslationRecognizer gives you around 5 seconds to speak. If it detects no spoken input, it produces a "No match" result. The translation to Hindi may not always be displayed correctly in the Console window due to character encoding issues.
+    The TranslationRecognizer gives you around 5 seconds to speak. If it detects no spoken input, it produces a "No match" result. The translation to Hindi may not always be displayed correctly in the Console window due to character encoding issues.
+
+> **NOTE**: The code in your application translates the input to all three languages in a single call. Only the translation for the specific language is displayed, but you could retrieve any of the translations by specifying the target language code in the **translations** collection of the result.
 
 ## Synthesize the translation to speech
 
@@ -343,4 +349,4 @@ So far, your application translates spoken input to text; which might be suffici
 
 ## More information
 
-For more information about using the Azure AI Speech translation API, see the [Speech translation documentation](https://learn.microsoft.com/en-us/azure/ai-services/translator/text-translation-overview).
+For more information about using the Azure AI Speech translation API, see the [Speech translation documentation](https://learn.microsoft.com/azure/ai-services/speech-service/speech-translation).

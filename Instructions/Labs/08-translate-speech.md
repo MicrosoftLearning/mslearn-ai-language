@@ -100,7 +100,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```csharp
     // Configure translation
-    translationConfig = SpeechTranslationConfig.FromSubscription(cogSvcKey, cogSvcRegion);
+    translationConfig = SpeechTranslationConfig.FromSubscription(aiSvcKey, aiSvcRegion);
     translationConfig.SpeechRecognitionLanguage = "en-US";
     translationConfig.AddTargetLanguage("fr");
     translationConfig.AddTargetLanguage("es");
@@ -112,7 +112,7 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```python
     # Configure translation
-    translation_config = speech_sdk.translation.SpeechTranslationConfig(cog_key, cog_region)
+    translation_config = speech_sdk.translation.SpeechTranslationConfig(ai_key, ai_region)
     translation_config.speech_recognition_language = 'en-US'
     translation_config.add_target_language('fr')
     translation_config.add_target_language('es')
@@ -126,14 +126,14 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```csharp
     // Configure speech
-    speechConfig = SpeechConfig.FromSubscription(cogSvcKey, cogSvcRegion);
+    speechConfig = SpeechConfig.FromSubscription(aiSvcKey, aiSvcRegion);
     ```
 
     **Python**
 
     ```python
     # Configure speech
-    speech_config = speech_sdk.SpeechConfig(cog_key, cog_region)
+    speech_config = speech_sdk.SpeechConfig(ai_key, ai_region)
     ```
 
 1. Save your changes and return to the integrated terminal for the **translator** folder, and enter the following command to run the program:
