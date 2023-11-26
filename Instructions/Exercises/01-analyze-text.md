@@ -46,7 +46,7 @@ You'll develop your text analytics app using Visual Studio Code. The code files 
 Applications for both C# and Python have been provided, as well as a sample text file you'll use to test the summarization. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Language resource.
 
 1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/01-analyze-text** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **text-analytics** folder it contains. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language text analytics functionality.
-2. Right-click the **text-analytics** folder containing your code files and open an integrated terminal. Then install the Azure AI Language Text Analytics SDK package by running the appropriate command for your language preference:
+2. Right-click the **text-analytics** folder containing your code files and open an integrated terminal. Then install the Azure AI Language Text Analytics SDK package by running the appropriate command for your language preference. For the Python exercise, also install the `dotenv` package:
 
     **C#**:
 
@@ -58,6 +58,7 @@ Applications for both C# and Python have been provided, as well as a sample text
 
     ```
     pip install azure-ai-textanalytics==5.3.0
+    pip install python-dotenv
     ```
 
 3. In the **Explorer** pane, in the **text-analytics** folder, open the configuration file for your preferred language
