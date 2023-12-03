@@ -46,7 +46,7 @@ After you've created the Azure AI Language Service and storage account, you'll n
 
 3. In your storage account select **Configuration**, located below **Settings**, and screen enable the option to **Allow Blob anonymous access** then select **Save**.
 
-4. Select **Containers** from the left menu, located below **Data storage**. On the screen that appears, select **+ Container**. Give the container the name `customer`, and set *Anonymous access level* to **Container (anonymous read access for containers and blobs)**.
+4. Select **Containers** from the left menu, located below **Data storage**. On the screen that appears, select **+ Container**. Give the container the name `customner`, and set *Anonymous access level* to **Container (anonymous read access for containers and blobs)**.
 
     > **NOTE**
     > When you configure a storage account outside of this module, be careful to assign the appropriate access level. To learn more about each access level, see the [docs on Azure Storage](/azure/storage/blobs/anonymous-read-access-configure).
