@@ -22,10 +22,13 @@ def main():
             if userText.lower() != 'quit':
 
                 # Create a client for the Language service model
+                client = ConversationAnalysisClient(ls_prediction_endpoint, ls_prediction_key)
 
                 # Call the Language service model to get intent and entities
+                response = client.analyze(userText)
 
                 # Apply the appropriate action
+                action = GetAction(response)
 
     except Exception as ex:
         print(ex)
