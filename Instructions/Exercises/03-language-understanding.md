@@ -20,7 +20,7 @@ This kind of input is an example of an *utterance* (something a user might say o
 > **NOTE**
 > The task of a conversational language model is to predict the user's intent and identify any entities to which the intent applies. It is <u>not</u> the job of a conversational language model to actually perform the actions required to satisfy the intent. For example, a clock application can use a conversational language model to discern that the user wants to know the time in London; but the client application itself must then implement the logic to determine the correct time and present it to the user.
 
-## Provision an Azure AI Language resource
+## Provision an *Azure AI Language* resource
 
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource in your Azure subscription.
 
@@ -42,7 +42,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 Now that you have created an authoring resource, you can use it to create a conversational language understanding project.
 
-1. In a new browser tab, open the Language Studio portal at `https://language.cognitive.azure.com/` and sign in using the Microsoft account associated with your Azure subscription.
+1. In a new browser tab, open the Azure AI Language Studio portal at `https://language.cognitive.azure.com/` and sign in using the Microsoft account associated with your Azure subscription.
 
 1. If prompted to choose a Language resource, select the following settings:
 
@@ -312,7 +312,7 @@ You'll develop your language understanding app using Visual Studio Code. The cod
 
 Applications for both C# and Python have been provided, as well as a sample text file you'll use to test the summarization. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Language resource.
 
-1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/03b-language-app** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **clock-client** folder it contains. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language question answering functionality.
+1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/03-language** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **clock-client** folder it contains. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language question answering functionality.
 2. Right-click the **clock-client** folder containing your code files and open an integrated terminal. Then install the Azure AI Language conversational language understanding SDK package by running the appropriate command for your language preference:
 
     **C#**:

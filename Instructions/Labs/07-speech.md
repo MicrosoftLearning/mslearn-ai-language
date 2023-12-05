@@ -104,18 +104,18 @@ In this exercise, you'll complete a partially implemented client application tha
 
     ```csharp
     // Configure speech service
-    speechConfig = SpeechConfig.FromSubscription(cogSvcKey, cogSvcRegion);
+    speechConfig = SpeechConfig.FromSubscription(aiSvcKey, aiSvcRegion);
     Console.WriteLine("Ready to use speech service in " + speechConfig.Region);
     
     // Configure voice
     speechConfig.SpeechSynthesisVoiceName = "en-US-AriaNeural";
     ```
 
-    **Python**
+    **Python**: speaking-clock.py
 
     ```python
     # Configure speech service
-    speech_config = speech_sdk.SpeechConfig(cog_key, cog_region)
+    speech_config = speech_sdk.SpeechConfig(ai_key, ai_region)
     print('Ready to use speech service in:', speech_config.region)
     ```
 

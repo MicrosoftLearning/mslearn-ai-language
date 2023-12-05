@@ -17,8 +17,8 @@ namespace speaking_clock
                 // Get config settings from AppSettings
                 IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
                 IConfigurationRoot configuration = builder.Build();
-                string cogSvcKey = configuration["CognitiveServiceKey"];
-                string cogSvcRegion = configuration["CognitiveServiceRegion"];
+                string aiSvcKey = configuration["SpeechKey"];
+                string aiSvcRegion = configuration["SpeechRegion"];
 
                 // Configure speech service
 

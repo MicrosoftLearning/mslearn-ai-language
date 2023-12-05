@@ -10,9 +10,9 @@ One of the most common conversational scenarios is providing support through a k
 
 **Azure AI Language** includes a *question answering* capability that enables you to create a knowledge base of question and answer pairs that can be queried using natural language input, and is most commonly used as a resource that a bot can use to look up answers to questions submitted by users.
 
-## Provision an Azure AI Language resource
+## Provision an *Azure AI Language* resource
 
-If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource. Additionally, to create and host a knowledge base for question answering, you need to enable the Question Answering feature.
+If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource. Additionally, to create and host a knowledge base for question answering, you need to enable the **Question Answering** feature.
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
 1. In the search field at the top enter **Azure AI services**, then press **Enter**.

@@ -10,7 +10,7 @@ lab:
 
 For example, suppose a travel agency wants to process hotel reviews that have been submitted to the company's web site. By using the Azure AI Language, they can determine the language each review is written in, the sentiment (positive, neutral, or negative) of the reviews, key phrases that might indicate the main topics discussed in the review, and named entities, such as places, landmarks, or people mentioned in the reviews.
 
-## Provision an Azure AI Language resource
+## Provision an *Azure AI Language* resource
 
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource in your Azure subscription.
 
