@@ -297,7 +297,7 @@ In a real project, you'd iteratively refine intents and entities, retrain, and r
 
 ### Prepare to develop an app in Visual Studio Code
 
-You'll develop your language udnerstanding app using Visual Studio Code. The code files for your app have been provided in a GitHub repo.
+You'll develop your language understanding app using Visual Studio Code. The code files for your app have been provided in a GitHub repo.
 
 > **Tip**: If you have already cloned the **mslearn-ai-language** repo, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.
 
@@ -621,4 +621,3 @@ If you're finished exploring the Azure AI Language service, you can delete the r
 ## More information
 
 To learn more about conversational language understanding in  Azure AI Language, see the [Azure AI Language documentation](https://learn.microsoft.com/azure/ai-services/language-service/conversational-language-understanding/overview).
-
