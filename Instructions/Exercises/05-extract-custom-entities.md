@@ -104,7 +104,7 @@ After you've labeled your data, you need to train your model.
 
 1. Select **Training jobs** in the pane on the left.
 2. Select **Start a training job**
-3. Select the option to rain anew model named `ExtractAds`
+3. Train a new model named `ExtractAds`
 4. Choose **Automatically split the testing set from training data**
 
     > **TIP**: In your own extraction projects, use the testing split that best suits your data. For more consistent data and larger datasets, the Azure AI Language Service will automatically split the testing set by percentage. With smaller datasets, it's important to train with the right variety of possible input documents.
