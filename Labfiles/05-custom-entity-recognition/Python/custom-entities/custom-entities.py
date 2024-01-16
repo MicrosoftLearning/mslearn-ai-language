@@ -16,15 +16,16 @@ def main():
         # Create client using endpoint and key
 
 
-        # Read each text file in the reviews folder
+        # Read each text file in the ads folder
         batchedDocuments = []
-        articles_folder = 'ads'
-        files = os.listdir(articles_folder)
+        ads_folder = 'ads'
+        files = os.listdir(ads_folder)
         for file_name in files:
             # Read the file contents
-            text = open(os.path.join(articles_folder, file_name), encoding='utf8').read()
+            text = open(os.path.join(ads_folder, file_name), encoding='utf8').read()
             batchedDocuments.append(text)
 
+        # Extract entities
         
         
 
