@@ -214,7 +214,7 @@ Now you're ready to use the Azure AI Language service to extract custom entities
     ai_client = TextAnalyticsClient(endpoint=ai_endpoint, credential=credential)
     ```
 
-1. in the **Main** function, note that the existing code reads all of the files in the **articles** folder and creates a list containing their contents. In the case of the C# code, the a list of **TextDocumentInput** objects is used to include the file name as an ID and the language. In Python a simple list of the text contents is used.
+1. in the **Main** function, note that the existing code reads all of the files in the **ads** folder and creates a list containing their contents. In the case of the C# code, the a list of **TextDocumentInput** objects is used to include the file name as an ID and the language. In Python a simple list of the text contents is used.
 1. Find the comment **Extract entities** and add the following code:
 
     **C#**: Program.cs
