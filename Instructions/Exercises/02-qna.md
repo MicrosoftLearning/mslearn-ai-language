@@ -82,7 +82,7 @@ Your knowledge base has been populated with question and answer pairs from the M
     - **Question**: `What are Microsoft credentials?`
     - **Answer**: `Microsoft credentials enable you to validate and prove your skills with Microsoft technologies.`
 1. Select **Done**.
-1. In the page for the **What is Microsoft certification?** question that is created, expand **Alternate questions**. Then add the alternate question `How can I demonstrate my Microsoft technology skills?`.
+1. In the page for the **What are Microsoft credentials?** question that is created, expand **Alternate questions**. Then add the alternate question `How can I demonstrate my Microsoft technology skills?`.
 
     In some cases, it makes sense to enable the user to follow up on an answer by creating a *multi-turn* conversation that enables the user to iteratively refine the question to get to the answer they need.
 
