@@ -1,6 +1,10 @@
 # QnA App Solution Python
 This is solution of QnA code of python
 
+## Prerequisite
+Make sure you have Python.
+> If you don't have Python Download it from here https://www.python.org/downloads/
+
 ## How to run?
 1. Create and activate Virtual Environment
     ```
