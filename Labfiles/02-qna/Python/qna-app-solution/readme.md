@@ -1,9 +1,9 @@
 # QnA App Solution Python
-This is solution of QnA code of python
+This is solution of QnA Lab in python
 
 ## Prerequisite
 Make sure you have Python.
-> If you don't have Python Download it from here https://www.python.org/downloads/
+> If you don't have Python, Download it from here https://www.python.org/downloads/
 
 ## How to run?
 1. Create and activate Virtual Environment
@@ -35,7 +35,7 @@ Make sure you have Python.
 
 4. Run the Program
     ```
-    python ana-app.py
+    python qna-app.py
     ```
 
 
