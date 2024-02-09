@@ -113,7 +113,7 @@ Now that you've added some intents, let's train the language model and see if it
 
 1. In the pane on the left, select **Training jobs**. Then select **+ Start a training job**.
 
-1. On the **Start a training job** dialog, select the option to train a new model, name it `Clock``. Select **Standard training** mode and the default **Data splitting** options.
+1. On the **Start a training job** dialog, select the option to train a new model, name it `Clock`. Select **Standard training** mode and the default **Data splitting** options.
 
 1. To begin the process of training your model, select **Train**.
 
