@@ -1,5 +1,5 @@
 # QnA App Solution C#
-This is solution of QnA code of C#
+This is solution of QnA Lab in C#
 
 ## How to run?
 1. Download and Install .NET SDK
