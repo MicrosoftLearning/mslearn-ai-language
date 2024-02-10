@@ -135,7 +135,7 @@ Now you're ready to use Azure AI Translator to translate text.
         }
         else
         {
-            Console.WriteLine($"({targetLanguage} is not a supported language.");
+            Console.WriteLine($"{targetLanguage} is not a supported language.");
         }
 
     }
@@ -169,7 +169,8 @@ Now you're ready to use Azure AI Translator to translate text.
     while (inputText.ToLower() != "quit")
     {
         Console.WriteLine("Enter text to translate ('quit' to exit)");
-        inputText = Console.ReadLine();if (inputText.ToLower() != "quit")
+        inputText = Console.ReadLine();
+        if (inputText.ToLower() != "quit")
         {
             Response<IReadOnlyList<TranslatedTextItem>> translationResponse = await client.TranslateAsync(targetLanguage, inputText).ConfigureAwait(false);
             IReadOnlyList<TranslatedTextItem> translations = translationResponse.Value;
