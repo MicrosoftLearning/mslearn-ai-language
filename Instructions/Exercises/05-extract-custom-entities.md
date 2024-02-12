@@ -69,7 +69,7 @@ Now you're ready to reate a custom named entity recognition project. This projec
 
 1. At the top of the portal, in the **Create new** menu, select *Custom named entity recognition**.
 
-1. Create a mew project with the following settings:
+1. Create a new project with the following settings:
     - **Connect storage**: *This  value is likely already filled. Change it to your storage account if it isn't already*
     - **Basic information**:
     - **Name**: `CustomEntityLab`
