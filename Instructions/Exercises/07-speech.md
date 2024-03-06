@@ -183,7 +183,7 @@ Now that you have a **SpeechConfig** for the speech service in your Azure AI Spe
     **Python**
 
     ```
-    pip install playsound==1.3.0
+    pip install playsound==1.2.2
     ```
 
 1. In the code file for your program, under the existing namespace imports, add the following code to import the library you just installed:
