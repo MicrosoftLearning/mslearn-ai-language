@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 import json
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta, date, timezone
 from dateutil.parser import parse as is_date
 
 # Import namespaces
@@ -43,22 +43,22 @@ def GetTime(location):
         now = datetime.now()
         time_string = '{}:{:02d}'.format(now.hour,now.minute)
     elif location.lower() == 'london':
-        utc = datetime.utcnow()
+        utc = datetime.now(timezone.utc)
         time_string = '{}:{:02d}'.format(utc.hour,utc.minute)
     elif location.lower() == 'sydney':
-        time = datetime.utcnow() + timedelta(hours=11)
+        time = datetime.now(timezone.utc) + timedelta(hours=11)
         time_string = '{}:{:02d}'.format(time.hour,time.minute)
     elif location.lower() == 'new york':
-        time = datetime.utcnow() + timedelta(hours=-5)
+        time = datetime.now(timezone.utc) + timedelta(hours=-5)
         time_string = '{}:{:02d}'.format(time.hour,time.minute)
     elif location.lower() == 'nairobi':
-        time = datetime.utcnow() + timedelta(hours=3)
+        time = datetime.now(timezone.utc) + timedelta(hours=3)
         time_string = '{}:{:02d}'.format(time.hour,time.minute)
     elif location.lower() == 'tokyo':
-        time = datetime.utcnow() + timedelta(hours=9)
+        time = datetime.now(timezone.utc) + timedelta(hours=9)
         time_string = '{}:{:02d}'.format(time.hour,time.minute)
     elif location.lower() == 'delhi':
-        time = datetime.utcnow() + timedelta(hours=5.5)
+        time = datetime.now(timezone.utc) + timedelta(hours=5.5)
         time_string = '{}:{:02d}'.format(time.hour,time.minute)
     else:
         time_string = "I don't know what time it is in {}".format(location)
