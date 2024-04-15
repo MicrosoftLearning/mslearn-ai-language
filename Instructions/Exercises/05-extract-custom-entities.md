@@ -26,7 +26,7 @@ If you don't already have one in your subscription, you'll need to provision an 
       - **Storage account type**: Standard LRS
     - **Responsible AI notice**: Selected.
 
-1. Select **Review + create,** then select **Create** to provision the resource.
+1. Select **Review + create**, then select **Create** to provision the resource.
 1. Wait for deployment to complete, and then go to the deployed resource.
 1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
 
