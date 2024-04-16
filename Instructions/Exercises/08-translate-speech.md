@@ -24,7 +24,7 @@ If you don't already have one in your subscription, you'll need to provision an 
     - **Name**: *Enter a unique name*
     - **Pricing tier**: Select **F0** (*free*), or **S** (*standard*) if F is not available.
     - **Responsible AI Notice**: Agree.
-1. Select **Review + create**.
+1. Select **Review + create**, the select **Create** to provision the resource.
 1. Wait for deployment to complete, and then go to the deployed resource.
 1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
 
