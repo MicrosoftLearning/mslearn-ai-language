@@ -15,7 +15,7 @@ To test the custom entity extraction, we'll create a model and train it through 
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource. Additionally, use custom text classification, you need to enable the **Custom text classification & extraction** feature.
 
 1. In a browser, open the Azure portal at `https://portal.azure.com`, and sign in with your Microsoft account.
-1. Select the **Create a resource** button, search for *Language*, and create an **Azure AI Language Service** resource. When asked about *Additional features*, select **Custom text classification & extraction**. Create the resource with the following settings:
+1. Select the **Create a resource** button, search for *Language*, and create a **Language Service** resource. When on the page for *Select additional features*, select the custom feature containing **Custom named entity recognition extraction**. Create the resource with the following settings:
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Select or create a resource group*
     - **Region**: *Choose any available region*
