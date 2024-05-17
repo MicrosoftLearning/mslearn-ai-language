@@ -95,7 +95,7 @@ Now that your project is created, you need to label your data to train your mode
     1. Highlight the text *Denver, CO* and select the **Location** entity.
     1. Highlight the text *$90* and select the **Price** entity.
 1.In the **Activity** pane, note that this document will be added to the dataset for training the model.
-1. Us the **Next document** button to move to the next document, and continue assigning text to appropriate entities for the entire set of documents, adding them all to the training dataset.
+1. Use the **Next document** button to move to the next document, and continue assigning text to appropriate entities for the entire set of documents, adding them all to the training dataset.
 1. When you have labeled the last document (*Ad 9.txt*), save the labels.
 
 ## Train your model
