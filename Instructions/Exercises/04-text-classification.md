@@ -185,7 +185,7 @@ Applications for both C# and Python have been provided, as well as a sample text
     - **C#**: appsettings.json
     - **Python**: .env
     
-1. Update the configuration values to include the  **endpoint** and a **key** from the Azure Language resource you created (available on the **Keys and Endpoint** page for your Azure AI Language resource in the Azure portal). The fil should already contain the project and deployment names for your text classification model.
+1. Update the configuration values to include the  **endpoint** and a **key** from the Azure Language resource you created (available on the **Keys and Endpoint** page for your Azure AI Language resource in the Azure portal). The file should already contain the project and deployment names for your text classification model.
 1. Save the configuration file.
 
 ## Add code to classify documents
