@@ -53,7 +53,7 @@ Now that you have created an authoring resource, you can use it to create a conv
 
     If you are <u>not</u> prompted to choose a language resource, it may be because you have multiple Language resources in your subscription; in which case:
 
-    1. On the bar at the top if the page, select the **Settings (&#9881;)** button.
+    1. On the bar at the top of the page, select the **Settings (&#9881;)** button.
     2. On the **Settings** page, view the **Resources** tab.
     3. Select the language resource you just created, and click **Switch resource**.
     4. At the top of the page, click **Language Studio** to return to the Language Studio home page
