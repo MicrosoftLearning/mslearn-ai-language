@@ -200,6 +200,9 @@ In some cases, valid values for an entity can be restricted to a list of specifi
     |-------------------|---------|
     | `Sunday` | `Sun` |
 
+    > **NOTE**
+    > To enter the fields of the new list, insert the value `Sunday` in the test field, then click on the field where the suggestion 'Type in value and press enter...' is displayed, enter the synonyms, and press ENTER.
+
 1. Repeat the previous step to add the following list components:
 
     | Value | synonyms|
