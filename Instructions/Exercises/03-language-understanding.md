@@ -93,6 +93,9 @@ To help the model predict which intent a user is requesting, you must label each
     - `what time is it?`
     - `tell me the time`
 
+    > **NOTE**
+    > To add a new utterance, write the utterance in the textbox next to the intent and then press ENTER. 
+
 1. Select the **GetDay** intent and add the following utterances as example input for that intent:
     - `what day is it?`
     - `what's the day?`
@@ -196,6 +199,9 @@ In some cases, valid values for an entity can be restricted to a list of specifi
     | List key | synonyms|
     |-------------------|---------|
     | `Sunday` | `Sun` |
+
+    > **NOTE**
+    > To enter the fields of the new list, insert the value `Sunday` in the text field, then click on the field where 'Type in value and press enter...' is displayed, enter the synonyms, and press ENTER.
 
 1. Repeat the previous step to add the following list components:
 
