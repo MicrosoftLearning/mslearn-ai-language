@@ -80,6 +80,8 @@ Now you're ready to create a custom named entity recognition project. This proje
         - **Blob store container**: classifieds
         - **Are your files labeled with classes?**: No, I need to label my files as part of this project
 
+> **Tip**: If you get an error about not being authorized to perform this operation, you'll need to add a role assignment. To fix this, we add the role "Storage Blob Data Contributor" on the storage account for the user running the lab. More details can be found [on the documentation page](https://learn.microsoft.com/azure/ai-services/language-service/custom-named-entity-recognition/how-to/create-project?tabs=portal%2Clanguage-studio#enable-identity-management-for-your-resource)
+
 ## Label your data
 
 Now that your project is created, you need to label your data to train your model how to identity entities.
