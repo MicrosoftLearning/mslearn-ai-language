@@ -15,7 +15,8 @@ For example, suppose a travel agency wants to process hotel reviews that have be
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource in your Azure subscription.
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-1. In the search field at the top, search for **Azure AI services**. Then, in the results, select **Create** under **Language Service**.
+1. Select **Create a resource**.
+1. In the search field, search for **Language service**. Then, in the results, select **Create** under **Language Service**.
 1. Select **Continue to create your resource**.
 1. Provision the resource using the following settings:
     - **Subscription**: *Your Azure subscription*.
@@ -26,7 +27,7 @@ If you don't already have one in your subscription, you'll need to provision an 
     - **Responsible AI Notice**: Agree.
 1. Select **Review + create**, then select **Create** to provision the resource.
 1. Wait for deployment to complete, and then go to the deployed resource.
-1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
+1. View the **Keys and Endpoint** page in the **Resource Management** section. You will need the information on this page later in the exercise.
 
 ## Prepare to develop an app in Visual Studio Code
 
