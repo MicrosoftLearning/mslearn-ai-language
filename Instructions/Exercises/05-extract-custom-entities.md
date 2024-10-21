@@ -88,7 +88,7 @@ Now that your project is created, you need to label your data to train your mode
 
 1. If the **Data labeling** page is not already open, in the pane on the left, select **Data labeling**. You'll see a list of the files you uploaded to your storage account.
 1. On the right side, in the **Activity** pane, select **Add entity** and add a new entity named `ItemForSale`.
-1.  Repeat the previous stept o create the following entities:
+1.  Repeat the previous step to create the following entities:
     - `Price`
     - `Location`
 1. After you've created your three entities, select **Ad 1.txt** so you can read it.
@@ -96,7 +96,7 @@ Now that your project is created, you need to label your data to train your mode
     1. Highlight the text *face cord of firewood* and select the **ItemForSale** entity.
     1. Highlight the text *Denver, CO* and select the **Location** entity.
     1. Highlight the text *$90* and select the **Price** entity.
-1.In the **Activity** pane, note that this document will be added to the dataset for training the model.
+1. In the **Activity** pane, note that this document will be added to the dataset for training the model.
 1. Use the **Next document** button to move to the next document, and continue assigning text to appropriate entities for the entire set of documents, adding them all to the training dataset.
 1. When you have labeled the last document (*Ad 9.txt*), save the labels.
 
