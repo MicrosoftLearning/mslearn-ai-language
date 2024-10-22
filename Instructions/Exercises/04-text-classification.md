@@ -20,7 +20,18 @@ If you don't already have one in your subscription, you'll need to provision an 
 1. Create a resource with the following settings:
     - **Subscription**: *Your Azure subscription*.
     - **Resource group**: *Select or create a resource group*.
-    - **Region**: *Choose any available region*:
+    - **Region**: *Choose from one of the following regions*\*
+        - Australia East
+        - Central India
+        - East US
+        - East US 2
+        - North Europe
+        - South Central US
+        - Switzerland North
+        - UK South
+        - West Europe
+        - West US 2
+        - West US 3
     - **Name**: *Enter a unique name*.
     - **Pricing tier**: Select **F0** (*free*), or **S** (*standard*) if F is not available.
     - **Storage account**: New storage account
