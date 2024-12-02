@@ -41,6 +41,16 @@ If you don't already have one in your subscription, you'll need to provision an 
 1. Wait for deployment to complete, and then go to the deployed resource.
 1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
 
+## Roles for your user
+> **NOTE**: If you skip this step, you'll have a 403 error when trying to connect to your custom project. It's important that your current user has this role to access storage account blob data, even if you're the owner of the storage account.**
+
+1. Go to your storage account page in the Azure portal.
+2. Select **Access Control (IAM)** in the left navigation menu.
+3. Select **Add** to Add Role Assignments, and choose the **Storage Blob Data Contributor** role on the storage account.
+4. Within **Assign access to**, select **User, group, or service principal**.
+5. Select **Select members**.
+6. Select your User. You can search for user names in the **Select** field.
+
 ## Upload sample ads
 
 After you've created the Azure AI Language Service and storage account, you'll need to upload example ads to train your model later.
