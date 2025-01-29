@@ -212,10 +212,12 @@ Now you're ready to add the code necessary to import the required SDK libraries,
     ```C#
     // Submit a question and display the answer
     string user_question = "";
-    while (user_question.ToLower() != "quit")
+    while (true)
         {
             Console.Write("Question: ");
             user_question = Console.ReadLine();
+            if (user_question.ToLower() == "quit")
+                break;
             QuestionAnsweringProject project = new QuestionAnsweringProject(projectName, deploymentName);
             Response<AnswersResult> response = aiClient.GetAnswers(user_question, project);
             foreach (KnowledgeBaseAnswer answer in response.Value.Answers)
