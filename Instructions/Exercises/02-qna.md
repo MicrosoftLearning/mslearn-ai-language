@@ -212,10 +212,12 @@ Now you're ready to add the code necessary to import the required SDK libraries,
     ```C#
     // Submit a question and display the answer
     string user_question = "";
-    while (user_question.ToLower() != "quit")
+    while (true)
         {
             Console.Write("Question: ");
             user_question = Console.ReadLine();
+            if (user_question.ToLower() == "quit")
+                break;
             QuestionAnsweringProject project = new QuestionAnsweringProject(projectName, deploymentName);
             Response<AnswersResult> response = aiClient.GetAnswers(user_question, project);
             foreach (KnowledgeBaseAnswer answer in response.Value.Answers)
@@ -233,8 +235,10 @@ Now you're ready to add the code necessary to import the required SDK libraries,
     ```Python
     # Submit a question and display the answer
     user_question = ''
-    while user_question.lower() != 'quit':
+    while True:
         user_question = input('\nQuestion:\n')
+        if user_question.lower() == "quit":                
+            break
         response = ai_client.get_answers(question=user_question,
                                         project_name=ai_project_name,
                                         deployment_name=ai_deployment_name)
