@@ -61,7 +61,7 @@ Let's start by creating an Azure AI Foundry project.
 
 > **Note**: Follow the steps for your chosen programming language.
 
-1. After the repo has been cloned, navigate to the folder containing the chat application code files:  
+1. After the repo has been cloned, navigate to the folder containing the speaking clock application code files:  
 
     **Python**
 
