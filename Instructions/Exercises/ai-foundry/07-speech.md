@@ -39,7 +39,7 @@ Let's start by creating an Azure AI Foundry project.
 
     ![Screenshot of a Azure AI project details in Azure AI Foundry portal.](./media/ai-foundry-project.png)
 
-## Prepare application configuration
+## Prepare and configure the speaking clock app
 
 1. In the Azure AI Foundry portal, view the **Overview** page for your project.
 1. In the **Project details** area, note the **Project connection string** and **location** for your project You'll use the connection string to connect to your project in a client application, and you'll need the location to connect to the Azure AI Services Speech endpoint.
