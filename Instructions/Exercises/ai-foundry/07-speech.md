@@ -59,7 +59,7 @@ Let's start by creating an Azure AI Foundry project.
    git clone https://github.com/microsoftlearning/mslearn-ai-language mslearn-ai-language
     ```
 
-    > **Note**: Follow the steps for your chosen programming language.
+    ***Now follow the steps for your chosen programming language.***
 
 1. After the repo has been cloned, navigate to the folder containing the speaking clock application code files:  
 
@@ -187,7 +187,7 @@ Let's start by creating an Azure AI Foundry project.
    var aiSvcKey = apiKeyAuthProperties.Credentials.Key;
     ```
 
-    This code connect to your Azure AI Foundry project, gets its default AI Services connected resource, and retrieves the authentication key needed to use it.
+    This code connects to your Azure AI Foundry project, gets its default AI Services connected resource, and retrieves the authentication key needed to use it.
 
 1. Under the comment **Configure speech service**, add the following code to use the AI Services key and your project's region to configure your connection to the Azure AI Services Speech endpoint
 
