@@ -328,7 +328,7 @@ In this procedure, the speech input is captured from an audio file, which you ca
 
 1. Review the output from the application, which should successfully "hear" the speech in the audio file and return an appropriate response (note that your Azure cloud shell may be running on a server that is in a different time-zone to yours!)
 
-    > **Tip**: If the SpeechRecognizer encounters an error, it produces a result of "Cancelled". The code in the application will then display the error message. The most likely cause is an region in the configuration file.
+    > **Tip**: If the SpeechRecognizer encounters an error, it produces a result of "Cancelled". The code in the application will then display the error message. The most likely cause is an incorrect region value in the configuration file.
 
 ## Synthesize speech
 
