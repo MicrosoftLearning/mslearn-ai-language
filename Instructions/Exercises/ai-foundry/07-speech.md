@@ -384,7 +384,7 @@ Once again, due to the hardware limitations of the cloud shell we'll direct the 
     ```
 
 1. Review the output from the application, which should indicate that the spoken output was saved in a file.
-1. If you have a media player capable of playing .wav audio files, in the toolbar for the cloud shell pane, use the **Upload/Download files** to download the audio file from your app folder, and then play it:
+1. If you have a media player capable of playing .wav audio files, in the toolbar for the cloud shell pane, use the **Upload/Download files** button to download the audio file from your app folder, and then play it:
 
     **Python**
 
@@ -461,7 +461,7 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
     ```
 
 1. Review the output from the application, which should indicate that the spoken output was saved in a file.
-1. Once again, if you have a media player capable of playing .wav audio files, in the toolbar for the cloud shell pane, use the **Upload/Download files** to download the audio file from your app folder, and then play it:
+1. Once again, if you have a media player capable of playing .wav audio files, in the toolbar for the cloud shell pane, use the **Upload/Download files** button to download the audio file from your app folder, and then play it:
 
     **Python**
 
