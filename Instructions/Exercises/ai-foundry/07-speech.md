@@ -229,7 +229,7 @@ Now that you have a **SpeechConfig** for the speech service in your Azure AI Spe
 
 In this procedure, the speech input is captured from an audio file, which you can play here:
 
-<video src='./media/Time.mp4' width=180/>
+![What is the time?](./media/Time.mp4)
 
 1. In the **Main** function, note that the code uses the **TranscribeCommand** function to accept spoken input. Then in the **TranscribeCommand** function, under the comment **Configure speech recognition**, add the appropriate code below to create a **SpeechRecognizer** client that can be used to recognize and transcribe speech from an audio file:
 
@@ -386,7 +386,7 @@ Once again, due to the hardware limitations of the cloud shell we'll direct the 
 1. Review the output from the application, which should indicate that the spoken output was saved in a file.
 1. If you have a media player capable of playing .wav audio files, in the toolbar for the cloud shell pane, use the **Upload/Download files** to download the audio file from **/home/*user***`mslearn-ai-language/labfiles/07b-speech/c-sharp/speaking-clock/output.wav`, and then play it. The file should sound similar to this:
 
-    <video src='./media/Output.mp4' width=180/>
+    ![It is 2:15](./media/Output.mp4)
 
 ## Use Speech Synthesis Markup Language
 
@@ -463,7 +463,7 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
 
     The file should sound similar to this:
 
-    <video src='./media/Output2.mp4' width=180/>
+    ![It is 5:30. Time to end this lab.](./media/Output2.mp4)
 
 ## Clean up
 
