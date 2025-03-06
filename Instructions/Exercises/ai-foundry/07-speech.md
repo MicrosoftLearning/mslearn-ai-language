@@ -245,9 +245,9 @@ So far, the app doesn't do anything other than connect to your Azure AI Foundry 
 
 Now that you have a **SpeechConfig** for the speech service in your project's Azure AI Services resource, you can use the **Speech-to-text** API to recognize speech and transcribe it to text.
 
-> **Note**: In this procedure, the speech input is captured from an audio file, which you can play here:
->
-> <video controls src="media/Time.mp4" title="What time is it?" width="150"></video>
+In this procedure, the speech input is captured from an audio file, which you can play here:
+
+<video controls src="media/Time.mp4" title="What time is it?" width="150"></video>
 
 1. In the **Main** function, note that the code uses the **TranscribeCommand** function to accept spoken input. Then in the **TranscribeCommand** function, under the comment **Configure speech recognition**, add the appropriate code below to create a **SpeechRecognizer** client that can be used to recognize and transcribe speech from an audio file:
 
@@ -412,9 +412,9 @@ Once again, due to the hardware limitations of the cloud shell we'll direct the 
 
     /home/*user*`/mslearn-ai-language/Labfiles/07b-speech/C-Sharp/speaking-clock/output.wav`
 
-    > **Note**: The file should sound similar to this:
-    > 
-    > <video controls src="./media/Output.mp4" title="The time is 2:15" width="150"></video>
+    The file should sound similar to this:
+
+    <video controls src="./media/Output.mp4" title="The time is 2:15" width="150"></video>
 
 ## Use Speech Synthesis Markup Language
 
@@ -489,9 +489,9 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
 
     /home/*user*`/mslearn-ai-language/Labfiles/07b-speech/C-Sharp/speaking-clock/output.wav`
 
-    > **Note**: The file should sound similar to this:
-    > 
-    > <video controls src="./media/Output2.mp4" title="The time is 5:30. Time to end this lab." width="150"></video>
+    The file should sound similar to this:
+    
+    <video controls src="./media/Output2.mp4" title="The time is 5:30. Time to end this lab." width="150"></video>
 
 ## Clean up
 
