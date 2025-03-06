@@ -14,7 +14,7 @@ lab:
 In this exercise, you'll use both of these APIs to implement a speaking clock application.
 
 > **NOTE**
-> This exercise is designed to be completed in the Azure cloud shell, where direct access to your computer's sound hardware is not supported. The lab will therefore use audio files for speech input and output streams. The code to achieve the same results using a mic and speakers is provided for your reference.
+> This exercise is designed to be completed in the Azure cloud shell, where direct access to your computer's sound hardware is not supported. The lab will therefore use audio files for speech input and output streams. The code to achieve the same results using a mic and speaker is provided for your reference.
 
 ## Create an Azure AI Foundry project
 
@@ -560,13 +560,14 @@ If you have a speaker, you can use the following code to synthesize speech.
 **Python**
 
 ```python
+response_text = 'The time is {}:{:02d}'.format(now.hour,now.minute)
+
 # Configure speech synthesis
 speech_config.speech_synthesis_voice_name = "en-GB-RyanNeural"
 audio_config = speech_sdk.audio.AudioOutputConfig(use_default_speaker=True)
 speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config, audio_config)
 
 # Synthesize spoken output
-response_text = "Spoken output"
 speak = speech_synthesizer.speak_text_async(response_text).get()
 if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
     print(speak.reason)
@@ -575,13 +576,15 @@ if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
 **C#**
 
 ```csharp
+var now = DateTime.Now;
+string responseText = "The time is " + now.Hour.ToString() + ":" + now.Minute.ToString("D2");
+
 // Configure speech synthesis
 speechConfig.SpeechSynthesisVoiceName = "en-GB-RyanNeural";
 using var audioConfig = AudioConfig.FromDefaultSpeakerOutput();
 using SpeechSynthesizer speechSynthesizer = new SpeechSynthesizer(speechConfig, audioConfig);
 
 // Synthesize spoken output
-var responseText = "Spoken output";
 SpeechSynthesisResult speak = await speechSynthesizer.SpeakTextAsync(responseText);
 if (speak.Reason != ResultReason.SynthesizingAudioCompleted)
 {
