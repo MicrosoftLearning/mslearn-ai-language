@@ -221,7 +221,7 @@ So far, the app doesn't do anything other than connect to your Azure AI Foundry 
 
     The resulting JSON output should include details of your Azure account and the subscription you are working in (which should be the same subscription in which you created your Azure AI Foundry project.)
 
-    Your app uses the Azure credentials for the context in which it's run to authenticate the connection to your project. In a proudction environment the app might be configured to run using a managed identity. In this development environment, it will use your authenticated cloud shell session credentials.
+    Your app uses the Azure credentials for the context in which it's run to authenticate the connection to your project. In a production environment the app might be configured to run using a managed identity. In this development environment, it will use your authenticated cloud shell session credentials.
 
     > **Note**: You can sign into Azure in your development environment by using the `az login` Azure CLI command. In this case, the cloud shell has already logged in using the Azure credentials you signed into the portal with; so signing in explicitly is unnecessary. To learn more about using the Azure CLI to authenticate to Azure, see [Authenticate to Azure using Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli).
 
