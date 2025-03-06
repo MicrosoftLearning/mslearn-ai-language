@@ -55,8 +55,8 @@ Let's start by creating an Azure AI Foundry project.
 1. In the PowerShell pane, enter the following commands to clone the GitHub repo for this exercise:
 
     ```
-    rm -r mslearn-ai-language -f
-    git clone https://github.com/microsoftlearning/mslearn-ai-language mslearn-ai-language
+   rm -r mslearn-ai-language -f
+   git clone https://github.com/microsoftlearning/mslearn-ai-language mslearn-ai-language
     ```
 
 > **Note**: Follow the steps for your chosen programming language.
@@ -207,29 +207,47 @@ Let's start by creating an Azure AI Foundry project.
    Console.WriteLine("Ready to use speech service in " + speechConfig.Region);
     ```
 
-1. Save your changes (*CTRL+S*), and then in the command line below the code editor, enter the following command to run the program:
+1. Save your changes (*CTRL+S*), but leave the code editor open.
 
-    **C#**
+## Run the app
+
+So far, the app doesn't do anything other than connect to your Azure AI Foundry project to retrieve the details needed to use the Speech service, but it's useful to run it and check that it works before adding speech functionality.
+
+1. In the command line below the code editor, enter the following Azure CLI command to determine the Azure account that is signed in for the session:
 
     ```
-    dotnet run
+   az account show
     ```
+
+    The resulting JSON output should include details of your Azure account and the subscription you are working in (which should be the same subscription in which you created your Azure AI Foundry project.)
+
+    Your app uses the Azure credentials for the context in which it's run to authenticate the connection to your project. In a proudction environment the app might be configured to run using a managed identity. In this development environment, it will use your authenticated cloud shell session credentials.
+
+    > **Note**: You can sign into Azure in your development environment by using the `az login` Azure CLI command. In this case, the cloud shell has already logged in using the Azure credentials you signed into the portal with; so signing in explicitly is unnecessary.
+
+1. In the command line, enter the following language-specific command to run the speaking clock app:
 
     **Python**
 
     ```
-    python speaking-clock.py
+   python speaking-clock.py
     ```
 
-1. If you are using C#, you can ignore any warnings about using the **await** operator in asynchronous methods - we'll fix that later. The code should display the region of the speech service resource the application will use.
+    **C#**
+
+    ```
+   dotnet run
+    ```
+
+1. If you are using C#, you can ignore any warnings about using the **await** operator in asynchronous methods - we'll fix that later. The code should display the region of the speech service resource the application will use. A successful run indicates that the app has connected to your Azure AI Foundry project and retrieved the key it needs to use the Azure AI Speech service.
 
 ## Add code to recognize speech
 
-Now that you have a **SpeechConfig** for the speech service in your Azure AI Speech resource, you can use the **Speech-to-text** API to recognize speech and transcribe it to text.
+Now that you have a **SpeechConfig** for the speech service in your project's Azure AI Services resource, you can use the **Speech-to-text** API to recognize speech and transcribe it to text.
 
-In this procedure, the speech input is captured from an audio file, which you can play here:
-
-<video controls src="media/Time.mp4" title="What time is it?" width="150"></video>
+> **Note**: In this procedure, the speech input is captured from an audio file, which you can play here:
+>
+> <video controls src="media/Time.mp4" title="What time is it?" width="150"></video>
 
 1. In the **Main** function, note that the code uses the **TranscribeCommand** function to accept spoken input. Then in the **TranscribeCommand** function, under the comment **Configure speech recognition**, add the appropriate code below to create a **SpeechRecognizer** client that can be used to recognize and transcribe speech from an audio file:
 
@@ -296,16 +314,16 @@ In this procedure, the speech input is captured from an audio file, which you ca
 
 1. Save your changes (*CTRL+S*), and then in the command line below the code editor, enter the following command to run the program:
 
-    **C#**
-
-    ```
-    dotnet run
-    ```
-
     **Python**
 
     ```
-    python speaking-clock.py
+   python speaking-clock.py
+    ```
+
+    **C#**
+
+    ```
+   dotnet run
     ```
 
 1. Review the output from the application, which should successfully "hear" the speech in the audio file and return an appropriate response (note that your Azure cloud shell may be running on a server that is in a different time-zone to yours!)
@@ -371,16 +389,16 @@ Once again, due to the hardware limitations of the cloud shell we'll direct the 
 
 1. Save your changes (*CTRL+S*), and then in the command line below the code editor, enter the following command to run the program:
 
+   **Python**
+
+    ```
+   python speaking-clock.py
+    ```
+
     **C#**
 
     ```
-    dotnet run
-    ```
-
-    **Python**
-
-    ```
-    python speaking-clock.py
+   dotnet run
     ```
 
 1. Review the output from the application, which should indicate that the spoken output was saved in a file.
@@ -394,9 +412,9 @@ Once again, due to the hardware limitations of the cloud shell we'll direct the 
 
     /home/*user*`/mslearn-ai-language/Labfiles/07b-speech/C-Sharp/speaking-clock/output.wav`
 
-    The file should sound similar to this:
-
-    <video controls src="./media/Output.mp4" title="It's 2:15" width="150"></video>
+    > **Note**: The file should sound similar to this:
+    > 
+    > <video controls src="./media/Output.mp4" title="The time is 2:15" width="150"></video>
 
 ## Use Speech Synthesis Markup Language
 
@@ -448,16 +466,16 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
 
 1. Save your changes and return to the integrated terminal for the **speaking-clock** folder, and enter the following command to run the program:
 
-    **C#**
-
-    ```
-    dotnet run
-    ```
-
     **Python**
 
     ```
-    python speaking-clock.py
+   python speaking-clock.py
+    ```
+
+    **C#**
+
+    ```
+   dotnet run
     ```
 
 1. Review the output from the application, which should indicate that the spoken output was saved in a file.
@@ -471,9 +489,9 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
 
     /home/*user*`/mslearn-ai-language/Labfiles/07b-speech/C-Sharp/speaking-clock/output.wav`
 
-    The file should sound similar to this:
-
-    <video controls src="./media/Output2.mp4" title="It's 5:30. Time to end this lab." width="150"></video>
+    > **Note**: The file should sound similar to this:
+    > 
+    > <video controls src="./media/Output2.mp4" title="The time is 5:30. Time to end this lab." width="150"></video>
 
 ## Clean up
 
