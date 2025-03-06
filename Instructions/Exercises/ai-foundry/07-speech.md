@@ -388,11 +388,11 @@ Once again, due to the hardware limitations of the cloud shell we'll direct the 
 
     **Python**
 
-    **/home/*user***`/mslearn-ai-language/labfiles/07b-speech/Python/speaking-clock/output.wav`
+    /home/*user*`/mslearn-ai-language/Labfiles/07b-speech/Python/speaking-clock/output.wav`
 
     **C#**
 
-    **/home/*user***`/mslearn-ai-language/labfiles/07b-speech/C-Sharp/speaking-clock/output.wav`
+    /home/*user*`/mslearn-ai-language/Labfiles/07b-speech/C-Sharp/speaking-clock/output.wav`
 
     The file should sound similar to this:
 
@@ -465,11 +465,11 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
 
     **Python**
 
-    **/home/*user***`/mslearn-ai-language/labfiles/07b-speech/Python/speaking-clock/output.wav`
+    /home/*user*`/mslearn-ai-language/Labfiles/07b-speech/Python/speaking-clock/output.wav`
 
     **C#**
 
-    **/home/*user***`/mslearn-ai-language/labfiles/07b-speech/C-Sharp/speaking-clock/output.wav`
+    /home/*user*`/mslearn-ai-language/Labfiles/07b-speech/C-Sharp/speaking-clock/output.wav`
 
     The file should sound similar to this:
 
