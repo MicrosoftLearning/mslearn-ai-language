@@ -229,7 +229,7 @@ Now that you have a **SpeechConfig** for the speech service in your Azure AI Spe
 
 In this procedure, the speech input is captured from an audio file, which you can play here:
 
-![What is the time?](./media/Time.mp4)
+<video controls src="media/Time.mp4" title="What time is it?" width="150"></video>
 
 1. In the **Main** function, note that the code uses the **TranscribeCommand** function to accept spoken input. Then in the **TranscribeCommand** function, under the comment **Configure speech recognition**, add the appropriate code below to create a **SpeechRecognizer** client that can be used to recognize and transcribe speech from an audio file:
 
@@ -396,7 +396,7 @@ Once again, due to the hardware limitations of the cloud shell we'll direct the 
 
     The file should sound similar to this:
 
-    ![It is 2:15](./media/Output.mp4)
+    <video controls src="./media/Output.mp4" title="It's 2:15" width="150"></video>
 
 ## Use Speech Synthesis Markup Language
 
@@ -473,7 +473,7 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
 
     The file should sound similar to this:
 
-    ![It is 5:30. Time to end this lab.](./media/Output2.mp4)
+    <video controls src="./media/Output2.mp4" title="It's 5:30. Time to end this lab." width="150"></video>
 
 ## Clean up
 
