@@ -503,7 +503,7 @@ If you've finished exploring Azure AI Speech, you should delete the resources yo
 
 ## What if you have a mic and speaker?
 
-In this exercise, you used audio files for the speech input and output. Let's see hw the code can be modified to use audio hardware.
+In this exercise, you used audio files for the speech input and output. Let's see how the code can be modified to use audio hardware.
 
 ### Using speech recognition with a microphone
 
