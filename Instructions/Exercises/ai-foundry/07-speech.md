@@ -59,7 +59,7 @@ Let's start by creating an Azure AI Foundry project.
    git clone https://github.com/microsoftlearning/mslearn-ai-language mslearn-ai-language
     ```
 
-> **Note**: Follow the steps for your chosen programming language.
+    > **Note**: Follow the steps for your chosen programming language.
 
 1. After the repo has been cloned, navigate to the folder containing the speaking clock application code files:  
 
