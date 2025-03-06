@@ -501,7 +501,11 @@ If you've finished exploring Azure AI Speech, you should delete the resources yo
 1. On the toolbar, select **Delete resource group**.
 1. Enter the resource group name and confirm that you want to delete it.
 
-## So what if you'd had a mic and speakers?
+## What if you have a mic and speaker?
+
+In this exercise, you used audio files for the speech input and output. Let's see hw the code can be modified to use audio hardware.
+
+### Using speech recognition with a microphone
 
 If you have a mic, you can use the following code to capture spoken input for speech recognition:
 
@@ -554,6 +558,8 @@ else
 ```
 
 > **Note**: The system default microphone is the default audio input, so you could also just omit the AudioConfig altogether!
+
+### Using speech synthesis with a speaker
 
 If you have a speaker, you can use the following code to synthesize speech.
 
