@@ -3,6 +3,7 @@ lab:
     title: 'Translate Text'
     module: 'Module 3 - Getting Started with Natural Language Processing'
 ---
+{% assign site.title = page.title %}
 
 # Translate Text
 
