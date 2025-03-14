@@ -52,13 +52,13 @@ Applications for both C# and Python have been provided. Both apps feature the sa
     **C#**:
 
     ```
-    dotnet add package Azure.AI.Translation.Text --version 1.0.0-beta.1
+    dotnet add package Azure.AI.Translation.Text --version 1.0.0
     ```
 
     **Python**:
 
     ```
-    pip install azure-ai-translation-text==1.0.0b1
+    pip install azure-ai-translation-text==1.0.1
     ```
 
 3. In the **Explorer** pane, in the **translate-text** folder, open the configuration file for your preferred language
