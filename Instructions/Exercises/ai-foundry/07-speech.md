@@ -4,6 +4,10 @@ lab:
     module: 'Module 4 - Create speech-enabled apps with Azure AI services'
 ---
 
+<!--
+Possibly update to use standalone AI Service instead of Foundry?
+-->
+
 # Recognize and synthesize speech
 
 **Azure AI Speech** is a service that provides speech-related functionality, including:
