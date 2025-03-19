@@ -2,6 +2,8 @@
 <html lang="en">
     <head>
         <title>
+            <!-- Title for the page, if it exists, otherwise use the site title -->
+            {% if page.title %}{{ page.title }} | {% endif %}
             {% if page.lab.title %}{{ page.lab.tile }} | {% endif %}{{ site.title }}
         </title>
         <meta charset="utf-8">
