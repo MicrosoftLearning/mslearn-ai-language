@@ -42,7 +42,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
 
 ## Roles for your user
-> **NOTE**: If you skip this step, you'll have a 403 error when trying to connect to your custom project. It's important that your current user has this role to access storage account blob data, even if you're the owner of the storage account.**
+> **NOTE**: If you skip this step, you'll have a 403 error when trying to connect to your custom project. It's important that your current user has this role to access storage account blob data, even if you're the owner of the storage account.
 
 1. Go to your storage account page in the Azure portal.
 2. Select **Access Control (IAM)** in the left navigation menu.
