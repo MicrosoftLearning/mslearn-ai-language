@@ -116,28 +116,39 @@ The knowledge base provides a back-end service that client applications can use 
     - **deploymentName**: The name of your deployment (which should be *production*)
 1. Close the prediction URL dialog box.
 
-## Prepare to develop an app in Visual Studio Code
+## Prepare to develop an app in Cloud Shell
 
-You'll develop your question answering app using Visual Studio Code. The code files for your app have been provided in a GitHub repo.
+You'll develop your question answering app using Cloud Shell in the Azure portal. The code files for your app have been provided in a GitHub repo.
 
-> **Tip**: If you have already cloned the **mslearn-ai-language** repo, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.
+> **Tip**: If you have already cloned the **mslearn-ai-language** repo, you can skip this task. Otherwise, follow these steps to clone it to your development environment.
 
-1. Start Visual Studio Code.
-2. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-language` repository to a local folder (it doesn't matter which folder).
-3. When the repository has been cloned, open the folder in Visual Studio Code.
+1. In the Azure Portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
 
-    > **Note**: If Visual Studio Code shows you a pop-up message to prompt you to trust the code you are opening, click on **Yes, I trust the authors** option in the pop-up.
+    > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
 
-4. Wait while additional files are installed to support the C# code projects in the repo.
+1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
-    > **Note**: If you are prompted to add required assets to build and debug, select **Not Now**.
+    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
+
+1. In the PowerShell pane, enter the following commands to clone the GitHub repo for this exercise:
+
+    ```
+    rm -r mslearn-ai-language -f
+    git clone https://github.com/microsoftlearning/mslearn-ai-language mslearn-ai-language
+    ```
+
+1. After the repo has been cloned, navigate to the folder containing the application code files:  
+
+    ```
+   cd mslearn-ai-vision/Labfiles/02-qna
+    ```
 
 ## Configure your application
 
 Applications for both C# and Python have been provided, as well as a sample text file you'll use to test the summarization. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Language resource.
 
-1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/02-qna** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **qna-app** folder it contains. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language question answering functionality.
-2. Right-click the **qna-app** folder containing your code files and open an integrated terminal. Then install the Azure AI Language question answering SDK package by running the appropriate command for your language preference:
+1. Run the command `cd C-Sharp/qna-app` or `cd Python/qna-app` depending on your language preference. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language question answering functionality.
+1. Install the Azure AI Language question answering SDK package by running the appropriate command for your language preference:
 
     **C#**:
 
@@ -151,13 +162,28 @@ Applications for both C# and Python have been provided, as well as a sample text
     pip install azure-ai-language-questionanswering
     ```
 
-3. In the **Explorer** pane, in the **qna-app** folder, open the configuration file for your preferred language
-
+1. Using the `ls` command, you can view the contents of the **qna-app** folder. Note that it contains a file for configuration settings:
     - **C#**: appsettings.json
     - **Python**: .env
-    
-4. Update the configuration values to include the  **endpoint** and a **key** from the Azure Language resource you created (available on the **Keys and Endpoint** page for your Azure AI Language resource in the Azure portal). The project name and deployment name for your deployed knowledge base should also be in this file.
-5. Save the configuration file.
+
+1. Enter the following command to edit the configuration file that has been provided:
+
+    **C#**
+
+    ```
+   code appsettings.json
+    ```
+
+    **Python**
+
+    ```
+   code .env
+    ```
+
+    The file is opened in a code editor.
+
+1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for the Azure Language resource you created (available on the **Keys and Endpoint** page for your Azure AI Language resource in the Azure portal). The project name and deployment name for your deployed knowledge base should also be in this file.
+1. After you've replaced the placeholders, within the code editor, use the **CTRL+S** command or **Right-click > Save** to save your changes and then use the **CTRL+Q** command or **Right-click > Quit** to close the code editor while keeping the cloud shell command line open.
 
 ## Add code to the application
 
@@ -248,12 +274,12 @@ Now you're ready to add the code necessary to import the required SDK libraries,
             print("Source: {}".format(candidate.source))
     ```
 
-1. Save your changes and return to the integrated terminal for the **qna-app** folder, and enter the following command to run the program:
+1. Save your changes and close the code editor, then enter the following command to run the program:
 
     - **C#**: `dotnet run`
     - **Python**: `python qna-app.py`
 
-    > **Tip**: You can use the **Maximize panel size** (**^**) icon in the terminal toolbar to see more of the console text.
+    > **Tip**: You can maximize the panel size in the terminal toolbar to see more of the console text.
 
 1. When prompted, enter a question to be submitted to your question answering project; for example `What is a learning path?`.
 1. Review the answer that is returned.
