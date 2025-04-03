@@ -315,7 +315,7 @@ In a real project, you'd iteratively refine intents and entities, retrain, and r
 
 ### Prepare to develop an app in Cloud Shell
 
-You'll develop your language understanding app using Visual Studio Code. The code files for your app have been provided in a GitHub repo.
+You'll develop your language understanding app using Cloud Shell in the Azure portal. The code files for your app have been provided in a GitHub repo.
 
 > **Tip**: If you have already cloned the **mslearn-ai-language** repo, you can skip this task. Otherwise, follow these steps to clone it to your development environment.
 
