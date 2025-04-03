@@ -33,7 +33,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 You'll develop your code using Cloud Shell from the Azure Portal. The code files for your app have been provided in a GitHub repo.
 
-> **Tip**: If you have already cloned the **mslearn-ai-vision** repo recently, you can skip this task. Otherwise, follow these steps to clone it to your development environment.
+> **Tip**: If you have already cloned the **mslearn-ai-language** repo recently, you can skip this task. Otherwise, follow these steps to clone it to your development environment.
 
 1. In the Azure Portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
 
