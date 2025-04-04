@@ -195,7 +195,7 @@ To test the custom text classification capabilities of the Azure AI Language ser
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-   cd mslearn-ai-vision/Labfiles/04-text-classification
+   cd mslearn-ai-language/Labfiles/04-text-classification
     ```
 
 ## Configure your application
