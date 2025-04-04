@@ -215,6 +215,7 @@ Applications for both C# and Python have been provided, as well as a sample text
 
     ```
     pip install azure-ai-textanalytics==5.3.0
+    pip install dotenv
     ```
 
 1. Using the `ls` command, you can view the contents of the **classify-text** folder. Note that it contains a file for configuration settings:
