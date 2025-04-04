@@ -140,7 +140,7 @@ You'll develop your question answering app using Cloud Shell in the Azure portal
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-   cd mslearn-ai-vision/Labfiles/02-qna
+   cd mslearn-ai-language/Labfiles/02-qna
     ```
 
 ## Configure your application
