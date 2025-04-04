@@ -183,6 +183,7 @@ Applications for both C# and Python have been provided. Both apps feature the sa
 
     ```
     pip install azure-ai-textanalytics==5.3.0
+    pip install dotenv
     ```
 
 1. In the **Explorer** pane, in the **custom-entities** folder, open the configuration file for your preferred language
