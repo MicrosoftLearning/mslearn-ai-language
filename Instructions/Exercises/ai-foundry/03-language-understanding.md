@@ -337,7 +337,7 @@ You'll develop your language understanding app using Cloud Shell in the Azure po
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-   cd mslearn-ai-vision/Labfiles/03-language
+   cd mslearn-ai-language/Labfiles/03-language
     ```
 
 ### Configure your application
