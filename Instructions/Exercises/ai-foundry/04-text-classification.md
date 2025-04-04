@@ -171,7 +171,7 @@ When you're satisfied with the training of your model, it's time to deploy it, w
 1. Select **Deploy** to deploy your model.
 1. Once your model is deployed, leave that page open. You'll need your project and deployment name in the next step.
 
-## Prepare to develop an app in Visual Studio Code
+## Prepare to develop an app in Cloud Shell
 
 To test the custom text classification capabilities of the Azure AI Language service, you'll develop a simple console application in Cloud Shell.
 
