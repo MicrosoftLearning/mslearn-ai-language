@@ -174,7 +174,7 @@ To test the custom entity extraction capabilities of the Azure AI Language servi
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-   cd mslearn-ai-vision/Labfiles/05-custom-entity-recognition
+   cd mslearn-ai-language/Labfiles/05-custom-entity-recognition
     ```
 
 ## Configure your application
