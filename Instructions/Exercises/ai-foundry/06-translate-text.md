@@ -14,63 +14,88 @@ lab:
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Translator** resource.
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-1. In the search field at the top, search for **Azure AI services** and press **Enter**, then select **Create** under **Translator** in the results.
+1. In the search field at the top, search for **Translators** then select **Translators** in the results.
 1. Create a resource with the following settings:
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Choose or create a resource group*
     - **Region**: *Choose any available region*
     - **Name**: *Enter a unique name*
     - **Pricing tier**: Select **F0** (*free*), or **S** (*standard*) if F is not available.
-    - **Responsible AI Notice**: Agree.
 1. Select **Review + create**, then select **Create** to provision the resource.
 1. Wait for deployment to complete, and then go to the deployed resource.
 1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
 
-## Prepare to develop an app in Visual Studio Code
+## Prepare to develop an app in Cloud Shell
+You'll develop your text translation app using Cloud Shell. The code files for your app have been provided in a GitHub repo.
 
-You'll develop your text translation app using Visual Studio Code. The code files for your app have been provided in a GitHub repo.
+> **Tip**: If you have already cloned the **mslearn-ai-language** repo, you can skip this task. Otherwise, follow these steps to clone it to your development environment.
 
-> **Tip**: If you have already cloned the **mslearn-ai-language** repo, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.
+1. In the Azure Portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
 
-1. Start Visual Studio Code.
-2. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-language` repository to a local folder (it doesn't matter which folder).
-3. When the repository has been cloned, open the folder in Visual Studio Code.
+    > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
 
-    > **Note**: If Visual Studio Code shows you a pop-up message to prompt you to trust the code you are opening, click on **Yes, I trust the authors** option in the pop-up.
+1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
-4. Wait while additional files are installed to support the C# code projects in the repo.
+    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
 
-    > **Note**: If you are prompted to add required assets to build and debug, select **Not Now**.
+1. In the PowerShell pane, enter the following commands to clone the GitHub repo for this exercise:
+
+    ```
+    rm -r mslearn-ai-language -f
+    git clone https://github.com/microsoftlearning/mslearn-ai-language mslearn-ai-language
+    ```
+
+1. After the repo has been cloned, navigate to the folder containing the application code files:  
+
+    ```
+   cd mslearn-ai-language/Labfiles/06b-translator-sdk
+    ```
 
 ## Configure your application
 
 Applications for both C# and Python have been provided. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Translator resource.
 
-1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/06b-translator-sdk** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **translate-text** folder it contains. Each folder contains the language-specific code files for an app into which you're you're going to integrate Azure AI Translator functionality.
-2. Right-click the **translate-text** folder containing your code files and open an integrated terminal. Then install the Azure AI Translator SDK package by running the appropriate command for your language preference:
+1. Run the command `cd C-Sharp/translate-text` or `cd Python/translate-text` depending on your language preference. Each folder contains the language-specific code files for an app into which you're you're going to integrate Azure AI Translator functionality.
+1. Install the Azure AI Translator SDK package by running the appropriate command for your language preference:
 
     **C#**:
 
     ```
-    dotnet add package Azure.AI.Translation.Text --version 1.0.0-beta.1
+    dotnet add package Azure.AI.Translation.Text --version 1.0.0
     ```
 
     **Python**:
 
     ```
-    pip install azure-ai-translation-text==1.0.0b1
+    pip install azure-ai-translation-text==1.0.0
     ```
 
-3. In the **Explorer** pane, in the **translate-text** folder, open the configuration file for your preferred language
+1. Using the `ls` command, you can view the contents of the **translate-text** folder. Note that it contains a file for configuration settings:
 
     - **C#**: appsettings.json
     - **Python**: .env
-    
-4. Update the configuration values to include the  **region** and a **key** from the Azure AI Translator resource you created (available on the **Keys and Endpoint** page for your Azure AI Translator resource in the Azure portal).
+
+1. Enter the following command to edit the configuration file that has been provided:
+
+    **C#**
+
+    ```
+   code appsettings.json
+    ```
+
+    **Python**
+
+    ```
+   code .env
+    ```
+
+    The file is opened in a code editor.
+
+1. Update the configuration values to include the  **region** and a **key** from the Azure AI Translator resource you created (available on the **Keys and Endpoint** page for your Azure AI Translator resource in the Azure portal).
 
     > **NOTE**: Be sure to add the *region* for your resource, <u>not</u> the endpoint!
 
-5. Save the configuration file.
+1. After you've replaced the placeholders, within the code editor, use the **CTRL+S** command or **Right-click > Save** to save your changes and then use the **CTRL+Q** command or **Right-click > Quit** to close the code editor while keeping the cloud shell command line open.
 
 ## Add code to translate text
 
@@ -202,18 +227,18 @@ Now you're ready to use Azure AI Translator to translate text.
                     print(f"'{inputText}' was translated from {sourceLanguage.language} to {translated_text.to} as '{translated_text.text}'.")
     ```
 
-1. Save the changes to your code file.
+1. Save the changes to your code file and close the code editor.
 
 ## Test your application
 
 Now your application is ready to test.
 
-1. In the integrated terminal for the **Translate text** folder, and enter the following command to run the program:
+1. Enter the following command to run the program:
 
     - **C#**: `dotnet run`
     - **Python**: `python translate.py`
 
-    > **Tip**: You can use the **Maximize panel size** (**^**) icon in the terminal toolbar to see more of the console text.
+    > **Tip**: You can maximize the panel size in the terminal toolbar to see more of the console text.
 
 1. When prompted, enter a valid target language from the list displayed.
 1. Enter a phrase to be translated (for example `This is a test` or `C'est un test`) and view the results, which should detect the source language and translate the text to the target language.
