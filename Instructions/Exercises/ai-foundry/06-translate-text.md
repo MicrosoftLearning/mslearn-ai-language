@@ -149,8 +149,8 @@ Now you're ready to use Azure AI Translator to translate text.
 
     ```csharp
     // Choose target language
-    Response<GetLanguagesResult> languagesResponse = await client.GetLanguagesAsync(scope:"translation").ConfigureAwait(false);
-    GetLanguagesResult languages = languagesResponse.Value;
+    Response<GetSupportedLanguagesResult> languagesResponse = await client.GetSupportedLanguagesAsync(scope:"translation").ConfigureAwait(false);
+    GetSupportedLanguagesResult languages = languagesResponse.Value;
     Console.WriteLine($"{languages.Translation.Count} languages available.\n(See https://learn.microsoft.com/azure/ai-services/translator/language-support#translation)");
     Console.WriteLine("Enter a target language code for translation (for example, 'en'):");
     string targetLanguage = "xx";
@@ -205,7 +205,7 @@ Now you're ready to use Azure AI Translator to translate text.
             IReadOnlyList<TranslatedTextItem> translations = translationResponse.Value;
             TranslatedTextItem translation = translations[0];
             string sourceLanguage = translation?.DetectedLanguage?.Language;
-            Console.WriteLine($"'{inputText}' translated from {sourceLanguage} to {translation?.Translations[0].To} as '{translation?.Translations?[0]?.Text}'.");
+            Console.WriteLine($"'{inputText}' translated from {sourceLanguage} to {translation?.Translations[0].TargetLanguage} as '{translation?.Translations?[0]?.Text}'.");
         }
     } 
     ```
