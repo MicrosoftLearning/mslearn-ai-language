@@ -68,6 +68,7 @@ Applications for both C# and Python have been provided. Both apps feature the sa
 
     ```
     pip install azure-ai-translation-text==1.0.0
+    pip install dotenv
     ```
 
 1. Using the `ls` command, you can view the contents of the **translate-text** folder. Note that it contains a file for configuration settings:
@@ -120,6 +121,7 @@ Now you're ready to use Azure AI Translator to translate text.
 
     ```python
     # import namespaces
+    from azure.core.credentials import AzureKeyCredential
     from azure.ai.translation.text import *
     from azure.ai.translation.text.models import InputTextItem
     ```
@@ -139,8 +141,8 @@ Now you're ready to use Azure AI Translator to translate text.
 
     ```python
     # Create client using endpoint and key
-    credential = TranslatorCredential(translatorKey, translatorRegion)
-    client = TextTranslationClient(credential)
+    credential = AzureKeyCredential(translatorKey)
+    client = TextTranslationClient(credential=credential, region=translatorRegion)
     ```
 
 1. Find the comment **Choose target language** and add the following code, which uses the Text Translator service to return  list of supported languages for translation, and prompts the user to select a language code for the target language.
@@ -174,7 +176,7 @@ Now you're ready to use Azure AI Translator to translate text.
 
     ```python
     # Choose target language
-    languagesResponse = client.get_languages(scope="translation")
+    languagesResponse = client.get_supported_languages(scope="translation")
     print("{} languages supported.".format(len(languagesResponse.translation)))
     print("(See https://learn.microsoft.com/azure/ai-services/translator/language-support#translation)")
     print("Enter a target language code for translation (for example, 'en'):")
@@ -219,7 +221,7 @@ Now you're ready to use Azure AI Translator to translate text.
         inputText = input("Enter text to translate ('quit' to exit):")
         if inputText != "quit":
             input_text_elements = [InputTextItem(text=inputText)]
-            translationResponse = client.translate(content=input_text_elements, to=[targetLanguage])
+            translationResponse = client.translate(body=input_text_elements, to_language=[targetLanguage])
             translation = translationResponse[0] if translationResponse else None
             if translation:
                 sourceLanguage = translation.detected_language
