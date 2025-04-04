@@ -53,7 +53,7 @@ You'll develop your code using Cloud Shell from the Azure Portal. The code files
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-   cd mslearn-ai-vision/Labfiles/01-analyze-text
+   cd mslearn-ai-language/Labfiles/01-analyze-text
     ```
 
 ## Configure your application
