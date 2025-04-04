@@ -202,7 +202,7 @@ To test the custom text classification capabilities of the Azure AI Language ser
 
 Applications for both C# and Python have been provided, as well as a sample text file you'll use to test the summarization. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Language resource.
 
-1. Run the command `cd C-Sharp/classify-text` or `cd Python/classify-text` depending on your language preference. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language text classification functionality.
+1. Run the command `cd C-Sharp/classify-text` or `cd Python/classify-text` depending on your language preference. Each folder contains the language-specific files for an app into which you're going to integrate Azure AI Language text classification functionality.
 1. Install the Azure AI Language Text Analytics SDK package by running the appropriate command for your language preference:
 
     **C#**:
