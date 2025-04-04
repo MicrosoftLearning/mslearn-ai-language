@@ -160,6 +160,7 @@ Applications for both C# and Python have been provided, as well as a sample text
 
     ```
     pip install azure-ai-language-questionanswering
+    pip install dotenv
     ```
 
 1. Using the `ls` command, you can view the contents of the **qna-app** folder. Note that it contains a file for configuration settings:
