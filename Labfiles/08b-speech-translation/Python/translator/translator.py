@@ -15,6 +15,9 @@ def main():
         project_connection = os.getenv('PROJECT_CONNECTION')
         location = os.getenv('LOCATION')
 
+        # Get AI Services key from the project
+        
+        
         # Configure translation
 
 
