@@ -84,6 +84,8 @@ Let's start by creating an Azure AI Foundry project.
     **Python**
 
     ```
+   python -m venv labenv
+   ./labenv/bin/Activate.ps1
    pip install python-dotenv azure-identity azure-ai-projects azure-cognitiveservices-speech==1.42.0
     ```
 
