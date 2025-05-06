@@ -4,7 +4,7 @@ lab:
     description: 'Learn how to use Azure AI Foundry to build a generative AI app that supports audio input.'
 ---
 
-# Develop a audio-enabled chat app
+# Develop an audio-enabled chat app
 
 In this exercise, you use the *Phi-4-multimodal-instruct* generative AI model to generate responses to prompts that include audio files. You'll develop an app that provides AI assistance with fresh produce in a grocery store by using Azure AI Foundry and the Azure AI Model Inference service.
 
