@@ -327,11 +327,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
     **C#**
 
     ```csharp
-    // Read and encode the image file
-    byte[] imageBytes = File.ReadAllBytes(imagePath);
-    var binaryImage = new BinaryData(imageBytes);
-        
-    // Include the image file data in the prompt
+    // Get a response to audio input
     ChatCompletionsOptions requestOptions = new ChatCompletionsOptions()
     {
         Messages = {
