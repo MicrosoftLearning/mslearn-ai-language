@@ -16,7 +16,7 @@ Let's start by creating an Azure AI Foundry project.
 
 1. In a web browser, open the [Azure AI Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the **Azure AI Foundry** logo at the top left to navigate to the home page, which looks similar to the following image:
 
-    ![Screenshot of Azure AI Foundry portal.](./ai-foundry/media/ai-foundry-home.png)
+    ![Screenshot of Azure AI Foundry portal.](./media/ai-foundry-home.png)
 
 2. In the home page, select **+ Create project**.
 3. In the **Create a project** wizard, enter a valid name for your project and if an existing hub is suggested, choose the option to create a new one. Then review the Azure resources that will be automatically created to support your hub and project.
@@ -40,7 +40,7 @@ Let's start by creating an Azure AI Foundry project.
 5. Select **Next** and review your configuration. Then select **Create** and wait for the process to complete.
 6. When your project is created, close any tips that are displayed and review the project page in Azure AI Foundry portal, which should look similar to the following image:
 
-    ![Screenshot of a Azure AI project details in Azure AI Foundry portal.](./ai-foundry/media/ai-foundry-project.png)
+    ![Screenshot of a Azure AI project details in Azure AI Foundry portal.](./media/ai-foundry-project.png)
 
 ## Deploy a multimodal model
 
@@ -228,7 +228,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. In the code editor for the **audio-chat.py** file, in the loop section, under the comment **Get a response to audio input**, add the following code to submit a prompt that includes the following audio:
 
-    <video controls src="./ai-foundry/media/manzanas.mp4" title="A request for apples" width="150"></video>
+    <video controls src="./media/manzanas.mp4" title="A request for apples" width="150"></video>
 
     **Python**
 
@@ -300,7 +300,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. In the code editor for your app code, in the loop section, find the code you added previously under the comment **Get a response to audio input**. Then modify the code as follows to upload a different audio file:
 
-    <video controls src="./ai-foundry/media/caomei.mp4" title="A request for strawberries" width="150"></video>
+    <video controls src="./media/caomei.mp4" title="A request for strawberries" width="150"></video>
 
     **Python**
 
