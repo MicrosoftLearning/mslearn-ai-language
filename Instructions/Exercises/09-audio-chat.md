@@ -56,19 +56,6 @@ Now you're ready to deploy a multimodal model that can support audio-based input
     - **Deployment details**: *Use the default settings*
 6. Wait for the deployment provisioning state to be **Completed**.
 
-## Test the model in the playground
-
-Now that you have a multimodal model deployment, you can test it with an audio-based prompt in the chat playground.
-
-1. In the navigation pane on the left, select the **Playgrounds** page and open the **Chat** playground.
-1. 1. In a new browser tab, download [caomei.mp3](https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/caomei.mp3) from `https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/caomei.mp3` and save it to a folder on your local file system.
-1. On the chat playground page, in the **Setup** pane, ensure that your **Phi-4-multimodal-instruct** model model deployment is selected.
-1. In the main chat session panel, under the chat input box, use the attach button (**&#128206;**) to upload the *caomei.mp3* audio file, and then add the text `What desserts could I make with this fruit?` and submit the prompt.
-
-    ![Screenshot of the chat playground with an audio-based prompt.](../media/chat-playground-image.png) TODO
-
-1. Review the response, which should hopefully provide relevant guidance for desserts you can make using a mango.
-
 ## Create a client application
 
 Now that you've deployed the model, you can use the deployment in a client application.
@@ -241,7 +228,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. In the code editor for the **audio-chat.py** file, in the loop section, under the comment **Get a response to audio input**, add the following code to submit a prompt that includes the following audio:
 
-    <video controls src="./media/manzanas.mp4" title="The time is 2:15" width="150"></video>
+    <video controls src="./media/manzanas.mp4" title="A request for apples" width="150"></video>
 
     **Python**
 
@@ -313,6 +300,8 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. In the code editor for your app code, in the loop section, find the code you added previously under the comment **Get a response to audio input**. Then modify the code as follows to upload a different audio file:
 
+    <video controls src="./media/caomei.mp4" title="A request for strawberries" width="150"></video>
+
     **Python**
 
     ```python
@@ -338,10 +327,6 @@ Now that you've deployed the model, you can use the deployment in a client appli
     **C#**
 
     ```csharp
-    // Get a response to image input
-    string imagePath = "mystery-fruit.jpeg";
-    string mimeType = "image/jpeg";
-        
     // Read and encode the image file
     byte[] imageBytes = File.ReadAllBytes(imagePath);
     var binaryImage = new BinaryData(imageBytes);
@@ -381,7 +366,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 4. When prompted, enter the following prompt:
 
     ```
-   `What is this fruit? What recipes could I use it in?
+    A customer left this voice message, can you summarize it?
     ```
 
 5. Review the response. Then enter `quit` to exit the program.
