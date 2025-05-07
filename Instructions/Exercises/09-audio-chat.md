@@ -236,7 +236,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
     # Get a response to audio input
-    file_path = "https://github.com/microsoftlearning/mslearn-ai-studio/raw/refs/heads/main/labfiles/09-audio-chat/data/manzanas.mp3"
+    file_path = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/manzanas.mp3"
     response = chat_client.complete(
         messages=[
             SystemMessage(system_message),
@@ -258,7 +258,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```csharp
     // Get a response to audio input
-    string audioUrl = "https://github.com/microsoftlearning/mslearn-ai-studio/raw/refs/heads/main/labfiles/09-audio-chat/data/manzanas.mp3";
+    string audioUrl = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/manzanas.mp3";
     var requestOptions = new ChatCompletionsOptions()
     {
         Messages =
@@ -304,7 +304,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
     # Get a response to audio input
-    file_path = "https://github.com/microsoftlearning/mslearn-ai-studio/raw/refs/heads/main/labfiles/09-audio-chat/data/caomei.mp3"
+    file_path = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/caomei.mp3"
     response = chat_client.complete(
         messages=[
             SystemMessage(system_message),
@@ -326,7 +326,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```csharp
     // Get a response to audio input
-    string audioUrl = "https://github.com/microsoftlearning/mslearn-ai-studio/raw/refs/heads/main/labfiles/09-audio-chat/data/caomei.mp3";
+    string audioUrl = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/caomei.mp3";
     var requestOptions = new ChatCompletionsOptions()
     {
         Messages =
