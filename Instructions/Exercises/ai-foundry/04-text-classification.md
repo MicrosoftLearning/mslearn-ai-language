@@ -171,28 +171,39 @@ When you're satisfied with the training of your model, it's time to deploy it, w
 1. Select **Deploy** to deploy your model.
 1. Once your model is deployed, leave that page open. You'll need your project and deployment name in the next step.
 
-## Prepare to develop an app in Visual Studio Code
+## Prepare to develop an app in Cloud Shell
 
-To test the custom text classification capabilities of the Azure AI Language service, you'll develop a simple console application in Visual Studio Code.
+To test the custom text classification capabilities of the Azure AI Language service, you'll develop a simple console application in Cloud Shell.
 
-> **Tip**: If you have already cloned the **mslearn-ai-language** repo, open it in Visual Studio code. Otherwise, follow these steps to clone it to your development environment.
+> **Tip**: If you have already cloned the **mslearn-ai-language** repo, you can skip this task. Otherwise, follow these steps to clone it to your development environment.
 
-1. Start Visual Studio Code.
-2. Open the palette (SHIFT+CTRL+P) and run a **Git: Clone** command to clone the `https://github.com/MicrosoftLearning/mslearn-ai-language` repository to a local folder (it doesn't matter which folder).
-3. When the repository has been cloned, open the folder in Visual Studio Code.
+1. In the Azure Portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
 
-    > **Note**: If Visual Studio Code shows you a pop-up message to prompt you to trust the code you are opening, click on **Yes, I trust the authors** option in the pop-up.
+    > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
 
-4. Wait while additional files are installed to support the C# code projects in the repo.
+1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
-    > **Note**: If you are prompted to add required assets to build and debug, select **Not Now**.
+    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
+
+1. In the PowerShell pane, enter the following commands to clone the GitHub repo for this exercise:
+
+    ```
+    rm -r mslearn-ai-language -f
+    git clone https://github.com/microsoftlearning/mslearn-ai-language mslearn-ai-language
+    ```
+
+1. After the repo has been cloned, navigate to the folder containing the application code files:  
+
+    ```
+   cd mslearn-ai-language/Labfiles/04-text-classification
+    ```
 
 ## Configure your application
 
 Applications for both C# and Python have been provided, as well as a sample text file you'll use to test the summarization. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Language resource.
 
-1. In Visual Studio Code, in the **Explorer** pane, browse to the **Labfiles/04-text-classification** folder and expand the **CSharp** or **Python** folder depending on your language preference and the **classify-text** folder it contains. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language text classification functionality.
-1. Right-click the **classify-text** folder containing your code files and open an integrated terminal. Then install the Azure AI Language Text Analytics SDK package by running the appropriate command for your language preference:
+1. Run the command `cd C-Sharp/classify-text` or `cd Python/classify-text` depending on your language preference. Each folder contains the language-specific files for an app into which you're going to integrate Azure AI Language text classification functionality.
+1. Install the Azure AI Language Text Analytics SDK package by running the appropriate command for your language preference:
 
     **C#**:
 
@@ -204,27 +215,43 @@ Applications for both C# and Python have been provided, as well as a sample text
 
     ```
     pip install azure-ai-textanalytics==5.3.0
+    pip install dotenv
     ```
 
-1. In the **Explorer** pane, in the **classify-text** folder, open the configuration file for your preferred language
+1. Using the `ls` command, you can view the contents of the **classify-text** folder. Note that it contains a file for configuration settings:
 
     - **C#**: appsettings.json
     - **Python**: .env
-    
-1. Update the configuration values to include the  **endpoint** and a **key** from the Azure Language resource you created (available on the **Keys and Endpoint** page for your Azure AI Language resource in the Azure portal). The file should already contain the project and deployment names for your text classification model.
-1. Save the configuration file.
+
+1. Enter the following command to edit the configuration file that has been provided:
+
+    **C#**
+
+    ```
+   code appsettings.json
+    ```
+
+    **Python**
+
+    ```
+   code .env
+    ```
+
+    The file is opened in a code editor.
+
+1. Update the configuration values to include the  **endpoint** and a **key** from the Azure Language resource you created (available on the **Keys and Endpoint** page for your Azure AI Language resource in the Azure portal).The file should already contain the project and deployment names for your text classification model.
+1. After you've replaced the placeholders, within the code editor, use the **CTRL+S** command or **Right-click > Save** to save your changes and then use the **CTRL+Q** command or **Right-click > Quit** to close the code editor while keeping the cloud shell command line open.
 
 ## Add code to classify documents
 
 Now you're ready to use the Azure AI Language service to classify documents.
 
-1. Expand the **articles** folder in the **classify-text** folder to view the text articles that your application will classify.
-1. In the **classify-text** folder, open the code file for the client application:
+1. Note that the **classify-text** folder contains a code file for the client application:
 
     - **C#**: Program.cs
     - **Python**: classify-text.py
 
-1. Find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Text Analytics SDK:
+1. Open the code file and find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Text Analytics SDK:
 
     **C#**: Programs.cs
 
@@ -261,7 +288,7 @@ Now you're ready to use the Azure AI Language service to classify documents.
     ai_client = TextAnalyticsClient(endpoint=ai_endpoint, credential=credential)
     ```
 
-1. in the **Main** function, note that the existing code reads all of the files in the **articles** folder and creates a list containing their contents. Then find the comment **Get Classifications** and add the following code:
+1. In the **Main** function, note that the existing code reads all of the files in the **articles** folder and creates a list containing their contents. Then find the comment **Get Classifications** and add the following code:
 
     **C#**: Program.cs
 
@@ -322,21 +349,20 @@ Now you're ready to use the Azure AI Language service to classify documents.
             )
     ```
 
-1. Save the changes to your code file.
+1. Save the changes to your code file and close the code editor.
 
 ## Test your application
 
 Now your application is ready to test.
 
-1. In the integrated terminal for the **classify-text** folder, and enter the following command to run the program:
+1. Enter the following command to run the program:
 
     - **C#**: `dotnet run`
     - **Python**: `python classify-text.py`
 
-    > **Tip**: You can use the **Maximize panel size** (**^**) icon in the terminal toolbar to see more of the console text.
+    > **Tip**: You can maximize the panel size in the terminal toolbar to see more of the console text.
 
 1. Observe the output. The application should list a classification and confidence score for each text file.
-
 
 ## Clean up
 
