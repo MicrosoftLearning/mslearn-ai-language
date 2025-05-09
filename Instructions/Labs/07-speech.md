@@ -1,7 +1,7 @@
 ---
 lab:
-    title: 'Recognize and Synthesize Speech (Azure AI Foundry version)'
-    module: 'Module 4 - Create speech-enabled apps with Azure AI services'
+    title: 'Recognize and Synthesize Speech'
+    description: "Implement a speaking clock that converts speech to text, and text to speech."
 ---
 
 <!--
@@ -21,7 +21,7 @@ In this exercise, you'll use both of these APIs to implement a speaking clock ap
 > This exercise is designed to be completed in the Azure cloud shell, where direct access to your computer's sound hardware is not supported. The lab will therefore use audio files for speech input and output streams. The code to achieve the same results using a mic and speaker is provided for your reference.
 
 ## Create an Azure AI Foundry project
-s
+
 Let's start by creating an Azure AI Foundry project.
 
 1. In a web browser, open the [Azure AI Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the **Azure AI Foundry** logo at the top left to navigate to the home page, which looks similar to the following image:
@@ -84,7 +84,9 @@ Let's start by creating an Azure AI Foundry project.
     **Python**
 
     ```
-   pip install python-dotenv azure-identity azure-ai-projects azure-cognitiveservices-speech==1.42.0
+    python -m venv labenv
+    ./labenv/bin/Activate.ps1
+    pip install -r requirements.txt azure-identity azure-ai-projects azure-cognitiveservices-speech==1.42.0
     ```
 
     **C#**
@@ -138,7 +140,6 @@ Let's start by creating an Azure AI Foundry project.
 
     ```python
    # Import namespaces
-   from dotenv import load_dotenv
    from azure.ai.projects.models import ConnectionType
    from azure.identity import DefaultAzureCredential
    from azure.core.credentials import AzureKeyCredential

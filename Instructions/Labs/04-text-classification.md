@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Custom text classification'
-    module: 'Module 3 - Getting Started with Natural Language Processing'
+    description: "Apply custom classifications to text input using Azure AI Language."
 ---
 
 # Custom text classification
@@ -195,7 +195,7 @@ To test the custom text classification capabilities of the Azure AI Language ser
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-   cd mslearn-ai-language/Labfiles/04-text-classification
+    cd mslearn-ai-language/Labfiles/04-text-classification
     ```
 
 ## Configure your application
@@ -214,8 +214,9 @@ Applications for both C# and Python have been provided, as well as a sample text
     **Python**:
 
     ```
-    pip install azure-ai-textanalytics==5.3.0
-    pip install dotenv
+    python -m venv labenv
+    ./labenv/bin/Activate.ps1
+    pip install -r requirements.txt azure-ai-textanalytics==5.3.0
     ```
 
 1. Using the `ls` command, you can view the contents of the **classify-text** folder. Note that it contains a file for configuration settings:
@@ -228,13 +229,13 @@ Applications for both C# and Python have been provided, as well as a sample text
     **C#**
 
     ```
-   code appsettings.json
+    code appsettings.json
     ```
 
     **Python**
 
     ```
-   code .env
+    code .env
     ```
 
     The file is opened in a code editor.

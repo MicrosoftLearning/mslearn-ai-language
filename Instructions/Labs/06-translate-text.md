@@ -1,9 +1,8 @@
 ---
 lab:
     title: 'Translate Text'
-    module: 'Module 3 - Getting Started with Natural Language Processing'
+    description: "Translate provided text between any supported languages with Azure AI Translator."
 ---
-{% assign site.title = page.lab.title %}
 
 # Translate Text
 
@@ -48,7 +47,7 @@ You'll develop your text translation app using Cloud Shell. The code files for y
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-   cd mslearn-ai-language/Labfiles/06b-translator-sdk
+    cd mslearn-ai-language/Labfiles/06b-translator-sdk
     ```
 
 ## Configure your application
@@ -67,8 +66,9 @@ Applications for both C# and Python have been provided. Both apps feature the sa
     **Python**:
 
     ```
-    pip install azure-ai-translation-text==1.0.0
-    pip install dotenv
+    python -m venv labenv
+    ./labenv/bin/Activate.ps1
+    pip install -r requirements.txt azure-ai-translation-text==1.0.0
     ```
 
 1. Using the `ls` command, you can view the contents of the **translate-text** folder. Note that it contains a file for configuration settings:

@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Translate Speech'
-    module: 'Module 8 - Translate speech with Azure AI Speech'
+    description: "Translate language speech to speech and implement in your own app."
 ---
 
 # Translate Speech
@@ -75,7 +75,9 @@ Let's start by creating an Azure AI Foundry project.
     **Python**
 
     ```
-   pip install python-dotenv azure-identity azure-ai-projects azure-cognitiveservices-speech==1.42.0
+    python -m venv labenv
+    ./labenv/bin/Activate.ps1
+    pip install -r requirements.txt azure-identity azure-ai-projects azure-cognitiveservices-speech==1.42.0
     ```
 
     **C#**
@@ -129,7 +131,6 @@ Let's start by creating an Azure AI Foundry project.
 
     ```python
    # Import namespaces
-   from dotenv import load_dotenv
    from azure.ai.projects.models import ConnectionType
    from azure.identity import DefaultAzureCredential
    from azure.core.credentials import AzureKeyCredential

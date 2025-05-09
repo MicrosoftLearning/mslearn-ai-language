@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Extract custom entities'
-    module: 'Module 3 - Getting Started with Natural Language Processing'
+    description: "Train a model to extract customized entities from text input using Azure AI Language."
 ---
 
 # Extract custom entities
@@ -174,7 +174,7 @@ To test the custom entity extraction capabilities of the Azure AI Language servi
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-   cd mslearn-ai-language/Labfiles/05-custom-entity-recognition
+    cd mslearn-ai-language/Labfiles/05-custom-entity-recognition
     ```
 
 ## Configure your application
@@ -193,8 +193,9 @@ Applications for both C# and Python have been provided. Both apps feature the sa
     **Python**:
 
     ```
-    pip install azure-ai-textanalytics==5.3.0
-    pip install dotenv
+    python -m venv labenv
+    ./labenv/bin/Activate.ps1
+    pip install -r requirements.txt azure-ai-textanalytics==5.3.0
     ```
 
 1. Using the `ls` command, you can view the contents of the **custom-entities** folder. Note that it contains a file for configuration settings:
@@ -207,13 +208,13 @@ Applications for both C# and Python have been provided. Both apps feature the sa
     **C#**
 
     ```
-   code appsettings.json
+    code appsettings.json
     ```
 
     **Python**
 
     ```
-   code .env
+    code .env
     ```
 
     The file is opened in a code editor.

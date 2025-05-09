@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Analyze text'
-    module: 'Module 3 - Develop natural language processing solutions'
+    description: "Use Azure AI Language to analyze text, including language detection, sentiment analysis, key phrase extraction, and entity recognition."
 ---
 
 # Analyze Text
@@ -53,7 +53,7 @@ You'll develop your code using Cloud Shell from the Azure Portal. The code files
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-   cd mslearn-ai-language/Labfiles/01-analyze-text
+    cd mslearn-ai-language/Labfiles/01-analyze-text
     ```
 
 ## Configure your application
@@ -72,8 +72,9 @@ Applications for both C# and Python have been provided, as well as a sample text
     **Python**:
 
     ```
-    pip install azure-ai-textanalytics==5.3.0
-    pip install python-dotenv
+    python -m venv labenv
+    ./labenv/bin/Activate.ps1
+    pip install -r requirements.txt azure-ai-textanalytics==5.3.0
     ```
 
 1. Using the `ls` command, you can view the contents of the **text-analysis** folder, and note that it contains a file for configuration settings:
@@ -86,13 +87,13 @@ Applications for both C# and Python have been provided, as well as a sample text
     **C#**
 
     ```
-   code appsettings.json
+    code appsettings.json
     ```
 
     **Python**
 
     ```
-   code .env
+    code .env
     ```
 
     The file is opened in a code editor.
@@ -148,7 +149,7 @@ Applications for both C# and Python have been provided, as well as a sample text
 
     > **Tip**: You can maximize the panel size to see more of the console text.
 
-1. Observe the output as the code should run without error, displaying the contents of each review text file in the **reviews** folder. The application successfully creates a client for the Text Analytics API but doesn't make use of it. We'll fix that in the next procedure.
+1. Observe the output as the code should run without error, displaying the contents of each review text file in the **reviews** folder. The application successfully creates a client for the Text Analytics API but doesn't make use of it. We'll fix that in the next section.
 
 ## Add code to detect language
 

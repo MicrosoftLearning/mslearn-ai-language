@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Create a language understanding model with the Azure AI Language service'
-    module: 'Module 5 - Create language understanding solutions'
+    description: "Create a custom language understanding model to interpret input, predict intent, and identify entities."
 ---
 
 # Create a language understanding model with the Language service
@@ -337,7 +337,7 @@ You'll develop your language understanding app using Cloud Shell in the Azure po
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-   cd mslearn-ai-language/Labfiles/03-language
+    cd mslearn-ai-language/Labfiles/03-language
     ```
 
 ### Configure your application
@@ -356,8 +356,9 @@ Applications for both C# and Python have been provided, as well as a sample text
     **Python**:
 
     ```
-    pip install azure-ai-language-conversations==1.1.0
-    pip install dotenv
+    python -m venv labenv
+    ./labenv/bin/Activate.ps1
+    pip install -r requirements.txt azure-ai-language-conversations==1.1.0
     ```
 
 1. Using the `ls` command, you can view the contents of the **clock-client** folder. Note that it contains a file for configuration settings:

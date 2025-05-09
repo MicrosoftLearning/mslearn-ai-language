@@ -1,7 +1,7 @@
 ---
 lab:
-    title: 'Create a Question Answering Solution'
-    module: 'Module 6 - Create question answering solutions with Azure AI Language'
+    title: 'Create a Question Answering solution'
+    description: "Use Azure AI Language to create a custom question answering solution."
 ---
 
 # Create a Question Answering Solution
@@ -140,7 +140,7 @@ You'll develop your question answering app using Cloud Shell in the Azure portal
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-   cd mslearn-ai-language/Labfiles/02-qna
+    cd mslearn-ai-language/Labfiles/02-qna
     ```
 
 ## Configure your application
@@ -159,8 +159,9 @@ Applications for both C# and Python have been provided, as well as a sample text
     **Python**:
 
     ```
-    pip install azure-ai-language-questionanswering
-    pip install dotenv
+    python -m venv labenv
+    ./labenv/bin/Activate.ps1
+    pip install -r requirements.txt azure-ai-language-questionanswering
     ```
 
 1. Using the `ls` command, you can view the contents of the **qna-app** folder. Note that it contains a file for configuration settings:
@@ -172,13 +173,13 @@ Applications for both C# and Python have been provided, as well as a sample text
     **C#**
 
     ```
-   code appsettings.json
+    code appsettings.json
     ```
 
     **Python**
 
     ```
-   code .env
+    code .env
     ```
 
     The file is opened in a code editor.
