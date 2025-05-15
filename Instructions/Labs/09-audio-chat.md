@@ -6,7 +6,7 @@ lab:
 
 # Develop an audio-enabled chat app
 
-In this exercise, you use the *Phi-4-multimodal-instruct* generative AI model to generate responses to prompts that include audio files. You'll develop an app that provides AI assistance with fresh produce in a grocery store by using Azure AI Foundry and the Azure AI Model Inference service.
+In this exercise, you use the *Phi-4-multimodal-instruct* generative AI model to generate responses to prompts that include audio files. You'll develop an app that provides AI assistance for a produce supplier company by using Azure AI Foundry and the Azure AI Model Inference service to summarize voice messages left by customers.
 
 This exercise takes approximately **30** minutes.
 
@@ -95,13 +95,13 @@ Now that you've deployed the model, you can use the deployment in a client appli
     **Python**
 
     ```
-    cd mslearn-ai-audio/Labfiles/09-audio-chat/python
+    cd mslearn-ai-audio/Labfiles/09-audio-chat/Python
     ```
 
     **C#**
 
     ```
-    cd mslearn-ai-audio/Labfiles/09-audio-chat/c-sharp
+    cd mslearn-ai-audio/Labfiles/09-audio-chat/C-sharp
     ```
 
 1. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
@@ -230,13 +230,13 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. In the code editor for the **audio-chat.py** file, in the loop section, under the comment **Get a response to audio input**, add the following code to submit a prompt that includes the following audio:
 
-    <video controls src="../media/manzanas.mp4" title="A request for apples" width="150"></video>
+    <video controls src="../media/avocados.mp4" title="A request for avocados" width="150"></video>
 
     **Python**
 
     ```python
     # Get a response to audio input
-    file_path = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/manzanas.mp3"
+    file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3"
     response = chat_client.complete(
         messages=[
             SystemMessage(system_message),
@@ -258,7 +258,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```csharp
     // Get a response to audio input
-    string audioUrl = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/manzanas.mp3";
+    string audioUrl = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3";
     var requestOptions = new ChatCompletionsOptions()
     {
         Messages =
@@ -290,11 +290,15 @@ Now that you've deployed the model, you can use the deployment in a client appli
     dotnet run
     ```
 
-1. When prompted, enter the prompt `What is this customer saying in English?`
+1. When prompted, enter the prompt 
+
+    ```
+    Can you summarize this customer's voice message? Is it time-sensitive?
+    ```
 
 1. Review the response.
 
-### Use a different prompt
+### Use a different audio file
 
 1. In the code editor for your app code, find the code you added previously under the comment **Get a response to audio input**. Then modify the code as follows to select a different audio file:
 
@@ -304,7 +308,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
     # Get a response to audio input
-    file_path = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/caomei.mp3"
+    file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/caomei.mp3"
     response = chat_client.complete(
         messages=[
             SystemMessage(system_message),
@@ -326,7 +330,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```csharp
     // Get a response to audio input
-    string audioUrl = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/caomei.mp3";
+    string audioUrl = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/caomei.mp3";
     var requestOptions = new ChatCompletionsOptions()
     {
         Messages =
@@ -358,10 +362,10 @@ Now that you've deployed the model, you can use the deployment in a client appli
     dotnet run
     ```
 
-1. When prompted, enter the following prompt:
-
+1. When prompted, enter the following prompt: 
+    
     ```
-    A customer left this voice message, can you summarize it?
+    Can you summarize this customer's voice message? Is it time-sensitive?
     ```
 
 1. Review the response. Then enter `quit` to exit the program.

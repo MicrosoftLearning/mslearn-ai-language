@@ -95,13 +95,13 @@ Now that you've deployed the model, you can use the deployment in a client appli
     **Python**
 
     ```
-    cd mslearn-ai-audio/Labfiles/09-audio-chat/python
+    cd mslearn-ai-audio/Labfiles/09-audio-chat/Python
     ```
 
     **C#**
 
     ```
-    cd mslearn-ai-audio/Labfiles/09-audio-chat/c-sharp
+    cd mslearn-ai-audio/Labfiles/09-audio-chat/C-sharp
     ```
 
 1. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
@@ -111,7 +111,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
     ```
     python -m venv labenv
     ./labenv/bin/Activate.ps1
-    pip install python-dotenv azure-identity azure-ai-projects azure-ai-inference
+    pip install -r requirements.txt  azure-identity azure-ai-projects azure-ai-inference
     ```
 
     **C#**
@@ -236,7 +236,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
     # Get a response to audio input
-    file_path = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/avocados.mp3"
+    file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3"
     response = chat_client.complete(
         messages=[
             SystemMessage(system_message),
@@ -258,7 +258,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```csharp
     // Get a response to audio input
-    string audioUrl = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/avocados.mp3";
+    string audioUrl = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3";
     var requestOptions = new ChatCompletionsOptions()
     {
         Messages =
@@ -290,11 +290,15 @@ Now that you've deployed the model, you can use the deployment in a client appli
     dotnet run
     ```
 
-1. When prompted, enter the prompt `Can you summarize this voice message and rank its priority?`
+1. When prompted, enter the prompt 
+
+    ```
+    Can you summarize this customer's voice message? Is it time-sensitive?
+    ```
 
 1. Review the response.
 
-### Use a different prompt
+### Use a different audio file
 
 1. In the code editor for your app code, find the code you added previously under the comment **Get a response to audio input**. Then modify the code as follows to select a different audio file:
 
@@ -304,7 +308,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
     # Get a response to audio input
-    file_path = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/caomei.mp3"
+    file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/caomei.mp3"
     response = chat_client.complete(
         messages=[
             SystemMessage(system_message),
@@ -326,7 +330,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```csharp
     // Get a response to audio input
-    string audioUrl = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/caomei.mp3";
+    string audioUrl = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/caomei.mp3";
     var requestOptions = new ChatCompletionsOptions()
     {
         Messages =
@@ -358,7 +362,11 @@ Now that you've deployed the model, you can use the deployment in a client appli
     dotnet run
     ```
 
-1. When prompted, enter the following prompt: `Can you summarize this voice message and rank its priority?`
+1. When prompted, enter the following prompt: 
+    
+    ```
+    Can you summarize this customer's voice message? Is it time-sensitive?
+    ```
 
 1. Review the response. Then enter `quit` to exit the program.
 
