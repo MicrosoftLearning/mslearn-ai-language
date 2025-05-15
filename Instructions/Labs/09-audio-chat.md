@@ -173,9 +173,6 @@ Now that you've deployed the model, you can use the deployment in a client appli
         SystemMessage,
         UserMessage,
         TextContentItem,
-        AudioContentItem,
-        InputAudio,
-        AudioContentFormat,
     )
     ```
 
@@ -293,7 +290,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 1. When prompted, enter the prompt 
 
     ```
-    Can you summarize this customer's voice message? Is it time-sensitive?
+    Can you summarize this customer's voice message?
     ```
 
 1. Review the response.
@@ -302,13 +299,13 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. In the code editor for your app code, find the code you added previously under the comment **Get a response to audio input**. Then modify the code as follows to select a different audio file:
 
-    <video controls src="../media/caomei.mp4" title="A request for strawberries" width="150"></video>
+    <video controls src="../media/fresas.mp4" title="A request for strawberries" width="150"></video>
 
     **Python**
 
     ```python
     # Get a response to audio input
-    file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/caomei.mp3"
+    file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/fresas.mp3"
     response = chat_client.complete(
         messages=[
             SystemMessage(system_message),
@@ -330,7 +327,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```csharp
     // Get a response to audio input
-    string audioUrl = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/caomei.mp3";
+    string audioUrl = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/fresas.mp3";
     var requestOptions = new ChatCompletionsOptions()
     {
         Messages =

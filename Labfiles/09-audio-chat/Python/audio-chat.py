@@ -1,6 +1,4 @@
 import os
-from urllib.request import urlopen, Request
-import base64
 
 # Add references
 
@@ -26,7 +24,7 @@ def main():
 
 
         # Initialize prompts
-        system_message = "You are an AI assistent in a grocery store that sells fruit."
+        system_message = "You are an AI assistant for a produce supplier company."
         prompt = ""
 
         # Loop until the user types 'quit'
