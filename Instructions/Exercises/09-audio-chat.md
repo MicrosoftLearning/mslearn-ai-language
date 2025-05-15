@@ -6,7 +6,7 @@ lab:
 
 # Develop an audio-enabled chat app
 
-In this exercise, you use the *Phi-4-multimodal-instruct* generative AI model to generate responses to prompts that include audio files. You'll develop an app that provides AI assistance with fresh produce in a grocery store by using Azure AI Foundry and the Azure AI Model Inference service.
+In this exercise, you use the *Phi-4-multimodal-instruct* generative AI model to generate responses to prompts that include audio files. You'll develop an app that provides AI assistance for a produce supplier company by using Azure AI Foundry and the Azure AI Model Inference service to summarize voice messages left by customers.
 
 This exercise takes approximately **30** minutes.
 
@@ -230,13 +230,13 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. In the code editor for the **audio-chat.py** file, in the loop section, under the comment **Get a response to audio input**, add the following code to submit a prompt that includes the following audio:
 
-    <video controls src="../media/manzanas.mp4" title="A request for apples" width="150"></video>
+    <video controls src="../media/avocados.mp4" title="A request for avocados" width="150"></video>
 
     **Python**
 
     ```python
     # Get a response to audio input
-    file_path = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/manzanas.mp3"
+    file_path = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/avocados.mp3"
     response = chat_client.complete(
         messages=[
             SystemMessage(system_message),
@@ -258,7 +258,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```csharp
     // Get a response to audio input
-    string audioUrl = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/manzanas.mp3";
+    string audioUrl = "https://github.com/microsoftlearning/mslearn-ai-language/raw/refs/heads/main/labfiles/09-audio-chat/data/avocados.mp3";
     var requestOptions = new ChatCompletionsOptions()
     {
         Messages =
@@ -290,7 +290,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
     dotnet run
     ```
 
-1. When prompted, enter the prompt `What is this customer saying in English?`
+1. When prompted, enter the prompt `Can you summarize this voice message and rank its priority?`
 
 1. Review the response.
 
@@ -358,11 +358,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
     dotnet run
     ```
 
-1. When prompted, enter the following prompt:
-
-    ```
-    A customer left this voice message, can you summarize it?
-    ```
+1. When prompted, enter the following prompt: `Can you summarize this voice message and rank its priority?`
 
 1. Review the response. Then enter `quit` to exit the program.
 
