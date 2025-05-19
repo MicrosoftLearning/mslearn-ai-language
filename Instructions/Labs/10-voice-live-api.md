@@ -18,7 +18,7 @@ Let's start by creating an Azure AI Foundry project.
 
 1. In a web browser, open the [Azure AI Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the **Azure AI Foundry** logo at the top left to navigate to the home page, which looks similar to the following image (close the **Help** pane if it's open):
 
-    ![Screenshot of Azure AI Foundry portal.](./Media/ai-foundry-home.png)
+    ![Screenshot of Azure AI Foundry portal.](../media/ai-foundry-home.png)
 
 1. In the home page, select **+ Create project**.
 
@@ -39,7 +39,7 @@ Let's start by creating an Azure AI Foundry project.
 1. Select **Next** and review your configuration. Then select **Create** and wait for the process to complete.
 1. When your project is created, close any tips that are displayed and review the project page in Azure AI Foundry portal, which should look similar to the following image:
 
-    ![Screenshot of a Azure AI project details in Azure AI Foundry portal.](./Media/ai-foundry-project-page.png)
+    ![Screenshot of a Azure AI project details in Azure AI Foundry portal.](../media/ai-foundry-project-page.png)
 
 Now that you have an AI Foundry project deployed, you're ready to explore the voice agent.
 
@@ -53,7 +53,7 @@ Now that you have an AI Foundry project deployed, you're ready to explore the vo
 
 1. The Speech Playground offers many pre-built options. Use the horizontal scroll bar to navigate to the end of the list and select the **Voice Live** tile. 
 
-    ![Screenshot of the Voice Live tile.](./Media/voice-live-tile.png)
+    ![Screenshot of the Voice Live tile.](../media/voice-live-tile.png)
 
 1. Select the **Casual chat** agent sample in **Try with samples** panel.
 
