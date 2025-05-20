@@ -12,7 +12,7 @@ def main():
     
         # Get configuration settings 
         load_dotenv()
-        project_connection = os.getenv("PROJECT_CONNECTION")
+        project_connection = os.getenv("PROJECT_ENDPOINT")
         model_deployment =  os.getenv("MODEL_DEPLOYMENT")
         
         # Initialize the project client
