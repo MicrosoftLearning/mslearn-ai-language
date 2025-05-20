@@ -29,8 +29,8 @@ Let's start by creating an Azure AI Foundry project.
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
     - **Region**: Randomly select a region from the following options:\*
-        - eastus2
-        - swedencentral
+        - East US 2
+        - Sweden Central
 
     > \* At the time of writing, the Voice Live API is only supported in the previously listed regions. Selecting a location randomly helps ensure a single region isn't overwhelmed with traffic, and helps you have a smoother experience. In the event of service limits being reached, there's a possibility you may need to create another project in a different region.
 
