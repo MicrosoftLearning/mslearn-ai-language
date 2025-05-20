@@ -29,9 +29,14 @@ Let's start by deploying a model in an Azure AI Foundry project.
 
     > \* Some Azure AI resources are constrained by regional model quotas. In the event of a quota limit being exceeded later in the exercise, there's a possibility you may need to create another resource in a different region. You can check the latest regional availability for specific models in the [Azure AI Foundry documentation](https://learn.microsoft.com/azure/ai-foundry/how-to/deploy-models-serverless-availability#region-availability)
 
-1. Select **Create** and wait for your project, including the Phi model deployment you selected, to be created.
-1. When your project is created, the chat playground will be opened automatically.
-1. In the **Setup** pane, note the name of your model deployment; which should be **Phi-4-multimodal-instruct**. You can confirm this by viewing the deployment in the **Models and endpoints** page (just open that page in the navigation pane on the left).
+1. Select **Create** and wait for your project to be created.
+
+    It may take a few moments for the operation to complete. 
+
+1. Select **Agree and Proceed** to agree to the model terms, then select **Deploy** to complete the Phi model deployment.
+
+1. When your project is created, the model details will be opened automatically. Note  the name of your model deployment; which should be **Phi-4-multimodal-instruct**
+
 1. In the navigation pane on the left, select **Overview** to see the main page for your project; which looks like this:
 
     > **Note**: If an *Insufficient permissions** error is displayed, use the **Fix me** button to resolve it.
