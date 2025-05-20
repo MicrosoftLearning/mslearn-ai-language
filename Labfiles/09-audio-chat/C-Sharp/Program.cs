@@ -22,7 +22,7 @@ namespace chat_app
                 // Get configuration settings
                 IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
                 IConfigurationRoot configuration = builder.Build();
-                string project_connection = configuration["PROJECT_CONNECTION"];
+                string project_connection = configuration["PROJECT_ENDPOINT"];
                 string model_deployment = configuration["MODEL_DEPLOYMENT"];
 
 

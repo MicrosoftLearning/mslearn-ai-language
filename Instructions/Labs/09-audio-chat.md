@@ -12,60 +12,42 @@ This exercise takes approximately **30** minutes.
 
 ## Create an Azure AI Foundry project
 
-Let's start by creating an Azure AI Foundry project.
+Let's start by deploying a model in an Azure AI Foundry project.
 
 1. In a web browser, open the [Azure AI Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the **Azure AI Foundry** logo at the top left to navigate to the home page, which looks similar to the following image:
 
     ![Screenshot of Azure AI Foundry portal.](../media/ai-foundry-home.png)
 
-1. In the home page, select **+ Create project**.
-1. In the **Create a project** wizard, enter a valid name for your project and if an existing hub is suggested, choose the option to create a new one. Then review the Azure resources that will be automatically created to support your hub and project.
+1. In the home page, in the **Explore models and capabilities** section, search for the `Phi-4-multimodal-instruct` model; which we'll use in our project.
+1. In the search results, select the **Phi-4-multimodal-instruct** model to see its details, and then at the top of the page for the model, select **Use this model**.
+1. When prompted to create a project, enter a valid name for your project and expand **Advanced options**.
 1. Select **Customize** and specify the following settings for your hub:
-    - **Hub name**: *A valid name for your hub*
+    - **Azure AI Foundry resource**: *A valid name for your Azure AI Foundry resource*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Location**: Select any of the following regions\*:
-        - East US
-        - East US 2
-        - North Central US
-        - South Central US
-        - Sweden Central
-        - West US
-        - West US 3
-    - **Connect Azure AI Services or Azure OpenAI**: *Create a new AI Services resource*
-    - **Connect Azure AI Search**: Skip connecting
+    - **Region**: *Select any **AI Services supported location***\*
 
-    > \* At the time of writing, the Microsoft *Phi-4-multimodal-instruct* model we're going to use in this exercise is available in these regions. You can check the latest regional availability for specific models in the [Azure AI Foundry documentation](https://learn.microsoft.com/azure/ai-foundry/how-to/deploy-models-serverless-availability#region-availability). In the event of a regional quota limit being reached later in the exercise, there's a possibility you may need to create another resource in a different region.
+    > \* Some Azure AI resources are constrained by regional model quotas. In the event of a quota limit being exceeded later in the exercise, there's a possibility you may need to create another resource in a different region. You can check the latest regional availability for specific models in the [Azure AI Foundry documentation](https://learn.microsoft.com/azure/ai-foundry/how-to/deploy-models-serverless-availability#region-availability)
 
-1. Select **Next** and review your configuration. Then select **Create** and wait for the process to complete.
-1. When your project is created, close any tips that are displayed and review the project page in Azure AI Foundry portal, which should look similar to the following image:
+1. Select **Create** and wait for your project, including the Phi model deployment you selected, to be created.
+1. When your project is created, the chat playground will be opened automatically.
+1. In the **Setup** pane, note the name of your model deployment; which should be **Phi-4-multimodal-instruct**. You can confirm this by viewing the deployment in the **Models and endpoints** page (just open that page in the navigation pane on the left).
+1. In the navigation pane on the left, select **Overview** to see the main page for your project; which looks like this:
 
-    ![Screenshot of a Azure AI project details in Azure AI Foundry portal.](../media/ai-foundry-project.png)
+    > **Note**: If an *Insufficient permissions** error is displayed, use the **Fix me** button to resolve it.
 
-## Deploy a multimodal model
-
-Now you're ready to deploy a multimodal model that can support audio-based input. There are several models you could choose from, including the OpenAI *gpt-4o* model. In this exercise, we'll use a *Phi-4-multimodal-instruct* model.
-
-1. In the toolbar at the top right of your Azure AI Foundry project page, use the **Preview features** (**&#9215;**) icon to ensure that the **Deploy models to Azure AI model inference service** feature is enabled. This feature ensures your model deployment is available to the Azure AI Inference service, which you'll use in your application code.
-1. In the pane on the left for your project, in the **My assets** section, select the **Models + endpoints** page.
-1. In the **Models + endpoints** page, in the **Model deployments** tab, in the **+ Deploy model** menu, select **Deploy base model**.
-1. Search for the **Phi-4-multimodal-instruct** model in the list, and then select and confirm it.
-1. Agree to the license agreement if prompted, and then deploy the model with the following settings by selecting **Customize** in the deployment details:
-    - **Deployment name**: *A valid name for your model deployment*
-    - **Deployment type**: Global Standard
-    - **Deployment details**: *Use the default settings*
-1. Wait for the deployment provisioning state to be **Completed**.
+    ![Screenshot of a Azure AI Foundry project overview page.](../media/ai-foundry-project.png)
 
 ## Create a client application
 
-Now that you've deployed the model, you can use the deployment in a client application.
+Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Model Inference SDKs to develop an application that chats with it.
 
 > **Tip**: You can choose to develop your solution using Python or Microsoft C#. Follow the instructions in the appropriate section for your chosen language.
 
 ### Prepare the application configuration
 
 1. In the Azure AI Foundry portal, view the **Overview** page for your project.
-1. In the **Project details** area, note the **Project connection string**. You'll use this connection string to connect to your project in a client application.
+1. In the **Project details** area, note the **Azure AI Foundry project endpoint**. You'll use this endpoint to connect to your project in a client application.
 1. Open a new browser tab (keeping the Azure AI Foundry portal open in the existing tab). Then in the new tab, browse to the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`; signing in with your Azure credentials if prompted.
 
     Close any welcome notifications to see the Azure portal home page.
@@ -118,8 +100,8 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```
     dotnet add package Azure.Identity
-    dotnet add package Azure.AI.Inference --version 1.0.0-beta.3
-    dotnet add package Azure.AI.Projects --version 1.0.0-beta.3
+    dotnet add package Azure.AI.Inference --version 1.0.0-beta.9
+    dotnet add package Azure.AI.Projects --version 1.0.0-beta.5
     ```
 
 1. Enter the following command to edit the configuration file that has been provided:
@@ -138,7 +120,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     The file should open in a code editor.
 
-1. In the code file, replace the **your_project_connection_string** placeholder with the connection string for your project (copied from the project **Overview** page in the Azure AI Foundry portal), and the **your_model_deployment** placeholder with the name you assigned to your Phi-4-multimodal-instruct model deployment.
+1. In the code file, replace the **your_project_endpoint** placeholder with the endpoint for your project (copied from the project **Overview** page in the Azure AI Foundry portal), and the **your_model_deployment** placeholder with the name you assigned to your Phi-4-multimodal-instruct model deployment.
 
 1. After you replace the placeholders, in the code editor, use the **CTRL+S** command or **Right-click > Save** to save your changes and then use the **CTRL+Q** command or **Right-click > Quit** to close the code editor while keeping the cloud shell command line open.
 
@@ -169,11 +151,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
     from dotenv import load_dotenv
     from azure.identity import DefaultAzureCredential
     from azure.ai.projects import AIProjectClient
-    from azure.ai.inference.models import (
-        SystemMessage,
-        UserMessage,
-        TextContentItem,
-    )
+    from azure.ai.inference.models import SystemMessage, UserMessage, TextContentItem
     ```
 
     **C#**
@@ -193,17 +171,26 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
     # Initialize the project client
-    project_client = AIProjectClient.from_connection_string(
-        conn_str=project_connection,
-        credential=DefaultAzureCredential())
+    project_client = AIProjectClient(
+        credential=DefaultAzureCredential(
+             exclude_environment_credential=True,
+             exclude_managed_identity_credential=True
+         ),
+         endpoint=project_connection,
+     )
     ```
 
     **C#**
 
     ```csharp
     // Initialize the project client
-    var projectClient = new AIProjectClient(project_connection,
-                        new DefaultAzureCredential());
+    DefaultAzureCredentialOptions options = new() { 
+        ExcludeEnvironmentCredential = true,
+        ExcludeManagedIdentityCredential = true
+    };
+    var projectClient = new AIProjectClient(
+        new Uri(project_connection),
+        new DefaultAzureCredential(options));
     ```
 
 1. Find the comment **Get a chat client**, add the following code to create a client object for chatting with your model:
@@ -212,7 +199,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
     # Get a chat client
-    chat_client = project_client.inference.get_chat_completions_client(model=model_deployment)
+    chat_client = project_client.inference.get_chat_completions_client()
     ```
 
     **C#**
@@ -235,6 +222,7 @@ Now that you've deployed the model, you can use the deployment in a client appli
     # Get a response to audio input
     file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3"
     response = chat_client.complete(
+        model=model_deployment,
         messages=[
             SystemMessage(system_message),
             UserMessage(
@@ -258,14 +246,14 @@ Now that you've deployed the model, you can use the deployment in a client appli
     string audioUrl = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3";
     var requestOptions = new ChatCompletionsOptions()
     {
+        Model = model_deployment,
         Messages =
         {
             new ChatRequestSystemMessage(system_message),
             new ChatRequestUserMessage(
                 new ChatMessageTextContentItem(prompt),
                 new ChatMessageAudioContentItem(new Uri(audioUrl))),
-        },
-        Model = model_deployment
+        }
     };
     var response = chat.Complete(requestOptions);
     Console.WriteLine(response.Value.Content);
@@ -273,7 +261,21 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
 1. Use the **CTRL+S** command to save your changes to the code file. You can also close the code editor (**CTRL+Q**) if you like.
 
-1. In the cloud shell command-line pane beneath the code editor, enter the following command to run the app:
+### Sign into Azure and run the app
+
+1. In the cloud shell command-line pane, enter the following command to sign into Azure.
+
+    ```
+    az login
+    ```
+
+    **<font color="red">You must sign into Azure - even though the cloud shell session is already authenticated.</font>**
+
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
+    
+1. When prompted, follow the instructions to open the sign-in page in a new tab and enter the authentication code provided and your Azure credentials. Then complete the sign in process in the command line, selecting the subscription containing your Azure AI Foundry hub if prompted.
+
+1. In the cloud shell command-line pane, enter the following command to run the app:
 
     **Python**
 
