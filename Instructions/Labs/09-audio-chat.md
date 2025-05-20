@@ -105,8 +105,8 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
 
     ```
     dotnet add package Azure.Identity
-    dotnet add package Azure.AI.Inference --version 1.0.0-beta.9
-    dotnet add package Azure.AI.Projects --version 1.0.0-beta.5
+    dotnet add package Azure.AI.Projects --version 1.0.0-beta.9
+    dotnet add package Azure.AI.Inference --version 1.0.0-beta.5
     ```
 
 1. Enter the following command to edit the configuration file that has been provided:
