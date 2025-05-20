@@ -314,6 +314,7 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
     # Get a response to audio input
     file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/fresas.mp3"
     response = chat_client.complete(
+        model=model_deployment,
         messages=[
             SystemMessage(system_message),
             UserMessage(
@@ -337,14 +338,14 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
     string audioUrl = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/fresas.mp3";
     var requestOptions = new ChatCompletionsOptions()
     {
+        Model = model_deployment,
         Messages =
         {
             new ChatRequestSystemMessage(system_message),
             new ChatRequestUserMessage(
                 new ChatMessageTextContentItem(prompt),
                 new ChatMessageAudioContentItem(new Uri(audioUrl))),
-        },
-        Model = model_deployment
+        }
     };
     var response = chat.Complete(requestOptions);
     Console.WriteLine(response.Value.Content);
