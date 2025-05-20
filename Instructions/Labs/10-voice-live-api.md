@@ -20,7 +20,7 @@ Let's start by creating an Azure AI Foundry project.
 
     ![Screenshot of Azure AI Foundry home page with create an agent selected.](../media/ai-foundry-new-home-page.png)
 
-. In the home page, select **+ Create an agent**.
+1. In the home page, select **Create an agent**.
 
 1. In the **Create an agent** wizard, enter a valid name for your project. 
 
