@@ -12,12 +12,9 @@ def main():
 
         # Get Configuration Settings
         load_dotenv()
-        project_connection = os.getenv('PROJECT_CONNECTION')
+        project_key = os.getenv('PROJECT_KEY')
         location = os.getenv('LOCATION')
 
-        # Get AI Services key from the project
-        
-        
         # Configure translation
 
 

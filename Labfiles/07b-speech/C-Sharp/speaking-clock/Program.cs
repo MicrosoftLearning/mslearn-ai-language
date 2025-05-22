@@ -25,10 +25,6 @@ namespace speaking_clock
                 string projectKey = configuration["PROJECT_KEY"];
                 string location = configuration["LOCATION"];
 
-
-                // Get AI Services key from the project
-                
-
                 // Configure speech service
 
 

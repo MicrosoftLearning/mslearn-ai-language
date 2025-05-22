@@ -37,7 +37,7 @@ Let's start by creating an Azure AI Foundry project.
 ## Prepare to develop an app in Cloud Shell
 
 1. In the Azure AI Foundry portal, view the **Overview** page for your project.
-1. In the **Project details** area, note the **Project connection string** and **location** for your project You'll use the connection string to connect to your project in a client application, and you'll need the location to connect to the Azure AI Services Speech endpoint.
+1. In the **Endpoint and keys** area, note the API key and the **location** under **Project details** for your project. You'll use the key and location to connect to the Azure AI Services Speech endpoint.
 1. Open a new browser tab (keeping the Azure AI Foundry portal open in the existing tab). Then in the new tab, browse to the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`; signing in with your Azure credentials if prompted.
 1. Use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
 
@@ -104,7 +104,7 @@ Let's start by creating an Azure AI Foundry project.
 
     The file is opened in a code editor.
 
-1. In the code file, replace the **your_project_endpoint** and **your_location** placeholders with the connection string and location for your project (copied from the project **Overview** page in the Azure AI Foundry portal).
+1. In the code file, replace the **your_project_api_key** and **your_project_location** placeholders with the API key and location for your project (copied from the project **Overview** page in the Azure AI Foundry portal).
 1. After you've replaced the placeholders, use the **CTRL+S** command to save your changes and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
 
 ## Add code to use the Azure AI Speech SDK
@@ -149,41 +149,7 @@ Let's start by creating an Azure AI Foundry project.
    using Microsoft.CognitiveServices.Speech.Translation;
     ```
 
-1. In the **main** function, under the comment **Get config settings**, note that the code loads the project connection string and location you defined in the configuration file.
-
-1. Add the following code under the comment **Get AI Services key from the project**:
-
-    **Python**
-
-    ```python
-   # Get AI Services key from the project
-   project_client = AIProjectClient.from_connection_string(
-        conn_str=project_connection,
-        credential=DefaultAzureCredential())
-
-   ai_svc_connection = project_client.connections.get_default(
-      connection_type=ConnectionType.AZURE_AI_SERVICES,
-      include_credentials=True, 
-    )
-
-   ai_svc_key = ai_svc_connection.key
-    ```
-
-    **C#**
-
-    ```csharp
-   // Get AI Services key from the project
-   var projectClient = new AIProjectClient(project_connection,
-                        new DefaultAzureCredential());
-
-   ConnectionResponse aiSvcConnection = projectClient.GetConnectionsClient().GetDefaultConnection(ConnectionType.AzureAIServices, true);
-
-   var apiKeyAuthProperties = aiSvcConnection.Properties as ConnectionPropertiesApiKeyAuth;
-
-   var aiSvcKey = apiKeyAuthProperties.Credentials.Key;
-    ```
-
-    This code connects to your Azure AI Foundry project, gets its default AI Services connected resource, and retrieves the authentication key needed to use it.
+1. In the **main** function, under the comment **Get config settings**, note that the code loads the project API key and location you defined in the configuration file.
 
 1. In the **Main** function, note that code to load the Azure AI Speech service key and region from the configuration file has already been provided. You must use these variables to create a **SpeechTranslationConfig** for your Azure AI Speech resource, which you will use to translate spoken input. Add the following code under the comment **Configure translation**:
 
@@ -191,7 +157,7 @@ Let's start by creating an Azure AI Foundry project.
 
     ```python
     # Configure translation
-    translation_config = speech_sdk.translation.SpeechTranslationConfig(ai_svc_key, location)
+    translation_config = speech_sdk.translation.SpeechTranslationConfig(project_key, location)
     translation_config.speech_recognition_language = 'en-US'
     translation_config.add_target_language('fr')
     translation_config.add_target_language('es')
@@ -203,7 +169,7 @@ Let's start by creating an Azure AI Foundry project.
 
     ```csharp
     // Configure translation
-    translationConfig = SpeechTranslationConfig.FromSubscription(aiSvcKey, location);
+    translationConfig = SpeechTranslationConfig.FromSubscription(projectKey, location);
     translationConfig.SpeechRecognitionLanguage = "en-US";
     translationConfig.AddTargetLanguage("fr");
     translationConfig.AddTargetLanguage("es");
@@ -217,7 +183,7 @@ Let's start by creating an Azure AI Foundry project.
 
     ```python
    # Configure speech
-   speech_config = speech_sdk.SpeechConfig(ai_svc_key, location)
+   speech_config = speech_sdk.SpeechConfig(project_key, location)
    print('Ready to use speech service in:', speech_config.region)
     ```
 
@@ -225,7 +191,7 @@ Let's start by creating an Azure AI Foundry project.
 
     ```csharp
    // Configure speech
-   speechConfig = SpeechConfig.FromSubscription(aiSvcKey, location);
+   speechConfig = SpeechConfig.FromSubscription(projectKey, location);
    Console.WriteLine("Ready to use speech service in " + speechConfig.Region);
     ```
 
@@ -347,7 +313,7 @@ Once again, due to the hardware limitations of the cloud shell we'll direct the 
     if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
         print(speak.reason)
     else:
-        print("Spoken output saved in " + outputFile)
+        print("Spoken output saved in " + output_file)
     ```
 
     **C#**: Program.cs
@@ -380,7 +346,7 @@ Once again, due to the hardware limitations of the cloud shell we'll direct the 
    **Python**
 
     ```
-   python speaking-clock.py
+   python translator.py
     ```
 
     **C#**

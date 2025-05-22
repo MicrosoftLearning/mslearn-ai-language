@@ -21,16 +21,13 @@ namespace speech_translation
                 // Get config settings from AppSettings
                 IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
                 IConfigurationRoot configuration = builder.Build();
-                string project_connection = configuration["PROJECT_CONNECTION"];
+                string projectKey = configuration["PROJECT_KEY"];
                 string location = configuration["LOCATION"];
 
                 // Set console encoding to UTF-8
                 Console.InputEncoding = Encoding.UTF8;
                 Console.OutputEncoding = Encoding.UTF8;
 
-                // Get AI Services key from the project
-                
-                
                 // Configure translation
 
 
