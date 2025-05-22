@@ -22,7 +22,7 @@ namespace speaking_clock
                 // Get config settings
                 IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json");
                 IConfigurationRoot configuration = builder.Build();
-                string project_connection = configuration["PROJECT_CONNECTION"];
+                string projectKey = configuration["PROJECT_KEY"];
                 string location = configuration["LOCATION"];
 
 

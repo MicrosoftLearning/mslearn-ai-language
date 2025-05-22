@@ -182,7 +182,7 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
              exclude_managed_identity_credential=True
          ),
          endpoint=project_connection,
-     )
+    )
     ```
 
     **C#**

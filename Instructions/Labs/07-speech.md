@@ -46,7 +46,7 @@ Let's start by creating an Azure AI Foundry project.
 ## Prepare and configure the speaking clock app
 
 1. In the Azure AI Foundry portal, view the **Overview** page for your project.
-1. In the **Project details** area, note the **Project connection string** and **location** for your project You'll use the connection string to connect to your project in a client application, and you'll need the location to connect to the Azure AI Services Speech endpoint.
+1. In the **Endpoint and keys** area, note the API key and the **location** under **Project details** for your project. You'll use the key and location to connect to the Azure AI Services Speech endpoint.
 1. Open a new browser tab (keeping the Azure AI Foundry portal open in the existing tab). Then in the new tab, browse to the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`; signing in with your Azure credentials if prompted.
 1. Use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
 
@@ -70,13 +70,13 @@ Let's start by creating an Azure AI Foundry project.
     **Python**
 
     ```
-   cd mslearn-ai-language/labfiles/07b-speech/python/speaking-clock
+   cd mslearn-ai-language/Labfiles/07b-speech/Python/speaking-clock
     ```
 
     **C#**
 
     ```
-   cd mslearn-ai-language/labfiles/07b-speech/c-sharp/speaking-clock
+   cd mslearn-ai-language/Labfiles/07b-speech/C-sharp/speaking-clock
     ```
 
 1. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
@@ -113,7 +113,7 @@ Let's start by creating an Azure AI Foundry project.
 
     The file is opened in a code editor.
 
-1. In the code file, replace the **your_project_endpoint** and **your_location** placeholders with the connection string and location for your project (copied from the project **Overview** page in the Azure AI Foundry portal).
+1. In the code file, replace the **your_project_api_key** and **your_project_location** placeholders with the api key and location for your project (copied from the project **Overview** page in the Azure AI Foundry portal).
 1. After you've replaced the placeholders, use the **CTRL+S** command to save your changes and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
 
 ## Add code to use the Azure AI Speech SDK
@@ -157,58 +157,23 @@ Let's start by creating an Azure AI Foundry project.
    using Microsoft.CognitiveServices.Speech.Audio;
     ```
 
-1. In the **main** function, under the comment **Get config settings**, note that the code loads the project connection string and location you defined in the configuration file.
-
-1. Add the following code under the comment **Get AI Speech endpoint and key from the project**:
-
-    **Python**
-
-    ```python
-   # Get AI Services key from the project
-   project_client = AIProjectClient.from_connection_string(
-        conn_str=project_connection,
-        credential=DefaultAzureCredential())
-
-   ai_svc_connection = project_client.connections.get_default(
-      connection_type=ConnectionType.AZURE_AI_SERVICES,
-      include_credentials=True, 
-    )
-
-   ai_svc_key = ai_svc_connection.key
-
-    ```
-
-    **C#**
-
-    ```csharp
-   // Get AI Services key from the project
-   var projectClient = new AIProjectClient(project_connection,
-                        new DefaultAzureCredential());
-
-   ConnectionResponse aiSvcConnection = projectClient.GetConnectionsClient().GetDefaultConnection(ConnectionType.AzureAIServices, true);
-
-   var apiKeyAuthProperties = aiSvcConnection.Properties as ConnectionPropertiesApiKeyAuth;
-
-   var aiSvcKey = apiKeyAuthProperties.Credentials.Key;
-    ```
-
-    This code connects to your Azure AI Foundry project, gets its default AI Services connected resource, and retrieves the authentication key needed to use it.
+1. In the **main** function, under the comment **Get config settings**, note that the code loads the project key and location you defined in the configuration file.
 
 1. Under the comment **Configure speech service**, add the following code to use the AI Services key and your project's region to configure your connection to the Azure AI Services Speech endpoint
 
    **Python**
 
     ```python
-   # Configure speech service
-   speech_config = speech_sdk.SpeechConfig(ai_svc_key, location)
-   print('Ready to use speech service in:', speech_config.region)
+    # Configure speech service
+    speech_config = speech_sdk.SpeechConfig(project_key, location)
+    print('Ready to use speech service in:', speech_config.region)
     ```
 
     **C#**
 
     ```csharp
    // Configure speech service
-   speechConfig = SpeechConfig.FromSubscription(aiSvcKey, location);
+   speechConfig = SpeechConfig.FromSubscription(projectKey, location);
    Console.WriteLine("Ready to use speech service in " + speechConfig.Region);
     ```
 
@@ -280,18 +245,18 @@ In this procedure, the speech input is captured from an audio file, which you ca
     **Python**
 
     ```python
-   # Process speech input
-   print("Listening...")
-   speech = speech_recognizer.recognize_once_async().get()
-   if speech.reason == speech_sdk.ResultReason.RecognizedSpeech:
-       command = speech.text
-       print(command)
-   else:
-       print(speech.reason)
-       if speech.reason == speech_sdk.ResultReason.Canceled:
-           cancellation = speech.cancellation_details
-           print(cancellation.reason)
-           print(cancellation.error_details)
+    # Process speech input
+    print("Listening...")
+    speech = speech_recognizer.recognize_once_async().get()
+    if speech.reason == speech_sdk.ResultReason.RecognizedSpeech:
+        command = speech.text
+        print(command)
+    else:
+        print(speech.reason)
+        if speech.reason == speech_sdk.ResultReason.Canceled:
+            cancellation = speech.cancellation_details
+            print(cancellation.reason)
+            print(cancellation.error_details)
     ```
 
     **C#**
@@ -369,12 +334,12 @@ Once again, due to the hardware limitations of the cloud shell we'll direct the 
     **Python**
 
     ```python
-   # Synthesize spoken output
-   speak = speech_synthesizer.speak_text_async(response_text).get()
-   if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
-       print(speak.reason)
-   else:
-       print("Spoken output saved in " + outputFile)
+    # Synthesize spoken output
+    speak = speech_synthesizer.speak_text_async(response_text).get()
+    if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
+        print(speak.reason)
+    else:
+        print("Spoken output saved in " + output_file)
     ```
 
     **C#**
