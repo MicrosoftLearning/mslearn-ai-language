@@ -193,8 +193,8 @@ Now that you've deployed the model, you can use the deployment in a client appli
 
     ```python
     # Initialize the project client
-    project_client = AIProjectClient.from_connection_string(
-        conn_str=project_connection,
+    project_client = AIProjectClient(
+        endpoint=project_connection,
         credential=DefaultAzureCredential())
     ```
 
