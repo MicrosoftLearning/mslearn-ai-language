@@ -219,7 +219,7 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
 
 1. In the code editor for the **audio-chat.py** file, in the loop section, under the comment **Get a response to audio input**, add the following code to submit a prompt that includes the following audio:
 
-    <video controls src="../media/avocados.mp4" title="A request for avocados" width="150"></video>
+    <video controls src="https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Instructions/media/avocados.mp4" title="A request for avocados" width="150"></video>
 
     **Python**
 
@@ -306,7 +306,7 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
 
 1. In the code editor for your app code, find the code you added previously under the comment **Get a response to audio input**. Then modify the code as follows to select a different audio file:
 
-    <video controls src="../media/fresas.mp4" title="A request for strawberries" width="150"></video>
+    <video controls src="https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Instructions/media/fresas.mp4" title="A request for strawberries" width="150"></video>
 
     **Python**
 
