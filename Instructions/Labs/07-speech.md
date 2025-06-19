@@ -34,8 +34,7 @@ Let's start by creating an Azure AI Speech resource.
 
 ## Prepare and configure the speaking clock app
 
-1. Open a new browser tab (keeping the previous Azure portal open in the existing tab). Then in the new tab, browse to the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`; signing in with your Azure credentials if prompted.
-1. Use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
+1. Leaving the **Keys and Endpoint** page open, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
 
     > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
 
@@ -100,7 +99,7 @@ Let's start by creating an Azure AI Speech resource.
 
     The file is opened in a code editor.
 
-1. In the code file, replace the **your_project_api_key** and **your_project_location** placeholders with the api key and location for your resource (copied from the Azure portal page in the first tab).
+1. In the code file, replace the **your_project_api_key** and **your_project_location** placeholders with the API key and location for your project (copied from the portal page you left open).
 1. After you've replaced the placeholders, use the **CTRL+S** command to save your changes and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
 
 ## Add code to use the Azure AI Speech SDK
@@ -121,7 +120,7 @@ Let's start by creating an Azure AI Speech resource.
    code Program.cs
     ```
 
-1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Azure AI Speech SDK with the Azure AI Services resource in your Azure Ai Foundry project:
+1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Azure AI Speech SDK:
 
     **Python**
 
@@ -168,7 +167,7 @@ Let's start by creating an Azure AI Speech resource.
 
 ## Run the app
 
-So far, the app doesn't do anything other than connect to your Azure AI Foundry project to retrieve the details needed to use the Speech service, but it's useful to run it and check that it works before adding speech functionality.
+So far, the app doesn't do anything other than connect to your Azure AI Speech service, but it's useful to run it and check that it works before adding speech functionality.
 
 1. In the command line below the code editor, enter the following Azure CLI command to determine the Azure account that is signed in for the session:
 
@@ -176,7 +175,7 @@ So far, the app doesn't do anything other than connect to your Azure AI Foundry 
    az account show
     ```
 
-    The resulting JSON output should include details of your Azure account and the subscription you are working in (which should be the same subscription in which you created your Azure AI Foundry project.)
+    The resulting JSON output should include details of your Azure account and the subscription you are working in (which should be the same subscription in which you created your Azure AI Speech resource.)
 
     Your app uses the Azure credentials for the context in which it's run to authenticate the connection to your project. In a production environment the app might be configured to run using a managed identity. In this development environment, it will use your authenticated cloud shell session credentials.
 
