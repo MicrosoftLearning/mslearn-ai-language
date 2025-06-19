@@ -4,10 +4,6 @@ lab:
     description: "Implement a speaking clock that converts speech to text, and text to speech."
 ---
 
-<!--
-Possibly update to use standalone AI Service instead of Foundry?
--->
-
 # Recognize and synthesize speech
 
 **Azure AI Speech** is a service that provides speech-related functionality, including:
@@ -20,34 +16,25 @@ In this exercise, you'll use both of these APIs to implement a speaking clock ap
 > **NOTE**
 > This exercise is designed to be completed in the Azure cloud shell, where direct access to your computer's sound hardware is not supported. The lab will therefore use audio files for speech input and output streams. The code to achieve the same results using a mic and speaker is provided for your reference.
 
-## Create an Azure AI Foundry project
+## Create an Azure AI Speech resource
 
-Let's start by creating an Azure AI Foundry project.
+Let's start by creating an Azure AI Speech resource.
 
-1. In a web browser, open the [Azure AI Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the **Azure AI Foundry** logo at the top left to navigate to the home page, which looks similar to the following image:
-
-    ![Screenshot of Azure AI Foundry portal.](../media/ai-foundry-home.png)
-
-1. In the home page, select **+ Create project**.
-1. In the **Create a project** wizard, enter a suitable project name for (for example, `my-ai-project`) then review the Azure resources that will be automatically created to support your project.
-1. Select **Customize** and specify the following settings for your hub:
-    - **Hub name**: *A unique name - for example `my-ai-hub`*
-    - **Subscription**: *Your Azure subscription*
-    - **Resource group**: *Create a new resource group with a unique name (for example, `my-ai-resources`), or select an existing one*
-    - **Location**: Choose any available region
-    - **Connect Azure AI Services or Azure OpenAI**: *Create a new AI Services resource with an appropriate name (for example, `my-ai-services`) or use an existing one*
-    - **Connect Azure AI Search**: Skip connecting
-
-1. Select **Next** and review your configuration. Then select **Create** and wait for the process to complete.
-1. When your project is created, close any tips that are displayed and review the project page in Azure AI Foundry portal, which should look similar to the following image:
-
-    ![Screenshot of a Azure AI project details in Azure AI Foundry portal.](../media/ai-foundry-project.png)
+1. Open the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
+1. In the top search field, search for **Speech service**. Select it from the list, then select **Create**.
+1. Provision the resource using the following settings:
+    - **Subscription**: *Your Azure subscription*.
+    - **Resource group**: *Choose or create a resource group*.
+    - **Region**:*Choose any available region*
+    - **Name**: *Enter a unique name*.
+    - **Pricing tier**: Select **F0** (*free*), or **S** (*standard*) if F is not available.
+1. Select **Review + create**, then select **Create** to provision the resource.
+1. Wait for deployment to complete, and then go to the deployed resource.
+1. View the **Keys and Endpoint** page in the **Resource Management** section. You will need the information on this page later in the exercise.
 
 ## Prepare and configure the speaking clock app
 
-1. In the Azure AI Foundry portal, view the **Overview** page for your project.
-1. In the **Endpoint and keys** area, note the API key and the **location** under **Project details** for your project. You'll use the key and location to connect to the Azure AI Services Speech endpoint.
-1. Open a new browser tab (keeping the Azure AI Foundry portal open in the existing tab). Then in the new tab, browse to the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`; signing in with your Azure credentials if prompted.
+1. Open a new browser tab (keeping the previous Azure portal open in the existing tab). Then in the new tab, browse to the [Azure portal](https://portal.azure.com) at `https://portal.azure.com`; signing in with your Azure credentials if prompted.
 1. Use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
 
     > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
@@ -209,7 +196,7 @@ So far, the app doesn't do anything other than connect to your Azure AI Foundry 
    dotnet run
     ```
 
-1. If you are using C#, you can ignore any warnings about using the **await** operator in asynchronous methods - we'll fix that later. The code should display the region of the speech service resource the application will use. A successful run indicates that the app has connected to your Azure AI Foundry project and retrieved the key it needs to use the Azure AI Speech service.
+1. If you are using C#, you can ignore any warnings about using the **await** operator in asynchronous methods - we'll fix that later. The code should display the region of the speech service resource the application will use. A successful run indicates that the app has connected to your Azure AI Speech resource.
 
 ## Add code to recognize speech
 
