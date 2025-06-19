@@ -56,13 +56,13 @@ Let's start by creating an Azure AI Speech resource.
     **Python**
 
     ```
-   cd mslearn-ai-language/Labfiles/07b-speech/Python/speaking-clock
+   cd mslearn-ai-language/Labfiles/07-speech/Python/speaking-clock
     ```
 
     **C#**
 
     ```
-   cd mslearn-ai-language/Labfiles/07b-speech/C-sharp/speaking-clock
+   cd mslearn-ai-language/Labfiles/07-speech/C-sharp/speaking-clock
     ```
 
 1. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
@@ -362,11 +362,11 @@ Once again, due to the hardware limitations of the cloud shell we'll direct the 
 
     **Python**
 
-    /home/*user*`/mslearn-ai-language/Labfiles/07b-speech/Python/speaking-clock/output.wav`
+    /home/*user*`/mslearn-ai-language/Labfiles/07-speech/Python/speaking-clock/output.wav`
 
     **C#**
 
-    /home/*user*`/mslearn-ai-language/Labfiles/07b-speech/C-Sharp/speaking-clock/output.wav`
+    /home/*user*`/mslearn-ai-language/Labfiles/07-speech/C-Sharp/speaking-clock/output.wav`
 
     The file should sound similar to this:
 
@@ -439,11 +439,11 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
 
     **Python**
 
-    /home/*user*`/mslearn-ai-language/Labfiles/07b-speech/Python/speaking-clock/output.wav`
+    /home/*user*`/mslearn-ai-language/Labfiles/07-speech/Python/speaking-clock/output.wav`
 
     **C#**
 
-    /home/*user*`/mslearn-ai-language/Labfiles/07b-speech/C-Sharp/speaking-clock/output.wav`
+    /home/*user*`/mslearn-ai-language/Labfiles/07-speech/C-Sharp/speaking-clock/output.wav`
 
     The file should sound similar to this:
     

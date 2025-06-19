@@ -47,7 +47,7 @@ You'll develop your text translation app using Cloud Shell. The code files for y
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-    cd mslearn-ai-language/Labfiles/06b-translator-sdk
+    cd mslearn-ai-language/Labfiles/06-translator-sdk
     ```
 
 ## Configure your application

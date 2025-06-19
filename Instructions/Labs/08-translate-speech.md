@@ -51,13 +51,13 @@ Let's start by creating an Azure AI Speech resource.
     **Python**
 
     ```
-   cd mslearn-ai-language/Labfiles/08b-speech-translation/Python/translator
+   cd mslearn-ai-language/Labfiles/08-speech-translation/Python/translator
     ```
 
     **C#**
 
     ```
-   cd mslearn-ai-language/Labfiles/08b-speech-translation/C-Sharp/translator
+   cd mslearn-ai-language/Labfiles/08-speech-translation/C-Sharp/translator
     ```
 
 1. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
@@ -350,11 +350,11 @@ Once again, due to the hardware limitations of the cloud shell we'll direct the 
 
     **Python**
 
-    /home/*user*`/mslearn-ai-language/Labfiles/08b-speech-translation/Python/translator/output.wav`
+    /home/*user*`/mslearn-ai-language/Labfiles/08-speech-translation/Python/translator/output.wav`
 
     **C#**
 
-    /home/*user*`/mslearn-ai-language/Labfiles/08b-speech-translation/C-Sharp/translator/output.wav`
+    /home/*user*`/mslearn-ai-language/Labfiles/08-speech-translation/C-Sharp/translator/output.wav`
 
 > **NOTE**
 > *In this example, you've used a **SpeechTranslationConfig** to translate speech to text, and then used a **SpeechConfig** to synthesize the translation as speech. You can in fact use the **SpeechTranslationConfig** to synthesize the translation directly, but this only works when translating to a single language, and results in an audio stream that is typically saved as a file.*
