@@ -100,7 +100,7 @@ Let's start by creating an Azure AI Speech resource.
 
     The file is opened in a code editor.
 
-1. In the code file, replace the **your_project_api_key** and **your_project_location** placeholders with the api key and location for your project (copied from the project **Overview** page in the Azure AI Foundry portal).
+1. In the code file, replace the **your_project_api_key** and **your_project_location** placeholders with the api key and location for your resource (copied from the Azure portal page in the first tab).
 1. After you've replaced the placeholders, use the **CTRL+S** command to save your changes and then use the **CTRL+Q** command to close the code editor while keeping the cloud shell command line open.
 
 ## Add code to use the Azure AI Speech SDK
