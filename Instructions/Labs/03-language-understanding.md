@@ -630,12 +630,13 @@ Now you're ready to add the code necessary to import the required SDK libraries,
         print('Try asking me for the time, the day, or the date.')
     ```
 
-1. Save your changes and close the code editor, then enter the following command to run the program:
+1. Save your changes and close the code editor, then enter the following command to run the program (you maximize the console panel to see more text):
 
     - **C#**: `dotnet run`
-    - **Python**: `python clock-client.py`
 
-    > **Tip**: You can maximize the panel size in the terminal toolbar to see more of the console text.
+    > **Tip**: If a compilation error occurs because the code targets .NET version 8.0 but .NET 9.0 is installed in the cloud shell, edit the **chat_app.csproj** file in the code folder and update the **TargetFramework** setting to **net9.0**.
+
+    - **Python**: `python clock-client.py`
 
 1. When prompted, enter utterances to test the application. For example, try:
 

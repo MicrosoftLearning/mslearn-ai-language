@@ -356,12 +356,13 @@ Now you're ready to use the Azure AI Language service to classify documents.
 
 Now your application is ready to test.
 
-1. Enter the following command to run the program:
+1. Enter the following command to run the program (you maximize the console panel to see more text):
 
     - **C#**: `dotnet run`
-    - **Python**: `python classify-text.py`
 
-    > **Tip**: You can maximize the panel size in the terminal toolbar to see more of the console text.
+    > **Tip**: If a compilation error occurs because the code targets .NET version 8.0 but .NET 9.0 is installed in the cloud shell, edit the **chat_app.csproj** file in the code folder and update the **TargetFramework** setting to **net9.0**.
+
+    - **Python**: `python classify-text.py`
 
 1. Observe the output. The application should list a classification and confidence score for each text file.
 

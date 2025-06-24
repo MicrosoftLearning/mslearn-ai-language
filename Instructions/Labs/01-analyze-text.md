@@ -142,12 +142,13 @@ Applications for both C# and Python have been provided, as well as a sample text
     ai_client = TextAnalyticsClient(endpoint=ai_endpoint, credential=credential)
     ```
 
-1. Save your changes and close the code editor,then enter the following command to run the program:
+1. Save your changes and close the code editor, then enter the following command to run the program (you maximize the console panel to see more text):
 
     - **C#**: `dotnet run`
-    - **Python**: `python text-analysis.py`
 
-    > **Tip**: You can maximize the panel size to see more of the console text.
+    > **Tip**: If a compilation error occurs because the code targets .NET version 8.0 but .NET 9.0 is installed in the cloud shell, edit the **chat_app.csproj** file in the code folder and update the **TargetFramework** setting to **net9.0**.
+
+    - **Python**: `python text-analysis.py`
 
 1. Observe the output as the code should run without error, displaying the contents of each review text file in the **reviews** folder. The application successfully creates a client for the Text Analytics API but doesn't make use of it. We'll fix that in the next section.
 

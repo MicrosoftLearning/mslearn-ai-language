@@ -276,12 +276,13 @@ Now you're ready to add the code necessary to import the required SDK libraries,
             print("Source: {}".format(candidate.source))
     ```
 
-1. Save your changes and close the code editor, then enter the following command to run the program:
+1. Save your changes and close the code editor, then enter the following command to run the program (you maximize the console panel to see more text):
 
     - **C#**: `dotnet run`
-    - **Python**: `python qna-app.py`
 
-    > **Tip**: You can maximize the panel size in the terminal toolbar to see more of the console text.
+    > **Tip**: If a compilation error occurs because the code targets .NET version 8.0 but .NET 9.0 is installed in the cloud shell, edit the **chat_app.csproj** file in the code folder and update the **TargetFramework** setting to **net9.0**.
+
+    - **Python**: `python qna-app.py`
 
 1. When prompted, enter a question to be submitted to your question answering project; for example `What is a learning path?`.
 1. Review the answer that is returned.
