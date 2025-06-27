@@ -40,7 +40,8 @@ If you don't already have one in your subscription, you'll need to provision an 
     - **Responsible AI notice**: Selected.
 
 1. Select **Review + create,** then select **Create** to provision the resource.
-1. Wait for deployment to complete, and then go to the deployed resource.
+1. Wait for deployment to complete, and then go to the resource group.
+1. Find the storage account you created, select it, and verify the _Account kind_ is **StorageV2**. If it's v1, upgrade your storage account kind on that resource page.
 1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
 
 ## Roles for your user
@@ -48,7 +49,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 1. Go to your storage account page in the Azure portal.
 2. Select **Access Control (IAM)** in the left navigation menu.
-3. Select **Add** to Add Role Assignments, and choose the **Storage Blob Data Contributor** role on the storage account.
+3. Select **Add** to Add Role Assignments, and choose the **Storage Blob Owner** role on the storage account.
 4. Within **Assign access to**, select **User, group, or service principal**.
 5. Select **Select members**.
 6. Select your User. You can search for user names in the **Select** field.
