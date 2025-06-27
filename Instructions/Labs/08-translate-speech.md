@@ -217,7 +217,7 @@ So far, the app doesn't do anything other than connect to your Azure AI Speech r
    dotnet run
     ```
 
-    > **Tip**: If a compilation error occurs because the code targets .NET version 8.0 but .NET 9.0 is installed in the cloud shell, edit the **chat_app.csproj** file in the code folder and update the **TargetFramework** setting to **net9.0**.
+    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **translator.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
 1. If you are using C#, you can ignore any warnings about using the **await** operator in asynchronous methods - we'll fix that later. The code should display the region of the speech service resource the application will use, a message that it is ready to translate from en-US and prompt you for a target language. A successful run indicates that the app has connected to your Azure AI Speech service. Press ENTER to end the program.
 
