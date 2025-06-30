@@ -27,9 +27,6 @@ namespace chat_app
 
 
 
-                // Initialize the project client
-
-
 
                 // Get a chat client
 

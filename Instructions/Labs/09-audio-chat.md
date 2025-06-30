@@ -152,7 +152,7 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
     **Python**
 
     ```python
-    # Add references
+   # Add references
    from dotenv import load_dotenv
    from urllib.parse import urlparse
    from azure.identity import DefaultAzureCredential
