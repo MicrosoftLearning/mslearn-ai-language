@@ -194,15 +194,15 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
     **C#**
 
     ```csharp
-    // Get a chat client
-    DefaultAzureCredentialOptions options = new() { 
+   // Get a chat client
+   DefaultAzureCredentialOptions options = new() { 
         ExcludeEnvironmentCredential = true,
         ExcludeManagedIdentityCredential = true
-    };
-    var projectClient = new AIProjectClient(
+   };
+   var projectClient = new AIProjectClient(
         new Uri(project_connection),
         new DefaultAzureCredential(options));
-   ChatCompletionsClient chat = projectClient.GetChatCompletionsClient();
+  ChatCompletionsClient chat = projectClient.GetChatCompletionsClient();
     ```
 
 ### Write code to submit a URL-based audio-based prompt
