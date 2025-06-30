@@ -153,10 +153,11 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
 
     ```python
     # Add references
-    from dotenv import load_dotenv
-    from azure.identity import DefaultAzureCredential
-    from azure.ai.projects import AIProjectClient
-    from azure.ai.inference.models import SystemMessage, UserMessage, TextContentItem
+   from dotenv import load_dotenv
+   from urllib.parse import urlparse
+   from azure.identity import DefaultAzureCredential
+   from azure.ai.inference import ChatCompletionsClient
+   from azure.ai.inference.models import SystemMessage, UserMessage, AssistantMessage, TextContentItem
     ```
 
     **C#**
@@ -170,25 +171,30 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
 
 1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the project connection string and model deployment name values you defined in the configuration file.
 
-1. Find the comment **Initialize the project client**, add the following code to connect to your Azure AI Foundry project using the Azure credentials you are currently signed in with:
+1. Find the comment **Get a chat client**, add the following code to create a client object for chatting with your model:
+
+    > **Tip**: Be careful to maintain the correct indentation level for your code.
 
     **Python**
 
     ```python
-    # Initialize the project client
-    project_client = AIProjectClient(
-        credential=DefaultAzureCredential(
-             exclude_environment_credential=True,
-             exclude_managed_identity_credential=True
-         ),
-         endpoint=project_connection,
-    )
+   # Get a chat client
+   inference_endpoint = f"https://{urlparse(project_endpoint).netloc}/models"
+
+   credential = DefaultAzureCredential(exclude_environment_credential=True,
+                                        exclude_managed_identity_credential=True,
+                                        exclude_interactive_browser_credential=False)
+
+   chat_client = ChatCompletionsClient(
+            endpoint=inference_endpoint,
+            credential=credential,
+            credential_scopes=["https://ai.azure.com/.default"])
     ```
 
     **C#**
 
     ```csharp
-    // Initialize the project client
+    // Get a chat client
     DefaultAzureCredentialOptions options = new() { 
         ExcludeEnvironmentCredential = true,
         ExcludeManagedIdentityCredential = true
@@ -196,24 +202,8 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
     var projectClient = new AIProjectClient(
         new Uri(project_connection),
         new DefaultAzureCredential(options));
+   ChatCompletionsClient chat = projectClient.GetChatCompletionsClient();
     ```
-
-1. Find the comment **Get a chat client**, add the following code to create a client object for chatting with your model:
-
-    **Python**
-
-    ```python
-    # Get a chat client
-    chat_client = project_client.inference.get_chat_completions_client()
-    ```
-
-    **C#**
-
-    ```csharp
-    // Get a chat client
-    ChatCompletionsClient chat = projectClient.GetChatCompletionsClient();
-    ```
-    
 
 ### Write code to submit a URL-based audio-based prompt
 
