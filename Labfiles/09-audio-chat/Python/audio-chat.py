@@ -1,4 +1,7 @@
 import os
+import requests
+import base64
+from dotenv import load_dotenv
 
 # Add references
 
@@ -15,11 +18,11 @@ def main():
         project_endpoint = os.getenv("PROJECT_ENDPOINT")
         model_deployment =  os.getenv("MODEL_DEPLOYMENT")
 
+        # Initialize the project client
 
 
-        ## Get a chat client
+        # Get a chat client
         
-
 
         # Initialize prompts
         system_message = "You are an AI assistant for a produce supplier company."
@@ -34,6 +37,8 @@ def main():
                     print("Please enter a question.\n")
             else:
                 print("Getting a response ...\n")
+
+                # Encode the audio file
 
 
                 # Get a response to audio input

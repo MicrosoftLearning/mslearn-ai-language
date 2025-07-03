@@ -98,15 +98,15 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
     ```
     python -m venv labenv
     ./labenv/bin/Activate.ps1
-    pip install -r requirements.txt azure-identity azure-ai-projects azure-ai-inference
+    pip install -r requirements.txt azure-identity azure-ai-projects openai
     ```
 
     **C#**
 
     ```
-    dotnet add package Azure.Identity
-    dotnet add package Azure.AI.Projects --version 1.0.0-beta.9
-    dotnet add package Azure.AI.Inference --version 1.0.0-beta.5
+    dotnet add package Azure.Identity --prerelease
+    dotnet add package Azure.AI.Projects --prerelease
+    dotnet add package Azure.AI.OpenAI --prerelease
     ```
 
 1. Enter the following command to edit the configuration file that has been provided:
@@ -153,105 +153,136 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
 
     ```python
    # Add references
-   from dotenv import load_dotenv
-   from urllib.parse import urlparse
    from azure.identity import DefaultAzureCredential
-   from azure.ai.inference import ChatCompletionsClient
-   from azure.ai.inference.models import SystemMessage, UserMessage, AssistantMessage, TextContentItem
+   from azure.ai.projects import AIProjectClient
     ```
 
     **C#**
 
     ```csharp
-    // Add references
-    using Azure.Identity;
-    using Azure.AI.Projects;
-    using Azure.AI.Inference;
+   // Add references
+   using Azure.Identity;
+   using Azure.AI.Projects;
+   using OpenAI.Chat;
     ```
 
 1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the project connection string and model deployment name values you defined in the configuration file.
 
-1. Find the comment **Get a chat client**, add the following code to create a client object for chatting with your model:
+1. Find the comment **Initialize the project client** and add the following code to connect to your Azure AI Foundry project:
 
     > **Tip**: Be careful to maintain the correct indentation level for your code.
 
     **Python**
 
     ```python
+   # Initialize the project client
+   project_client = AIProjectClient(            
+       credential=DefaultAzureCredential(
+           exclude_environment_credential=True,
+           exclude_managed_identity_credential=True
+       ),
+       endpoint=project_endpoint,
+   )
+    ```
+
+    **C#**
+
+    ```csharp
+   // Initialize the project client
+   DefaultAzureCredentialOptions options = new(){ 
+       ExcludeEnvironmentCredential = true,
+       ExcludeManagedIdentityCredential = true};
+   var projectClient = new AIProjectClient(
+       new Uri(project_connection),
+       new DefaultAzureCredential(options));
+    ```
+
+1. Find the comment **Get a chat client**, add the following code to create a client object for chatting with your model:
+
+    **Python**
+
+    ```python
    # Get a chat client
-   inference_endpoint = f"https://{urlparse(project_endpoint).netloc}/models"
-
-   credential = DefaultAzureCredential(exclude_environment_credential=True,
-                                        exclude_managed_identity_credential=True,
-                                        exclude_interactive_browser_credential=False)
-
-   chat_client = ChatCompletionsClient(
-            endpoint=inference_endpoint,
-            credential=credential,
-            credential_scopes=["https://ai.azure.com/.default"])
+   openai_client = project_client.inference.get_azure_openai_client(api_version="2024-10-21")
     ```
 
     **C#**
 
     ```csharp
    // Get a chat client
-   DefaultAzureCredentialOptions options = new() { 
-        ExcludeEnvironmentCredential = true,
-        ExcludeManagedIdentityCredential = true
-   };
-   var projectClient = new AIProjectClient(
-        new Uri(project_connection),
-        new DefaultAzureCredential(options));
-  ChatCompletionsClient chat = projectClient.GetChatCompletionsClient();
+   ChatClient openaiClient = projectClient.GetAzureOpenAIChatClient(deploymentName: model_deployment, connectionName: null, apiVersion: "2024-10-21");
     ```
 
 ### Write code to submit a URL-based audio-based prompt
 
-1. In the code editor for the **audio-chat.py** file, in the loop section, under the comment **Get a response to audio input**, add the following code to submit a prompt that includes the following audio:
+Before submitting the prompt, we need to encode the audio file for the request. Then we can attach the audio data to the user's message with a prompt for the LLM. Note that the code includes a loop to allow the user to input a prompt until they enter "quit". 
+
+1. Under the comment **Encode the audio file**, enter the following code to prepare the following audio file:
 
     <video controls src="https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Instructions/media/avocados.mp4" title="A request for avocados" width="150"></video>
 
     **Python**
 
     ```python
-    # Get a response to audio input
-    file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3"
-    response = chat_client.complete(
-        model=model_deployment,
-        messages=[
-            SystemMessage(system_message),
-            UserMessage(
-                [
-                    TextContentItem(text=prompt),
-                    {
-                        "type": "audio_url",
-                        "audio_url": {"url": file_path}
-                    }
-                ]
-            )
-        ]
-    )
-    print(response.choices[0].message.content)
+   # Encode the audio file
+   file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3"
+   response = requests.get(file_path)
+   response.raise_for_status()
+   audio_data = base64.b64encode(response.content).decode('utf-8')
     ```
 
     **C#**
 
     ```csharp
-    // Get a response to audio input
-    string audioUrl = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3";
-    var requestOptions = new ChatCompletionsOptions()
-    {
-        Model = model_deployment,
-        Messages =
-        {
-            new ChatRequestSystemMessage(system_message),
-            new ChatRequestUserMessage(
-                new ChatMessageTextContentItem(prompt),
-                new ChatMessageAudioContentItem(new Uri(audioUrl))),
-        }
-    };
-    var response = chat.Complete(requestOptions);
-    Console.WriteLine(response.Value.Content);
+   // Encode the audio file
+   string filePath = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3";
+   using HttpClient client = new();
+   byte[] audioFileRawBytes = await client.GetByteArrayAsync(filePath);
+   BinaryData audioData = BinaryData.FromBytes(audioFileRawBytes);
+    ```
+
+1. Under the comment **Get a response to audio input**, add the following code to submit a prompt:
+
+    **Python**
+
+    ```python
+   # Get a response to audio input
+   response = openai_client.chat.completions.create(
+       model=model_deployment,
+       messages=[
+           {"role": "system", "content": system_message},
+           { "role": "user",
+               "content": [
+               { 
+                   "type": "text",
+                   "text": prompt
+               },
+               {
+                   "type": "input_audio",
+                   "input_audio": {
+                       "data": audio_data,
+                       "format": "mp3"
+                   }
+               }
+           ] }
+       ]
+   )
+   print(response.choices[0].message.content)
+    ```
+
+    **C#**
+
+    ```csharp
+   // Get a response to audio input
+   List<ChatMessage> messages =
+   [
+       new SystemChatMessage(system_message),
+       new UserChatMessage(
+           ChatMessageContentPart.CreateTextPart(prompt),
+           ChatMessageContentPart.CreateInputAudioPart(audioData, ChatInputAudioFormat.Mp3)),
+   ];
+   ChatCompletion completion = openaiClient.CompleteChat(messages);
+   Console.WriteLine(completion.Content[0].Text);
     ```
 
 1. Use the **CTRL+S** command to save your changes to the code file. You can also close the code editor (**CTRL+Q**) if you like.
@@ -296,51 +327,22 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
 
 ### Use a different audio file
 
-1. In the code editor for your app code, find the code you added previously under the comment **Get a response to audio input**. Then modify the code as follows to select a different audio file:
+1. In the code editor for your app code, find the code you added previously under the comment **Encode the audio file**. Then modify the file path url as follows to use a different audio file for the request:
 
     <video controls src="https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Instructions/media/fresas.mp4" title="A request for strawberries" width="150"></video>
 
     **Python**
 
     ```python
-    # Get a response to audio input
+    # Encode the audio file
     file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/fresas.mp3"
-    response = chat_client.complete(
-        model=model_deployment,
-        messages=[
-            SystemMessage(system_message),
-            UserMessage(
-                [
-                    TextContentItem(text=prompt),
-                    {
-                        "type": "audio_url",
-                        "audio_url": {"url": file_path}
-                    }
-                ]
-            )
-        ]
-    )
-    print(response.choices[0].message.content)
     ```
 
     **C#**
 
     ```csharp
-    // Get a response to audio input
-    string audioUrl = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/fresas.mp3";
-    var requestOptions = new ChatCompletionsOptions()
-    {
-        Model = model_deployment,
-        Messages =
-        {
-            new ChatRequestSystemMessage(system_message),
-            new ChatRequestUserMessage(
-                new ChatMessageTextContentItem(prompt),
-                new ChatMessageAudioContentItem(new Uri(audioUrl))),
-        }
-    };
-    var response = chat.Complete(requestOptions);
-    Console.WriteLine(response.Value.Content);
+    // Encode teh audio file
+    string filePath = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/fresas.mp3";
     ```
 
 1. Use the **CTRL+S** command to save your changes to the code file. You can also close the code editor (**CTRL+Q**) if you like.
