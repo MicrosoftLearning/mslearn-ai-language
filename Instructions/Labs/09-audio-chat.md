@@ -237,7 +237,7 @@ Before submitting the prompt, we need to encode the audio file for the request. 
    // Encode the audio file
    string filePath = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3";
    using HttpClient client = new();
-   byte[] audioFileRawBytes = await client.GetByteArrayAsync(filePath);
+   byte[] audioFileRawBytes = client.GetByteArrayAsync(filePath).Result;
    BinaryData audioData = BinaryData.FromBytes(audioFileRawBytes);
     ```
 
