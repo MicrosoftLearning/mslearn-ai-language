@@ -88,7 +88,7 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
     **C#**
 
     ```
-    cd mslearn-ai-audio/Labfiles/09-audio-chat/C-sharp
+    cd mslearn-ai-audio/Labfiles/09-audio-chat/C-Sharp
     ```
 
 1. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
