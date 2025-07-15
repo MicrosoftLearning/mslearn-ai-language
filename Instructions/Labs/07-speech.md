@@ -62,7 +62,7 @@ Let's start by creating an Azure AI Speech resource.
     **C#**
 
     ```
-   cd mslearn-ai-language/Labfiles/07-speech/C-sharp/speaking-clock
+   cd mslearn-ai-language/Labfiles/07-speech/C-Sharp/speaking-clock
     ```
 
 1. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
