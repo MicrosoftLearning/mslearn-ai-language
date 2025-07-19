@@ -6,7 +6,13 @@ lab:
 
 # Develop an audio-enabled chat app
 
-In this exercise, you use the *Phi-4-multimodal-instruct* generative AI model to generate responses to prompts that include audio files. You'll develop an app that provides AI assistance for a produce supplier company by using Azure AI Foundry and the Azure AI Model Inference service to summarize voice messages left by customers.
+In this exercise, you use the *Phi-4-multimodal-instruct* generative AI model to generate responses to prompts that include audio files. You'll develop an app that provides AI assistance for a produce supplier company by using Azure AI Foundry and the Python OpenAI SDK to summarize voice messages left by customers.
+
+While this exercise is based on Python, you can develop similar applications using multiple language-specific SDKs; including:
+
+- [Azure AI Projects for Python](https://pypi.org/project/azure-ai-projects)
+- [Azure AI Projects for Microsoft .NET](https://www.nuget.org/packages/Azure.AI.Projects)
+- [Azure AI Projects for JavaScript](https://www.npmjs.com/package/@azure/ai-projects)
 
 This exercise takes approximately **30** minutes.
 
@@ -31,7 +37,7 @@ Let's start by deploying a model in an Azure AI Foundry project.
 
 1. Select **Create** and wait for your project to be created.
 
-    It may take a few moments for the operation to complete. 
+    It may take a few moments for the operation to complete.
 
 1. Select **Agree and Proceed** to agree to the model terms, then select **Deploy** to complete the Phi model deployment.
 
@@ -69,58 +75,31 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
 
 1. In the cloud shell pane, enter the following commands to clone the GitHub repo containing the code files for this exercise (type the command, or copy it to the clipboard and then right-click in the command line and paste as plain text):
 
-
     ```
-    rm -r mslearn-ai-audio -f
-    git clone https://github.com/MicrosoftLearning/mslearn-ai-language mslearn-ai-audio
+   rm -r mslearn-ai-audio -f
+   git clone https://github.com/MicrosoftLearning/mslearn-ai-language
     ```
 
     > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
 
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
-    **Python**
-
     ```
-    cd mslearn-ai-audio/Labfiles/09-audio-chat/Python
-    ```
-
-    **C#**
-
-    ```
-    cd mslearn-ai-audio/Labfiles/09-audio-chat/C-Sharp
-    ```
+   cd mslearn-ai-language/Labfiles/09-audio-chat/Python
+    ````
 
 1. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
 
-    **Python**
-
     ```
-    python -m venv labenv
-    ./labenv/bin/Activate.ps1
-    pip install -r requirements.txt azure-identity azure-ai-projects openai
-    ```
-
-    **C#**
-
-    ```
-    dotnet add package Azure.Identity --prerelease
-    dotnet add package Azure.AI.Projects --prerelease
-    dotnet add package Azure.AI.OpenAI --prerelease
+   python -m venv labenv
+   ./labenv/bin/Activate.ps1
+   pip install -r requirements.txt azure-identity azure-ai-projects openai
     ```
 
 1. Enter the following command to edit the configuration file that has been provided:
 
-    **Python**
-
     ```
-    code .env
-    ```
-
-    **C#**
-
-    ```
-    code appsettings.json
+   code .env
     ```
 
     The file should open in a code editor.
@@ -133,23 +112,13 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
 
 > **Tip**: As you add code, be sure to maintain the correct indentation.
 
-1. Enter the following command to edit the code file that has been provided:
-
-    **Python**
+1. Enter the following command to edit the code file:
 
     ```
-    code audio-chat.py
-    ```
-
-    **C#**
-
-    ```
-    code Program.cs
+   code audio-chat.py
     ```
 
 1. In the code file, note the existing statements that have been added at the top of the file to import the necessary SDK namespaces. Then, Find the comment **Add references**, add the following code to reference the namespaces in the libraries you installed previously:
-
-    **Python**
 
     ```python
    # Add references
@@ -157,22 +126,11 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
    from azure.ai.projects import AIProjectClient
     ```
 
-    **C#**
-
-    ```csharp
-   // Add references
-   using Azure.Identity;
-   using Azure.AI.Projects;
-   using OpenAI.Chat;
-    ```
-
 1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the project connection string and model deployment name values you defined in the configuration file.
 
 1. Find the comment **Initialize the project client** and add the following code to connect to your Azure AI Foundry project:
 
     > **Tip**: Be careful to maintain the correct indentation level for your code.
-
-    **Python**
 
     ```python
    # Initialize the project client
@@ -185,43 +143,20 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
    )
     ```
 
-    **C#**
-
-    ```csharp
-   // Initialize the project client
-   DefaultAzureCredentialOptions options = new(){ 
-       ExcludeEnvironmentCredential = true,
-       ExcludeManagedIdentityCredential = true};
-   var projectClient = new AIProjectClient(
-       new Uri(project_connection),
-       new DefaultAzureCredential(options));
-    ```
-
 1. Find the comment **Get a chat client**, add the following code to create a client object for chatting with your model:
-
-    **Python**
 
     ```python
    # Get a chat client
    openai_client = project_client.inference.get_azure_openai_client(api_version="2024-10-21")
     ```
 
-    **C#**
-
-    ```csharp
-   // Get a chat client
-   ChatClient openaiClient = projectClient.GetAzureOpenAIChatClient(deploymentName: model_deployment, connectionName: null, apiVersion: "2024-10-21");
-    ```
-
-### Write code to submit a URL-based audio-based prompt
+### Write code to submit an audio-based prompt
 
 Before submitting the prompt, we need to encode the audio file for the request. Then we can attach the audio data to the user's message with a prompt for the LLM. Note that the code includes a loop to allow the user to input a prompt until they enter "quit". 
 
 1. Under the comment **Encode the audio file**, enter the following code to prepare the following audio file:
 
     <video controls src="https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Instructions/media/avocados.mp4" title="A request for avocados" width="150"></video>
-
-    **Python**
 
     ```python
    # Encode the audio file
@@ -231,19 +166,7 @@ Before submitting the prompt, we need to encode the audio file for the request. 
    audio_data = base64.b64encode(response.content).decode('utf-8')
     ```
 
-    **C#**
-
-    ```csharp
-   // Encode the audio file
-   string filePath = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/avocados.mp3";
-   using HttpClient client = new();
-   byte[] audioFileRawBytes = client.GetByteArrayAsync(filePath).Result;
-   BinaryData audioData = BinaryData.FromBytes(audioFileRawBytes);
-    ```
-
 1. Under the comment **Get a response to audio input**, add the following code to submit a prompt:
-
-    **Python**
 
     ```python
    # Get a response to audio input
@@ -270,21 +193,6 @@ Before submitting the prompt, we need to encode the audio file for the request. 
    print(response.choices[0].message.content)
     ```
 
-    **C#**
-
-    ```csharp
-   // Get a response to audio input
-   List<ChatMessage> messages =
-   [
-       new SystemChatMessage(system_message),
-       new UserChatMessage(
-           ChatMessageContentPart.CreateTextPart(prompt),
-           ChatMessageContentPart.CreateInputAudioPart(audioData, ChatInputAudioFormat.Mp3)),
-   ];
-   ChatCompletion completion = openaiClient.CompleteChat(messages);
-   Console.WriteLine(completion.Content[0].Text);
-    ```
-
 1. Use the **CTRL+S** command to save your changes to the code file. You can also close the code editor (**CTRL+Q**) if you like.
 
 ### Sign into Azure and run the app
@@ -292,7 +200,7 @@ Before submitting the prompt, we need to encode the audio file for the request. 
 1. In the cloud shell command-line pane, enter the following command to sign into Azure.
 
     ```
-    az login
+   az login
     ```
 
     **<font color="red">You must sign into Azure - even though the cloud shell session is already authenticated.</font>**
@@ -303,24 +211,14 @@ Before submitting the prompt, we need to encode the audio file for the request. 
 
 1. In the cloud shell command-line pane, enter the following command to run the app:
 
-    **Python**
-
     ```
-    python audio-chat.py
+   python audio-chat.py
     ```
-
-    **C#**
-
-    ```
-    dotnet run
-    ```
-
-    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **audio_chat.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
 
 1. When prompted, enter the prompt 
 
     ```
-    Can you summarize this customer's voice message?
+   Can you summarize this customer's voice message?
     ```
 
 1. Review the response.
@@ -331,40 +229,24 @@ Before submitting the prompt, we need to encode the audio file for the request. 
 
     <video controls src="https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Instructions/media/fresas.mp4" title="A request for strawberries" width="150"></video>
 
-    **Python**
 
     ```python
     # Encode the audio file
     file_path = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/fresas.mp3"
     ```
 
-    **C#**
-
-    ```csharp
-    // Encode teh audio file
-    string filePath = "https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Labfiles/09-audio-chat/data/fresas.mp3";
-    ```
-
-1. Use the **CTRL+S** command to save your changes to the code file. You can also close the code editor (**CTRL+Q**) if you like.
+ 1. Use the **CTRL+S** command to save your changes to the code file. You can also close the code editor (**CTRL+Q**) if you like.
 
 1. In the cloud shell command line pane beneath the code editor, enter the following command to run the app:
 
-    **Python**
-
     ```
-    python audio-chat.py
-    ```
-
-    **C#**
-
-    ```
-    dotnet run
+   python audio-chat.py
     ```
 
 1. When prompted, enter the following prompt: 
     
     ```
-    Can you summarize this customer's voice message? Is it time-sensitive?
+   Can you summarize this customer's voice message? Is it time-sensitive?
     ```
 
 1. Review the response. Then enter `quit` to exit the program.

@@ -8,7 +8,14 @@ lab:
 
 One of the most common conversational scenarios is providing support through a knowledge base of frequently asked questions (FAQs). Many organizations publish FAQs as documents or web pages, which works well for a small set of question and answer pairs, but large documents can be difficult and time-consuming to search.
 
-**Azure AI Language** includes a *question answering* capability that enables you to create a knowledge base of question and answer pairs that can be queried using natural language input, and is most commonly used as a resource that a bot can use to look up answers to questions submitted by users.
+**Azure AI Language** includes a *question answering* capability that enables you to create a knowledge base of question and answer pairs that can be queried using natural language input, and is most commonly used as a resource that a bot can use to look up answers to questions submitted by users. In this exercise, you'll use the Azure AI Language Python SDK for text analytics to implement a simple question answering application.
+
+While this exercise is based on Python, you can develop question answering applications using multiple language-specific SDKs; including:
+
+- [Azure AI Language Service Question Answering client library for Python](https://pypi.org/project/azure-ai-language-questionanswering/)
+- [Azure AI Language Service Question Answering client library for .NET](https://www.nuget.org/packages/Azure.AI.Language.QuestionAnswering)
+
+This exercise takes approximately **20** minutes.
 
 ## Provision an *Azure AI Language* resource
 
@@ -34,7 +41,7 @@ If you don't already have one in your subscription, you'll need to provision an 
     > Custom Question Answering uses Azure Search to index and query the knowledge base of questions and answers.
 
 1. Wait for deployment to complete, and then go to the deployed resource.
-1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
+1. View the **Keys and Endpoint** page in the **Resource Management** section. You will need the information on this page later in the exercise.
 
 ## Create a question answering project
 
@@ -120,63 +127,48 @@ The knowledge base provides a back-end service that client applications can use 
 
 You'll develop your question answering app using Cloud Shell in the Azure portal. The code files for your app have been provided in a GitHub repo.
 
-> **Tip**: If you have already cloned the **mslearn-ai-language** repo, you can skip this task. Otherwise, follow these steps to clone it to your development environment.
-
 1. In the Azure Portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
 
     > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
 
 1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
-    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
+    **<font color="red">Ensure you've switched to the classic version of the cloud shell before continuing.</font>**
 
 1. In the PowerShell pane, enter the following commands to clone the GitHub repo for this exercise:
 
     ```
     rm -r mslearn-ai-language -f
-    git clone https://github.com/microsoftlearning/mslearn-ai-language mslearn-ai-language
+    git clone https://github.com/microsoftlearning/mslearn-ai-language
     ```
+
+    > **Tip**: As you enter commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
 
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-    cd mslearn-ai-language/Labfiles/02-qna
+    cd mslearn-ai-language/Labfiles/02-qna/Python/qna-app
     ```
 
 ## Configure your application
 
-Applications for both C# and Python have been provided, as well as a sample text file you'll use to test the summarization. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Language resource.
-
-1. Run the command `cd C-Sharp/qna-app` or `cd Python/qna-app` depending on your language preference. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language question answering functionality.
-1. Install the Azure AI Language question answering SDK package by running the appropriate command for your language preference:
-
-    **C#**:
+1. In the command line pane, run the following command to view the code files in the **qna-app** folder:
 
     ```
-    dotnet add package Azure.AI.Language.QuestionAnswering
+   ls -a -l
     ```
 
-    **Python**:
+    The files include a configuration file (**.env**) and a code file (**qna-app.py**).
+
+1. Create a Python virtual environment and install the Azure AI Language Question Answering SDK package and other required packages by running the following command:
 
     ```
-    python -m venv labenv
-    ./labenv/bin/Activate.ps1
-    pip install -r requirements.txt azure-ai-language-questionanswering
+   python -m venv labenv
+   ./labenv/bin/Activate.ps1
+   pip install -r requirements.txt azure-ai-language-questionanswering
     ```
 
-1. Using the `ls` command, you can view the contents of the **qna-app** folder. Note that it contains a file for configuration settings:
-    - **C#**: appsettings.json
-    - **Python**: .env
-
-1. Enter the following command to edit the configuration file that has been provided:
-
-    **C#**
-
-    ```
-    code appsettings.json
-    ```
-
-    **Python**
+1. Enter the following command to edit the configuration file:
 
     ```
     code .env
@@ -187,83 +179,40 @@ Applications for both C# and Python have been provided, as well as a sample text
 1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for the Azure Language resource you created (available on the **Keys and Endpoint** page for your Azure AI Language resource in the Azure portal). The project name and deployment name for your deployed knowledge base should also be in this file.
 1. After you've replaced the placeholders, within the code editor, use the **CTRL+S** command or **Right-click > Save** to save your changes and then use the **CTRL+Q** command or **Right-click > Quit** to close the code editor while keeping the cloud shell command line open.
 
-## Add code to the application
+## Add code to user your knowledge base
 
-Now you're ready to add the code necessary to import the required SDK libraries, establish an authenticated connection to your deployed project, and submit questions.
+1. Enter the following command to edit the application code file:
 
-1. Note that the **qna-app** folder contains a code file for the client application:
-
-    - **C#**: Program.cs
-    - **Python**: qna-app.py
-
-    Open the code file and at the top, under the existing namespace references, find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Text Analytics SDK:
-
-    **C#**: Programs.cs
-
-    ```csharp
-    // import namespaces
-    using Azure;
-    using Azure.AI.Language.QuestionAnswering;
+    ```
+    code qna-app.py
     ```
 
-    **Python**: qna-app.py
+1. Review the existing code. You will add code to work with your knowledge base.
+
+    > **Tip**: As you add code to the code file, be sure to maintain the correct indentation.
+
+1. In the code file, find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Question Answering SDK:
 
     ```python
-    # import namespaces
-    from azure.core.credentials import AzureKeyCredential
-    from azure.ai.language.questionanswering import QuestionAnsweringClient
+   # import namespaces
+   from azure.core.credentials import AzureKeyCredential
+   from azure.ai.language.questionanswering import QuestionAnsweringClient
     ```
 
-1. In the **Main** function, note that code to load the Azure AI Language service endpoint and key from the configuration file has already been provided. Then find the comment **Create client using endpoint and key**, and add the following code to create a client for the Text Analysis API:
-
-    **C#**: Programs.cs
-
-    ```C#
-    // Create client using endpoint and key
-    AzureKeyCredential credentials = new AzureKeyCredential(aiSvcKey);
-    Uri endpoint = new Uri(aiSvcEndpoint);
-    QuestionAnsweringClient aiClient = new QuestionAnsweringClient(endpoint, credentials);
-    ```
-
-    **Python**: qna-app.py
+1. In the **main** function, note that code to load the Azure AI Language service endpoint and key from the configuration file has already been provided. Then find the comment **Create client using endpoint and key**, and add the following code to create a question answering client:
 
     ```Python
-    # Create client using endpoint and key
-    credential = AzureKeyCredential(ai_key)
-    ai_client = QuestionAnsweringClient(endpoint=ai_endpoint, credential=credential)
+   # Create client using endpoint and key
+   credential = AzureKeyCredential(ai_key)
+   ai_client = QuestionAnsweringClient(endpoint=ai_endpoint, credential=credential)
     ```
 
-1. In the **Main** function, find the comment **Submit a question and display the answer**, and add the following code to repeatedly read questions from the command line, submit them to the service, and display details of the answers:
-
-    **C#**: Programs.cs
-
-    ```C#
-    // Submit a question and display the answer
-    string user_question = "";
-    while (true)
-        {
-            Console.Write("Question: ");
-            user_question = Console.ReadLine();
-            if (user_question.ToLower() == "quit")
-                break;
-            QuestionAnsweringProject project = new QuestionAnsweringProject(projectName, deploymentName);
-            Response<AnswersResult> response = aiClient.GetAnswers(user_question, project);
-            foreach (KnowledgeBaseAnswer answer in response.Value.Answers)
-            {
-                Console.WriteLine(answer.Answer);
-                Console.WriteLine($"Confidence: {answer.Confidence:P2}");
-                Console.WriteLine($"Source: {answer.Source}");
-                Console.WriteLine();
-            }
-        }
-    ```
-
-    **Python**: qna-app.py
+1. In the code file, find the comment **Submit a question and display the answer**, and add the following code to repeatedly read questions from the command line, submit them to the service, and display details of the answers:
 
     ```Python
-    # Submit a question and display the answer
-    user_question = ''
-    while True:
+   # Submit a question and display the answer
+   user_question = ''
+   while True:
         user_question = input('\nQuestion:\n')
         if user_question.lower() == "quit":                
             break
@@ -276,13 +225,11 @@ Now you're ready to add the code necessary to import the required SDK libraries,
             print("Source: {}".format(candidate.source))
     ```
 
-1. Save your changes and close the code editor, then enter the following command to run the program (you maximize the console panel to see more text):
+1. Save your changes (CTRL+S), then enter the following command to run the program (you maximize the cloud shell pane and resize the panels to see more text in the command line pane):
 
-    - **C#**: `dotnet run`
-
-    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **qna-app.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
-
-    - **Python**: `python qna-app.py`
+    ```
+   python qna-app.py
+    ```
 
 1. When prompted, enter a question to be submitted to your question answering project; for example `What is a learning path?`.
 1. Review the answer that is returned.
@@ -292,9 +239,9 @@ Now you're ready to add the code necessary to import the required SDK libraries,
 
 If you're finished exploring the Azure AI Language service, you can delete the resources you created in this exercise. Here's how:
 
-1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-2. Browse to the Azure AI Language resource you created in this lab.
-3. On the resource page, select **Delete** and follow the instructions to delete the resource.
+1. Close the Azure cloud shell pane
+1. In the Azure portal, browse to the Azure AI Language resource you created in this lab.
+1. On the resource page, select **Delete** and follow the instructions to delete the resource.
 
 ## More information
 

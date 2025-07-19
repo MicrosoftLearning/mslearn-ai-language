@@ -15,8 +15,8 @@ def main():
 
         # Get config settings
         load_dotenv()
-        project_key = os.getenv('PROJECT_KEY')
-        location = os.getenv('LOCATION')
+        speech_key = os.getenv('KEY')
+        speech_region = os.getenv('REGION')
 
         # Configure speech service
         

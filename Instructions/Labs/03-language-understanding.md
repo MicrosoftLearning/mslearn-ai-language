@@ -6,10 +6,7 @@ lab:
 
 # Create a language understanding model with the Language service
 
-> **NOTE**
-> The conversational language understanding feature of the Azure AI Language service is currently in preview, and subject to change. In some cases, model training may fail - if this happens, try again.  
-
-The Azure AI Language service enables you to define a *conversational language understanding* model that applications can use to interpret natural language input from users,  predict the users *intent* (what they want to achieve), and identify any *entities* to which the intent should be applied.
+The Azure AI Language service enables you to define a *conversational language understanding* model that applications can use to interpret natural language *utterances* from users (text or spoken input),  predict the users *intent* (what they want to achieve), and identify any *entities* to which the intent should be applied.
 
 For example, a conversational language model for a clock application might be expected to process input such as:
 
@@ -19,6 +16,16 @@ This kind of input is an example of an *utterance* (something a user might say o
 
 > **NOTE**
 > The task of a conversational language model is to predict the user's intent and identify any entities to which the intent applies. It is <u>not</u> the job of a conversational language model to actually perform the actions required to satisfy the intent. For example, a clock application can use a conversational language model to discern that the user wants to know the time in London; but the client application itself must then implement the logic to determine the correct time and present it to the user.
+
+In this exercise, you'll use the Azure AI Language service to create a conversational language understand model, and use the Python SDK to implement a client app that uses it.
+
+While this exercise is based on Python, you can develop conversational understanding applications using multiple language-specific SDKs; including:
+
+- [Azure AI Conversations client library for Python](https://pypi.org/project/azure-ai-language-conversations/)
+- [Azure AI Conversations client library for .NET](https://www.nuget.org/packages/Azure.AI.Language.Conversations)
+- [Azure AI Conversations client library for JavaScript](https://www.npmjs.com/package/@azure/ai-language-conversations)
+
+This exercise takes approximately **35** minutes.
 
 ## Provision an *Azure AI Language* resource
 
@@ -317,64 +324,47 @@ In a real project, you'd iteratively refine intents and entities, retrain, and r
 
 You'll develop your language understanding app using Cloud Shell in the Azure portal. The code files for your app have been provided in a GitHub repo.
 
-> **Tip**: If you have already cloned the **mslearn-ai-language** repo, you can skip this task. Otherwise, follow these steps to clone it to your development environment.
-
 1. In the Azure Portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
 
     > **Note**: If you have previously created a cloud shell that uses a *Bash* environment, switch it to ***PowerShell***.
 
 1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
-    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
+    **<font color="red">Ensure you've switched to the classic version of the cloud shell before continuing.</font>**
 
 1. In the PowerShell pane, enter the following commands to clone the GitHub repo for this exercise:
 
     ```
-    rm -r mslearn-ai-language -f
-    git clone https://github.com/microsoftlearning/mslearn-ai-language mslearn-ai-language
+   rm -r mslearn-ai-language -f
+   git clone https://github.com/microsoftlearning/mslearn-ai-language
     ```
+
+    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
 
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-    cd mslearn-ai-language/Labfiles/03-language
+   cd mslearn-ai-language/Labfiles/03-language/Python/clock-client
     ```
 
 ### Configure your application
 
-Applications for both C# and Python have been provided, as well as a sample text file you'll use to test the summarization. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Language resource.
-
-1. Run the command `cd C-Sharp/clock-client` or `cd Python/clock-client` depending on your language preference. Each folder contains the language-specific files for an app into which you're you're going to integrate Azure AI Language question answering functionality.
-1. Install the Azure AI Language conversational language understanding SDK package by running the appropriate command for your language preference:
-
-    **C#**:
+1. In the command line pane, run the following command to view the code files in the **clock-client** folder:
 
     ```
-    dotnet add package Azure.AI.Language.Conversations --version 1.1.0
+   ls -a -l
     ```
 
-    **Python**:
+    The files include a configuration file (**.env**) and a code file (**clock-client.py**).
+
+1. Create a Python virtual environment and install the Azure AI Language Conversations SDK package and other required packages by running the following command:
 
     ```
-    python -m venv labenv
+   python -m venv labenv
     ./labenv/bin/Activate.ps1
-    pip install -r requirements.txt azure-ai-language-conversations==1.1.0
+   pip install -r requirements.txt azure-ai-language-conversations==1.1.0
     ```
-
-1. Using the `ls` command, you can view the contents of the **clock-client** folder. Note that it contains a file for configuration settings:
-
-    - **C#**: appsettings.json
-    - **Python**: .env
-
-1. Enter the following command to edit the configuration file that has been provided:
-
-    **C#**
-
-    ```
-   code appsettings.json
-    ```
-
-    **Python**
+1. Enter the following command to edit the configuration file:
 
     ```
    code .env
@@ -387,102 +377,40 @@ Applications for both C# and Python have been provided, as well as a sample text
 
 ### Add code to the application
 
-Now you're ready to add the code necessary to import the required SDK libraries, establish an authenticated connection to your deployed project, and submit questions.
+1. Enter the following command to edit the application code file:
 
-1. Note that the **clock-client** folder contains a code file for the client application:
-
-    - **C#**: Program.cs
-    - **Python**: clock-client.py
-
-    Open the code file and at the top, under the existing namespace references, find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Text Analytics SDK:
-
-    **C#**: Programs.cs
-
-    ```c#
-    // import namespaces
-    using Azure;
-    using Azure.AI.Language.Conversations;
+    ```
+   code clock-client.py
     ```
 
-    **Python**: clock-client.py
+1. Review the existing code. You will add code to work with the AI Language Conversations SDK.
+
+    > **Tip**: As you add code to the code file, be sure to maintain the correct indentation.
+
+1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces** and add the following code to import the namespaces you will need to use the AI Language Conversations SDK:
 
     ```python
-    # Import namespaces
-    from azure.core.credentials import AzureKeyCredential
-    from azure.ai.language.conversations import ConversationAnalysisClient
+   # Import namespaces
+   from azure.core.credentials import AzureKeyCredential
+   from azure.ai.language.conversations import ConversationAnalysisClient
     ```
 
-1. In the **Main** function, note that code to load the prediction endpoint and key from the configuration file has already been provided. Then find the comment **Create a client for the Language service model** and add the following code to create a prediction client for your Language Service app:
-
-    **C#**: Programs.cs
-
-    ```c#
-    // Create a client for the Language service model
-    Uri endpoint = new Uri(predictionEndpoint);
-    AzureKeyCredential credential = new AzureKeyCredential(predictionKey);
-
-    ConversationAnalysisClient client = new ConversationAnalysisClient(endpoint, credential);
-    ```
-
-    **Python**: clock-client.py
+1. In the **main** function, note that code to load the prediction endpoint and key from the configuration file has already been provided. Then find the comment **Create a client for the Language service model** and add the following code to create a conversation analysis client for your AI Language service:
 
     ```python
-    # Create a client for the Language service model
-    client = ConversationAnalysisClient(
+   # Create a client for the Language service model
+   client = ConversationAnalysisClient(
         ls_prediction_endpoint, AzureKeyCredential(ls_prediction_key))
     ```
 
-1. Note that the code in the **Main** function prompts for user input until the user enters "quit". Within this loop, find the comment **Call the Language service model to get intent and entities** and add the following code:
-
-    **C#**: Programs.cs
-
-    ```c#
-    // Call the Language service model to get intent and entities
-    var projectName = "Clock";
-    var deploymentName = "production";
-    var data = new
-    {
-        analysisInput = new
-        {
-            conversationItem = new
-            {
-                text = userText,
-                id = "1",
-                participantId = "1",
-            }
-        },
-        parameters = new
-        {
-            projectName,
-            deploymentName,
-            // Use Utf16CodeUnit for strings in .NET.
-            stringIndexType = "Utf16CodeUnit",
-        },
-        kind = "Conversation",
-    };
-    // Send request
-    Response response = await client.AnalyzeConversationAsync(RequestContent.Create(data));
-    dynamic conversationalTaskResult = response.Content.ToDynamicFromJson(JsonPropertyNames.CamelCase);
-    dynamic conversationPrediction = conversationalTaskResult.Result.Prediction;   
-    var options = new JsonSerializerOptions { WriteIndented = true };
-    Console.WriteLine(JsonSerializer.Serialize(conversationalTaskResult, options));
-    Console.WriteLine("--------------------\n");
-    Console.WriteLine(userText);
-    var topIntent = "";
-    if (conversationPrediction.Intents[0].ConfidenceScore > 0.5)
-    {
-        topIntent = conversationPrediction.TopIntent;
-    }
-    ```
-
-    **Python**: clock-client.py
+1. Note that the code in the **main** function prompts for user input until the user enters "quit". Within this loop, find the comment **Call the Language service model to get intent and entities** and add the following code:
 
     ```python
-    # Call the Language service model to get intent and entities
-    cls_project = 'Clock'
-    deployment_slot = 'production'
+   # Call the Language service model to get intent and entities
+   cls_project = 'Clock'
+   deployment_slot = 'production'
 
-    with client:
+   with client:
         query = userText
         result = client.analyze_conversation(
             task={
@@ -505,91 +433,30 @@ Now you're ready to add the code necessary to import the required SDK libraries,
             }
         )
 
-    top_intent = result["result"]["prediction"]["topIntent"]
-    entities = result["result"]["prediction"]["entities"]
+   top_intent = result["result"]["prediction"]["topIntent"]
+   entities = result["result"]["prediction"]["entities"]
 
-    print("view top intent:")
-    print("\ttop intent: {}".format(result["result"]["prediction"]["topIntent"]))
-    print("\tcategory: {}".format(result["result"]["prediction"]["intents"][0]["category"]))
-    print("\tconfidence score: {}\n".format(result["result"]["prediction"]["intents"][0]["confidenceScore"]))
+   print("view top intent:")
+   print("\ttop intent: {}".format(result["result"]["prediction"]["topIntent"]))
+   print("\tcategory: {}".format(result["result"]["prediction"]["intents"][0]["category"]))
+   print("\tconfidence score: {}\n".format(result["result"]["prediction"]["intents"][0]["confidenceScore"]))
 
-    print("view entities:")
-    for entity in entities:
+   print("view entities:")
+   for entity in entities:
         print("\tcategory: {}".format(entity["category"]))
         print("\ttext: {}".format(entity["text"]))
         print("\tconfidence score: {}".format(entity["confidenceScore"]))
 
-    print("query: {}".format(result["result"]["query"]))
+   print("query: {}".format(result["result"]["query"]))
     ```
 
-    The call to the Language service model returns a prediction/result, which includes the top (most likely) intent as well as any entities that were detected in the input utterance. Your client application must now use that prediction to determine and perform the appropriate action.
+    The call to the conversational understanding model returns a prediction/result, which includes the top (most likely) intent as well as any entities that were detected in the input utterance. Your client application must now use that prediction to determine and perform the appropriate action.
 
 1. Find the comment **Apply the appropriate action**, and add the following code, which checks for intents supported by the application (**GetTime**, **GetDate**, and **GetDay**) and determines if any relevant entities have been detected, before calling an existing function to produce an appropriate response.
 
-    **C#**: Programs.cs
-
-    ```c#
-    // Apply the appropriate action
-    switch (topIntent)
-    {
-        case "GetTime":
-            var location = "local";           
-            // Check for a location entity
-            foreach (dynamic entity in conversationPrediction.Entities)
-            {
-                if (entity.Category == "Location")
-                {
-                    //Console.WriteLine($"Location Confidence: {entity.ConfidenceScore}");
-                    location = entity.Text;
-                }
-            }
-            // Get the time for the specified location
-            string timeResponse = GetTime(location);
-            Console.WriteLine(timeResponse);
-            break;
-        case "GetDay":
-            var date = DateTime.Today.ToShortDateString();            
-            // Check for a Date entity
-            foreach (dynamic entity in conversationPrediction.Entities)
-            {
-                if (entity.Category == "Date")
-                {
-                    //Console.WriteLine($"Location Confidence: {entity.ConfidenceScore}");
-                    date = entity.Text;
-                }
-            }            
-            // Get the day for the specified date
-            string dayResponse = GetDay(date);
-            Console.WriteLine(dayResponse);
-            break;
-        case "GetDate":
-            var day = DateTime.Today.DayOfWeek.ToString();
-            // Check for entities            
-            // Check for a Weekday entity
-            foreach (dynamic entity in conversationPrediction.Entities)
-            {
-                if (entity.Category == "Weekday")
-                {
-                    //Console.WriteLine($"Location Confidence: {entity.ConfidenceScore}");
-                    day = entity.Text;
-                }
-            }          
-            // Get the date for the specified day
-            string dateResponse = GetDate(day);
-            Console.WriteLine(dateResponse);
-            break;
-        default:
-            // Some other intent (for example, "None") was predicted
-            Console.WriteLine("Try asking me for the time, the day, or the date.");
-            break;
-    }
-    ```
-
-    **Python**: clock-client.py
-
     ```python
-    # Apply the appropriate action
-    if top_intent == 'GetTime':
+   # Apply the appropriate action
+   if top_intent == 'GetTime':
         location = 'local'
         # Check for entities
         if len(entities) > 0:
@@ -601,7 +468,7 @@ Now you're ready to add the code necessary to import the required SDK libraries,
         # Get the time for the specified location
         print(GetTime(location))
 
-    elif top_intent == 'GetDay':
+   elif top_intent == 'GetDay':
         date_string = date.today().strftime("%m/%d/%Y")
         # Check for entities
         if len(entities) > 0:
@@ -613,7 +480,7 @@ Now you're ready to add the code necessary to import the required SDK libraries,
         # Get the day for the specified date
         print(GetDay(date_string))
 
-    elif top_intent == 'GetDate':
+   elif top_intent == 'GetDate':
         day = 'today'
         # Check for entities
         if len(entities) > 0:
@@ -625,18 +492,16 @@ Now you're ready to add the code necessary to import the required SDK libraries,
         # Get the date for the specified day
         print(GetDate(day))
 
-    else:
+   else:
         # Some other intent (for example, "None") was predicted
         print('Try asking me for the time, the day, or the date.')
     ```
 
-1. Save your changes and close the code editor, then enter the following command to run the program (you maximize the console panel to see more text):
+1. Save your changes (CTRL+S), then enter the following command to run the program (you maximize the cloud shell pane and resize the panels to see more text in the command line pane):
 
-    - **C#**: `dotnet run`
-
-    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **clock_client.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
-
-    - **Python**: `python clock-client.py`
+    ```
+   python clock-client.py
+    ```
 
 1. When prompted, enter utterances to test the application. For example, try:
 
@@ -665,9 +530,9 @@ Now you're ready to add the code necessary to import the required SDK libraries,
 
 If you're finished exploring the Azure AI Language service, you can delete the resources you created in this exercise. Here's how:
 
-1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-2. Browse to the Azure AI Language resource you created in this lab.
-3. On the resource page, select **Delete** and follow the instructions to delete the resource.
+1. Close the Azure cloud shell pane
+1. In the Azure portal, browse to the Azure AI Language resource you created in this lab.
+1. On the resource page, select **Delete** and follow the instructions to delete the resource.
 
 ## More information
 

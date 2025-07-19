@@ -8,7 +8,15 @@ lab:
 
 In addition to other natural language processing capabilities, Azure AI Language Service enables you to define custom entities, and extract instances of them from text.
 
-To test the custom entity extraction, we'll create a model and train it through Azure AI Language Studio, then use a command line application to test it.
+To test the custom entity extraction, we'll create a model and train it through Azure AI Language Studio, then use a Python application to test it.
+
+While this exercise is based on Python, you can develop text classification applications using multiple language-specific SDKs; including:
+
+- [Azure AI Text Analytics client library for Python](https://pypi.org/project/azure-ai-textanalytics/)
+- [Azure AI Text Analytics client library for .NET](https://www.nuget.org/packages/Azure.AI.TextAnalytics)
+- [Azure AI Text Analytics client library for JavaScript](https://www.npmjs.com/package/@azure/ai-text-analytics)
+
+This exercise takes approximately **35** minutes.
 
 ## Provision an *Azure AI Language* resource
 
@@ -41,7 +49,8 @@ If you don't already have one in your subscription, you'll need to provision an 
 1. Wait for deployment to complete, and then go to the deployed resource.
 1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
 
-## Roles for your user
+## Configure role-based access for your user
+
 > **NOTE**: If you skip this step, you'll have a 403 error when trying to connect to your custom project. It's important that your current user has this role to access storage account blob data, even if you're the owner of the storage account.
 
 1. Go to your storage account page in the Azure portal.
@@ -152,9 +161,7 @@ When you're satisfied with the training of your model, it's time to deploy it, w
 
 ## Prepare to develop an app in Cloud Shell
 
-To test the custom entity extraction capabilities of the Azure AI Language service, you'll develop a simple console application in Cloud Shell.
-
-> **Tip**: If you have already cloned the **mslearn-ai-language** repo, you can skip this task. Otherwise, follow these steps to clone it to your development environment.
+To test the custom entity extraction capabilities of the Azure AI Language service, you'll develop a simple console application in the Azure Cloud Shell.
 
 1. In the Azure Portal, use the **[\>_]** button to the right of the search bar at the top of the page to create a new Cloud Shell in the Azure portal, selecting a ***PowerShell*** environment. The cloud shell provides a command line interface in a pane at the bottom of the Azure portal.
 
@@ -162,59 +169,46 @@ To test the custom entity extraction capabilities of the Azure AI Language servi
 
 1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
-    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
+    **<font color="red">Ensure you've switched to the classic version of the cloud shell before continuing.</font>**
 
 1. In the PowerShell pane, enter the following commands to clone the GitHub repo for this exercise:
 
     ```
-    rm -r mslearn-ai-language -f
-    git clone https://github.com/microsoftlearning/mslearn-ai-language mslearn-ai-language
+   rm -r mslearn-ai-language -f
+   git clone https://github.com/microsoftlearning/mslearn-ai-language
+    ```
+
+    > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
     ```
 
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
     ```
-    cd mslearn-ai-language/Labfiles/05-custom-entity-recognition
+    cd mslearn-ai-language/Labfiles/05-custom-entity-recognition/Python/custom-entities
     ```
 
 ## Configure your application
 
-Applications for both C# and Python have been provided. Both apps feature the same functionality. First, you'll complete some key parts of the application to enable it to use your Azure AI Language resource.
-
-1. Run the command `cd C-Sharp/custom-entities` or `cd Python/custom-entities` depending on your language preference. Each folder contains the language-specific files for an app into which you're going to integrate Azure AI Language text classification functionality.
-1. Install the Azure AI Language Text Analytics SDK package by running the appropriate command for your language preference:
-
-    **C#**:
+1. In the command line pane, run the following command to view the code files in the **custom-entities** folder:
 
     ```
-    dotnet add package Azure.AI.TextAnalytics --version 5.3.0
+   ls -a -l
     ```
 
-    **Python**:
+    The files include a configuration file (**.env**) and a code file (**custom-entities.py**). The text your application will analyze is in the **ads** subfolder.
+
+1. Create a Python virtual environment and install the Azure AI Language Text Analytics SDK package and other required packages by running the following command:
 
     ```
-    python -m venv labenv
-    ./labenv/bin/Activate.ps1
-    pip install -r requirements.txt azure-ai-textanalytics==5.3.0
+   python -m venv labenv
+   ./labenv/bin/Activate.ps1
+   pip install -r requirements.txt azure-ai-textanalytics==5.3.0
     ```
 
-1. Using the `ls` command, you can view the contents of the **custom-entities** folder. Note that it contains a file for configuration settings:
-
-    - **C#**: appsettings.json
-    - **Python**: .env
-
-1. Enter the following command to edit the configuration file that has been provided:
-
-    **C#**
+1. Enter the following command to edit the application configuration file:
 
     ```
-    code appsettings.json
-    ```
-
-    **Python**
-
-    ```
-    code .env
+   code .env
     ```
 
     The file is opened in a code editor.
@@ -224,105 +218,45 @@ Applications for both C# and Python have been provided. Both apps feature the sa
 
 ## Add code to extract entities
 
-Now you're ready to use the Azure AI Language service to extract custom entities from text.
+1. Enter the following command to edit the application code file:
 
-1. Note that the **custom-entities** folder contains a code file for the client application:
-
-    - **C#**: Program.cs
-    - **Python**: custom-entities.py
-
-1. Open the code file and find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Text Analytics SDK:
-
-    **C#**: Programs.cs
-
-    ```csharp
-    // import namespaces
-    using Azure;
-    using Azure.AI.TextAnalytics;
+    ```
+    code custom-entities.py
     ```
 
-    **Python**: custom-entities.py
+1. Review the existing code. You will add code to work with the AI Language Text Analytics SDK.
+
+    > **Tip**: As you add code to the code file, be sure to maintain the correct indentation.
+
+1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces** and add the following code to import the namespaces you will need to use the Text Analytics SDK:
 
     ```python
-    # import namespaces
-    from azure.core.credentials import AzureKeyCredential
-    from azure.ai.textanalytics import TextAnalyticsClient
+   # import namespaces
+   from azure.core.credentials import AzureKeyCredential
+   from azure.ai.textanalytics import TextAnalyticsClient
     ```
 
-1. In the **Main** function, note that code to load the Azure AI Language service endpoint and key and the project and deployment names from the configuration file has already been provided. Then find the comment **Create client using endpoint and key**, and add the following code to create a client for the Text Analysis API:
-
-    **C#**: Programs.cs
-
-    ```csharp
-    // Create client using endpoint and key
-    AzureKeyCredential credentials = new(aiSvcKey);
-    Uri endpoint = new(aiSvcEndpoint);
-    TextAnalyticsClient aiClient = new(endpoint, credentials);
-    ```
-
-    **Python**: custom-entities.py
+1. In the **main** function, note that code to load the Azure AI Language service endpoint and key and the project and deployment names from the configuration file has already been provided. Then find the comment **Create client using endpoint and key**, and add the following code to create a text analytics client:
 
     ```Python
-    # Create client using endpoint and key
-    credential = AzureKeyCredential(ai_key)
-    ai_client = TextAnalyticsClient(endpoint=ai_endpoint, credential=credential)
+   # Create client using endpoint and key
+   credential = AzureKeyCredential(ai_key)
+   ai_client = TextAnalyticsClient(endpoint=ai_endpoint, credential=credential)
     ```
 
-1. In the **Main** function, note that the existing code reads all of the files in the **ads** folder and creates a list containing their contents. In the case of the C# code, a list of **TextDocumentInput** objects is used to include the file name as an ID and the language. In Python a simple list of the text contents is used.
-1. Find the comment **Extract entities** and add the following code:
-
-    **C#**: Program.cs
-
-    ```csharp
-    // Extract entities
-    RecognizeCustomEntitiesOperation operation = await aiClient.RecognizeCustomEntitiesAsync(WaitUntil.Completed, batchedDocuments, projectName, deploymentName);
-
-    await foreach (RecognizeCustomEntitiesResultCollection documentsInPage in operation.Value)
-    {
-        foreach (RecognizeEntitiesResult documentResult in documentsInPage)
-        {
-            Console.WriteLine($"Result for \"{documentResult.Id}\":");
-
-            if (documentResult.HasError)
-            {
-                Console.WriteLine($"  Error!");
-                Console.WriteLine($"  Document error code: {documentResult.Error.ErrorCode}");
-                Console.WriteLine($"  Message: {documentResult.Error.Message}");
-                Console.WriteLine();
-                continue;
-            }
-
-            Console.WriteLine($"  Recognized {documentResult.Entities.Count} entities:");
-
-            foreach (CategorizedEntity entity in documentResult.Entities)
-            {
-                Console.WriteLine($"  Entity: {entity.Text}");
-                Console.WriteLine($"  Category: {entity.Category}");
-                Console.WriteLine($"  Offset: {entity.Offset}");
-                Console.WriteLine($"  Length: {entity.Length}");
-                Console.WriteLine($"  ConfidenceScore: {entity.ConfidenceScore}");
-                Console.WriteLine($"  SubCategory: {entity.SubCategory}");
-                Console.WriteLine();
-            }
-
-            Console.WriteLine();
-        }
-    }
-    ```
-
-    **Python**: custom-entities.py
+1. Note that the existing code reads all of the files in the **ads** folder and creates a list containing their contents. Then find the comment **Extract entities** and add the following code:
 
     ```Python
-    # Extract entities
-    operation = ai_client.begin_recognize_custom_entities(
+   # Extract entities
+   operation = ai_client.begin_recognize_custom_entities(
         batchedDocuments,
         project_name=project_name,
         deployment_name=deployment_name
-    )
+   )
 
-    document_results = operation.result()
+   document_results = operation.result()
 
-    for doc, custom_entities_result in zip(files, document_results):
+   for doc, custom_entities_result in zip(files, document_results):
         print(doc)
         if custom_entities_result.kind == "CustomEntityRecognition":
             for entity in custom_entities_result.entities:
@@ -338,19 +272,11 @@ Now you're ready to use the Azure AI Language service to extract custom entities
             )
     ```
 
-1. Save the changes and close the code editor.
+1. Save your changes (CTRL+S), then enter the following command to run the program (you maximize the cloud shell pane and resize the panels to see more text in the command line pane):
 
-## Test your application
-
-Now your application is ready to test.
-
-1. Enter the following command to run the program (you maximize the console panel to see more text):
-
-    - **C#**: `dotnet run`
-
-    > **Tip**: If a compilation error occurs because .NET version 9.0 is not installed, use the `dotnet --version` command to determine the version of .NET installed in your environment and then edit the **custom-entities.csproj** file in the code folder to update the **TargetFramework** setting accordingly.
-
-    - **Python**: `python custom-entities.py`
+    ```
+   python custom-entities.py
+    ```
 
 1. Observe the output. The application should list details of the entities found in each text file.
 
