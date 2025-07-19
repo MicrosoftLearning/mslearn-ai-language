@@ -11,8 +11,11 @@ In this exercise, you use the *Phi-4-multimodal-instruct* generative AI model to
 While this exercise is based on Python, you can develop similar applications using multiple language-specific SDKs; including:
 
 - [Azure AI Projects for Python](https://pypi.org/project/azure-ai-projects)
+- [OpenAI library for Python](https://pypi.org/project/openai/)
 - [Azure AI Projects for Microsoft .NET](https://www.nuget.org/packages/Azure.AI.Projects)
+- [Azure OpenAI client library for Microsoft .NET](https://www.nuget.org/packages/Azure.AI.OpenAI)
 - [Azure AI Projects for JavaScript](https://www.npmjs.com/package/@azure/ai-projects)
+- [Azure OpenAI library for TypeScript](https://www.npmjs.com/package/@azure/openai)
 
 This exercise takes approximately **30** minutes.
 
