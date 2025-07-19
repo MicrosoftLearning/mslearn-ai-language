@@ -102,12 +102,12 @@ Let's start by creating an Azure AI Speech resource.
    code speaking-clock.py
     ```
 
- 1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Azure AI Speech SDK:
+1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces**. Then, under this comment, add the following language-specific code to import the namespaces you will need to use the Azure AI Speech SDK:
 
     ```python
-    # Import namespaces
-    from azure.core.credentials import AzureKeyCredential
-    import azure.cognitiveservices.speech as speech_sdk
+   # Import namespaces
+   from azure.core.credentials import AzureKeyCredential
+   import azure.cognitiveservices.speech as speech_sdk
     ```
 
 1. In the **main** function, under the comment **Get config settings**, note that the code loads the key and region you defined in the configuration file.
