@@ -32,8 +32,7 @@ This exercise takes approximately **35** minutes.
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource in your Azure subscription.
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-1. In the search field at the top, search for **Azure AI services**. Then, in the results, select **Create** under **Language Service**.
-1. Select **Continue to create your resource**.
+1. In the search field, search for **Language** and choose **Language** in the Services section of the result. Then, in the page, select **Create** under **Language Service**.
 1. Provision the resource using the following settings:
     - **Subscription**: *Your Azure subscription*.
     - **Resource group**: *Choose or create a resource group*.
