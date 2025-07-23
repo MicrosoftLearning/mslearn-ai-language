@@ -22,8 +22,9 @@ This exercise takes approximately **35** minutes.
 
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource. Additionally, use custom text classification, you need to enable the **Custom text classification & extraction** feature.
 
-1. In a browser, open the Azure portal at `https://portal.azure.com`, and sign in with your Microsoft account.
-1. Select the search field at the top of the portal, search for `Azure AI services`, and create a **Language Service** resource.
+1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
+1. Select **Create a resource**.
+1. In the search field, search for **Language service**. Then, in the results, select **Create** under **Language Service**.
 1. Select the box that includes **Custom text classification**. Then select **Continue to create your resource**.
 1. Create a resource with the following settings:
     - **Subscription**: *Your Azure subscription*.
