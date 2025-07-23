@@ -236,7 +236,7 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
    if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
        print(speak.reason)
    else:
-       print("Spoken output saved in " + outputFile)
+       print("Spoken output saved in " + output_file)
     ```
 
 1. Save your changes and re-run the program, which should once again indicate that the spoken output was saved in a file.
