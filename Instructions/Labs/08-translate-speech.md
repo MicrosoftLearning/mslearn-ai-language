@@ -228,7 +228,7 @@ If you're finished exploring the Azure AI Speech service, you can delete the res
 
 ## What if you have a mic and speaker?
 
-In this exercise, you used audio files for the speech input and output. Let's see how the code can be modified to use audio hardware.
+In this exercise, the Azure Cloud Shell environment we used doesn't support audio hardware, so you used audio files for the speech input and output. Let's see how the code can be modified to use audio hardware if you have it available.
 
 ### Using speech translation with a microphone
 

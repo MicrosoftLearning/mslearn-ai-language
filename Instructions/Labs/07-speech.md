@@ -244,9 +244,17 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
     
     <video controls src="https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Instructions/media/Output2.mp4" title="The time is 5:30. Time to end this lab." width="150"></video>
 
-## (OPTIONAL) What if you have a mic and speaker?
+## Clean up
 
-In this exercise, you used audio files for the speech input and output. Let's see how the code can be modified to use audio hardware.
+If you've finished exploring Azure AI Speech, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs.
+
+1. Close the Azure cloud shell pane
+1. In the Azure portal, browse to the Azure AI Speech resource you created in this lab.
+1. On the resource page, select **Delete** and follow the instructions to delete the resource.
+
+## What if you have a mic and speaker?
+
+In this exercise, the Azure Cloud Shell environment we used doesn't support audio hardware, so you used audio files for the speech input and output. Let's see how the code can be modified to use audio hardware if you have it available.
 
 ### Using speech recognition with a microphone
 
@@ -293,14 +301,6 @@ if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
 ```
 
 > **Note**: The system default speaker is the default audio output, so you could also just omit the AudioConfig altogether!
-
-## Clean up
-
-If you've finished exploring Azure AI Speech, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs.
-
-1. Close the Azure cloud shell pane
-1. In the Azure portal, browse to the Azure AI Speech resource you created in this lab.
-1. On the resource page, select **Delete** and follow the instructions to delete the resource.
 
 ## More information
 
