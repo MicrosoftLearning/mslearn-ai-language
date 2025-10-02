@@ -7,6 +7,7 @@ from azure.ai.language.questionanswering import QuestionAnsweringClient
 
 def main():
     try:
+        #test for pull request
         # Get Configuration Settings
         load_dotenv()
         ai_endpoint = os.getenv('AI_SERVICE_ENDPOINT')
