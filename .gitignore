@@ -2,6 +2,5 @@ bin
 obj
 *.sln
 Labfiles/01-analyze-text/Python/text-analysis/labenv/
-Labfiles/01-analyze-text/Python/text-analysis/.env
-Labfiles/02-qna/Python/qna-app/.env
 Labfiles/02-qna/Python/qna-app/labenv/
+Labfiles/03-language/Python/clock-client/labenv/
