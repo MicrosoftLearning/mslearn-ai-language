@@ -1,1 +1,2 @@
 This folder contains Python code
+Update the configuration values to include the endpoint and a key from the Azure Language resource you created (available on the Keys and Endpoint page for your Azure AI Language resource in the Azure portal)

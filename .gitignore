@@ -1,3 +1,5 @@
 bin
 obj
 *.sln
+Labfiles/01-analyze-text/Python/text-analysis/labenv/
+Labfiles/01-analyze-text/Python/text-analysis/.env
