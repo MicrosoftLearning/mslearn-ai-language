@@ -56,7 +56,7 @@ You'll develop your code using Cloud Shell from the Azure Portal. The code files
     git clone https://github.com/microsoftlearning/mslearn-ai-language
     ```
 
-    > **Tip**: As you enter commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
+    > **Tip**: As you enter commands into the cloudshell, the output may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
 
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
 
