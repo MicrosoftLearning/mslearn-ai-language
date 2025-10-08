@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Real Time Voice</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text y='50%' x='50%' dominant-baseline='middle' text-anchor='middle' font-size='42'>🎤</text></svg>">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Real-Time Voice Demo</h1>
+  <p>This page streams <strong>your microphone audio</strong> to the server and plays the assistant's synthesized audio. Grant microphone permission when prompted. You can begin speaking when <strong>Status:</strong> ready.</p>
+    <div style="margin:1rem 0;display:flex;gap:.75rem;flex-wrap:wrap;">
+      <button id="startBtn" style="padding:.6rem 1.2rem;font-size:1rem;">Start Session</button>
+      <button id="stopBtn" style="padding:.6rem 1.2rem;font-size:1rem;" disabled>Stop Session</button>
+    </div>
+    <div id="statusBox" style="padding:.75rem 1rem;border:1px solid #ccc;border-radius:6px;background:#f9f9f9;min-height:3.25rem;">
+      <strong>Status:</strong> <span id="statusText">Idle</span><br/>
+      <small id="statusMsg">Click Start to begin a voice session.</small>
+    </div>
+    <details style="margin-top:1rem;">
+      <summary>Environment variables required (server)</summary>
+      <ul>
+        <li><code>VOICE_LIVE_MODEL: {{ env.VOICE_LIVE_MODEL }}</code></li>
+        <li><code>VOICE_LIVE_VOICE: {{ env.VOICE_LIVE_VOICE }}</code></li>
+        <li><code>AZURE_VOICE_LIVE_ENDPOINT: {{ env.AZURE_VOICE_LIVE_ENDPOINT }}</code></li>
+        <li><code>VOICE_LIVE_INSTRUCTIONS: {{ env.VOICE_LIVE_INSTRUCTIONS }}</code></li>
+      </ul>
+    </details>
+    <h3 style="margin-top:1.75rem;">Logs</h3>
+    <div id="log" aria-live="polite"></div>
+    <p><small>Only recent ~250 lines kept in memory.</small></p>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <footer>
+      <p>Voice live example front-end (browser PCM16 streaming & SSE playback).</p>
+    </footer>
+  </div>
+</body>
+</html>

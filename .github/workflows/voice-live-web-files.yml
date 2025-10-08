@@ -1,0 +1,34 @@
+name: Zip Voice Live Web Files
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+      - 'voice-live-agent'  # Added current branch
+    paths:
+      - 'Labfiles/11-voice-live-agent/python/**'
+
+permissions:
+  contents: write
+
+defaults:
+  run:
+    shell: pwsh
+
+jobs:
+  create_zip:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Create Voice Live zip
+      run: | 
+        cd ./Labfiles/11-voice-live-agent/python/
+        zip -r -q ../../../downloads/python/voice-live-web.zip *
+    - name: Commit and push
+      uses: Endbug/add-and-commit@v9  # Updated to latest version
+      with:
+        add: 'downloads/python/voice-live-web.zip'
+        message: 'Updating Zip for python source files'
+        push: true
+
