@@ -1,0 +1,54 @@
+:root { color-scheme: light dark; }
+/* Color tokens for adaptive theming */
+:root {
+  --c-bg: #ffffff;
+  --c-fg: #1a1a1a;
+  --c-muted: #666;
+  --c-border: #c5c5c5;
+  --c-accent: #1e4bb8;
+  --c-status-idle: #f4f5f7;
+  --c-status-ready: #e3edff;
+  --c-status-processing: #fff3d6;
+  --c-status-listening: #d9f7ec;
+  --c-status-speaking: #fbe7ff;
+  --c-status-error: #ffe0e0;
+  --c-status-stopped: #ececec;
+  --c-log-bg: #111;
+  --c-log-fg: #e0e0e0;
+  --c-scrollbar: #555;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --c-bg: #0f1115;
+    --c-fg: #e5e7eb;
+    --c-muted: #9ba3af;
+    --c-border: #2d3846;
+    --c-accent: #6ea8ff;
+    --c-status-idle: #1d2530;
+    --c-status-ready: #102a44;
+    --c-status-processing: #4a3700;
+    --c-status-listening: #073b2a;
+    --c-status-speaking: #43214b;
+    --c-status-error: #4a1111;
+    --c-status-stopped: #2a323c;
+    --c-log-bg: #0c0c0f;
+    --c-log-fg: #d1d5db;
+    --c-scrollbar: #444;
+  }
+}
+body { font-family: system-ui, Arial, sans-serif; margin: 2rem; line-height:1.4; background: var(--c-bg); color: var(--c-fg); }
+h1 { color: var(--c-accent); margin-top:0; }
+footer { margin-top: 3rem; font-size: 0.7rem; color: var(--c-muted); }
+.container { max-width: 880px; }
+button { cursor: pointer; background: var(--c-accent); color:#fff; border: none; border-radius:6px; }
+button:disabled { opacity:.55; cursor: not-allowed; }
+#statusBox { transition: background .25s, color .25s; color: var(--c-fg); border:1px solid var(--c-border); }
+#log { background:var(--c-log-bg); color:var(--c-log-fg); padding:.75rem 1rem; border-radius:6px; max-height:260px; overflow:auto; font-size:.75rem; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; border:1px solid var(--c-border); }
+#log .err { color:#ff8080; }
+#log .dbg { color:#8ab4f8; }
+#log .warn { color:#ffd479; }
+details[open] summary { font-weight:600; }
+small.hint { color: var(--c-muted); }
+::-webkit-scrollbar { width:8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--c-scrollbar); border-radius:4px; }
