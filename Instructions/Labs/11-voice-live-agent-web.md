@@ -37,7 +37,7 @@ In this section of the exercise you download the a zipped file containing the ba
 1. Run the following command in the **Bash** shell to download and unzip the exercise files. The second command will also change to the directory for the exercise files.
 
     ```bash
-    wget https://github.com/JeffKoMS/az-dev-copy/raw/refs/heads/main/allfiles/downloads/python/voice-live-web.zip
+    wget https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/downloads/python/voice-live-web.zip
     ```
 
     ```
