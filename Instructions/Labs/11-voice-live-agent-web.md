@@ -41,7 +41,7 @@ In this section of the exercise you download the a zipped file containing the ba
     ```
 
     ```
-    unzip voice-live-web.zip && cd 01-voice-live-web
+    unzip voice-live-web.zip && cd voice-live-web
     ```
 
 ## Add code to complete the web app
