@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - 'main'
-      - 'voice-live-agent'  # Added current branch
+
     paths:
       - 'Labfiles/11-voice-live-agent/python/**'
 
