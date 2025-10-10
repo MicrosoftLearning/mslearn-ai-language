@@ -248,7 +248,7 @@ There are only two values you should change at the top of the **azdeploy.sh** de
 1. Run the following commands in the Cloud Shell to begin editing the deployment script.
 
     ```bash
-    cd ~/01-voice-live-web
+    cd ~/voice-live-web
     ```
     
     ```bash
