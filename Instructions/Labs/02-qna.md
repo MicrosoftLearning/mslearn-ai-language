@@ -45,7 +45,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 ## Create a question answering project
 
-To create a knowledge base for question answering in your Azure AI Language resource, you can use the Language Studio portal to create a question answering project. In this case, you'll create a knowledge base containing questions and answers about [Microsoft Learn](https://docs.microsoft.com/learn).
+To create a knowledge base for question answering in your Azure AI Language resource, you can use the Language Studio portal to create a question answering project. In this case, you'll create a knowledge base containing questions and answers about [Microsoft Learn](https://learn.microsoft.com/training/).
 
 1. In a new browser tab, go to the Language Studio portal at [https://language.cognitive.azure.com/](https://language.cognitive.azure.com/) and sign in using the Microsoft account associated with your Azure subscription.
 1. If you're prompted to choose a Language resource, select the following settings:
@@ -76,7 +76,7 @@ You can create a knowledge base from scratch, but it's common to start by import
 
 1. On the **Manage sources** page for your question answering project, in the **&#9547; Add source** list, select **URLs**. Then in the **Add URLs** dialog box, select **&#9547; Add url** and set the following name and URL  before you select **Add all** to add it to the knowledge base:
     - **Name**: `Learn FAQ Page`
-    - **URL**: `https://docs.microsoft.com/en-us/learn/support/faq`
+    - **URL**: `https://learn.microsoft.com/en-us/training/support/faq?pivots=general`
 1. On the **Manage sources** page for your question answering project, in the **&#9547; Add source** list, select **Chitchat**. The in the **Add chit chat** dialog box, select **Friendly** and select **Add chit chat**.
 
 ## Edit the knowledge base
@@ -85,18 +85,18 @@ Your knowledge base has been populated with question and answer pairs from the M
 
 1. In your **LearnFAQ** project in Language Studio, select the **Edit knowledge base** page to see the existing question and answer pairs (if some tips are displayed, read them and choose **Got it** to dismiss them, or select **Skip all**)
 1. In the knowledge base, on the **Question answer pairs** tab, select **&#65291;**, and create a new question answer pair with the following settings:
-    - **Source**: `https://docs.microsoft.com/en-us/learn/support/faq`
-    - **Question**: `What are Microsoft credentials?`
-    - **Answer**: `Microsoft credentials enable you to validate and prove your skills with Microsoft technologies.`
+    - **Source**: `https://learn.microsoft.com/en-us/training/support/faq?pivots=general`
+    - **Question**: `What are the different types of modules on Microsoft Learn?`
+    - **Answer**: `Microsoft Learn offers various types of training modules, including role-based learning paths, product-specific modules, and hands-on labs. Each module contains units with lessons and knowledge checks to help you learn at your own pace.`
 1. Select **Done**.
-1. In the page for the **What are Microsoft credentials?** question that is created, expand **Alternate questions**. Then add the alternate question `How can I demonstrate my Microsoft technology skills?`.
+1. In the page for the **What are the different types of modules on Microsoft Learn?** question that is created, expand **Alternate questions**. Then add the alternate question `How are training modules organized?`.
 
     In some cases, it makes sense to enable the user to follow up on an answer by creating a *multi-turn* conversation that enables the user to iteratively refine the question to get to the answer they need.
 
-1. Under the answer you entered for the certification question, expand **Follow-up prompts** and add  the following follow-up prompt:
-    - **Text displayed in the prompt to the user**: `Learn more about credentials`.
-    - Select the **Create link to new pair** tab, and enter this text: `You can learn more about credentials on the [Microsoft credentials page](https://docs.microsoft.com/learn/credentials/).`
-    - Select **Show in contextual flow only**. This option ensures that the answer is only ever returned in the context of a follow-up question from the original certification question.
+1. Under the answer you entered for the module types question, expand **Follow-up prompts** and add  the following follow-up prompt:
+    - **Text displayed in the prompt to the user**: `Learn more about training`.
+    - Select the **Create link to new pair** tab, and enter this text: `You can explore modules and learning paths on the [Microsoft Learn training page](https://learn.microsoft.com/training/).`
+    - Select **Show in contextual flow only**. This option ensures that the answer is only ever returned in the context of a follow-up question from the original module types question.
 1. Select **Add prompt**.
 
 ## Train and test the knowledge base
@@ -108,8 +108,8 @@ Now that you have a knowledge base, you can test it in Language Studio.
 1. In the test pane, at the top, deselect **Include short answer response** (if not already unselected). Then at the bottom enter the message `Hello`. A suitable response should be returned.
 1. In the test pane, at the bottom enter the message `What is Microsoft Learn?`. An appropriate response from the FAQ should be returned.
 1. Enter the message `Thanks!` An appropriate chit-chat response should be returned.
-1. Enter the message `Tell me about Microsoft credentials`. The answer you created should be returned along with a follow-up prompt link.
-1. Select the **Learn more about credentials** follow-up link. The follow-up answer with a link to the certification page should be returned.
+1. Enter the message `What are the different types of modules on Microsoft Learn?`. The answer you created should be returned along with a follow-up prompt link.
+1. Select the **Learn more about training** follow-up link. The follow-up answer with a link to the training page should be returned.
 1. When you're done testing the knowledge base, close the test pane.
 
 ## Deploy the knowledge base
