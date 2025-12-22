@@ -34,19 +34,24 @@ In this section of the exercise you download the a zipped file containing the ba
 
 1. In the cloud shell toolbar, in the **Settings** menu, select **Go to Classic version** (this is required to use the code editor).
 
-1. Run the following command in the **Bash** shell to download and unzip the exercise files. The second command will also change to the directory for the exercise files.
+1. Run the following commands in the **Bash** shell to create a project folder, and download and unzip the exercise files.
+
+    ```bash
+    mkdir voice-live-web && cd voice-live-web
+    ```
+
 
     ```bash
     wget https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/downloads/python/voice-live-web.zip
     ```
 
     ```
-    unzip voice-live-web.zip && cd voice-live-web
+    unzip voice-live-web.zip
     ```
 
 ## Add code to complete the web app
 
-Now that the exercise files are downloaded, the the next step is to add code to complete the application. The following steps are performed in the cloud shell. 
+Now that the exercise files are downloaded, the the next step is to add code to complete the application. The following steps are performed in the cloud shell.
 
 >**Tip:** Resize the cloud shell to display more information, and code, by dragging the top border. You can also use the minimize and maximize buttons to switch between the cloud shell and the main portal interface.
 
@@ -84,7 +89,7 @@ In this section you add code to implement the voice live assistant. The **\_\_in
         self.model = model
         self.voice = voice
         self.instructions = instructions
-        
+
         # Initialize runtime state - connection established in start()
         self.connection = None
         self._response_cancelled = False  # Used to handle user interruptions
@@ -138,11 +143,11 @@ In this section you add code to add event handlers for the voice live session. T
         """Handle Voice Live events with clear separation by event type."""
         # Import event types for processing different Voice Live server events
         from azure.ai.voicelive.models import ServerEventType
-        
+
         event_type = event.type
         if verbose:
             _broadcast({"type": "log", "level": "debug", "event_type": str(event_type)})
-        
+
         # Route Voice Live server events to appropriate handlers
         if event_type == ServerEventType.SESSION_UPDATED:
             await self._handle_session_updated()
@@ -167,23 +172,23 @@ In this section you add code to add event handlers for the voice live session. T
     async def _handle_speech_started(self, conn):
         """User started speaking - handle interruption if needed."""
         self.state_callback("listening", "Listening… speak now")
-        
+
         try:
             # Stop any ongoing audio playback on the client side
             _broadcast({"type": "control", "action": "stop_playback"})
-            
+
             # If assistant is currently speaking or processing, cancel the response to allow interruption
             current_state = assistant_state.get("state")
             if current_state in {"assistant_speaking", "processing"}:
                 self._response_cancelled = True
                 await conn.response.cancel()
-                _broadcast({"type": "log", "level": "debug", 
+                _broadcast({"type": "log", "level": "debug",
                           "msg": f"Interrupted assistant during {current_state}"})
             else:
-                _broadcast({"type": "log", "level": "debug", 
+                _broadcast({"type": "log", "level": "debug",
                           "msg": f"User speaking during {current_state} - no cancellation needed"})
         except Exception as e:
-            _broadcast({"type": "log", "level": "debug", 
+            _broadcast({"type": "log", "level": "debug",
                       "msg": f"Exception in speech handler: {e}"})
 
     async def _handle_speech_stopped(self):
@@ -194,11 +199,11 @@ In this section you add code to add event handlers for the voice live session. T
         """Stream assistant audio to clients."""
         if self._response_cancelled:
             return  # Skip cancelled responses
-            
+
         # Update state when assistant starts speaking
         if assistant_state.get("state") != "assistant_speaking":
             self.state_callback("assistant_speaking", "Assistant speaking…")
-        
+
         # Extract and broadcast Voice Live audio delta as base64 to WebSocket clients
         audio_data = getattr(event, "delta", None)
         if audio_data:
@@ -226,19 +231,19 @@ In this section you add code to add event handlers for the voice live session. T
 
 So far, you've added code to the app to implement the agent and handle agent events. Take a few minutes to review the full code and comments to get a better understanding of how the app is handling client state and operations.
 
-1. When you're finished enter **ctrl+q** to exit out of the editor. 
+1. When you're finished enter **ctrl+q** to exit out of the editor.
 
 ## Update and run the deployment script
 
-In this section you make a small change to the **azdeploy.sh** deployment script and then run the deployment. 
+In this section you make a small change to the **azdeploy.sh** deployment script and then run the deployment.
 
 ### Update the deployment script
 
-There are only two values you should change at the top of the **azdeploy.sh** deployment script. 
+There are only two values you should change at the top of the **azdeploy.sh** deployment script.
 
 * The **rg** value specifies the resource group to contain the deployment. You can accept the default value, or enter your own value if you need to deploy to a specific resource group.
 
-* The **location** value sets the region for the deployment. The *gpt-4o* model used in the exercise can be deployed to other regions, but there can be limits in any particular region. If the deployment fails in your chosen region, try **eastus2** or **swedencentral**. 
+* The **location** value sets the region for the deployment. The *gpt-4o* model used in the exercise can be deployed to other regions, but there can be limits in any particular region. If the deployment fails in your chosen region, try **eastus2** or **swedencentral**.
 
     ```
     rg="rg-voicelive" # Replace with your resource group
@@ -250,7 +255,7 @@ There are only two values you should change at the top of the **azdeploy.sh** de
     ```bash
     cd ~/voice-live-web
     ```
-    
+
     ```bash
     code azdeploy.sh
     ```
@@ -270,16 +275,16 @@ The deployment script deploys the AI model and creates the necessary resources i
 1. Select **option 1** for the initial deployment.
 
     The deployment should complete in 5-10 minutes. During the deployment you might be prompted for the following information/actions:
-    
+
     * If you are prompted to authenticate to Azure follow the directions presented to you.
-    * If you are prompted to select a subscription use the arrow keys to highlight your subscription and press **Enter**. 
+    * If you are prompted to select a subscription use the arrow keys to highlight your subscription and press **Enter**.
     * You will likely see some warnings during deployment and these can be ignored.
-    * If the deployment fails during the AI model deployment change the region in the deployment script and try again. 
+    * If the deployment fails during the AI model deployment change the region in the deployment script and try again.
     * Regions in Azure can get busy at times and interrupt the timing of the deployments. If the deployment fails after the model deployment re-run the deployment script.
 
 ## View and test the app
 
-When the deployment completes a "Deployment complete!" message will be in the shell along with a link to the web app. You can select that link, or navigate to the App Service resource and launch the app from there. It can take a few minutes for the application to load. 
+When the deployment completes a "Deployment complete!" message will be in the shell along with a link to the web app. You can select that link, or navigate to the App Service resource and launch the app from there. It can take a few minutes for the application to load.
 
 1. Select the **Start session** button to connect to the model.
 1. You will be prompted to give the application access to you audio devices.
@@ -288,7 +293,7 @@ When the deployment completes a "Deployment complete!" message will be in the sh
 Troubleshooting:
 
 * If the app reports missing environment variables, restart the application in App Service.
-* If you see excessive *audio chunk* messages in the log shown in the application select **Stop session** and then start the session again. 
+* If you see excessive *audio chunk* messages in the log shown in the application select **Stop session** and then start the session again.
 * If the app fails to function at all, double-check you added all of the code and for proper indentation. If you need to make any changes re-run the deployment and select **option 2** to only update the image.
 
 ## Clean up resources
