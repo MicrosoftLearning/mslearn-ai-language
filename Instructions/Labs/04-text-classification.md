@@ -77,6 +77,8 @@ Once you've created the Azure AI Language service and storage account, you'll ne
 
     > **NOTE**: When you configure a storage account for a real solution, be careful to assign the appropriate access level. To learn more about each access level, see the [Azure Storage documentation](https://learn.microsoft.com/azure/storage/blobs/anonymous-read-access-configure).
 
+    > **ADDITIONAL NOTE**: If the Anonymous access level option appears unavailable or cannot be changed, refresh the page and check again. Sometimes the portal needs to reload after recent security or configuration updates before the option becomes available.
+
 1. After you've created the container, select it then select the **Upload** button. Select **Browse for files** to browse for the sample articles you downloaded. Then select **Upload**.
 
 ## Create a custom text classification project
