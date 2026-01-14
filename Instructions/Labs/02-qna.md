@@ -76,7 +76,7 @@ You can create a knowledge base from scratch, but it's common to start by import
 
 1. On the **Manage sources** page for your question answering project, in the **&#9547; Add source** list, select **URLs**. Then in the **Add URLs** dialog box, select **&#9547; Add url** and set the following name and URL  before you select **Add all** to add it to the knowledge base:
     - **Name**: `Learn FAQ Page`
-    - **URL**: `https://learn.microsoft.com/en-us/training/support/faq?pivots=general`
+    - **URL**: `https://learn.microsoft.com/en-us/training/support/faq`
 1. On the **Manage sources** page for your question answering project, in the **&#9547; Add source** list, select **Chitchat**. The in the **Add chit chat** dialog box, select **Friendly** and select **Add chit chat**.
 
 ## Edit the knowledge base
@@ -85,7 +85,7 @@ Your knowledge base has been populated with question and answer pairs from the M
 
 1. In your **LearnFAQ** project in Language Studio, select the **Edit knowledge base** page to see the existing question and answer pairs (if some tips are displayed, read them and choose **Got it** to dismiss them, or select **Skip all**)
 1. In the knowledge base, on the **Question answer pairs** tab, select **&#65291;**, and create a new question answer pair with the following settings:
-    - **Source**: `https://learn.microsoft.com/en-us/training/support/faq?pivots=general`
+    - **Source**: `https://learn.microsoft.com/en-us/training/support/faq`
     - **Question**: `What are the different types of modules on Microsoft Learn?`
     - **Answer**: `Microsoft Learn offers various types of training modules, including role-based learning paths, product-specific modules, and hands-on labs. Each module contains units with lessons and knowledge checks to help you learn at your own pace.`
 1. Select **Done**.
