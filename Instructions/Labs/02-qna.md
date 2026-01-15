@@ -79,6 +79,20 @@ You can create a knowledge base from scratch, but it's common to start by import
     - **URL**: `https://learn.microsoft.com/en-us/training/support/faq?pivots=general`
 1. On the **Manage sources** page for your question answering project, in the **&#9547; Add source** list, select **Chitchat**. The in the **Add chit chat** dialog box, select **Friendly** and select **Add chit chat**.
 
+
+> **NOTE**  
+> If you encounter the error **BadArgument Invalid input**, follow these steps as a workaround:
+>
+> - Open the FAQ page in a new browser tab:  
+>   `https://learn.microsoft.com/en-us/training/support/faq?pivots=general`
+> - At the bottom left panel, look for the **Download PDF** button.
+> - You’ll be taken to a PDF view of the webpage. Select the print option (or press `Ctrl+P` / `Cmd+P`).
+> - In the print dialog, choose **Save as PDF** as the printer and select **Pages 1–4** (these pages cover the FAQ content needed).
+> - Save the file locally.
+> - Go back to the **Manage sources** page, select **+ Add source**, and choose **Files**.
+> - Select **+ Add File**, enter `Learn FAQ Page` as the name, upload the saved PDF, and select **Add all**.
+
+
 ## Edit the knowledge base
 
 Your knowledge base has been populated with question and answer pairs from the Microsoft Learn FAQ, supplemented with a set of conversational *chit-chat* question  and answer pairs. You can extend the knowledge base by adding additional question and answer pairs.
