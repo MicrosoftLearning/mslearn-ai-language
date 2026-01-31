@@ -193,7 +193,7 @@ You'll develop your question answering app using Cloud Shell in the Azure portal
 1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for the Azure Language resource you created (available on the **Keys and Endpoint** page for your Azure AI Language resource in the Azure portal). The project name and deployment name for your deployed knowledge base should also be in this file.
 1. After you've replaced the placeholders, within the code editor, use the **CTRL+S** command or **Right-click > Save** to save your changes and then use the **CTRL+Q** command or **Right-click > Quit** to close the code editor while keeping the cloud shell command line open.
 
-## Add code to user your knowledge base
+## Add code to use your knowledge base
 
 1. Enter the following command to edit the application code file:
 
