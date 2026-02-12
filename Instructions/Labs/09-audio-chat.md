@@ -94,8 +94,8 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
 1. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
+   python -m venv labenv;
+   ./labenv/bin/Activate.ps1;
    pip install -r requirements.txt azure-identity azure-ai-projects openai
     ```
 

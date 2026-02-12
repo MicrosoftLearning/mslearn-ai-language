@@ -72,8 +72,8 @@ To test the text translation capabilities of Azure AI Translator, you'll develop
 1. Create a Python virtual environment and install the Azure AI Translation SDK package and other required packages by running the following command:
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
+   python -m venv labenv;
+   ./labenv/bin/Activate.ps1;
    pip install -r requirements.txt azure-ai-translation-text==1.0.1
     ```
 

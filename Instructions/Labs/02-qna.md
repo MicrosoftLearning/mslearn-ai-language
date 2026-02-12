@@ -177,9 +177,9 @@ You'll develop your question answering app using Cloud Shell in the Azure portal
 1. Create a Python virtual environment and install the Azure AI Language Question Answering SDK package and other required packages by running the following command:
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
-   pip install -r requirements.txt azure-ai-language-questionanswering
+   python -m venv labenv;
+    ./labenv/bin/Activate.ps1;
+    pip install -r requirements.txt azure-ai-language-questionanswering
     ```
 
 1. Enter the following command to edit the configuration file:
