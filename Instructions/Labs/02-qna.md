@@ -23,17 +23,14 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
 1. Select **Create a resource**.
-1. In the search field, search for **Language service**. Then, in the results, select **Create** under **Language Service**.
-1. Select the **Custom question answering** block. Then select **Continue to create your resource**. You will need to enter the following settings:
+1. In the search field, search for **AI search**. Then, in the results, select **Create** under **AI search**.
+1. You will need to enter the following settings:
 
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Choose or create a resource group*.
-    - **Region**: *Choose any available location*
-    - **Name**: *Enter a unique name*
-    - **Pricing tier**: Select **F0** (*free*), or **S** (*standard*) if F is not available.
-    - **Azure Search region**: *Choose a location in the same global region as your Language resource*
-    - **Azure Search pricing tier**: Free (F) (*If this tier is not available, select Basic (B)*)
-    - **Responsible AI Notice**: *Agree*
+    - **Service name**: *Enter a unique name*
+    - **Location**: *Choose East US 2*
+    - **Pricing tier**: Select Free (F) (*If this tier is not available, select Basic (B)*)
 
 1. Select **Create + review**, then select **Create**.
 
@@ -41,40 +38,43 @@ If you don't already have one in your subscription, you'll need to provision an 
     > Custom Question Answering uses Azure Search to index and query the knowledge base of questions and answers.
 
 1. Wait for deployment to complete, and then go to the deployed resource.
-1. View the **Keys and Endpoint** page in the **Resource Management** section. You will need the information on this page later in the exercise.
+1. View the **Keys** page in the **Settings** section. You will need the information on this page later in the exercise.
 
-## Create a question answering project
+## Create a custom question answering task
 
-To create a knowledge base for question answering in your Azure AI Language resource, you can use the Language Studio portal to create a question answering project. In this case, you'll create a knowledge base containing questions and answers about [Microsoft Learn](https://learn.microsoft.com/training/).
+To create a knowledge base for question answering in your Azure AI Language resource, you can use the Foundry portal to create a question answering project. In this case, you'll create a knowledge base containing questions and answers about [Microsoft Learn](https://learn.microsoft.com/training/).
 
-1. In a new browser tab, go to the Language Studio portal at [https://language.cognitive.azure.com/](https://language.cognitive.azure.com/) and sign in using the Microsoft account associated with your Azure subscription.
-1. If you're prompted to choose a Language resource, select the following settings:
-    - **Azure Directory**: The Azure directory containing your subscription.
+1. In a new browser tab, go to the Foundry portal at [https://ai.azure.com/](https://ai.azure.com/) and sign in using the Microsoft account associated with your Azure subscription.
+1. Once signed in Select the **Create an agent** button and a create a project wizard is prompted.
+1. Select Micrtosoft Foundry resource.
+1. Expand the advanced options:
+    - **Project**: Set a unique name for your project
+    - **Microsoft Foundry Resource**: Give it a unique name for your resource.
     - **Azure subscription**: Your Azure subscription.
-    - **Resource type**: Language
-    - **Resource name**: The Azure AI Language resource you created previously.
+    - **Resource group**: The same resource group as your AI search
+    - **Region**: Select East Us 2.
 
-    If you are <u>not</u> prompted to choose a language resource, it may be because you have multiple Language resources in your subscription; in which case:
-
-    1. On the bar at the top if the page, select the **Settings (&#9881;)** button.
-    2. On the **Settings** page, view the **Resources** tab.
-    3. Select the language resource you just created, and click **Switch resource**.
-    4. At the top of the page, click **Language Studio** to return to the Language Studio home page.
-
-1. At the top of the portal, in the **Create new** menu, select **Custom question answering**.
-1. In the ***Create a project** wizard, on the **Choose language setting** page, select the option to **Select the language for all projects**, and select **English** as the language. Then select **Next**.
+1. Close the create agent popup, since for this part we are not going to be using it.
+1. Go to management center, a link can be found at the bottom of the sidebar.
+1. And select Connected resources under the project you just created.
+1. Select **&#9547; New connection** and select **Azure Ai Search**
+1. Make sure **API key** is selected in the **Authentication** field and click on **Add connection**, once connected, you may close the popup.
+1. Click now on the button **Go to project**.
+2. Select the **Fine-tuning** option on the sidebar of the page under **Build and customize**.
+3. Select the **AI Service fine-tuning** tab on the top of the page.
+4. Then click on **&#9547; Fine-tune** and select **Custom question answering** option and click **Next**.
+5. Connect with your Azure Search resource.
 1. On the **Enter basic information** page, enter the following details:
     - **Name** `LearnFAQ`
     - **Description**: `FAQ for Microsoft Learn`
     - **Default answer when no answer is returned**: `Sorry, I don't understand the question`
-1. Select **Next**.
-1. On the **Review and finish** page, select **Create project**.
+1. Select **Create**.
 
 ## Add sources to the knowledge base
 
 You can create a knowledge base from scratch, but it's common to start by importing questions and answers from an existing FAQ page or document. In this case, you'll import data from an existing FAQ web page for Microsoft Learn, and you'll also import some pre-defined "chit chat" questions and answers to support common conversational exchanges.
 
-1. On the **Manage sources** page for your question answering project, in the **&#9547; Add source** list, select **URLs**. Then in the **Add URLs** dialog box, select **&#9547; Add url** and set the following name and URL  before you select **Add all** to add it to the knowledge base:
+1. On the **Manage sources** page for your question answering project, in the **&#9547; Add source** list, select **Add URLs**. Then in the **Add URLs** dialog box, set the following name and URL  before you select **Add URLs* to add it to the knowledge base:
     - **Name**: `Learn FAQ Page`
     - **URL**: `https://learn.microsoft.com/en-us/training/support/faq?pivots=general`
 1. On the **Manage sources** page for your question answering project, in the **&#9547; Add source** list, select **Chitchat**. The in the **Add chit chat** dialog box, select **Friendly** and select **Add chit chat**.
@@ -89,25 +89,25 @@ You can create a knowledge base from scratch, but it's common to start by import
 > - You’ll be taken to a PDF view of the webpage. Select the print option (or press `Ctrl+P` / `Cmd+P`).
 > - In the print dialog, choose **Save as PDF** as the printer and select **Pages 1–4** (these pages cover the FAQ content needed).
 > - Save the file locally.
-> - Go back to the **Manage sources** page, select **+ Add source**, and choose **Files**.
-> - Select **+ Add File**, enter `Learn FAQ Page` as the name, upload the saved PDF, and select **Add all**.
+> - Go back to the **Manage sources** page, select **&#9547; Add source**, and choose **Add Files**.
+> - Select **&#9547; Add File**, enter `Learn FAQ Page` as the name, upload the saved PDF (When looking for the document make sure PDF type of files are visible), and select **Add files**.
 
 
 ## Edit the knowledge base
 
 Your knowledge base has been populated with question and answer pairs from the Microsoft Learn FAQ, supplemented with a set of conversational *chit-chat* question  and answer pairs. You can extend the knowledge base by adding additional question and answer pairs.
 
-1. In your **LearnFAQ** project in Language Studio, select the **Edit knowledge base** page to see the existing question and answer pairs (if some tips are displayed, read them and choose **Got it** to dismiss them, or select **Skip all**)
-1. In the knowledge base, on the **Question answer pairs** tab, select **&#65291;**, and create a new question answer pair with the following settings:
-    - **Source**: `https://learn.microsoft.com/en-us/training/support/faq?pivots=general`
+1. In your **LearnFAQ** model in Foundry, select the **Edit knowledge base** page to see the existing question and answer pairs (if some tips are displayed, read them and choose **Got it** to dismiss them, or select **Skip all**)
+1. In the knowledge base, on the **Question answer pairs** tab, select **&#65291; Add QnA pair**, and create a new question answer pair with the following settings:
+    - **Source**: Select the URL source or the file uploaded
     - **Question**: `What are the different types of modules on Microsoft Learn?`
     - **Answer**: `Microsoft Learn offers various types of training modules, including role-based learning paths, product-specific modules, and hands-on labs. Each module contains units with lessons and knowledge checks to help you learn at your own pace.`
-1. Select **Done**.
+1. Select **Create**.
 1. In the page for the **What are the different types of modules on Microsoft Learn?** question that is created, expand **Alternate questions**. Then add the alternate question `How are training modules organized?`.
 
     In some cases, it makes sense to enable the user to follow up on an answer by creating a *multi-turn* conversation that enables the user to iteratively refine the question to get to the answer they need.
 
-1. Under the answer you entered for the module types question, expand **Follow-up prompts** and add  the following follow-up prompt:
+1. Under the answer you entered for the module types question, expand **Follow-up prompts** and add the following follow-up prompt:
     - **Text displayed in the prompt to the user**: `Learn more about training`.
     - Select the **Create link to new pair** tab, and enter this text: `You can explore modules and learning paths on the [Microsoft Learn training page](https://learn.microsoft.com/training/).`
     - Select **Show in contextual flow only**. This option ensures that the answer is only ever returned in the context of a follow-up question from the original module types question.
@@ -115,10 +115,10 @@ Your knowledge base has been populated with question and answer pairs from the M
 
 ## Train and test the knowledge base
 
-Now that you have a knowledge base, you can test it in Language Studio.
+Now that you have a knowledge base, you can test it in Foundry.
 
 1. Save the changes to your knowledge base by selecting the **Save** button under the **Question answer pairs** tab on the left.
-1. After the changes have been saved, select the **Test** button to open the test pane.
+1. After the changes have been saved, go to the **Test knowledge base** page.
 1. In the test pane, at the top, deselect **Include short answer response** (if not already unselected). Then at the bottom enter the message `Hello`. A suitable response should be returned.
 1. In the test pane, at the bottom enter the message `What is Microsoft Learn?`. An appropriate response from the FAQ should be returned.
 1. Enter the message `Thanks!` An appropriate chit-chat response should be returned.
@@ -130,8 +130,8 @@ Now that you have a knowledge base, you can test it in Language Studio.
 
 The knowledge base provides a back-end service that client applications can use to answer questions. Now you are ready to publish your knowledge base and access its REST interface from a client.
 
-1. In the **LearnFAQ** project in Language Studio, select the **Deploy knowledge base** page from the navigation menu on the left.
-1. At the top of the page, select **Deploy**. Then select **Deploy** to confirm you want to deploy the knowledge base.
+1. In the **LearnFAQ** model in Foundry, select the **Deploy knowledge base** page from the navigation menu on the left.
+1. Sselect **Deploy**. Then select **Deploy** to confirm you want to deploy the knowledge base.
 1. When deployment is complete, select **Get prediction URL** to view the REST endpoint for your knowledge base and note that the sample request includes parameters for:
     - **projectName**: The name of your project (which should be *LearnFAQ*)
     - **deploymentName**: The name of your deployment (which should be *production*)
@@ -190,7 +190,7 @@ You'll develop your question answering app using Cloud Shell in the Azure portal
 
     The file is opened in a code editor.
 
-1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for the Azure Language resource you created (available on the **Keys and Endpoint** page for your Azure AI Language resource in the Azure portal). The project name and deployment name for your deployed knowledge base should also be in this file.
+1. In the code file, update the configuration values it contains to reflect the **endpoint** and an authentication **key** for the Azure Foundry resource you created (available on the **Keys and Endpoint** page for your Azure Foundry resource in the Azure portal). The project name and deployment name for your deployed knowledge base should also be in this file.
 1. After you've replaced the placeholders, within the code editor, use the **CTRL+S** command or **Right-click > Save** to save your changes and then use the **CTRL+Q** command or **Right-click > Quit** to close the code editor while keeping the cloud shell command line open.
 
 ## Add code to use your knowledge base

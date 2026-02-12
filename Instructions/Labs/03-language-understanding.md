@@ -4,9 +4,9 @@ lab:
     description: "Create a custom language understanding model to interpret input, predict intent, and identify entities."
 ---
 
-# Create a language understanding model with the Language service
+# Create a language understanding model with the Foundry
 
-The Azure AI Language service enables you to define a *conversational language understanding* model that applications can use to interpret natural language *utterances* from users (text or spoken input),  predict the users *intent* (what they want to achieve), and identify any *entities* to which the intent should be applied.
+The Foundry enables you to define a *conversational language understanding* model that applications can use to interpret natural language *utterances* from users (text or spoken input),  predict the users *intent* (what they want to achieve), and identify any *entities* to which the intent should be applied.
 
 For example, a conversational language model for a clock application might be expected to process input such as:
 
@@ -17,7 +17,7 @@ This kind of input is an example of an *utterance* (something a user might say o
 > **NOTE**
 > The task of a conversational language model is to predict the user's intent and identify any entities to which the intent applies. It is <u>not</u> the job of a conversational language model to actually perform the actions required to satisfy the intent. For example, a clock application can use a conversational language model to discern that the user wants to know the time in London; but the client application itself must then implement the logic to determine the correct time and present it to the user.
 
-In this exercise, you'll use the Azure AI Language service to create a conversational language understand model, and use the Python SDK to implement a client app that uses it.
+In this exercise, you'll use Foundry to create a conversational language understand model, and use the Python SDK to implement a client app that uses it.
 
 While this exercise is based on Python, you can develop conversational understanding applications using multiple language-specific SDKs; including:
 
@@ -31,78 +31,50 @@ This exercise takes approximately **35** minutes.
 
 If you don't already have one in your subscription, you'll need to provision an **Azure AI Language service** resource in your Azure subscription.
 
-1. Open the Azure portal at `https://portal.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
-1. Select **Create a resource**.
-1. In the search field, search for **Language service**. Then, in the results, select **Create** under **Language Service**.
+1. Open the Foundry portal at `https://ai.azure.com`, and sign in using the Microsoft account associated with your Azure subscription.
+1. Select **Create an agent**.
+1. In the create a new project wizard define a unique name for your **Project** and expand advanced options and define the following settings:
+    - **
 1. Provision the resource using the following settings:
     - **Subscription**: *Your Azure subscription*.
     - **Resource group**: *Choose or create a resource group*.
     - **Region**: *Choose from one of the following regions*\*
-        - Australia East
-        - Central India
-        - China East 2
-        - East US
-        - East US 2
-        - North Europe
-        - South Central US
-        - Switzerland North
-        - UK South
-        - West Europe
-        - West US 2
-        - West US 3
-    - **Name**: *Enter a unique name*.
-    - **Pricing tier**: Select **F0** (*free*), or **S** (*standard*) if F is not available.
-    - **Responsible AI Notice**: Agree.
-1. Select **Review + create**, then select **Create** to provision the resource.
-1. Wait for deployment to complete, and then go to the deployed resource.
-1. View the **Keys and Endpoint** page. You will need the information on this page later in the exercise.
+        - East US 2 (*most recommended*)
+        - Sweden Central
+1. Select **Create** to provision the resource.
+1. Wait for deployment to complete, and then close the **Deply a model** wizard.
+1. View the **Overview** page. You will need the API key on this page later in the exercise.
 
 ## Create a conversational language understanding project
 
-Now that you have created an authoring resource, you can use it to create a conversational language understanding project.
+Now that you have created a Project, you can use it to create a conversational language understanding project.
 
-1. In a new browser tab, open the Azure AI Language Studio portal at `https://language.cognitive.azure.com/` and sign in using the Microsoft account associated with your Azure subscription.
+1. In the same page, go to **Fine-tuning** page and go to the **AI Service fine-tuning** tab.
 
-1. If prompted to choose a Language resource, select the following settings:
+1. Select **#65291; Fine-tune** and select the **Conversational language understanding** and click **Next** 
 
-    - **Azure Directory**: The Azure directory containing your subscription.
-    - **Azure subscription**: Your Azure subscription.
-    - **Resource type**: Language.
-    - **Language resource**: The Azure AI Language resource you created previously.
-
-    If you are <u>not</u> prompted to choose a language resource, it may be because you have multiple Language resources in your subscription; in which case:
-
-    1. On the bar at the top of the page, select the **Settings (&#9881;)** button.
-    2. On the **Settings** page, view the **Resources** tab.
-    3. Select the language resource you just created, and click **Switch resource**.
-    4. At the top of the page, click **Language Studio** to return to the Language Studio home page
-
-1. At the top of the portal, in the **Create new** menu, select **Conversational language understanding**.
-
-1. In the **Create a project** dialog box, on the **Enter basic information** page, enter the following details and then select **Next**:
+1. In the **Create CLU fine tuning task** dialog box, on the **Basic information** page, select the **Create a new fine-tuning task** option and enter the following details and then select **Create**:
     - **Name**: `Clock`
-    - **Utterances primary language**: English
-    - **Enable multiple languages in project?**: *Unselected*
+    - **Language**: English
+    - **Enable multiple languages?**: *Unselected*
     - **Description**: `Natural language clock`
-
-1. On the **Review and finish** page, select **Create**.
 
 ### Create intents
 
-The first thing we'll do in the new project is to define some intents. The model will ultimately predict which of these intents a user is requesting when submitting a natural language utterance.
+The first thing we'll do in the new task is to define some intents. The model will ultimately predict which of these intents a user is requesting when submitting a natural language utterance.
 
 > **Tip**: When working on your project, if some tips are displayed, read them and select **Got it** to dismiss them, or select **Skip all**.
 
-1. On the **Schema definition** page, on the **Intents** tab, select **&#65291; Add** to add a new intent named `GetTime`.
+1. On the **Define schema** page, on the **Intents** tab, select **&#65291; Add Intent** to add a new intent named `GetTime`.
 1. Verify that the **GetTime** intent is listed (along with the default **None** intent). Then add the following additional intents:
     - `GetDay`
     - `GetDate`
 
-### Label each intent with sample utterances
+### Manage each intent with sample utterances
 
 To help the model predict which intent a user is requesting, you must label each intent with some sample utterances.
 
-1. In the pane on the left, select the **Data Labeling** page.
+1. In the pane on the left, select the **Manage data** page.
 
 > **Tip**: You can expand the pane with the **>>** icon to see the page names, and hide it again with the **<<** icon.
 
@@ -127,32 +99,32 @@ To help the model predict which intent a user is requesting, you must label each
     - `what is the date today?`
     - `what's today's date?`
 
-1. After you've added utterances for each of your intents, select **Save changes**.
+1. After you've added utterances for each of your intents, it should have auto-saved your changes.
 
 ### Train and test the model
 
 Now that you've added some intents, let's train the language model and see if it can correctly predict them from user input.
 
-1. In the pane on the left, select **Training jobs**. Then select **+ Start a training job**.
+1. In the pane on the left, select **Train model**. Then select **+ Train model**.
 
-1. On the **Start a training job** dialog, select the option to train a new model, name it `Clock`. Select **Standard training** mode and the default **Data splitting** options.
+1. On the **Train a new model** dialog, select **Create a new training model**, name it `Clock`. Select **Standard training (free)** mode and click **Next** and leave as default for **Data splitting** options.
 
-1. To begin the process of training your model, select **Train**.
+1. Once you click **Create**, wait until the training finishes.
 
-1. When training is complete (which may take several minutes) the job **Status** will change to **Training succeeded**.
+1. When training is complete (which may take several minutes) the job **Status** will change to **Succeeded**.
 
-1. Select the **Model performance** page, and then select the **Clock** model. Review the overall and per-intent evaluation metrics (*precision*, *recall*, and *F1 score*) and the *confusion matrix* generated by the evaluation that was performed when training (note that due to the small number of sample utterances, not all intents may be included in the results).
+1. Select the **Evaluate model** page, and then select the **Clock** model. Review the overall and per-intent evaluation metrics (*precision*, *recall*, and *F1 score*) and the *confusion matrix* generated by the evaluation that was performed when training (note that due to the small number of sample utterances, not all intents may be included in the results).
 
     > **NOTE**
     > To learn more about the evaluation metrics, refer to the [documentation](https://learn.microsoft.com/azure/ai-services/language-service/conversational-language-understanding/concepts/evaluation-metrics)
 
-1. Go to the **Deploying a model** page, then select **Add deployment**.
+1. Go to the **Deploy model** page, then select **#65291; Deploy a trained model**.
 
-1. On the **Add deployment** dialog, select **Create a new deployment name**, and then enter `production`.
+1. On the **Deploy a trained model** dialog, select **Create a new deployment name**, and then enter `production` for the **Deployment name** field.
 
-1. Select the **Clock** model in the **Model** field then select **Deploy**. The deployment may take some time.
+1. Select the **Clock** model in the **Assign a model** field then select **Create**. The deployment may take some time.
 
-1. When the model has been deployed, select the **Testing deployments** page, then select the **production** deployment in the **Deployment name** field.
+1. When the model has been deployed, select the **Try in playground** page, make sure the **Clock** is selected in the *Fine-tuning task name* and that **production** is set for *Deployment name* field.
 
 1. Enter the following text in the empty textbox, and then select **Run the test**:
 
@@ -180,11 +152,14 @@ So far you've defined some simple utterances that map to intents. Most real appl
 
 The most common kind of entity is a *learned* entity, in which the model learns to identify entity values based on examples.
 
-1. In Language Studio, return to the **Schema definition** page and then on the **Entities** tab, select **&#65291; Add** to add a new entity.
+1. In Foundry, return to the **Define schema** in the **Fine-tuning** page and then on the **Entities** tab, select **&#65291; Add entity** to add a new entity.
 
-1. In the **Add an entity** dialog box, enter the entity name `Location` and ensure that the **Learned** tab is selected. Then select **Add entity**.
+1. In the **Add an entity** dialog box, enter the entity name `Location` then select **Add entity**.
 
-1. After the **Location** entity has been created, return to the **Data labeling** page.
+1. After entity is added, select your recently created entity and ensure the Learned option is toggled on.
+
+1. After the **Location** entity has been created, return to the **Manage data** page.
+
 1. Select the **GetTime** intent and enter the following new example utterance:
 
     `what time is it in London?`
@@ -203,15 +178,17 @@ The most common kind of entity is a *learned* entity, in which the model learns 
 
 1. When the utterance has been added, select the words **New York**, and map them to the **Location** entity.
 
-1. Select **Save changes** to save the new utterances.
+1. Your changes should have been automatically saved.
 
-### Add a *list* entity
+### Add a *list* entity --Bug found
 
 In some cases, valid values for an entity can be restricted to a list of specific terms and synonyms; which can help the app identify instances of the entity in utterances.
 
-1. In Language Studio, return to the **Schema definition** page and then on the **Entities** tab, select **&#65291; Add** to add a new entity.
+1. Return to the **Define schema** page and then on the **Entities** tab, select **&#65291; Add entity** to add a new entity.
 
-1. In the **Add an entity** dialog box, enter the entity name `Weekday` and select the **List** entity tab. Then select **Add entity**.
+1. In the **Add an entity** dialog box, enter the entity name `Weekday` then select **Add entity**.
+
+1. After entity is added, select your recently created entity and under the **List** select the **Add list** option.
 
 1. On the page for the **Weekday** entity, in the **Learned** section, ensure **Not required** is selected. Then, in the **List** section, select **&#65291; Add new list**. Then enter the following value and synonym and select **Save**:
 
