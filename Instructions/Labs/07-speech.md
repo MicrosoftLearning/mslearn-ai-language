@@ -76,8 +76,8 @@ Let's start by creating an Azure AI Speech resource.
 1. Create a Python virtual environment and install the Azure AI Speech SDK package and other required packages by running the following command:
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
+   python -m venv labenv;
+   ./labenv/bin/Activate.ps1;
    pip install -r requirements.txt azure-cognitiveservices-speech==1.42.0
     ```
 
