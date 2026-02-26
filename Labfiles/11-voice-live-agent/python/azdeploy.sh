@@ -74,7 +74,7 @@ if [ "$deploy_mode" = "2" ]; then
     clear
     echo "Starting container update (rebuild + redeploy)..."
     echo ""
-    
+
     # Verify that the resources exist
     echo "  - Verifying existing resources..."
     if ! az acr show -n $acr_name -g $rg >/dev/null 2>&1; then
@@ -82,15 +82,15 @@ if [ "$deploy_mode" = "2" ]; then
         echo "You must run a full deployment (option 1) first."
         exit 1
     fi
-    
+
     if ! az webapp show -n $webapp_name -g $rg >/dev/null 2>&1; then
         echo "ERROR: Web App '$webapp_name' not found in resource group '$rg'"
         echo "You must run a full deployment (option 1) first."
         exit 1
     fi
-    
+
     echo "  - Resources verified: ACR and Web App exist"
-    
+
     # Build image
     echo "  - Building updated image in ACR...(takes 3-5 minutes)"
     max_retries=3
@@ -98,7 +98,7 @@ if [ "$deploy_mode" = "2" ]; then
 
     while [ "${retry_count}" -lt "${max_retries}" ]; do
         echo "  - Attempt $((retry_count + 1)) of $max_retries: building image..."
-        
+
         az acr build -r $acr_name --image ${acr_name}.azurecr.io/${image}:${tag} --file Dockerfile . >/dev/null 2>&1
 
         if az acr repository show --name $acr_name --repository $image >/dev/null 2>&1; then
@@ -118,11 +118,11 @@ if [ "$deploy_mode" = "2" ]; then
         echo "ERROR: Failed to build image after $max_retries attempts"
         exit 1
     fi
-    
+
     # Restart web app to pull new image
     echo "  - Restarting Web App to pull updated container..."
     az webapp restart --name "$webapp_name" --resource-group "$rg" >/dev/null
-    
+
     echo ""
     echo "Container update complete!"
     echo " - Your app is available at: https://${webapp_name}.azurewebsites.net"
@@ -162,20 +162,20 @@ rm -rf .azure 2>/dev/null || true
 timeout 5 azd env new $azd_env_name --confirm >/dev/null 2>&1 || azd env new $azd_env_name >/dev/null 2>&1
 azd env set AZURE_LOCATION $location >/dev/null
 azd env set AZURE_RESOURCE_GROUP $rg >/dev/null
+subscription_id=$(az account show --query id -o tsv)
+azd env set AZURE_SUBSCRIPTION_ID "$subscription_id" >/dev/null
 echo "  - AZD environment '$azd_env_name' created (fresh state)"
 
 echo "  - Provisioning AI resources (forcing new deployment)..."
-# Verify azd authentication (inherits from Azure CLI in Cloud Shell)
-if ! azd auth login --check-status >/dev/null 2>&1; then
-    echo "  - Authenticating azd with Azure..."
-    azd auth login 2>/dev/null || true
-fi
+echo "  - Authenticating azd with Azure..."
+# In classic Cloud Shell, azd auth login uses the ambient session credentials automatically.
+azd auth login --use-device-code
 
 # Force a completely fresh deployment by combining multiple techniques
 azd config set alpha.infrastructure.deployment.name "azd-gpt-realtime-$(date +%s)"
 # Clear any cached deployment state and force deployment
 azd env refresh --no-prompt 2>/dev/null || true
-azd provision 
+azd provision
 
 echo "  - Retrieving AI Foundry endpoint, API key, and model name..."
 endpoint=$(azd env get-values --output json | jq -r '.AZURE_OPENAI_ENDPOINT')
@@ -220,7 +220,7 @@ retry_count=0
 
 while [ $retry_count -lt $max_retries ]; do
     echo "  - Attempt $((retry_count + 1)) of $max_retries: building image..."
-    
+
     # Run the build command
     az acr build -r $acr_name --image ${acr_name}.azurecr.io/${image}:${tag} --file Dockerfile . >/dev/null 2>&1
 
@@ -252,7 +252,7 @@ echo
 echo "Step 3: Configuring Azure App Service with updated credentials..."
 
 echo "  - Gathering environment variables from .env file for App Service deployment.."
-# Parse the .env file exists in the repo root, and bring values into the  script environment 
+# Parse the .env file exists in the repo root, and bring values into the  script environment
 if [ -f .env ]; then
     while IFS='=' read -r key val; do
         # Trim whitespace
@@ -288,7 +288,7 @@ env_vars=(
 
 echo "  - Retrieving ACR credentials so App Service can access the container image..."
 # Use the retrieved ACR credentials to allow AppSvc to pull the image.
-acr_user=$(az acr credential show -n $acr_name --query username -o tsv | tr -d '\r')  
+acr_user=$(az acr credential show -n $acr_name --query username -o tsv | tr -d '\r')
 acr_pass=$(az acr credential show -n $acr_name --query passwords[0].value -o tsv | tr -d '\r')
 acr_login_server=$(az acr show --name $acr_name --query "loginServer" --output tsv | tr -d '\r')
 acr_image=${acr_login_server}/${image}:${tag}
