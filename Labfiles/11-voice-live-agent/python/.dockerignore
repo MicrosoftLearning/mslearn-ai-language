@@ -1,0 +1,62 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# UV cache
+.uv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Environment files (should be set via Azure config)
+.env
+.env.*
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Documentation
+*.md
+docs/
+
+# CI/CD
+.github/
+.azure/
+
+# Lock files (already copied via requirements.txt)
+uv.lock
+
+# Infrastructure as Code (not needed in runtime container)
+infra/
+azure.yaml
+azdeploy.sh
+
+# Docker
+Dockerfile
+.dockerignore
