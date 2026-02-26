@@ -343,5 +343,3 @@ echo " - Your app is available at: https://${webapp_name}.azurewebsites.net"
 echo
 echo "Note: App may take a few minutes to start after loading the web page."
 echo
-echo "To update the container with new code changes, run this script again and select option 2 (Container update only)."
-echo
