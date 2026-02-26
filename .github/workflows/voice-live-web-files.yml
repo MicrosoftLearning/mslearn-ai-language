@@ -23,6 +23,7 @@ jobs:
       uses: actions/checkout@v4
     - name: Create Voice Live zip
       run: |
+        rm -f ./downloads/python/voice-live-web.zip
         cd ./Labfiles/11-voice-live-agent/python/
         zip -r -q ../../../downloads/python/voice-live-web.zip .
     - name: Commit and push
