@@ -32,37 +32,20 @@ fi
 # ============================================================================
 # Service Name Generation (shared by both modes)
 # ============================================================================
-# Use the current console username plus a short 4-char deterministic hash to set service names.
-user_name="$(whoami 2>/dev/null || echo user)"
-
-# Sanitize username: lowercase and remove non-alphanumeric characters
-full_safe_user=$(printf "%s" "$user_name" | tr '[:upper:]' '[:lower:]' | tr -cd 'a-z0-9')
-if [ -z "$full_safe_user" ]; then
-    full_safe_user="user"
+# Generate consistent unique hash from Azure user object ID (guaranteed unique per user)
+user_object_id=$(az ad signed-in-user show --query "id" -o tsv 2>/dev/null)
+if [ -z "$user_object_id" ]; then
+    echo "ERROR: Not authenticated with Azure. Please run: az login"
+    exit 1
 fi
+user_hash=$(echo -n "$user_object_id" | sha1sum | cut -c1-8)
 
-# Truncate for human-readable resource prefixes (8 chars)
-safe_user=${full_safe_user:0:8}
-
-# 4-char hash from the full sanitized username (preserves uniqueness even if truncated)
-short_hash=$(printf "%s" "$full_safe_user" | sha1sum | awk '{print $1}' | cut -c1-4)
-
-# Build ACR name by concatenating truncated username + hash + 'acr' (no hyphens)
-acr_name="${safe_user}${short_hash}acr"
-
-# Ensure ACR name starts with a letter; prepend 'a' if it doesn't
-if ! [[ $acr_name =~ ^[a-z] ]]; then
-    acr_name="a${acr_name}"
-fi
-
-# Ensure minimum length 5 (ACR requires 5-50 chars). Pad with 'a' if too short.
-while [ ${#acr_name} -lt 5 ]; do
-    acr_name="${acr_name}a"
-done
+# Build ACR name: 'acr' prefix + 8-char hash (no hyphens, all lowercase, starts with letter)
+acr_name="acr${user_hash}"
 
 # App Service plan and webapp (hyphens allowed)
-appsvc_plan="${safe_user}-appplan-${short_hash}"
-webapp_name="${safe_user}-webapp-${short_hash}"
+appsvc_plan="appplan-${user_hash}"
+webapp_name="webapp-${user_hash}"
 image="rt-voice"
 tag="v1"
 azd_env_name="gpt-realtime" # Forced as unique at each run
@@ -168,14 +151,34 @@ echo "  - AZD environment '$azd_env_name' created (fresh state)"
 
 echo "  - Provisioning AI resources (forcing new deployment)..."
 echo "  - Authenticating azd with Azure..."
-# In classic Cloud Shell, azd auth login uses the ambient session credentials automatically.
-azd auth login --use-device-code
+# Try ambient auth (Cloud Shell) with a 10s timeout to avoid hanging.
+# If it doesn't complete quickly, fall back to interactive device code.
+if ! timeout 5 azd auth login >/dev/null 2>&1; then
+    azd auth login --use-device-code
+fi
 
 # Force a completely fresh deployment by combining multiple techniques
 azd config set alpha.infrastructure.deployment.name "azd-gpt-realtime-$(date +%s)"
 # Clear any cached deployment state and force deployment
 azd env refresh --no-prompt 2>/dev/null || true
-azd provision
+
+# Provision with retry logic to handle non-terminal resource state conflicts
+provision_retries=3
+provision_attempt=0
+while [ $provision_attempt -lt $provision_retries ]; do
+    provision_attempt=$((provision_attempt + 1))
+    echo "  - Running azd provision (attempt $provision_attempt of $provision_retries)..."
+    if azd provision; then
+        break
+    fi
+    if [ $provision_attempt -lt $provision_retries ]; then
+        echo "  - Provision failed (possible non-terminal resource conflict). Waiting 60 seconds before retry..."
+        sleep 60
+    else
+        echo "ERROR: azd provision failed after $provision_retries attempts."
+        exit 1
+    fi
+done
 
 echo "  - Retrieving AI Foundry endpoint, API key, and model name..."
 endpoint=$(azd env get-values --output json | jq -r '.AZURE_OPENAI_ENDPOINT')
