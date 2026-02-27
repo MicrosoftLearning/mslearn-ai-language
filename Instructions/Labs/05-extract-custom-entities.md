@@ -200,9 +200,9 @@ To test the custom entity extraction capabilities of the Azure AI Language servi
 1. Create a Python virtual environment and install the Azure AI Language Text Analytics SDK package and other required packages by running the following command:
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
-   pip install -r requirements.txt azure-ai-textanalytics==5.3.0
+   python -m venv labenv;
+    ./labenv/bin/Activate.ps1;
+    pip install -r requirements.txt azure-ai-textanalytics==5.3.0
     ```
 
 1. Enter the following command to edit the application configuration file:

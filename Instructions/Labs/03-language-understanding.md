@@ -360,9 +360,9 @@ You'll develop your language understanding app using Cloud Shell in the Azure po
 1. Create a Python virtual environment and install the Azure AI Language Conversations SDK package and other required packages by running the following command:
 
     ```
-   python -m venv labenv
-    ./labenv/bin/Activate.ps1
-   pip install -r requirements.txt azure-ai-language-conversations==1.1.0
+   python -m venv labenv;
+    ./labenv/bin/Activate.ps1;
+    pip install -r requirements.txt azure-ai-language-conversations==1.1.0
     ```
 1. Enter the following command to edit the configuration file:
 
