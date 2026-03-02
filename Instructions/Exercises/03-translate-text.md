@@ -1,7 +1,9 @@
 ---
 lab:
     title: 'Translate Text'
-    description: "Translate provided text between any supported languages with Azure AI Translator."
+    description: Translate text with Azure Translator in Foundry Tools.
+    duration: 20
+    level: 300
 ---
 
 # Translate Text
@@ -14,7 +16,7 @@ While this exercise is based on Python, you can develop text translation applica
 - [Azure Translator client library for .NET](https://www.nuget.org/packages/Azure.AI.Translation.Text)
 - [Azure Translator client library for JavaScript](https://www.npmjs.com/package/@azure-rest/ai-translation-text)
 
-This exercise takes approximately **30** minutes.
+This exercise takes approximately **20** minutes.
 
 ## Prerequisites
 
@@ -44,7 +46,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 ## Get the application files from GitHub
 
-The initial application files you'll need to develop the review analysis application are provided in a GitHub repo.
+The initial application files you'll need to develop the translation application are provided in a GitHub repo.
 
 1. Open Visual Studio Code.
 1. Open the command palette (*Ctrl+Shift+P*) and use the `Git:clone` command to clone the `https://github.com/microsoftlearning/mslearn-ai-language` repo to a local folder (it doesn't matter which one). Then open it.

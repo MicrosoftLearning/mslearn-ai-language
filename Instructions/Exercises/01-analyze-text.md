@@ -10,7 +10,7 @@ lab:
 
 **Azure Language in Foundry Tools** supports analysis of text, including language detection, sentiment analysis, key phrase extraction, and entity recognition.
 
-For example, suppose a travel agency wants to process hotel reviews that have been submitted to the company's web site. By using the Azure Language, they can determine the language each review is written in, the sentiment (positive, neutral, or negative) of the reviews, key phrases that might indicate the main topics discussed in the review, and named entities, such as places, landmarks, or people mentioned in the reviews. In this exercise, you'll use the Azure Language Python SDK for text analytics to implement a simple hotel review application based on this example.
+For example, suppose a travel agency wants to process hotel reviews that have been submitted to the company's web site. By using the Azure Language, they can determine the language each review is written in, the sentiment (positive, neutral, or negative) of the reviews, key phrases that might indicate the main topics discussed in the review, and named entities, such as places, landmarks, or people mentioned in the reviews. In this exercise, you'll use the Azure Language Python SDK for text analytics to implement a simple hotel review application.
 
 While this exercise is based on Python, you can develop text analytics applications using multiple language-specific SDKs; including:
 
@@ -88,7 +88,7 @@ The initial application files you'll need to develop the review analysis applica
 ## Add code to connect to your Azure AI Language resource
 
 1. In the **Explorer** pane, in the **text-analysis** folder,  open the **text-analysis.py** file.
-1. Review the existing code. You will add code to work with the AI Language Text Analytics SDK.
+1. Review the existing code. You will add code to work with the Azure Language Text Analytics SDK.
 
     > **Tip**: As you add code to the code file, be sure to maintain the correct indentation.
 

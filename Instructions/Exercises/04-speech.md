@@ -1,0 +1,189 @@
+---
+lab:
+    title: 'Recognize and Synthesize Speech'
+    description: Implement speech functionality using Azure Speech in Foundry Tools.
+    duration: 30
+    level: 300
+---
+
+# Recognize and synthesize speech
+
+**Azure AI Speech** is a service that provides speech-related functionality, including:
+
+- A *speech-to-text* API that enables you to implement speech recognition (converting audible spoken words into text).
+- A *text-to-speech* API that enables you to implement speech synthesis (converting text into audible speech).
+
+In this exercise, you'll use both of these APIs to implement a voice message assistant.
+
+While this exercise is based on Python, you can develop speech applications using multiple language-specific SDKs; including:
+
+- [Azure Speech SDK for Python](https://pypi.org/project/azure-cognitiveservices-speech/)
+- [Azure Speech SDK for .NET](https://www.nuget.org/packages/Microsoft.CognitiveServices.Speech)
+- [Azure Speech SDK for JavaScript](https://www.npmjs.com/package/microsoft-cognitiveservices-speech-sdk)
+
+This exercise takes approximately **30** minutes.
+
+## Prerequisites
+
+Before starting this exercise, ensure you have:
+
+- An active [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account)
+- [Visual Studio Code](https://code.visualstudio.com/) installed
+- [Python version 3.13 or higher](https://www.python.org/downloads/) installed
+- [Git](https://git-scm.com/install/) installed and configured
+
+## Create a Microsoft Foundry project
+
+Microsoft Foundry uses projects to organize models, resources, data, and other assets used to develop an AI solution.
+
+1. In a web browser, open Microsoft Foundry at <https://ai.azure.com> and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
+
+1. If it is not already enabled, in the tool bar the top of the page, enable the **New Foundry** option. Then, if prompted, create a new project with a unique name; expanding the **Advanced options** area to specify the following settings for your project:
+    - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
+    - **Subscription**: *Your Azure subscription*
+    - **Resource group**: *Create or select a resource group*
+    - **Region**: Select any of the **AI Foundry recommended** regions
+
+1. Select **Create**. Wait for your project to be created.
+1. On the home page for your project, note the project endpoint, key, and region.
+
+    > **TIP**: You're going to need these values later!
+
+## Get the application files from GitHub
+
+The initial application files you'll need to develop the voice application are provided in a GitHub repo.
+
+1. Open Visual Studio Code.
+1. Open the command palette (*Ctrl+Shift+P*) and use the `Git:clone` command to clone the `https://github.com/microsoftlearning/mslearn-ai-language` repo to a local folder (it doesn't matter which one). Then open it.
+
+    You may be prompted to confirm you trust the authors.
+
+1. After the repo has been cloned, in the Explorer pane, navigate to the folder containing the application code files at **/Labfiles/04-speech/Python/voice-mail**. The application files include:
+    - **messages** (a subfolder containing audio recordings of messages)
+    - **.env** (the application configuration file)
+    - **requirements.txt** (the Python package dependencies that need to be installed)
+    - **voice-mail.py** (the code file for the application)
+
+## Configure your application
+
+1. In Visual Studio Code, view the **Extensions** pane; and if it is not already installed, install the **Python** extension.
+1. In the **Command Palette**, use the command `python:select interpreter`. Then select an existing environment if you have one, or create a new **Venv** environment based on your Python 3.1x installation.
+
+    > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/04-speech/Python/voice-mail* folder; but it's OK if you don't we'll install them later!
+
+1. In the **Explorer** pane, right-click the **voice-mail** folder containing the application files, and select **Open in integrated terminal** (or open a terminal in the **Terminal** menu and navigate to the */Labfiles/04-speech/Python/voice-mail* folder.)
+
+    > **Note**: Opening the terminal in Visual Studio Code will automatically activate the Python environment. You may need to enable running scripts on your system.
+
+1. Ensure that the terminal is open in the **voice-mail** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
+1. Install the Azure AI Language Text Analytics SDK package and other required packages by running the following command:
+
+    ```
+    pip install -r requirements.txt azure-cognitiveservices-speech==1.42.0
+    ```
+
+1. In the **Explorer** pane, in the **text-analysis** folder, select the **.env** file to open it. Then update the configuration values to include the **endpoint** (up to the *.com* domain) and **key** for your Foundry project (copy these from the Foundry portal).
+
+    > **Important**: Modify the pasted endpoint to remove the "/api/projects/{project_name}" suffix - the endpoint should be *https://{your-foundry-resource-name}.services.ai.azure.com*.
+
+    Save the modified configuration file.
+
+## Add code to synthesize speech
+
+1. In the **Explorer** pane, in the **voice-mail** folder,  open the **voice-mail.py** file.
+1. Review the existing code. You will add code to work with the Azure Speech SDK.
+
+    > **Tip**: As you add code to the code file, be sure to maintain the correct indentation.
+
+1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces** and add the following code to import the namespaces you will need to use the Text Analytics SDK:
+
+    ```python
+   # import namespaces
+   import azure.cognitiveservices.speech as speech_sdk
+    ```
+
+1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create speech_config using endpoint and key**, and add the following code to create a client for the Text Analysis API:
+
+    ```Python
+   # Create speech_config using endpoint and key
+   speech_config = speech_sdk.SpeechConfig(subscription=speech_key,
+                                            endpoint=speech_endpoint)
+    ```
+
+1. Review the rest of the **main** function, and note that a loop has been implemented that enables the user to choose one of three options:
+    1. Record a voice greeting
+    1. Transcribe messages
+    1. Exit the application
+
+1. Find the **record_greeting** function, which you will implement to record a voice greeting as an audio file.
+1. In the **record_greeting** function, find the comment **Synthesize the greeting message to an audio file**, and add the following code to synthesize speech from the text entered by the user and save it as an audio file.
+
+    ```python
+   # Synthesize the greeting message to an audio file
+   output_file = "greeting.wav"
+   audio_config = speech_sdk.audio.AudioConfig(filename=output_file)
+   speech_config.speech_synthesis_voice_name = "en-US-Serena:DragonHDLatestNeural"
+   speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config=speech_config,
+                                                     audio_config=audio_config)
+   result = speech_synthesizer.speak_text_async(greeting_message).get()
+   if result.reason == speech_sdk.ResultReason.SynthesizingAudioCompleted:
+        print(f"Greeting recorded and saved to {output_file}")
+        play_audio_file(output_file)
+   else:
+        print("Error recording greeting: {}".format(result.reason))
+    ```
+
+1. Save the changes to the code file. Then, in the terminal, enter the following command to run the application:
+
+    ```powershell
+   python voice-mail.py
+    ```
+
+1. When prompted, enter **2** to record a greeting.
+1. Enter a greeting, like `Hi. The person you called is not available right now. Leave a message.`
+1. Wait while the speech is synthesized and saved as an audio file.
+
+    The file is played back automatically, so you can hear the greeting.
+
+## Add code to recognize speech
+
+1. In the **voice-mail.py** code file, find the **transcribe_messages** function; which you will implement to transcribe each of the voice messages in the **messages** subfolder.
+
+    The functional already contains code to loop through the files in the **messages** folder.
+
+1. In the **transcribe_messages** function, find the comment **Transcribe the audio file**, and add the following code to transcribe the audio.
+
+    ```python
+   # Transcribe the audio file
+   audio_config = speech_sdk.audio.AudioConfig(filename=file_path)
+   speech_recognizer = speech_sdk.SpeechRecognizer(speech_config=speech_config,
+                                                    audio_config=audio_config)
+   result = speech_recognizer.recognize_once_async().get()
+   if result.reason == speech_sdk.ResultReason.RecognizedSpeech:
+        print(f"Transcription: {result.text}")
+   else:
+        print("Error transcribing message: {}".format(result.reason))
+    ```
+
+1. Save the changes to the code file. Then, in the terminal, enter the following command to run the application:
+
+    ```powershell
+   python voice-mail.py
+    ```
+
+1. When prompted, enter **3** to transcribe messages.
+1. View the transcription for each message.
+
+    Each file is played back automatically, so you can hear the message.
+
+## Clean up
+
+If you've finished exploring Azure Speech in Foundry Tools, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs.
+
+1. Open the [Azure portal](https://portal.azure.com) and view the contents of the resource group where you deployed the resources used in this exercise.
+1. On the toolbar, select **Delete resource group**.
+1. Enter the resource group name and confirm that you want to delete it.
+
+## More information
+
+For more information about using the **Speech-to-text** and **Text-to-speech** APIs, see the [Speech-to-text documentation](https://learn.microsoft.com/azure/ai-services/speech-service/index-speech-to-text) and [Text-to-speech documentation](https://learn.microsoft.com/azure/ai-services/speech-service/index-text-to-speech).
