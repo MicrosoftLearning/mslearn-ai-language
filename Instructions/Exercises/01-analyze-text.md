@@ -1,25 +1,32 @@
 ---
 lab:
-    title: 'Develop a text analysis agent'
-    description: 'Use Azure Language in Foundry Tools to add text analysis capabilities to an AI agent.'
-    duration: 30
+    title: 'Analyze text'
+    description: "Use Azure Language in Foundry Tools to analyze text, including language detection, sentiment analysis, key phrase extraction, and entity recognition."
     level: 300
+    duration: 30
 ---
 
-# Develop a text analysis agent
+# Analyze Text
 
-**Azure Language in Foundry Tools** supports analysis of text, including language detection, sentiment analysis, key phrase extraction, entity recognition, and summarization.
+**Azure Language in Foundry Tools** supports analysis of text, including language detection, sentiment analysis, key phrase extraction, and entity recognition.
 
-You can use the service directly in an application through its REST API and several language-specific SDKs. You can also use the **Azure Language in Foundry Tools MCP server** to integrate its capabilities into an AI agent; which is what you'll do in this exercise.
+For example, suppose a travel agency wants to process hotel reviews that have been submitted to the company's web site. By using the Azure Language, they can determine the language each review is written in, the sentiment (positive, neutral, or negative) of the reviews, key phrases that might indicate the main topics discussed in the review, and named entities, such as places, landmarks, or people mentioned in the reviews. In this exercise, you'll use the Azure Language Python SDK for text analytics to implement a simple hotel review application based on this example.
+
+While this exercise is based on Python, you can develop text analytics applications using multiple language-specific SDKs; including:
+
+- [Microsoft Azure Text Analytics Client Library for Python](https://pypi.org/project/azure-ai-textanalytics/)
+- [Microsoft Azure Text Analytics Client Library for .NET](https://www.nuget.org/packages/Azure.AI.TextAnalytics)
+- [Microsoft Azure Text Analytics Client Library for JavaScript](https://www.npmjs.com/package/@azure/ai-text-analytics)
 
 This exercise takes approximately **30** minutes.
 
 ## Prerequisites
 
 Before starting this exercise, ensure you have:
-- Visual Studio Code installed
 - An active Azure subscription
-- Python version 3.10 or higher installed
+- Visual Studio Code installed
+- Python version 3.12 or higher installed
+- Git installed and configured
 
 ## Create a Microsoft Foundry project
 
@@ -33,161 +40,164 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Resource group**: *Create or select a resource group*
     - **Region**: Select any of the **AI Foundry recommended** regions
 
-    > **TIP**: Remember the resource name - you're going to need it later!
-
 1. Select **Create**. Wait for your project to be created.
 1. On the home page for your project, note the project endpoint, key, and region.
 
-    > **TIP**: Copy the project key to the clipboard - you're going to need it later!
+    > **TIP**: You're going to need these values later!
 
-## Create an agent
+## Get the application files from GitHub
 
-Now that you have a Foundry project, you can create an agent.
+The initial application files you'll need to develop the review analysis application are provided in a GitHub repo.
 
-1. In the **Start building** menu, select **Create agent**; and when prompted, name the agent **Text-Analysis-Agent**.
+1. Open Visual Studio Code.
+1. Open the command palette (*Ctrl+Shift+P*) and use the `Git:clone` command to clone the `https://github.com/microsoftlearning/mslearn-ai-language` repo to a local folder (it doesn't matter whch one). You may be prompted to confirm you trust the authors.
+1. After the repo has been cloned, in the Explorer pane, navigate to the folder containing the application code files at **/Labfiles/01-analyze-text/Python/text-analysis**. The application files include:
+    - **reviews** (a subfolder containing the review documents)
+    - **.env** (the application configuration file)
+    - **requirements.txt** (the Python package dependencies that need to be installed)
+    - **text-analysis.py** (the code file for the application)
 
-    When ready, your agent opens in the agent playground.
+## Configure your application
 
-1. In the model drop-down list, ensure that a **gpt-4.1** model has been deployed and selected for your agent.
-1. Assign your agent the following **Instructions**:
+1. In the **Command Palette**, use the command `python:select interpreter`. Then create a new **Venv** environment based on your Python 3.1x installation.
+1. In the **Explorer** pane, right-click the **text-analysis** folder containing the application files, and select Open in integrated terminal (or open a terminal in the **Terminal** menu and navigate to the /Labfiles/01-analyze-text/Python/text-analysis folder.)
 
-    ```
-   You are an AI agent that assists users by helping them analyze and summarize text.
-    ```
+    > **Note**: Opening the terminal in Visual Studio Code will automatically activate the Python environment. You may need to enable running scripts on your system.
 
-1. Use the **Save** button to save the changes.
-1. Test the agent by entering the following prompt in the **Chat** pane:
-
-    ```
-   What can you help me with?
-    ```
-
-    The agent should respond with an appropriate answer based on its instructions.
-
-## Create an Azure Language in Foundry Tools connection
-
-Foundry includes an MCP server for Azure Language in Foundry Tools, which you can connect to your project and use in your agent.
-
-1. In the navigation pane on the left, select the **Tools** page.
-1. Connect a tool; selecting **Azure Language in Foundry Tools** in the **Catalog** and specifying the following configuration
-    - **Foundry resource name**: *Enter the name of your Foundry resource (for example, `{project_name}-resource)`*
-    - **Authentication**: Key-based
-    - **Credential** (**Ocp-Apim-Subscription-Key**): *enter (or paste) the key for your Foundry project*
-
-1. Wait for the MCP tool connection to be created, and then view its details page.
-1. On the details page for the Azure Language in Foundry Tools connection, select **Use in an agent**, and then select the **Text-Analysis-Agent** agent you created previously.
-
-    The agent should open in te playground, with the Azure Language in Foundry Tools tool connected.
-
-## Test the Azure Language tool in the playground
-
-Now let's test the agent's ability to use the tool you connected.
-
-1. In the agent playground for the **Text-Analysis-Agent** agent, modify the instructions as follows:
+1. Ensure that the terminal is open in the **text-analysis** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
+1. Install the Azure AI Language Text Analytics SDK package and other required packages by running the following command:
 
     ```
-   You are an AI agent that assists users by helping them analyze and summarize text. Use the Azure Language tool to perform text analysis tasks.
-    ```
-1. Use the **Save** button to save the changes.
-1. Test the agent by entering the following prompt in the **Chat** pane:
-
-    ```
-    Summarize this article, and use named entity recognition to identify people, places, and dates:
-
-    Microsoft was founded on April 4, 1975, by childhood friends Bill Gates (then 19) and Paul Allen (22) after they were inspired by the Altair 8800, one of the first personal computers, featured on the cover of *Popular Electronics*. They contacted the Altair’s maker, MITS, and successfully developed a version of the BASIC programming language, despite initially not owning the machine themselves. The pair formed a partnership called “Micro‑Soft” in Albuquerque, New Mexico, close to MITS’s headquarters, with the goal of writing software for emerging microcomputers.
-
-    In the late 1970s, Microsoft grew by supplying programming languages to multiple hardware vendors, then relocated to the Seattle area in 1979. A pivotal moment came in 1980 when Microsoft partnered with IBM to provide an operating system for the IBM PC, leading to MS‑DOS and establishing the company’s dominance in personal computing. Gates guided the company’s long-term strategy as CEO, while Allen contributed key technical vision in its early years, setting Microsoft on a path that would reshape the software industry.
+    pip install -r requirements.txt azure-ai-textanalytics==5.3.0
     ```
 
-1. When prompted, approve use of the Azure Language tool by selecting **Always approve all Azure Language in Foundry Tools tools** (you may need to do this twice because the prompt asked for two distinct text analysis tasks).
-1. Review the response, which should summarize the article about the founding of Microsoft and list the key people, places, and dates it mentions.
-1. Review the **Logs** for the chat and verify that the Azure Language tool was used by the agent to process the prompt.
-1. In the pane on the left, in the menu for the Azure Language in Foundry Tools tool (**&#8942;**), select **Configure** and verify that the **Require approval before using tool** setting is **Always approval all tools**. If not, change the setting and add the configuration, and then save the agent. 
+1. In the **Explorer** pane, in the **text-analysis** folder, select the **.env** file to open it. Then update the configuration values to include the  **endpoint** and **key** for your Foundry project (copy these from the Foundry portal).
 
-## Create a client application
+    > **Important**: Modify the pasted endpoint to remove the "/api/projects/{project_name}" suffix - the endpoint should be *https://{your-foundry-resource-name}.services.ai.azure.com*.
 
-Now that you have a working agent, you can create a client application that uses it.
+    Save the modified configuration file.
 
-1. In the agent playground, select the **Code** tab to view sample code for your agent; then view the **Python** sample code. You'll use this as the starting point for your client application.
-1. Keeping the Microsoft Foundry playground page open in the browser, open Visual Studio Code.
-1. In Visual Studio Code, select the option to open a folder (or on the **File** menu, select **Open folder**), and when prompted, create a new empty folder named **Text-Client** (it doesn't matter where) and open it. If prompted, confirm that you trust the creator of the folder.
-1. Create a new file named **.env** in the **Text-Client** folder - you'll use this file for environment variables used in your Python code.
-1. Create a second file named **app.py** in the **Text-Client** folder - you'll use this file for your Python application code.
+## Add code to connect to your Azure AI Language resource
 
-    **TIP**: If you are prompted to install the Visual Studio Code extension for Python, you can do so; but it's not required for this exercise.
+1. In the **Explorer** pane, in the **text-analysis** folder,  open the **text-analysis.py** file.
+1. Review the existing code. You will add code to work with the AI Language Text Analytics SDK.
 
-1. Return to the Foundry playground, and in the **Code** pane for the **Text-Analysis-Agent** agent, select the **{x}** icon to view the environment variables for your agent, and copy them to the clipboard.
-1. In Visual Studio Code, paste the copied environment variables into the **.env** file and save it.
-1. Return to the Foundry playground, and in the **Code** pane for the **Text-Analysis-Agent** agent, copy the Python sample code to the clipboard.
-1. In Visual Studio Code, paste the copied code into the **app.py** file.
-1. In the code you pasted, find the comment **# Reference the agent to get a response**, and modify the code under this comment as follows:
+    > **Tip**: As you add code to the code file, be sure to maintain the correct indentation.
+
+1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces** and add the following code to import the namespaces you will need to use the Text Analytics SDK:
 
     ```python
-    # Reference the agent to get a response
-    prompt = input("Enter a prompt to send to the agent: ")
-    response = openai_client.responses.create(
-        input=[{"role": "user", "content": prompt}],
-        extra_body={"agent_reference": {"name": myAgent, "version": myVersion, "type": "agent_reference"}},)
-    
-    print(f"Response output: {response.output_text}")
+   # import namespaces
+   from azure.core.credentials import AzureKeyCredential
+   from azure.ai.textanalytics import TextAnalyticsClient
     ```
 
-1. Save the changes you made to the code file.
+1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create client using endpoint and key**, and add the following code to create a client for the Text Analysis API:
 
-## Test the client application
-
-Now let's test the application by running it in a Python environment and authenticating the connection to your project.
-
-1. In the **View** menu, select **Command Palette** and enter the comment `python:select interpreter`. Then create a new **Venv** environment based on your Python 3.1x installation.
-1. In the Visual Studio Code **View** menu, select **Terminal** to open a terminal pane. Ensure that the terminal is open in the **Text-Client** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
-1. View the **pip install ...** statements in the comments at the top of the **app.py** code file. These commands install the required Python packages to use the Foundry SDK to call your agent. Enter each of these commands in the terminal to install the required packages.
-1. When the packages have been installed, enter the following command to sign into Azure
-
-   ```powershell
-    az login
+    ```Python
+   # Create client using endpoint and key
+   credential = AzureKeyCredential(ai_key)
+   ai_client = TextAnalyticsClient(endpoint=ai_endpoint, credential=credential)
     ```
 
-    When prompted, sign into Azure using your credentials.
-
-    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See *[Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively)* for details.
-
-1. In the Visual Studio Code terminal, view the details of your Azure subscription; and then enter the following command to run the client application:
-
-    ```powershell
-    python app.py
-    ```
-
-1. When prompted, enter the following prompt:
+1. Save your changes, then in the terminal pane, enter the following command to run the program (you maximize or resize the terminal pane to see more output):
 
     ```
-    Extract named entities from the following text: "Pierre and I went to Paris on July 14th."
+   python text-analysis.py
     ```
-1. Review the response, which should identify named people, places, and dates.
 
-## View tool details
+1. Observe the output as the code should run without error, displaying the contents of each review text file in the **reviews** folder. The application successfully creates a client for the Text Analytics API but doesn't make use of it. We'll fix that in the next section.
 
-The Azure Language in Foundry Tools tool provides a wide range of functionality, and the agent must select the appropriate function to call. We can see the options available in the agent's response.
+## Add code to detect language
 
-1. In the app.py code file, add the following line to the end of the current code:
+Now that you have created a client for the API, let's use it to detect the language in which each review is written.
+
+1. In the code editor, find the comment **Get language**. Then add the code necessary to detect the language in each review document:
 
     ```python
-    print(f"\nResponse Details: {response.model_dump_json(indent=2)}")
+   # Get language
+   detectedLanguage = ai_client.detect_language(documents=[text])[0]
+   print('\nLanguage: {}'.format(detectedLanguage.primary_language.name))
     ```
 
-1. Save the changes to the code file.
-1. In the terminal, re-enter the command to run the application (`python app.py`).
-1. When prompted, enter the following command:
+     > **Note**: *In this example, each review is analyzed individually, resulting in a separate call to the service for each file. An alternative approach is to create a collection of documents and pass them to the service in a single call. In both approaches, the response from the service consists of a collection of documents; which is why in the Python code above, the index of the first (and only) document in the response ([0]) is specified.*
 
+1. Save your changes. Then re-run the program.
+1. Observe the output, noting that this time the language for each review is identified.
+
+## Add code to evaluate sentiment
+
+*Sentiment analysis* is a commonly used technique to classify text as *positive* or *negative* (or possible *neutral* or *mixed*). It's commonly used to analyze social media posts, product reviews, and other items where the sentiment of the text may provide useful insights.
+
+1. In the code editor, find the comment **Get sentiment**. Then add the code necessary to detect the sentiment of each review document:
+
+    ```python
+   # Get sentiment
+   sentimentAnalysis = ai_client.analyze_sentiment(documents=[text])[0]
+   print("\nSentiment: {}".format(sentimentAnalysis.sentiment))
     ```
-    Tell me what entities and dates are mentioned in this review, and whether it is positive or negative: "I booked my flight to Paris in July with Margie's Travel, and it was fantastic!"
+
+1. Save your changes. Then re-run the program.
+1. Observe the output, noting that the sentiment of the reviews is detected.
+
+## Add code to identify key phrases
+
+It can be useful to identify key phrases in a body of text to help determine the main topics that it discusses.
+
+1. In the code editor, find the comment **Get key phrases**. Then add the code necessary to detect the key phrases in each review document:
+
+    ```python
+   # Get key phrases
+   phrases = ai_client.extract_key_phrases(documents=[text])[0].key_phrases
+   if len(phrases) > 0:
+        print("\nKey Phrases:")
+        for phrase in phrases:
+            print('\t{}'.format(phrase))
     ```
 
-1. Review the response (you may need to scroll quite far up to see it), which should identify entities and dates, and determine the sentiment of the text.
-1. Review the JSON response details, which indicate each of the tools available to the agent. In this case, it should have used the **extract_named_entities_from_text** and **detect_sentiment_from_text** tools within Azure Language in Foundry Tools.
+1. Save your changes and re-run the program.
+1. Observe the output, noting that each document contains key phrases that give some insights into what the review is about.
 
-## Clean up resources
+## Add code to extract entities
 
-If you're finished exploring the Azure AI Language service, you can delete the resources you created in this exercise. Here's how:
+Often, documents or other bodies of text mention people, places, time periods, or other entities. The text Analytics API can detect multiple categories (and subcategories) of entity in your text.
 
-1. In the Azure portal, browse to the Foundry resource you created in this lab.
-1. On the resource page, select **Delete** and follow the instructions to delete the resource.
+1. In the code editor, find the comment **Get entities**. Then, add the code necessary to identify entities that are mentioned in each review:
+
+    ```python
+   # Get entities
+   entities = ai_client.recognize_entities(documents=[text])[0].entities
+   if len(entities) > 0:
+        print("\nEntities")
+        for entity in entities:
+            print('\t{} ({})'.format(entity.text, entity.category))
+    ```
+
+1. Save your changes and re-run the program.
+1. Observe the output, noting the entities that have been detected in the text.
+
+## Add code to extract linked entities
+
+In addition to categorized entities, the Text Analytics API can detect entities for which there are known links to data sources, such as Wikipedia.
+
+1. In the code editor, find the comment **Get linked entities**. Then, add the code necessary to identify linked entities that are mentioned in each review:
+
+    ```python
+   # Get linked entities
+   linked_entities = ai_client.recognize_linked_entities(documents=[text])[0].entities
+   if len(linked_entities) > 0:
+       print("\nLinks")
+       for linked_entity in linked_entities:
+           print('\t{} ({})'.format(linked_entity.name, linked_entity.url))
+    ```
+
+1. Save your changes and re-run the program.
+1. Observe the output, noting the linked entities that are identified.
+
+## Clean up
+
+If you've finished exploring Azure Language in Foundry Tools, you should delete the resources you have created in this exercise to avoid incurring unnecessary Azure costs.
+
+1. Open the [Azure portal](https://portal.azure.com) and view the contents of the resource group where you deployed the resources used in this exercise.
+1. On the toolbar, select **Delete resource group**.
+1. Enter the resource group name and confirm that you want to delete it.
