@@ -19,15 +19,17 @@ This exercise takes approximately **30** minutes.
 ## Prerequisites
 
 Before starting this exercise, ensure you have:
-- Visual Studio Code installed
-- An active Azure subscription
-- Python version 3.12 or higher installed
+
+- An active [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account)
+- [Visual Studio Code](https://code.visualstudio.com/) installed
+- [Python version 3.13 or higher](https://www.python.org/downloads/) installed
+- [Git](https://git-scm.com/install/) installed and configured
 
 ## Create a Microsoft Foundry project
 
 Microsoft Foundry uses projects to organize models, resources, data, and other assets used to develop an AI solution.
 
-1. In a web browser, open Microsoft Foundry at https://ai.azure.com and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
+1. In a web browser, open Microsoft Foundry at <https://ai.azure.com> and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
 
 1. If it is not already enabled, in the tool bar the top of the page, enable the **New Foundry** option. Then, if prompted, create a new project with a unique name; expanding the **Advanced options** area to specify the following settings for your project:
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
@@ -35,7 +37,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Resource group**: *Create or select a resource group*
     - **Region**: Select any of the **AI Foundry recommended** regions
 
-    > **TIP**: Remember the resource name - you're going to need it later!
+    > **TIP**: Remember (or make a note of) the Foundry resource name - you're going to need it later!
 
 1. Select **Create**. Wait for your project to be created.
 1. On the home page for your project, note the project endpoint, key, and region.
@@ -46,7 +48,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 Now that you have a Foundry project, you can create an agent.
 
-1. In the **Start building** menu, select **Create agent**; and when prompted, name the agent **Text-Analysis-Agent**.
+1. In the **Start building** menu, select **Create agent**; and when prompted, name the agent `Text-Analysis-Agent`.
 
     When ready, your agent opens in the agent playground.
 
@@ -79,7 +81,7 @@ Foundry includes an MCP server for Azure Language in Foundry Tools, which you ca
 1. Wait for the MCP tool connection to be created, and then view its details page.
 1. On the details page for the Azure Language in Foundry Tools connection, select **Use in an agent**, and then select the **Text-Analysis-Agent** agent you created previously.
 
-    The agent should open in te playground, with the Azure Language in Foundry Tools tool connected.
+    The agent should open in the playground, with the Azure Language in Foundry Tools tool connected.
 
 ## Test the Azure Language tool in the playground
 
@@ -90,6 +92,7 @@ Now let's test the agent's ability to use the tool you connected.
     ```
    You are an AI agent that assists users by helping them analyze and summarize text. Use the Azure Language tool to perform text analysis tasks.
     ```
+
 1. Use the **Save** button to save the changes.
 1. Test the agent by entering the following prompt in the **Chat** pane:
 
@@ -104,34 +107,87 @@ Now let's test the agent's ability to use the tool you connected.
 1. When prompted, approve use of the Azure Language tool by selecting **Always approve all Azure Language in Foundry Tools tools** (you may need to do this twice because the prompt asked for two distinct text analysis tasks).
 1. Review the response, which should summarize the article about the founding of Microsoft and list the key people, places, and dates it mentions.
 1. Review the **Logs** for the chat and verify that the Azure Language tool was used by the agent to process the prompt.
-1. In the pane on the left, in the menu for the Azure Language in Foundry Tools tool (**&#8942;**), select **Configure** and verify that the **Require approval before using tool** setting is **Always approval all tools**. If not, change the setting and add the configuration, and then save the agent. 
 
 ## Create a client application
 
 Now that you have a working agent, you can create a client application that uses it.
 
-1. In the agent playground, select the **Code** tab to view sample code for your agent; then view the **Python** sample code. You'll use this as the starting point for your client application.
-1. Keeping the Microsoft Foundry playground page open in the browser, open Visual Studio Code.
-1. In Visual Studio Code, select the option to open a folder (or on the **File** menu, select **Open folder**), and when prompted, create a new empty folder named **Text-Client** (it doesn't matter where) and open it. If prompted, confirm that you trust the creator of the folder.
-1. Create a new file named **.env** in the **Text-Client** folder - you'll use this file for environment variables used in your Python code.
-1. Create a second file named **app.py** in the **Text-Client** folder - you'll use this file for your Python application code.
+### Get the application files from GitHub
 
-    **TIP**: If you are prompted to install the Visual Studio Code extension for Python, you can do so; but it's not required for this exercise.
+1. Open Visual Studio Code.
+1. Open the command palette (*Ctrl+Shift+P*) and use the `Git:clone` command to clone the `https://github.com/microsoftlearning/mslearn-ai-language` repo to a local folder (it doesn't matter which one). Then open it.
 
-1. Return to the Foundry playground, and in the **Code** pane for the **Text-Analysis-Agent** agent, select the **{x}** icon to view the environment variables for your agent, and copy them to the clipboard.
-1. In Visual Studio Code, paste the copied environment variables into the **.env** file and save it.
-1. Return to the Foundry playground, and in the **Code** pane for the **Text-Analysis-Agent** agent, copy the Python sample code to the clipboard.
-1. In Visual Studio Code, paste the copied code into the **app.py** file.
-1. In the code you pasted, find the comment **# Reference the agent to get a response**, and modify the code under this comment as follows:
+    You may be prompted to confirm you trust the authors.
+
+1. After the repo has been cloned, in the Explorer pane, navigate to the folder containing the application code files at **/Labfiles/02-language-agent/Python/text-agent**. The application files include:
+    - **.env** (the application configuration file)
+    - **requirements.txt** (the Python package dependencies that need to be installed)
+    - **text-agent.py** (the code file for the application)
+
+### Configure the application
+
+1. In Visual Studio Code, view the **Extensions** pane; and if it is not already installed, install the **Python** extension.
+1. In the **Command Palette**, use the command `python:select interpreter`. Then select an existing environment if you have one, or create a new **Venv** environment based on your Python 3.1x installation.
+
+    > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/02-language-agent/Python/text-agent* folder; but it's OK if you don't we'll install them later!
+
+1. In the **Explorer** pane, right-click the **text-agent** folder containing the application files, and select **Open in integrated terminal** (or open a terminal in the **Terminal** menu and navigate to the */Labfiles/02-language-agent/Python/text-agent* folder.)
+
+    > **Note**: Opening the terminal in Visual Studio Code will automatically activate the Python environment. You may need to enable running scripts on your system.
+
+1. Ensure that the terminal is open in the **text-agent** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
+1. Install the Foundry SDK package, the Azure Identity package, and other required packages by running the following command:
+
+    ```
+    pip install -r requirements.txt azure-identity --pre azure-ai-projects>=2.0.0b1
+    ```
+
+1. In the **Explorer** pane, in the **text-agent** folder, select the **.env** file to open it. Then update the configuration values to include your project **endpoint** (from the project home page in Foundry Portal)and the name of your agent (which should be **Text-Analysis-Agent**).
+1. Save the modified configuration file.
+
+### Implement application code
+
+1. In the **Explorer** pane, in the **text-agent** folder,  open the **text-agent.py** file.
+1. Review the existing code. You will add code to submit prompts to your agent.
+
+    > **Tip**: As you add code to the code file, be sure to maintain the correct indentation.
+
+1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces** and add the following code to import the namespaces you will need:
 
     ```python
-    # Reference the agent to get a response
-    prompt = input("Enter a prompt to send to the agent: ")
-    response = openai_client.responses.create(
+   # import namespaces
+   from azure.identity import DefaultAzureCredential
+   from azure.ai.projects import AIProjectClient
+    ```
+
+1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Get project client**, and add the following code to create a client for your Foundry project:
+
+    ```python
+   # Get project client
+   project_client = AIProjectClient(
+        endpoint=foundry_endpoint,
+        credential=DefaultAzureCredential(),
+   )
+    ```
+
+1. Find the comment **Get an OpenAI client**, and add the following code to get an OpenAI client with which to call your agent.
+
+    ```python
+   # Get an OpenAI client
+   openai_client = project_client.get_openai_client()
+    ```
+
+1. Find the comment **Use the agent to get a response**, and add the following code to submit a user prompt to your agent, and display the response.
+
+    ```python
+   # Use the agent to get a response
+   prompt = input("User prompt: ")
+   response = openai_client.responses.create(
         input=[{"role": "user", "content": prompt}],
-        extra_body={"agent_reference": {"name": myAgent, "version": myVersion, "type": "agent_reference"}},)
-    
-    print(f"Response output: {response.output_text}")
+        extra_body={"agent_reference": {"name": agent_name, "type": "agent_reference"}},
+   )
+
+   print(f"{agent_name}: {response.output_text}")
     ```
 
 1. Save the changes you made to the code file.
@@ -140,10 +196,7 @@ Now that you have a working agent, you can create a client application that uses
 
 Now let's test the application by running it in a Python environment and authenticating the connection to your project.
 
-1. In the **View** menu, select **Command Palette** and enter the command `python:select interpreter`. Then create a new **Venv** environment based on your Python 3.1x installation.
-1. In the Visual Studio Code **View** menu, select **Terminal** to open a terminal pane. Ensure that the terminal is open in the **Text-Client** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
-1. View the **pip install ...** statements in the comments at the top of the **app.py** code file. These commands install the required Python packages to use the Foundry SDK to call your agent. Enter each of these commands in the terminal to install the required packages.
-1. When the packages have been installed, enter the following command to sign into Azure
+1. In the Visual Studio Code terminal, enter the following command to sign into Azure
 
    ```powershell
     az login
@@ -156,7 +209,7 @@ Now let's test the application by running it in a Python environment and authent
 1. In the Visual Studio Code terminal, view the details of your Azure subscription; and then enter the following command to run the client application:
 
     ```powershell
-    python app.py
+    python text-agent.py
     ```
 
 1. When prompted, enter the following prompt:
@@ -164,20 +217,21 @@ Now let's test the application by running it in a Python environment and authent
     ```
     Extract named entities from the following text: "Pierre and I went to Paris on July 14th."
     ```
+
 1. Review the response, which should identify named people, places, and dates.
 
 ## View tool details
 
 The Azure Language in Foundry Tools tool provides a wide range of functionality, and the agent must select the appropriate function to call. We can see the options available in the agent's response.
 
-1. In the app.py code file, add the following line to the end of the current code:
+1. In the **text-agent.py** code file, add the following line immediately after the *print(f"{agent_name}: {response.output_text}")* line you added previously (before the *except Exception as ex:* line):
 
     ```python
     print(f"\nResponse Details: {response.model_dump_json(indent=2)}")
     ```
 
 1. Save the changes to the code file.
-1. In the terminal, re-enter the command to run the application (`python app.py`).
+1. In the terminal, re-enter the command to run the application (`python text-agent.py`).
 1. When prompted, enter the following command:
 
     ```

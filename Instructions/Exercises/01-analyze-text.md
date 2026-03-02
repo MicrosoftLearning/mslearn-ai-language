@@ -23,16 +23,17 @@ This exercise takes approximately **30** minutes.
 ## Prerequisites
 
 Before starting this exercise, ensure you have:
-- An active Azure subscription
-- Visual Studio Code installed
-- Python version 3.12 or higher installed
-- Git installed and configured
+
+- An active [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account)
+- [Visual Studio Code](https://code.visualstudio.com/) installed
+- [Python version 3.13 or higher](https://www.python.org/downloads/) installed
+- [Git](https://git-scm.com/install/) installed and configured
 
 ## Create a Microsoft Foundry project
 
 Microsoft Foundry uses projects to organize models, resources, data, and other assets used to develop an AI solution.
 
-1. In a web browser, open Microsoft Foundry at https://ai.azure.com and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
+1. In a web browser, open Microsoft Foundry at <https://ai.azure.com> and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
 
 1. If it is not already enabled, in the tool bar the top of the page, enable the **New Foundry** option. Then, if prompted, create a new project with a unique name; expanding the **Advanced options** area to specify the following settings for your project:
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
@@ -50,7 +51,10 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 The initial application files you'll need to develop the review analysis application are provided in a GitHub repo.
 
 1. Open Visual Studio Code.
-1. Open the command palette (*Ctrl+Shift+P*) and use the `Git:clone` command to clone the `https://github.com/microsoftlearning/mslearn-ai-language` repo to a local folder (it doesn't matter whch one). You may be prompted to confirm you trust the authors.
+1. Open the command palette (*Ctrl+Shift+P*) and use the `Git:clone` command to clone the `https://github.com/microsoftlearning/mslearn-ai-language` repo to a local folder (it doesn't matter which one). Then open it.
+
+    You may be prompted to confirm you trust the authors.
+
 1. After the repo has been cloned, in the Explorer pane, navigate to the folder containing the application code files at **/Labfiles/01-analyze-text/Python/text-analysis**. The application files include:
     - **reviews** (a subfolder containing the review documents)
     - **.env** (the application configuration file)
@@ -59,8 +63,12 @@ The initial application files you'll need to develop the review analysis applica
 
 ## Configure your application
 
-1. In the **Command Palette**, use the command `python:select interpreter`. Then create a new **Venv** environment based on your Python 3.1x installation.
-1. In the **Explorer** pane, right-click the **text-analysis** folder containing the application files, and select Open in integrated terminal (or open a terminal in the **Terminal** menu and navigate to the /Labfiles/01-analyze-text/Python/text-analysis folder.)
+1. In Visual Studio Code, view the **Extensions** pane; and if it is not already installed, install the **Python** extension.
+1. In the **Command Palette**, use the command `python:select interpreter`. Then select an existing environment if you have one, or create a new **Venv** environment based on your Python 3.1x installation.
+
+    > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/01-analyze-text/Python/text-analysis* folder; but it's OK if you don't we'll install them later!
+
+1. In the **Explorer** pane, right-click the **text-analysis** folder containing the application files, and select **Open in integrated terminal** (or open a terminal in the **Terminal** menu and navigate to the */Labfiles/01-analyze-text/Python/text-analysis* folder.)
 
     > **Note**: Opening the terminal in Visual Studio Code will automatically activate the Python environment. You may need to enable running scripts on your system.
 
@@ -71,7 +79,7 @@ The initial application files you'll need to develop the review analysis applica
     pip install -r requirements.txt azure-ai-textanalytics==5.3.0
     ```
 
-1. In the **Explorer** pane, in the **text-analysis** folder, select the **.env** file to open it. Then update the configuration values to include the  **endpoint** and **key** for your Foundry project (copy these from the Foundry portal).
+1. In the **Explorer** pane, in the **text-analysis** folder, select the **.env** file to open it. Then update the configuration values to include the **endpoint** (up to the *.com* domain) and **key** for your Foundry project (copy these from the Foundry portal).
 
     > **Important**: Modify the pasted endpoint to remove the "/api/projects/{project_name}" suffix - the endpoint should be *https://{your-foundry-resource-name}.services.ai.azure.com*.
 
