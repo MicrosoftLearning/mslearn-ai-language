@@ -128,7 +128,7 @@ The initial application files you'll need to develop the voice application are p
    result = speech_synthesizer.speak_text_async(greeting_message).get()
    if result.reason == speech_sdk.ResultReason.SynthesizingAudioCompleted:
         print(f"Greeting recorded and saved to {output_file}")
-        play_audio_file(output_file)
+        playsound(output_file)
    else:
         print("Error recording greeting: {}".format(result.reason))
     ```

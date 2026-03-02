@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 import os
-import pyaudio
-import wave
+from playsound3 import playsound
 
 # Import namespaces
 
@@ -61,31 +60,13 @@ def transcribe_messages(speech_config):
     messages_folder = 'messages'
     for file_name in os.listdir(messages_folder):
         if file_name.endswith('.wav'):
-            play_audio_file(os.path.join(messages_folder, file_name))
+            playsound(os.path.join(messages_folder, file_name))
             print(f"\nTranscribing {file_name}...")
             file_path = os.path.join(messages_folder, file_name)
 
             # Transcribe the audio file
 
 
-
-
-# play_audio_file function
-def play_audio_file(file_path):
-    chunk = 1024
-    wf = wave.open(file_path, 'rb')
-    pa = pyaudio.PyAudio()
-    stream = pa.open(format=pa.get_format_from_width(wf.getsampwidth()),
-                     channels=wf.getnchannels(),
-                     rate=wf.getframerate(),
-                     frames_per_buffer=chunk,
-                     stream_callback=None)
-    stream.start_stream()
-    while stream.is_active():
-        pass
-    stream.stop_stream()
-    stream.close()
-    pa.terminate()
 
 if __name__ == "__main__":
     main()

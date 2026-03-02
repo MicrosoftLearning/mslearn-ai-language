@@ -1,2 +1,2 @@
 python-dotenv
-pyaudio
+playsound3
