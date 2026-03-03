@@ -6,12 +6,12 @@ header_pages:
   - index.html
 author: Microsoft Learning
 twitter_username: mslearning
-github_username:  MicrosoftLearning
+github_username: MicrosoftLearning
 plugins:
   - jekyll-sitemap
   - jekyll-mentions
   - jemoji
-title: Azure AI Language Exercises
+title: Azure Language Exercises
 markdown: GFM
 
 #markdown: kramdown

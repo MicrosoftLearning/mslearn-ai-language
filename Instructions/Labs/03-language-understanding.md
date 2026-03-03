@@ -1,6 +1,6 @@
 ---
 lab:
-    title: 'Create a language understanding model with the Azure AI Language service'
+    title: 'Create a language understanding model with the Azure AI Language service  (deprecated)'
     description: "Create a custom language understanding model to interpret input, predict intent, and identify entities."
 ---
 
@@ -113,7 +113,7 @@ To help the model predict which intent a user is requesting, you must label each
     - `tell me the time`
 
     > **NOTE**
-    > To add a new utterance, write the utterance in the textbox next to the intent and then press ENTER. 
+    > To add a new utterance, write the utterance in the textbox next to the intent and then press ENTER.
 
 1. Select the **GetDay** intent and add the following utterances as example input for that intent:
     - `what day is it?`
@@ -364,6 +364,7 @@ You'll develop your language understanding app using Cloud Shell in the Azure po
     ./labenv/bin/Activate.ps1;
     pip install -r requirements.txt azure-ai-language-conversations==1.1.0
     ```
+
 1. Enter the following command to edit the configuration file:
 
     ```
@@ -520,9 +521,9 @@ You'll develop your language understanding app using Cloud Shell in the Azure po
     *What day is 01/01/2025?*
 
     > **Note**: The logic in the application is deliberately simple, and has a number of limitations. For example, when getting the time, only a restricted set of cities is supported and daylight savings time is ignored. The goal is to see an example of a typical pattern for using Language Service in which your application must:
-    >   1. Connect to a prediction endpoint.
-    >   2. Submit an utterance to get a prediction.
-    >   3. Implement logic to respond appropriately to the predicted intent and entities.
+    > 1. Connect to a prediction endpoint.
+    > 2. Submit an utterance to get a prediction.
+    > 3. Implement logic to respond appropriately to the predicted intent and entities.
 
 1. When you have finished testing, enter *quit*.
 

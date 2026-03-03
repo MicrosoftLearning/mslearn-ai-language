@@ -1,6 +1,6 @@
 ---
 lab:
-    title: 'Translate Speech'
+    title: 'Translate Speech  (deprecated)'
     description: "Translate language speech to speech and implement in your own app."
 ---
 
@@ -250,7 +250,7 @@ In this exercise, the Azure Cloud Shell environment we used doesn't support audi
 ### Using speech synthesis with a speaker
 
 1. If you have a speaker, you can use the following code to synthesize speech.
-    
+
     ```python
    # Synthesize translation
    voices = {

@@ -1,27 +1,28 @@
 ---
-title: Azure AI Language Exercises
+title: Azure Language Exercises
 permalink: index.html
 layout: home
 ---
 
-# Azure AI Language Exercises
-
-The following exercises are designed to provide you with a hands-on learning experience in which you'll explore common tasks that developers do when building natural language solutions on Azure. 
+This page lists exercises associated with Microsoft skilling content on [Microsoft Learn](https://learn.microsoft.com/training/paths/develop-language-solutions-azure-ai/)
 
 > **Note**: To complete the exercises, you'll need an Azure subscription. If you don't already have one, you can sign up for an [Azure account](https://azure.microsoft.com/free). There's a free trial option for new users that includes credits for the first 30 days.
 
 ## Exercises
 
-{% assign labs = site.pages | where_exp:"page", "page.url contains '/Instructions/Labs'" %}
-{% for activity in labs  %}
 <hr>
+
+{% assign labs = site.pages | where_exp:"page", "page.url contains '/Instructions/Exercises'" %}
+{% for activity in labs  %}
+{% if activity.lab.title %}
 
 ### [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }})
 
-{{activity.lab.description}}
+{% if activity.lab.level %}**Level**: {{activity.lab.level}} \| {% endif %}{% if activity.lab.duration %}**Duration**: {{activity.lab.duration}}{% endif %}
 
-{% endfor %}
-
+{% if activity.lab.description %}
+*{{activity.lab.description}}*
+{% endif %}
 <hr>
-
-> **Note**: While you can complete these exercises on their own, they're designed to complement modules on [Microsoft Learn](https://learn.microsoft.com/training/paths/develop-language-solutions-azure-ai/); in which you'll find a deeper dive into some of the underlying concepts on which these exercises are based. 
+{% endif %}
+{% endfor %}
