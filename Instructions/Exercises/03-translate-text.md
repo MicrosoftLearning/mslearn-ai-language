@@ -1,12 +1,12 @@
 ---
 lab:
-    title: 'Translate Text'
+    title: 'Translate text'
     description: Translate text with Azure Translator in Foundry Tools.
     duration: 20
     level: 300
 ---
 
-# Translate Text
+# Translate text
 
 **Azure Translator in Foundry Tools** is a service that enables you to translate text between languages. In this exercise, you'll use it to create a simple app that translates input in any supported language to the target language of your choice.
 

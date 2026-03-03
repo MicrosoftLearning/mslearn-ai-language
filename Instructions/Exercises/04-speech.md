@@ -1,6 +1,6 @@
 ---
 lab:
-    title: 'Recognize and Synthesize Speech'
+    title: 'Recognize and synthesize speech'
     description: Implement speech functionality using Azure Speech in Foundry Tools.
     duration: 30
     level: 300
