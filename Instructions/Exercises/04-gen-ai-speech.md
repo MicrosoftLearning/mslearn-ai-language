@@ -209,7 +209,7 @@ The initial application files you'll need to develop speech applications are pro
         )
     ```
 
-1. Find the comment **Generate speech and save to file**, and add the following code to submit a prompt to the speech-generation model save the response as a file.
+1. Find the comment **Call model to transcribe audio file**, and add the following code to submit an audio file to the speech-transcription model generate a transcript.
 
     ```Python
    # Call model to transcribe audio file
