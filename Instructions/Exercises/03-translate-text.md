@@ -39,10 +39,12 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Resource group**: *Create or select a resource group*
     - **Region**: Select any of the **AI Foundry recommended** regions
 
+    > **Tip**: Make a note of the region you selected. You'll need it later!
+
 1. Select **Create**. Wait for your project to be created.
 1. On the home page for your project, note the project endpoint, key, and region.
 
-    > **TIP**: You're going to need these values later!
+    > **TIP**: You're going to need the project key later!
 
 ## Get the application files from GitHub
 
@@ -54,7 +56,6 @@ The initial application files you'll need to develop the translation application
     You may be prompted to confirm you trust the authors.
 
 1. After the repo has been cloned, in the Explorer pane, navigate to the folder containing the application code files at **/Labfiles/03-translator/Python/translate-text**. The application files include:
-    - **reviews** (a subfolder containing the review documents)
     - **.env** (the application configuration file)
     - **requirements.txt** (the Python package dependencies that need to be installed)
     - **translate.py** (the code file for the application)
@@ -77,7 +78,7 @@ The initial application files you'll need to develop the translation application
     pip install -r requirements.txt azure-ai-translation-text==1.0.1
     ```
 
-1. In the **Explorer** pane, in the **translate-text** folder, select the **.env** file to open it. Then update the configuration values to include the **region** and **key** for your Foundry project (copy these from the Foundry portal).
+1. In the **Explorer** pane, in the **translate-text** folder, select the **.env** file to open it. Then update the configuration values to include the **key** and **region** for your Foundry project.
 
     > **Important**:Be sure to add the *region* for your resource, <u>not</u> the endpoint!
 

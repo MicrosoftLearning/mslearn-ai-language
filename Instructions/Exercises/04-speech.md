@@ -44,10 +44,12 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Resource group**: *Create or select a resource group*
     - **Region**: Select any of the **AI Foundry recommended** regions
 
+    > **Tip**: Make a note of the region you selected. You'll need it later!
+
 1. Select **Create**. Wait for your project to be created.
 1. On the home page for your project, note the project endpoint, key, and region.
 
-    > **TIP**: You're going to need these values later!
+    > **TIP**: You're going to need the project key later!
 
 ## Get the application files from GitHub
 
@@ -82,9 +84,9 @@ The initial application files you'll need to develop the voice application are p
     pip install -r requirements.txt azure-cognitiveservices-speech==1.42.0
     ```
 
-1. In the **Explorer** pane, in the **text-analysis** folder, select the **.env** file to open it. Then update the configuration values to include the **endpoint** (up to the *.com* domain) and **key** for your Foundry project (copy these from the Foundry portal).
+1. In the **Explorer** pane, in the **voice-mail** folder, select the **.env** file to open it. Then update the configuration values to include the **key** and **region** for your Foundry project.
 
-    > **Important**: Modify the pasted endpoint to remove the "/api/projects/{project_name}" suffix - the endpoint should be *https://{your-foundry-resource-name}.services.ai.azure.com*.
+    > **Important**:Be sure to add the *region* for your resource, <u>not</u> the endpoint!
 
     Save the modified configuration file.
 
@@ -102,12 +104,12 @@ The initial application files you'll need to develop the voice application are p
    import azure.cognitiveservices.speech as speech_sdk
     ```
 
-1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create speech_config using endpoint and key**, and add the following code to create a client for the Text Analysis API:
+1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create speech_config using key and region**, and add the following code to create a Speech Configuration object:
 
     ```Python
-   # Create speech_config using endpoint and key
+   # Create speech_config using key and region
    speech_config = speech_sdk.SpeechConfig(subscription=speech_key,
-                                            endpoint=speech_endpoint)
+                                            region=speech_region)
     ```
 
 1. Review the rest of the **main** function, and note that a loop has been implemented that enables the user to choose one of three options:
@@ -124,10 +126,11 @@ The initial application files you'll need to develop the voice application are p
    audio_config = speech_sdk.audio.AudioConfig(filename=output_file)
    speech_config.speech_synthesis_voice_name = "en-US-Serena:DragonHDLatestNeural"
    speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config=speech_config,
-                                                     audio_config=audio_config)
+                                                    audio_config=audio_config)
    result = speech_synthesizer.speak_text_async(greeting_message).get()
    if result.reason == speech_sdk.ResultReason.SynthesizingAudioCompleted:
         print(f"Greeting recorded and saved to {output_file}")
+        speech_synthesizer = None  # Release the synthesizer resources
         playsound(output_file)
    else:
         print("Error recording greeting: {}".format(result.reason))

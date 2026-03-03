@@ -13,10 +13,10 @@ def main():
 
         # Get Configuration Settings
         load_dotenv()
-        speech_endpoint = os.getenv('FOUNDRY_ENDPOINT')
         speech_key = os.getenv('FOUNDRY_KEY')
+        speech_region = os.getenv('FOUNDRY_REGION')
 
-        # Create speech_config using endpoint and key
+        # Create speech_config using key and region
 
 
 
@@ -60,9 +60,9 @@ def transcribe_messages(speech_config):
     messages_folder = 'messages'
     for file_name in os.listdir(messages_folder):
         if file_name.endswith('.wav'):
-            playsound(os.path.join(messages_folder, file_name))
             print(f"\nTranscribing {file_name}...")
             file_path = os.path.join(messages_folder, file_name)
+            playsound(file_path)
 
             # Transcribe the audio file
 
