@@ -42,7 +42,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Region**: Select any of the **AI Foundry recommended** regions
 
 1. Select **Create**. Wait for your project to be created.
-1. On the home page for your project, note the project endpoint, key, and region.
+1. On the home page for your project, note the project endpoint, key, and OpenAI endpoint.
 
     > **TIP**: You're going to need these values later!
 
@@ -108,7 +108,7 @@ The initial application files you'll need to develop the review analysis applica
    ai_client = TextAnalyticsClient(endpoint=ai_endpoint, credential=credential)
     ```
 
-1. Save your changes, then in the terminal pane, enter the following command to run the program (you maximize or resize the terminal pane to see more output):
+1. Save your changes, then in the terminal pane, enter the following command to run the program (you can maximize or resize the terminal pane to see more output):
 
     ```
    python text-analysis.py

@@ -40,7 +40,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     > **TIP**: Remember (or make a note of) the Foundry resource name - you're going to need it later!
 
 1. Select **Create**. Wait for your project to be created.
-1. On the home page for your project, note the project endpoint, key, and region.
+1. On the home page for your project, note the project endpoint, key, and OpenAI endpoint.
 
     > **TIP**: Copy the project key to the clipboard - you're going to need it later!
 
