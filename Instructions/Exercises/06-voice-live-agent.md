@@ -10,9 +10,19 @@ lab:
 
 Speech-capable AI agents enable users to interact conversationally - using spoken command and questions that generate vocal responses.
 
-In this exercise, use Azure Speech in Microsoft Foundry Tools to create a speech-capable agent. You'll use Azure Speech Voice Live, a service used to build real-time voice-based agents.
+In this exercise, you'll the Voice Live capability of Azure Speech in Microsoft Foundry Tools to create a real-time voice-based agent.
 
 This exercise takes approximately **30** minutes.
+
+## Prerequisites
+
+Before starting this exercise, ensure you have:
+
+- An active [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account)
+- [Visual Studio Code](https://code.visualstudio.com/) installed
+- [Python version **3.13.xx**](https://www.python.org/downloads/release/python-31312/) installed
+- [Git](https://git-scm.com/install/) installed and configured
+- [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) installed on Windows (Install the *Desktop Development with C++* option)
 
 ## Create a Microsoft Foundry project
 
@@ -32,7 +42,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 Now let's create an agent.
 
-1. In the **Start building** menu, select **Create agent**; and when prompted, name the agent **speech-agent**.
+1. In the **Start building** menu, select **Create agent**; and when prompted, name the agent `Chat-Agent`.
 
      When ready, your agent opens in the agent playground.
 
@@ -40,7 +50,7 @@ Now let's create an agent.
 1. Assign your agent the following **Instructions**:
 
     ```
-   You are an AI agent that provides information about AI and related topics. You answer questions concisely and precisely.
+   You are an AI assistant that helps people find information about AI and related topics. You answer questions concisely and precisely.
     ```
 
 1. Use the **Save** button to save the changes.
@@ -71,7 +81,7 @@ Now you're ready to chat with the agent.
 
     The agent will start a speech session, and listen for your prompt.
 
-1. When the app status is **Listening…**, say something like `"How does speech recognition work?"` and wait for a response.
+1. When the app status is **Listening…**, say something like "*How does speech recognition work?*" and wait for a response.
 
 1. Verify that the app status changes to **Processing…**. The app will process the spoken input.
 
@@ -81,14 +91,155 @@ Now you're ready to chat with the agent.
 
     >**Tip**: The follow-on prompt is submitted just by speaking. You can even interrupt the agent to keep the interaction focused on what you need done. You can also use the **Stop generation** button in the chat pane to stop long-running responses. The button will end the conversation. You will need to start a new conversation to continue using the agent.
 
-1. To continue the conversation, just ask another question, such as `"How does speech synthesis work?"`, and review the response.
+1. To continue the conversation, just ask another question, such as "*How does speech synthesis work?*", and review the response.
 1. When you have finished chatting with the agent, use the **X** icon to end the session. A transcript of the conversation will be displayed.
 
 ## Create a client application
 
-To use your agent in a custom application, you need to write code that uses the Azure Speech Voice Live SDK to handle streaming audio input and output.
+To use your agent in a custom application, you need to write code that uses the Azure Speech Voice Live SDK to initiate and manage a conversation session.
 
-***TO BE CONTINUED...***
+### Get the application files from GitHub
+
+1. Open Visual Studio Code.
+1. Open the command palette (*Ctrl+Shift+P*) and use the `Git:clone` command to clone the `https://github.com/microsoftlearning/mslearn-ai-language` repo to a local folder (it doesn't matter which one). Then open it.
+
+    You may be prompted to confirm you trust the authors.
+
+1. After the repo has been cloned, in the Explorer pane, navigate to the folder containing the application code files at **/Labfiles/06-voice-live/Python/chat-client**. The application files include:
+    - **.env** (the application configuration file)
+    - **requirements.txt** (the Python package dependencies that need to be installed)
+    - **chat-client.py** (the code file for the application)
+
+### Configure the application
+
+1. In Visual Studio Code, view the **Extensions** pane; and if it is not already installed, install the **Python** extension.
+1. In the **Command Palette**, use the command `python:select interpreter`. Then select an existing environment if you have one, or create a new **Venv** environment based on your Python 3.13.xx installation.
+
+    > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/06-voice-live/Python/chat-client* folder; but it's OK if you - don't we'll install them later!
+
+1. In the **Explorer** pane, right-click the **chat-client** folder containing the application files, and select **Open in integrated terminal** (or open a terminal in the **Terminal** menu and navigate to the */Labfiles/06-voice-live/Python/chat-client* folder.)
+
+    > **Note**: Opening the terminal in Visual Studio Code will automatically activate the Python environment. You may need to enable running scripts on your system.
+
+1. Ensure that the terminal is open in the **chat-client** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
+1. Install the Foundry SDK package, the Azure Identity package, and other required packages by running the following command:
+
+    ```
+    pip install -r requirements.txt azure-identity azure-ai-voicelive==1.2.0b4 --pre azure-ai-projects==2.0.0b4
+    ```
+
+1. In the **Explorer** pane, in the **chat-client** folder, select the **.env** file to open it. Then update the configuration values to include your Foundry resource **endpoint** (get the project endpoint from the project home page in Foundry Portal, but use only the base URL up to the *.com* domain), your project name, and the name of your agent (which should be **Chat-Agent** - note that this name is case-sensitive).
+
+> **Important**: Modify the pasted endpoint to remove the "/api/projects/{project_name}" suffix - the endpoint should be *https://{your-foundry-resource-name}.services.ai.azure.com*.
+
+1. Save the modified configuration file.
+
+### Implement application code
+
+1. In the **Explorer** pane, in the **chat-client** folder,  open the **chat-client.py** file.
+1. Review the existing code. Most of the application scaffolding has been provided - you must implement the key steps required to use the Voice Live SDK to manage a conversation with your agent.
+
+    > **Tip**: As you add code to the code file, be sure to maintain the correct indentation.
+
+1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces** and add the following code to import the namespaces you will need:
+
+    ```python
+   # import namespaces
+   from azure.identity.aio import AzureCliCredential
+   from azure.ai.voicelive.aio import connect
+   from azure.ai.voicelive.models import (
+        InputAudioFormat,
+        Modality,
+        OutputAudioFormat,
+        RequestSession,
+        ServerEventType,
+        AudioNoiseReduction,
+        AudioEchoCancellation,
+        AzureSemanticVadMultilingual
+   } 
+    ```
+
+1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided, as has code to get an authentication credential and to create and run a **VoiceAssistant** object.
+
+    The **VoiceAssistant** class encapsulates the logic to manage the Voice Live conversation.
+
+1. Under the **main** function, find the **VoiceAssistant** class definition.
+
+    The ****init**** function to initialize an object based on the class has already been implemented.
+
+    You must implement the **start** function, which is the core function to establish the conversation session.
+
+1. Find the comment **STEP 1: Connect Azure VoiceLive to the agent**, and add the following code (being careful to indent it one level in under the **try:** statement):
+
+    ```python
+   # STEP 1: Connect Azure VoiceLive to the agent
+   async with connect(
+        endpoint=self.endpoint,
+        credential=self.credential,
+        api_version="2026-01-01-preview",
+        agent_config=self.agent_config
+   ) as connection:
+        self.connection = connection
+    ```
+
+    This step creates a connection to your agent so the Voice Live SDK can establish a conversation with it.
+
+1. Find the comment **STEP 2: Initialize audio processor**, and add the following code (being careful to indent it *another level in* under the step 1 code you just added):
+
+    ```python
+   # STEP 2: Initialize audio processor
+   self.audio_processor = AudioProcessor(connection)
+    ```
+
+    This code attaches an AudioProcessor object based on the class definition further down in the code file. The AudioProcessor is a utlility class to manage audio hardware I/O.
+
+1. Find the comment **STEP 3: Configure the session**, and add the following code (being careful to maintain the same indentation as the step 2 code above):
+
+    ```python
+   # STEP 3: Configure the session
+   await self.setup_session()
+    ```
+
+    This code configures the session with the appropriate audio formats, conversational turn-detection semantics, and options to handle echos and background noise.
+
+1. Find the comment **STEP 4: Start audio systems**, and add the following code (being careful to maintain the same indentation as the step 3 code above):
+
+    ```python
+   # STEP 4: Start audio systems
+   self.audio_processor.start_playback()
+            
+   print("\n✅ Ready! Start speaking...")
+   print("Press Ctrl+C to exit\n")
+    ```
+
+    This code starts the audio processor so that it monitors the microphone for audio input and plays back audio output.
+
+1. Find the comment **STEP 5: Process events**, and add the following code (being careful to maintain the same indentation as the step 4 code above):
+
+    ```python
+   # STEP 5: Process events
+   await self.process_events()
+    ```
+
+    This code runs the main loop to process events such as speech input, response output, and interruptions.
+
+1. Save the changes to the code file.
+
+## Run the application
+
+Now you're ready to run your application, and have a conversation with your agent.
+
+> **TIP**: The application works best when using a headset. When using speakers, there's a risk that the agent can "hear" its own responses and process them as new user input.
+
+1. In the terminal pane, enter the following command to run the program:
+
+    ```PowerShell
+   python chat-client.py
+    ```
+
+1. When prompted, begin a conversation with the agent by asking a question such as "*How is computer speech used in AI?*".
+1. Listen to the response and then continue the conversation - note that you can interrupt the agent to ask new questions.
+1. When you're finished, press **CTRL+C** to end the conversation and stop the program.
 
 ## Clean up
 

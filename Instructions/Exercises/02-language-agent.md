@@ -139,10 +139,10 @@ Now that you have a working agent, you can create a client application that uses
 1. Install the Foundry SDK package, the Azure Identity package, and other required packages by running the following command:
 
     ```
-    pip install -r requirements.txt azure-identity --pre azure-ai-projects==2.0.0b1
+    pip install -r requirements.txt azure-identity --pre azure-ai-projects==2.0.0b4
     ```
 
-1. In the **Explorer** pane, in the **text-agent** folder, select the **.env** file to open it. Then update the configuration values to include your project **endpoint** (from the project home page in Foundry Portal)and the name of your agent (which should be **Text-Analysis-Agent** - note that this name is case-sensitive).
+1. In the **Explorer** pane, in the **text-agent** folder, select the **.env** file to open it. Then update the configuration values to include your project **endpoint** (from the project home page in Foundry Portal) and the name of your agent (which should be **Text-Analysis-Agent** - note that this name is case-sensitive).
 1. Save the modified configuration file.
 
 ### Implement application code
