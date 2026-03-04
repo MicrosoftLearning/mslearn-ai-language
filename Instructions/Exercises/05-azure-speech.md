@@ -8,7 +8,7 @@ lab:
 
 # Recognize and synthesize speech
 
-**Azure AI Speech** is a service that provides speech-related functionality, including:
+**Azure Speech in Foundry Tools** is a service that provides speech-related functionality, including:
 
 - A *speech-to-text* API that enables you to implement speech recognition (converting audible spoken words into text).
 - A *text-to-speech* API that enables you to implement speech synthesis (converting text into audible speech).
@@ -36,7 +36,7 @@ Before starting this exercise, ensure you have:
 
 Microsoft Foundry uses projects to organize models, resources, data, and other assets used to develop an AI solution.
 
-1. In a web browser, open Microsoft Foundry at <https://ai.azure.com> and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
+In a web browser, open the [Microsoft Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
 
 1. If it is not already enabled, in the tool bar the top of the page, enable the **New Foundry** option. Then, if prompted, create a new project with a unique name; expanding the **Advanced options** area to specify the following settings for your project:
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
@@ -71,7 +71,7 @@ The initial application files you'll need to develop the voice application are p
 1. In Visual Studio Code, view the **Extensions** pane; and if it is not already installed, install the **Python** extension.
 1. In the **Command Palette**, use the command `python:select interpreter`. Then select an existing environment if you have one, or create a new **Venv** environment based on your Python 3.1x installation.
 
-    > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/05-azure-speech/Python/voice-mail* folder; but it's OK if you don't we'll install them later!
+    > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/05-azure-speech/Python/voice-mail* folder; but it's OK if you don't - we'll install them later!
 
 1. In the **Explorer** pane, right-click the **voice-mail** folder containing the application files, and select **Open in integrated terminal** (or open a terminal in the **Terminal** menu and navigate to the */Labfiles/05-azure-speech/Python/voice-mail* folder.)
 
