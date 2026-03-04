@@ -253,9 +253,9 @@ Now let's test the application by running it in a Python environment and authent
 1. Review the response, which should include a clickable link to a generated audio file.
 1. After checking out the generated audio file, enter the following prompt:
 
- ```
- Transcribe https://microsoftlearning.github.io/mslearn-ai-language/Labfiles/06-speech-tool/speech_2.wav
- ```
+     ```
+     Transcribe https://microsoftlearning.github.io/mslearn-ai-language/Labfiles/06-speech-tool/speech_2.wav
+     ```
 
 1. Review the response.
 
