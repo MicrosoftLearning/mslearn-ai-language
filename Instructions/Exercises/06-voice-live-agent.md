@@ -62,7 +62,7 @@ Now let's create an agent.
 
     The agent should respond with an appropriate answer based on its instructions.
 
-## Configure Azure Speech Voice live
+## Configure Azure Speech Voice Live
 
 Enabling speech mode for a Foundry agent integrates Azure Speech Voice Live - adding speech capabilities to the agent.
 
