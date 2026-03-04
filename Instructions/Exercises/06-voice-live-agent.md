@@ -231,7 +231,7 @@ To use your agent in a custom application, you need to write code that uses the 
    async def start(self):
             """Start the voice assistant."""
             print("\n" + "=" *60)
-            print("🎙️  AZURE VOICELIVE VOICE AGENT")
+            print(f"🎙️   {self.agent_config['agent_name']}")
             print("="* 60)
     
             # Add your code in this try block!
@@ -271,10 +271,20 @@ Now you're ready to run your application, and have a conversation with your agen
 
 > **TIP**: The application works best when using a headset. When using speakers, there's a risk that the agent can "hear" its own responses and process them as new user input.
 
-1. In the terminal pane, enter the following command to run the program:
+1. In the Visual Studio Code terminal, enter the following command to sign into Azure
 
-    ```PowerShell
-   python chat-client.py
+   ```powershell
+    az login
+    ```
+
+    When prompted, sign into Azure using your credentials.
+
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See *[Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively)* for details.
+
+1. In the Visual Studio Code terminal, confirm the details of your Azure subscription; and then enter the following command to run the client application:
+
+    ```powershell
+    python chat-client.py
     ```
 
 1. When prompted, begin a conversation with the agent by asking a question such as "*How is computer speech used in AI?*".

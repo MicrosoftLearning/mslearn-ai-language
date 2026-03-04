@@ -238,7 +238,7 @@ Now let's test the application by running it in a Python environment and authent
 
     > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See *[Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively)* for details.
 
-1. In the Visual Studio Code terminal, view the details of your Azure subscription; and then enter the following command to run the client application:
+1. In the Visual Studio Code terminal, confirm the details of your Azure subscription; and then enter the following command to run the client application:
 
     ```powershell
     python speech-client.py
