@@ -225,6 +225,46 @@ To use your agent in a custom application, you need to write code that uses the 
 
 1. Save the changes to the code file.
 
+    The completed function should look like this:
+
+    ```python
+   async def start(self):
+            """Start the voice assistant."""
+            print("\n" + "=" *60)
+            print("🎙️  AZURE VOICELIVE VOICE AGENT")
+            print("="* 60)
+    
+            # Add your code in this try block!
+            try:
+                # STEP 1: Connect Azure VoiceLive to the agent
+                async with connect(
+                    endpoint=self.endpoint,
+                    credential=self.credential,
+                    api_version="2026-01-01-preview",
+                    agent_config=self.agent_config
+                ) as connection:
+                    self.connection = connection
+                        
+                    # STEP 2: Initialize audio processor
+                    self.audio_processor = AudioProcessor(connection)
+                                      
+                    # STEP 3: Configure the session
+                    await self.setup_session()
+                    
+                    # STEP 4: Start audio systems
+                    self.audio_processor.start_playback()
+            
+                    print("\n✅ Ready! Start speaking...")
+                    print("Press Ctrl+C to exit\n")
+                    
+                    # STEP 5: Process events
+                    await self.process_events()
+    
+            finally:
+                if hasattr(self, 'audio_processor'):
+                    self.audio_processor.shutdown()
+    ```
+
 ## Run the application
 
 Now you're ready to run your application, and have a conversation with your agent.
