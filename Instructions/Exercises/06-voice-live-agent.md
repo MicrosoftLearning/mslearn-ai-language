@@ -20,9 +20,10 @@ Before starting this exercise, ensure you have:
 
 - An active [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account)
 - [Visual Studio Code](https://code.visualstudio.com/) installed
-- [Python version **3.13.xx**](https://www.python.org/downloads/release/python-31312/) installed
+- [Python version **3.13.xx**](https://www.python.org/downloads/release/python-31312/) installed\*
 - [Git](https://git-scm.com/install/) installed and configured
-- [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) installed on Windows (Install the *Desktop Development with C++* option)
+
+> \* Python 3.14 is available, but some dependencies in this exercise are not yet compiled for that release. The lab has been successfully tested with Python 3.13.12.
 
 ## Create a Microsoft Foundry project
 
@@ -156,7 +157,7 @@ To use your agent in a custom application, you need to write code that uses the 
         AudioNoiseReduction,
         AudioEchoCancellation,
         AzureSemanticVadMultilingual
-   } 
+   ) 
     ```
 
 1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided, as has code to get an authentication credential and to create and run a **VoiceAssistant** object.
