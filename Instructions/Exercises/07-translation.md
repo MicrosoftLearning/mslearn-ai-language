@@ -34,7 +34,7 @@ Before starting this exercise, ensure you have:
 
 Microsoft Foundry uses projects to organize models, resources, data, and other assets used to develop an AI solution.
 
-In a web browser, open the [Microsoft Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
+1. In a web browser, open the [Microsoft Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
 
 1. If it is not already enabled, in the tool bar the top of the page, enable the **New Foundry** option. Then, if prompted, create a new project with a unique name; expanding the **Advanced options** area to specify the following settings for your project:
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
@@ -259,7 +259,7 @@ Now you're ready to use Azure Speech to implement text translation.
 
     Repeat this process, trying each language supported by the application.
 
-    > **NOTE**: The translation to Hindi may not always be displayed correctly in the Console window due to character encoding issues.
+    > **NOTE**: The translation to Hindi may not always be displayed correctly in the terminal due to character encoding issues.
 
 1. When you're finished, press ENTER to end the program.
 
