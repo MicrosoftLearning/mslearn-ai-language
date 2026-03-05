@@ -163,7 +163,7 @@ Now you're ready to use Azure Translator to implement text translation.
 1. Enter a phrase to be translated (for example `This is a test` or `C'est un test`) and view the results, which should detect the source language and translate the text to the target language.
 1. When you're done, enter `quit`. You can run the application again and choose a different target language.
 
-## Create a text translation application
+## Create a speech translation application
 
 Now you're ready to use Azure Speech to implement text translation.
 
