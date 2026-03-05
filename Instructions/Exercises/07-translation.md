@@ -75,6 +75,12 @@ Now you're ready to use Azure Translator to implement text translation.
 
 ### Configure your text translation application
 
+1. In the **Explorer** pane, in the **translators** folder, select the **.env** file to open it. Then update the configuration values to include the **region** and **key** for your Foundry project.
+
+    > **Important**:Be sure to add the *region* for your resource, <u>not</u> the endpoint!
+
+    Save the modified configuration file.
+
 1. In the **Explorer** pane, right-click the **translators** folder containing the application files, and select **Open in integrated terminal** (or open a terminal in the **Terminal** menu and navigate to the */Labfiles/07-translation/Python/translators* folder.)
 
     > **Note**: Opening the terminal in Visual Studio Code will automatically activate the Python environment. You may need to enable running scripts on your system.
@@ -85,12 +91,6 @@ Now you're ready to use Azure Translator to implement text translation.
     ```
     pip install -r requirements.txt azure-ai-translation-text==1.0.1
     ```
-
-1. In the **Explorer** pane, in the **translators** folder, select the **.env** file to open it. Then update the configuration values to include the **key** and **region** for your Foundry project.
-
-    > **Important**:Be sure to add the *region* for your resource, <u>not</u> the endpoint!
-
-    Save the modified configuration file.
 
 ### Add code to translate text
 
@@ -169,7 +169,7 @@ Now you're ready to use Azure Speech to implement text translation.
 
 ### Configure your speech translation application
 
-1. In the **translators** folder, verify that the .env file contains the **key** and **region** for your Foundry project (Azure Speech can use the same information as Azure Translator to connect to your Foundry resource).
+1. In the **translators** folder, verify that the .env file contains the  **region** and **key** for your Foundry project (Azure Speech can use the same information as Azure Translator to connect to your Foundry resource).
 1. Ensure that the terminal is open in the **translators** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
 1. Install the Azure Speech SDK package and other required packages by running the following command:
 
@@ -177,7 +177,7 @@ Now you're ready to use Azure Speech to implement text translation.
     pip install -r requirements.txt azure-cognitiveservices-speech==1.42.0
     ```
 
-### Add code to translate text
+### Add code to translate speech
 
 1. In the **Explorer** pane, in the **translators** folder,  open the **translate-speech.py** file.
 
@@ -185,14 +185,7 @@ Now you're ready to use Azure Speech to implement text translation.
 
     > **Tip**: As you add code to the code file, be sure to maintain the correct indentation.
 
-1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces** and add the following code to import the namespaces you will need to use the Translator SDK:
-
-    ```python
-   # import namespaces
-   from azure.core.credentials import AzureKeyCredential
-   from azure.ai.translation.text import *
-   from azure.ai.translation.text.models import InputTextItem
-    ```
+1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces** and add the following code to import the namespaces you will need to use the Speech SDK:
 
    ```python
    # Import namespaces
@@ -218,7 +211,7 @@ Now you're ready to use Azure Speech to implement text translation.
 
     ```python
    # Configure speech
-   speech_config = speech_sdk.SpeechConfig(speech_key, speech_region)
+   speech_config = speech_sdk.SpeechConfig(subscription=speech_key, region=speech_region)
    print('Ready to use speech service in:', speech_config.region)
     ```
 
@@ -231,7 +224,8 @@ Now you're ready to use Azure Speech to implement text translation.
    print("Speak now...")
    result = translator.recognize_once_async().get()
    print('Translating "{}"'.format(result.text))
-   translation = result.
+   translation = result.translations[targetLanguage]
+   print(translation)
     ```
 
 1. In the **Translate** function, find the comment **Synthesize translation**, and add the following code to use a **SpeechSynthesizer** client to synthesize the translation as speech and play it through the default system speaker:

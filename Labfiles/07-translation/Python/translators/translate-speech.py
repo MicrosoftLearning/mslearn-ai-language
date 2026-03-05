@@ -10,10 +10,13 @@ def main():
         global speech_config
         global translation_config
 
+        # Clear the console 
+        os.system('cls' if os.name == 'nt' else 'clear')
+
         # Get Configuration Settings
         load_dotenv()
-        speech_key = os.getenv('KEY')
-        speech_region = os.getenv('REGION')
+        speech_key = os.getenv('FOUNDRY_KEY')
+        speech_region = os.getenv('FOUNDRY_REGION')
 
         # Configure translation
 

@@ -7,10 +7,13 @@ import os
 
 def main():
     try:
+        # Clear the console 
+        os.system('cls' if os.name == 'nt' else 'clear')
+
         # Get Configuration Settings
         load_dotenv()
-        translatorRegion = os.getenv('TRANSLATOR_REGION')
-        translatorKey = os.getenv('TRANSLATOR_KEY')
+        translatorRegion = os.getenv('FOUNDRY_REGION')
+        translatorKey = os.getenv('FOUNDRY_KEY')
 
         # Create client using endpoint and key
         
