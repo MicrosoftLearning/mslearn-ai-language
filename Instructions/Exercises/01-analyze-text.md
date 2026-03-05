@@ -73,7 +73,7 @@ The initial application files you'll need to develop the review analysis applica
     > **Note**: Opening the terminal in Visual Studio Code will automatically activate the Python environment. You may need to enable running scripts on your system.
 
 1. Ensure that the terminal is open in the **text-analysis** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
-1. Install the Azure AI Language Text Analytics SDK package and other required packages by running the following command:
+1. Install the Azure Language Text Analytics SDK package and other required packages by running the following command:
 
     ```
     pip install -r requirements.txt azure-ai-textanalytics==5.3.0
