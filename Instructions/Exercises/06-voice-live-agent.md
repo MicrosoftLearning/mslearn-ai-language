@@ -3,7 +3,7 @@ lab:
     title: 'Create a conversational speech agent'
     description: 'Use Azure Speech Voice Live in Microsoft Foundry Tools to create a conversational agent.'
     level: 300
-    duration: 30 minutes
+    duration: 30
 ---
 
 # Create a conversational speech agent
