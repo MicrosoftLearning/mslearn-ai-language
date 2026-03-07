@@ -1,2 +1,3 @@
 python-dotenv
 azure.core
+azure-cognitiveservices-speech
