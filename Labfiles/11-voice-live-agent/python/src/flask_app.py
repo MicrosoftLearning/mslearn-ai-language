@@ -14,12 +14,12 @@ from aiohttp import web
 
 from flask import Flask, render_template, jsonify, Response, request
 
-app = Flask(__name__, 
+app = Flask(__name__,
            template_folder=str(Path(__file__).parent / "templates"),
            static_folder=str(Path(__file__).parent / "static"))
 
 # ==============================================================================
-# GLOBAL STATE & CONFIGURATION 
+# GLOBAL STATE & CONFIGURATION
 # ==============================================================================
 
 # WebSocket server configuration
@@ -61,7 +61,7 @@ def _broadcast(event: Dict[str, Any]):
                 client_queue.put_nowait(data)
             except Exception:
                 dead_clients.append(client_queue)
-        
+
         # Clean up disconnected clients
         for dead_client in dead_clients:
             _sse_clients.remove(dead_client)
@@ -73,19 +73,19 @@ def _broadcast(event: Dict[str, Any]):
 
 def _start_ws_server(host: str = WS_SERVER_HOST, port: int = WS_SERVER_PORT):
     """Start WebSocket server for low-latency binary audio streaming."""
-    
+
     async def handle_audio_websocket(request):
         """Handle incoming WebSocket connections for binary audio data."""
         ws = web.WebSocketResponse(max_msg_size=10 * 1024 * 1024)
         await ws.prepare(request)
-        
+
         try:
             async for msg in ws:
                 if msg.type == web.WSMsgType.BINARY and assistant_instance and assistant_loop:
                     # Convert binary PCM16 to base64 and send to assistant
                     audio_b64 = base64.b64encode(msg.data).decode('utf-8')
                     asyncio.run_coroutine_threadsafe(
-                        assistant_instance.append_audio(audio_b64), 
+                        assistant_instance.append_audio(audio_b64),
                         assistant_loop
                     )
                 elif msg.type == web.WSMsgType.ERROR:
@@ -94,14 +94,14 @@ def _start_ws_server(host: str = WS_SERVER_HOST, port: int = WS_SERVER_PORT):
             pass  # Handle connection errors gracefully
         finally:
             await ws.close()
-        
+
         return ws
 
     def run_websocket_server():
         """Run WebSocket server in dedicated thread."""
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        
+
         async def start_server():
             app = web.Application()
             app.router.add_get('/ws-audio', handle_audio_websocket)
@@ -109,11 +109,11 @@ def _start_ws_server(host: str = WS_SERVER_HOST, port: int = WS_SERVER_PORT):
             await runner.setup()
             site = web.TCPSite(runner, host, port)
             await site.start()
-            
+
             # Keep server running
             while True:
                 await asyncio.sleep(3600)
-        
+
         try:
             loop.run_until_complete(start_server())
         except Exception:
@@ -130,16 +130,16 @@ def set_state(state: str, message: str, *, error: str | None = None):
     with state_lock:
         assistant_state["state"] = state
         assistant_state["message"] = message
-        
+
         if error:
             assistant_state["last_error"] = error
-            
+
         # Update connection status based on state
         if state in {"ready", "listening", "processing", "assistant_speaking"}:
             assistant_state["connected"] = True
         elif state in {"stopped", "idle"}:
             assistant_state["connected"] = False
-    
+
     # Broadcast state change to all clients
     _broadcast({
         "type": "status",
@@ -157,7 +157,7 @@ if not logger.handlers:
 
 # ---------------------------------------------------------------------------
 # Suppress noisy 200 OK HTTP access logs (Werkzeug dev server) while keeping
-# non-200 responses and internal status/log broadcasts. 
+# non-200 responses and internal status/log broadcasts.
 # ---------------------------------------------------------------------------
 class _SuppressHTTP200(logging.Filter):
     def filter(self, record: logging.LogRecord) -> bool:  # noqa: D401 - simple filter
@@ -178,39 +178,39 @@ if not already:
 def _validate_env() -> Tuple[bool, str]:
     """Validate required environment variables."""
     import os
-    
+
     required_vars = [
         "VOICE_LIVE_MODEL",
-        "VOICE_LIVE_VOICE", 
+        "VOICE_LIVE_VOICE",
         "AZURE_VOICE_LIVE_API_KEY",
         "AZURE_VOICE_LIVE_ENDPOINT"
     ]
-    
+
     missing = [var for var in required_vars if not os.environ.get(var)]
-    
+
     if missing:
         return False, f"Missing required environment variables: {', '.join(missing)}"
-    
+
     return True, "Configuration valid"
 
 class BasicVoiceAssistant:
-    """Minimal assistant implementation for Voice Live API.
-    
-    Handles real-time voice conversation using Azure's Voice Live service.
+    """Minimal assistant implementation for VoiceLive API.
+
+    Handles real-time voice conversation using Azure's VoiceLive service.
     Manages connection, session configuration, and event processing.
     """
 
-    # BEGIN VOICE LIVE ASSISTANT IMPLEMENTATION - ALIGN CODE WITH COMMENT
+    # BEGIN VOICELIVE ASSISTANT IMPLEMENTATION
 
 
-    
-    # END VOICE LIVE ASSISTANT IMPLEMENTATION
+
+    # END VOICELIVE ASSISTANT IMPLEMENTATION
 
         verbose_val = __import__('os').environ.get('VOICE_LIVE_VERBOSE', '0').strip()
         verbose = bool(int(verbose_val)) if verbose_val.isdigit() else False
         try:
-            _broadcast({"type": "log", "level": "info", "msg": f"Connecting to Voice Live endpoint={self.endpoint} model={self.model} voice={self.voice}"})
-            # Establish async connection to Azure Voice Live service with optimized settings
+            _broadcast({"type": "log", "level": "info", "msg": f"Connecting to VoiceLive endpoint={self.endpoint} model={self.model} voice={self.voice}"})
+            # Establish async connection to Azure VoiceLive service with optimized settings
             async with connect(
                 endpoint=self.endpoint,
                 credential=self.credential,
@@ -227,17 +227,17 @@ class BasicVoiceAssistant:
                 else:
                     voice_cfg = self.voice
 
-                # BEGIN CONFIGURE VOICE LIVE SESSION - ALIGN CODE WITH COMMENT
+                # BEGIN CONFIGURE VOICELIVE SESSION
 
 
 
-                # END CONFIGURE VOICE LIVE SESSION
+                # END CONFIGURE VOICELIVE SESSION
 
-                # Main event processing loop - handle all Voice Live server events
+                # Main event processing loop - handle all VoiceLive server events
                 async for event in conn:
                     if self._stopping:
                         break
-                    
+
                     await self._handle_event(event, conn, verbose)
         except Exception as e:
             tb = traceback.format_exc(limit=6)
@@ -249,7 +249,7 @@ class BasicVoiceAssistant:
         self.connection = None
 
     async def append_audio(self, audio_b64: str):
-        """Send base64-encoded audio data to Voice Live input buffer."""
+        """Send base64-encoded audio data to VoiceLive input buffer."""
         if not self.connection:
             return
         try:
@@ -257,11 +257,67 @@ class BasicVoiceAssistant:
         except Exception as e:  # pragma: no cover
             logger.error("Failed to append audio: %s", e)
 
-    # BEGIN HANDLE SESSION EVENTS - ALIGN CODE WITH COMMENT
+    async def _handle_event(self, event, conn, verbose=False):
+        """Handle VoiceLive events with clear separation by event type."""
+        # Import event types for processing different VoiceLive server events
+        from azure.ai.voicelive.models import ServerEventType
+
+        event_type = event.type
+        if verbose:
+            _broadcast({"type": "log", "level": "debug", "event_type": str(event_type)})
+
+        # Route VoiceLive server events to appropriate handlers
+        if event_type == ServerEventType.SESSION_UPDATED:
+            await self._handle_session_updated()
+        elif event_type == ServerEventType.INPUT_AUDIO_BUFFER_SPEECH_STARTED:
+            await self._handle_speech_started(conn)
+        elif event_type == ServerEventType.INPUT_AUDIO_BUFFER_SPEECH_STOPPED:
+            await self._handle_speech_stopped()
+        elif event_type == ServerEventType.RESPONSE_AUDIO_DELTA:
+            await self._handle_audio_delta(event)
+        elif event_type == ServerEventType.RESPONSE_AUDIO_DONE:
+            await self._handle_audio_done()
+        elif event_type == ServerEventType.RESPONSE_DONE:
+            # Reset cancellation flag but don't change state - _handle_audio_done already did
+            self._response_cancelled = False
+        elif event_type == ServerEventType.ERROR:
+            await self._handle_error(event)
+
+    # BEGIN HANDLE SESSION EVENTS
 
 
 
     # END HANDLE SESSION EVENTS
+
+    async def _handle_audio_delta(self, event):
+        """Stream assistant audio to clients."""
+        if self._response_cancelled:
+            return  # Skip cancelled responses
+
+        # Update state when assistant starts speaking
+        if assistant_state.get("state") != "assistant_speaking":
+            self.state_callback("assistant_speaking", "Assistant speaking…")
+
+        # Extract and broadcast VoiceLive audio delta as base64 to WebSocket clients
+        audio_data = getattr(event, "delta", None)
+        if audio_data:
+            audio_b64 = base64.b64encode(audio_data).decode("utf-8")
+            _broadcast({"type": "audio", "audio": audio_b64})
+
+    async def _handle_audio_done(self):
+        """Assistant finished speaking."""
+        self._response_cancelled = False
+        self.state_callback("ready", "Assistant finished. You can speak again.")
+
+    async def _handle_error(self, event):
+        """Handle VoiceLive errors."""
+        error = getattr(event, "error", None)
+        message = getattr(error, "message", "Unknown error") if error else "Unknown error"
+        self.state_callback("error", f"Error: {message}")
+
+    def request_stop(self):
+        self._stopping = True
+
 
 def _run_assistant_bg():
     """Background thread target to run the async assistant until completion."""
@@ -292,7 +348,7 @@ def _run_assistant_bg():
             set_state("error", "Missing AZURE_VOICE_LIVE_API_KEY environment variable")
             return
         credential = AzureKeyCredential(api_key)
-        logger.info("Using API key authentication for Voice Live (AZURE_VOICE_LIVE_API_KEY)")
+        logger.info("Using API key authentication for VoiceLive (AZURE_VOICE_LIVE_API_KEY)")
 
         def cb(state, message):
             set_state(state, message)

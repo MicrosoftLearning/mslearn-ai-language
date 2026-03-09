@@ -6,6 +6,9 @@ import os
 
 def main():
     try:
+        # Clear the console
+        os.system('cls' if os.name == 'nt' else 'clear')
+
         # Get Configuration Settings
         load_dotenv()
         ai_endpoint = os.getenv('AI_SERVICE_ENDPOINT')

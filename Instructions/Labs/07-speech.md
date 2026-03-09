@@ -1,6 +1,6 @@
 ---
 lab:
-    title: 'Recognize and Synthesize Speech'
+    title: 'Recognize and Synthesize Speech  (deprecated)'
     description: "Implement a speaking clock that converts speech to text, and text to speech."
 ---
 
@@ -76,8 +76,8 @@ Let's start by creating an Azure AI Speech resource.
 1. Create a Python virtual environment and install the Azure AI Speech SDK package and other required packages by running the following command:
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
+   python -m venv labenv;
+   ./labenv/bin/Activate.ps1;
    pip install -r requirements.txt azure-cognitiveservices-speech==1.42.0
     ```
 
@@ -241,7 +241,7 @@ Speech Synthesis Markup Language (SSML) enables you to customize the way your sp
 
 1. Save your changes and re-run the program, which should once again indicate that the spoken output was saved in a file.
 1. Download and play the generated file, which should sound similar to this:
-    
+
     <video controls src="https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Instructions/media/Output2.mp4" title="The time is 5:30. Time to end this lab." width="150"></video>
 
 ## Clean up

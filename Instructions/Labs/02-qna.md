@@ -1,6 +1,6 @@
 ---
 lab:
-    title: 'Create a Question Answering solution'
+    title: 'Create a Question Answering solution  (deprecated)'
     description: "Use Azure AI Language to create a custom question answering solution."
 ---
 
@@ -79,7 +79,6 @@ You can create a knowledge base from scratch, but it's common to start by import
     - **URL**: `https://learn.microsoft.com/en-us/training/support/faq?pivots=general`
 1. On the **Manage sources** page for your question answering project, in the **&#9547; Add source** list, select **Chitchat**. The in the **Add chit chat** dialog box, select **Friendly** and select **Add chit chat**.
 
-
 > **NOTE**  
 > If you encounter the error **BadArgument Invalid input**, follow these steps as a workaround:
 >
@@ -91,7 +90,6 @@ You can create a knowledge base from scratch, but it's common to start by import
 > - Save the file locally.
 > - Go back to the **Manage sources** page, select **&#9547; Add source**, and choose **Add Files**.
 > - Select **&#9547; Add File**, enter `Learn FAQ Page` as the name, upload the saved PDF (When looking for the document make sure PDF type of files are visible), and select **Add files**.
-
 
 ## Edit the knowledge base
 
@@ -177,9 +175,9 @@ You'll develop your question answering app using Cloud Shell in the Azure portal
 1. Create a Python virtual environment and install the Azure AI Language Question Answering SDK package and other required packages by running the following command:
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
-   pip install -r requirements.txt azure-ai-language-questionanswering
+   python -m venv labenv;
+    ./labenv/bin/Activate.ps1;
+    pip install -r requirements.txt azure-ai-language-questionanswering
     ```
 
 1. Enter the following command to edit the configuration file:

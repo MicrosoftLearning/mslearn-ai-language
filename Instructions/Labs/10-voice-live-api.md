@@ -1,12 +1,12 @@
 ---
 lab:
-    title: 'Explore the Voice Live API'
+    title: 'Explore the Voice Live API  (deprecated)'
     description: 'Learn how to use, and customize, the Voice Live API available in the Azure AI Foundry Playground.'
 ---
 
 # Explore the Voice Live API
 
-In this exercise you create an agent in the Azure AI Foundry and explore the Voice Live API in the Speech Playground. 
+In this exercise you create an agent in the Azure AI Foundry and explore the Voice Live API in the Speech Playground.
 
 This exercise takes approximately **30** minutes to complete.
 
@@ -24,7 +24,7 @@ Let's start by creating an Azure AI Foundry project.
 
 1. In the home page, select **Create an agent**.
 
-1. In the **Create an agent** wizard, enter a valid name for your project. 
+1. In the **Create an agent** wizard, enter a valid name for your project.
 
 1. Select **Advanced options** and specify the following settings:
     - **Azure AI Foundry resource**: *Keep the default name*
@@ -46,19 +46,19 @@ Let's start by creating an Azure AI Foundry project.
 
 ## Start a Voice Live sample
 
- In this section of the exercise you interact with one of the agents. 
+ In this section of the exercise you interact with one of the agents.
 
 1. Select **Playgrounds** in the navigation pane.
 
 1. Locate the **Speech playground** group, and select the **Try the Speech playground** button.
 
-1. The Speech Playground offers many pre-built options. Use the horizontal scroll bar to navigate to the end of the list and select the **Voice Live** tile. 
+1. The Speech Playground offers many pre-built options. Use the horizontal scroll bar to navigate to the end of the list and select the **Voice Live** tile.
 
     ![Screenshot of the Voice Live tile.](../media/voice-live-tile.png)
 
 1. Select the **Casual chat** agent sample in **Try with samples** panel.
 
-1. Ensure your microphone and speakers are working and select the **Start** button at the bottom of the page. 
+1. Ensure your microphone and speakers are working and select the **Start** button at the bottom of the page.
 
     As you interact with the agent, notice you can interrupt the agent and it will pause to listen. Try speaking with different lengths of pauses between words and sentences. Notice how quickly the agent recognizes the pauses and fills in the conversation. When you're finished select the **End** button.
 
@@ -66,7 +66,7 @@ Let's start by creating an Azure AI Foundry project.
 
     As you explore the different agents note the changes in the  **Response instruction** section in the **Configuration** panel.
 
-## Configure the agent 
+## Configure the agent
 
 In this section you change the voice of the agent, and add an avatar to the **Casual chat** agent. The **Configuration** panel is divided into three sections: **GenAI**, **Speech**, and **Avatar**.
 
@@ -84,9 +84,9 @@ Select the **Casual chat** agent. Next, change the voice of the agent, and add a
 
 1. Select **> Avatar** to expand the section and access the options.
 
-1. Select the toggle button to enable the feature and select one of the avatars. 
+1. Select the toggle button to enable the feature and select one of the avatars.
 
-1. Select **Apply** to save your changes, and then **Start** to launch the agent. 
+1. Select **Apply** to save your changes, and then **Start** to launch the agent.
 
     Notice the avatar's animation and synchronization to the audio.
 
@@ -102,7 +102,7 @@ When you're finished, proceed to the next section.
 
 In this section you create your own voice agent from scratch.
 
-1. Select **Start from blank** in the **Try with your own** section of the panel. 
+1. Select **Start from blank** in the **Try with your own** section of the panel.
 
 1. Expand the **> GenAI** section of the **Configuration** panel.
 
@@ -114,7 +114,7 @@ In this section you create your own voice agent from scratch.
     You are a voice agent named "Ava" who acts as a friendly car rental agent. 
     ```
 
-1. Set the **Response temperature** slider to a value of **0.8**. 
+1. Set the **Response temperature** slider to a value of **0.8**.
 
 1. Set the **Proactive engagement** toggle to the on position.
 
@@ -140,4 +140,3 @@ Now that you finished the exercise, delete the project you created to avoid unne
 
 1. Select **Management center** in the AI Foundry navigation menu.
 1. Select **Delete project** in the right information pane, and then confirm the deletion.
-

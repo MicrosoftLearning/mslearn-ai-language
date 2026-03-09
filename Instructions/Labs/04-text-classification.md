@@ -1,6 +1,6 @@
 ---
 lab:
-    title: 'Custom text classification'
+    title: 'Custom text classification  (deprecated)'
     description: "Apply custom classifications to text input using Azure AI Language."
 ---
 
@@ -50,7 +50,7 @@ If you don't already have one in your subscription, you'll need to provision an 
 
 1. Select **Review + create,** then select **Create** to provision the resource.
 1. Wait for deployment to complete, and then go to the resource group.
-1. Find the storage account you created, select it, and verify the _Account kind_ is **StorageV2**. If it's v1, upgrade your storage account kind on that resource page.
+1. Find the storage account you created, select it, and verify the *Account kind* is **StorageV2**. If it's v1, upgrade your storage account kind on that resource page.
 
 ## Configure role-based access for your user
 
@@ -223,9 +223,9 @@ To test the custom text classification capabilities of the Azure AI Language ser
 1. Create a Python virtual environment and install the Azure AI Language Text Analytics SDK package and other required packages by running the following command:
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
-   pip install -r requirements.txt azure-ai-textanalytics==5.3.0
+   python -m venv labenv;
+    ./labenv/bin/Activate.ps1;
+    pip install -r requirements.txt azure-ai-textanalytics==5.3.0
     ```
 
 1. Enter the following command to edit the application configuration file:

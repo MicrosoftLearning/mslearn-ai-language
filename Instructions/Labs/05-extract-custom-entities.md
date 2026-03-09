@@ -1,6 +1,6 @@
 ---
 lab:
-    title: 'Extract custom entities'
+    title: 'Extract custom entities  (deprecated)'
     description: "Train a model to extract customized entities from text input using Azure AI Language."
 ---
 
@@ -118,11 +118,11 @@ Now that your project is created, you need to label your data to train your mode
 
 1. If the **Data labeling** page is not already open, in the pane on the left, select **Data labeling**. You'll see a list of the files you uploaded to your storage account.
 1. On the right side, in the **Activity** pane, select **Add entity** and add a new entity named `ItemForSale`.
-1.  Repeat the previous step to create the following entities:
+1. Repeat the previous step to create the following entities:
     - `Price`
     - `Location`
 1. After you've created your three entities, select **Ad 1.txt** so you can read it.
-1. In *Ad 1.txt*: 
+1. In *Ad 1.txt*:
     1. Highlight the text *face cord of firewood* and select the **ItemForSale** entity.
     1. Highlight the text *Denver, CO* and select the **Location** entity.
     1. Highlight the text *$90* and select the **Price** entity.
@@ -179,6 +179,7 @@ To test the custom entity extraction capabilities of the Azure AI Language servi
     ```
 
     > **Tip**: As you paste commands into the cloudshell, the ouput may take up a large amount of the screen buffer. You can clear the screen by entering the `cls` command to make it easier to focus on each task.
+
     ```
 
 1. After the repo has been cloned, navigate to the folder containing the application code files:  
@@ -200,9 +201,9 @@ To test the custom entity extraction capabilities of the Azure AI Language servi
 1. Create a Python virtual environment and install the Azure AI Language Text Analytics SDK package and other required packages by running the following command:
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
-   pip install -r requirements.txt azure-ai-textanalytics==5.3.0
+   python -m venv labenv;
+    ./labenv/bin/Activate.ps1;
+    pip install -r requirements.txt azure-ai-textanalytics==5.3.0
     ```
 
 1. Enter the following command to edit the application configuration file:

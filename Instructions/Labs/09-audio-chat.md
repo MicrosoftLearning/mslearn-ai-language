@@ -1,6 +1,6 @@
 ---
 lab:
-    title: 'Develop an audio-enabled chat app'
+    title: 'Develop an audio-enabled chat app  (deprecated)'
     description: 'Learn how to use Azure AI Foundry to build a generative AI app that supports audio input.'
 ---
 
@@ -94,8 +94,8 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
 1. In the cloud shell command line pane, enter the following command to install the libraries you'll use:
 
     ```
-   python -m venv labenv
-   ./labenv/bin/Activate.ps1
+   python -m venv labenv;
+   ./labenv/bin/Activate.ps1;
    pip install -r requirements.txt azure-identity azure-ai-projects openai
     ```
 
@@ -155,7 +155,7 @@ Now that you deployed a model, you can use the Azure AI Foundry and Azure AI Mod
 
 ### Write code to submit an audio-based prompt
 
-Before submitting the prompt, we need to encode the audio file for the request. Then we can attach the audio data to the user's message with a prompt for the LLM. Note that the code includes a loop to allow the user to input a prompt until they enter "quit". 
+Before submitting the prompt, we need to encode the audio file for the request. Then we can attach the audio data to the user's message with a prompt for the LLM. Note that the code includes a loop to allow the user to input a prompt until they enter "quit".
 
 1. Under the comment **Encode the audio file**, enter the following code to prepare the following audio file:
 
@@ -209,7 +209,7 @@ Before submitting the prompt, we need to encode the audio file for the request. 
     **<font color="red">You must sign into Azure - even though the cloud shell session is already authenticated.</font>**
 
     > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
-    
+
 1. When prompted, follow the instructions to open the sign-in page in a new tab and enter the authentication code provided and your Azure credentials. Then complete the sign in process in the command line, selecting the subscription containing your Azure AI Foundry hub if prompted.
 
 1. In the cloud shell command-line pane, enter the following command to run the app:
@@ -218,7 +218,7 @@ Before submitting the prompt, we need to encode the audio file for the request. 
    python audio-chat.py
     ```
 
-1. When prompted, enter the prompt 
+1. When prompted, enter the prompt
 
     ```
    Can you summarize this customer's voice message?
@@ -239,7 +239,7 @@ Before submitting the prompt, we need to encode the audio file for the request. 
 
     <video controls src="https://github.com/MicrosoftLearning/mslearn-ai-language/raw/refs/heads/main/Instructions/media/fresas.mp4" title="A request for strawberries" width="150"></video>
 
- 1. Use the **CTRL+S** command to save your changes to the code file. You can also close the code editor (**CTRL+Q**) if you like.
+1. Use the **CTRL+S** command to save your changes to the code file. You can also close the code editor (**CTRL+Q**) if you like.
 
 1. In the cloud shell command line pane beneath the code editor, enter the following command to run the app:
 
@@ -247,8 +247,8 @@ Before submitting the prompt, we need to encode the audio file for the request. 
    python audio-chat.py
     ```
 
-1. When prompted, enter the following prompt: 
-    
+1. When prompted, enter the following prompt:
+
     ```
    Can you summarize this customer's voice message? Is it time-sensitive?
     ```
