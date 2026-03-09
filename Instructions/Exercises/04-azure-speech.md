@@ -142,7 +142,7 @@ The initial application files you'll need to develop the voice application are p
    python voice-mail.py
     ```
 
-1. When prompted, enter **2** to record a greeting.
+1. When prompted, enter **1** to record a greeting.
 1. Enter a greeting, like `Hi. The person you called is not available right now. Leave a message.`
 1. Wait while the speech is synthesized and saved as an audio file.
 
@@ -174,7 +174,7 @@ The initial application files you'll need to develop the voice application are p
    python voice-mail.py
     ```
 
-1. When prompted, enter **3** to transcribe messages.
+1. When prompted, enter **2** to transcribe messages.
 1. View the transcription for each message.
 
     Each file is played back automatically, so you can hear the message.
