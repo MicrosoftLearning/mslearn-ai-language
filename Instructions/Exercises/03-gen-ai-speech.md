@@ -42,7 +42,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: Select any of the **AI Foundry recommended** regions
+    - **Region**: Select East US 2 (For this exercises some models are only available in this location.)
 
     > **Tip**: Make a note of the region you selected. You'll need it later!
 
