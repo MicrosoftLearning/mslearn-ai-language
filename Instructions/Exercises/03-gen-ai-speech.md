@@ -42,7 +42,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: Select any of the **AI Foundry recommended** regions
+    - **Region**: Select East US 2 (For this exercises some models are only available in this location.)
 
     > **Tip**: Make a note of the region you selected. You'll need it later!
 
@@ -176,7 +176,7 @@ The initial application files you'll need to develop speech applications are pro
     pip install -r requirements.txt openai
     ```
 
-    > **Note**: This step isn't actually necessaey if you completed the previous part of this exercise, as botg apps use the same environment and have the same dependencies - but it won't do any harm!
+    > **Note**: This step isn't actually necessary if you completed the previous part of this exercise, as botg apps use the same environment and have the same dependencies - but it won't do any harm!
 
 1. In the **Explorer** pane, in the **transcribe-speech** folder, select the **.env** file to open it. Then update the configuration values to include the **Target URI** (endpoint) and **key** for your **gpt-4o-mini-transcribe** model.
 

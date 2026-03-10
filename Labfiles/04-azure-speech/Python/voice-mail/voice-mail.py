@@ -23,7 +23,7 @@ def main():
         # Loop until user quits
         inputText = ""
         while inputText.lower() != "3":
-            inputText = input("Choose an option:\n1: Record a greeting\n2: Transcribe messages\n3: Exit")
+            inputText = input("Choose an option:\n1: Record a greeting\n2: Transcribe messages\n3: Exit\n")
             if inputText != "3":
                 if inputText == "1":
                     record_greeting(speech_config)
