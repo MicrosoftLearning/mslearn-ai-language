@@ -1,7 +1,12 @@
 ---
 lab:
-    title: 'Create a Question Answering solution  (deprecated)'
-    description: "Use Azure AI Language to create a custom question answering solution."
+  title: Create a Question Answering solution  (deprecated)
+  description: Use Azure AI Language to create a custom question answering solution.
+  duration: 20 minutes
+  level: 400
+  islab: true
+  primarytopics:
+  - Azure
 ---
 
 # Create a Question Answering Solution
