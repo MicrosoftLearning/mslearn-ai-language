@@ -176,7 +176,7 @@ Now you're ready to use Azure Speech to implement text translation.
 1. Install the Azure Speech SDK package and other required packages by running the following command:
 
     ```
-    pip install -r requirements.txt azure-cognitiveservices-speech==1.42.0
+    pip install -r requirements.txt azure-cognitiveservices-speech==1.48.2
     ```
 
 ### Add code to translate speech
