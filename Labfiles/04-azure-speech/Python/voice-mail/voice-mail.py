@@ -13,8 +13,8 @@ def main():
 
         # Get Configuration Settings
         load_dotenv()
-        speech_key = os.getenv('FOUNDRY_KEY')
-        speech_region = os.getenv('FOUNDRY_REGION')
+        foundry_endpoint = os.getenv('FOUNDRY_ENDPOINT')
+        foundry_key = os.getenv('FOUNDRY_KEY')
 
         # Create speech_config using key and region
 

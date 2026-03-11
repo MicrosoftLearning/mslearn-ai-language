@@ -104,8 +104,8 @@ The initial application files you'll need to develop the review analysis applica
 
     ```Python
    # Create client using endpoint and key
-   credential = AzureKeyCredential(ai_key)
-   ai_client = TextAnalyticsClient(endpoint=ai_endpoint, credential=credential)
+   credential = AzureKeyCredential(foundry_key)
+   ai_client = TextAnalyticsClient(endpoint=foundry_endpoint, credential=credential)
     ```
 
 1. Save your changes, then in the terminal pane, enter the following command to run the program (you can maximize or resize the terminal pane to see more output):
