@@ -1,7 +1,12 @@
 ---
 lab:
-    title: 'Translate Text  (deprecated)'
-    description: "Translate provided text between any supported languages with Azure AI Translator."
+  title: Translate Text  (deprecated)
+  description: Translate provided text between any supported languages with Azure AI Translator.
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Azure
 ---
 
 # Translate Text

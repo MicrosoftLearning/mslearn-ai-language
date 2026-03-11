@@ -1,7 +1,12 @@
 ---
 lab:
-    title: 'Explore the Voice Live API  (deprecated)'
-    description: 'Learn how to use, and customize, the Voice Live API available in the Azure AI Foundry Playground.'
+  title: Explore the Voice Live API  (deprecated)
+  description: Learn how to use, and customize, the Voice Live API available in the Azure AI Foundry Playground.
+  duration: 30 minutes
+  level: 200
+  islab: true
+  primarytopics:
+    - Azure
 ---
 
 # Explore the Voice Live API

@@ -1,7 +1,12 @@
 ---
 lab:
-    title: 'Custom text classification  (deprecated)'
-    description: "Apply custom classifications to text input using Azure AI Language."
+  title: Custom text classification  (deprecated)
+  description: Apply custom classifications to text input using Azure AI Language.
+  duration: 35 minutes
+  level: 400
+  islab: true
+  primarytopics:
+    - Azure
 ---
 
 # Custom text classification

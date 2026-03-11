@@ -1,7 +1,12 @@
 ---
 lab:
-    title: 'Extract custom entities  (deprecated)'
-    description: "Train a model to extract customized entities from text input using Azure AI Language."
+  title: Extract custom entities  (deprecated)
+  description: Train a model to extract customized entities from text input using Azure AI Language.
+  duration: 35 minutes
+  level: 400
+  islab: true
+  primarytopics:
+    - Azure
 ---
 
 # Extract custom entities

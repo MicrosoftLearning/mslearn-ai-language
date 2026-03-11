@@ -1,7 +1,12 @@
 ---
 lab:
-    title: 'Develop an Azure AI Voice Live voice agent  (deprecated)'
-    description: 'Learn how to create a web app to enable real-time voice interactions with an Azure AI Voice Live agent.'
+  title: Develop an Azure AI Voice Live voice agent  (deprecated)
+  description: Learn how to create a web app to enable real-time voice interactions with an Azure AI Voice Live agent.
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+    - Azure
 ---
 
 # Develop an Azure AI Voice Live voice agent

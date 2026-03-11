@@ -1,9 +1,13 @@
 ---
 lab:
-    title: 'Analyze text'
-    description: "Use Azure Language in Foundry Tools to analyze text, including language detection, sentiment analysis, key phrase extraction, and entity recognition."
-    level: 300
-    duration: 30
+  title: Analyze text
+  description: Use Azure Language in Foundry Tools to analyze text, including language detection, sentiment analysis, key phrase extraction, and entity recognition.
+  level: 300
+  duration: 30
+  islab: true
+  primarytopics:
+    - Azure
+    - Azure Language
 ---
 
 # Analyze Text

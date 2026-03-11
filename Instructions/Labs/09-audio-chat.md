@@ -1,7 +1,12 @@
 ---
 lab:
-    title: 'Develop an audio-enabled chat app  (deprecated)'
-    description: 'Learn how to use Azure AI Foundry to build a generative AI app that supports audio input.'
+  title: Develop an audio-enabled chat app  (deprecated)
+  description: Learn how to use Azure AI Foundry to build a generative AI app that supports audio input.
+  duration: 30 minutes
+  level: 400
+  islab: true
+  primarytopics:
+    - Azure
 ---
 
 # Develop an audio-enabled chat app

@@ -1,9 +1,12 @@
 ---
 lab:
-    title: 'Translate text and speech'
-    description: Implement translation with Azure Translator and Azure Speech in Foundry Tools.
-    duration: 30
-    level: 300
+  title: Translate text and speech
+  description: Implement translation with Azure Translator and Azure Speech in Foundry Tools.
+  duration: 30
+  level: 300
+  islab: true
+  primarytopics:
+    - Azure
 ---
 
 # Translate text and speech
