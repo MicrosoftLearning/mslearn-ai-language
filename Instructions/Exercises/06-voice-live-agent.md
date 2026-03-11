@@ -1,9 +1,14 @@
 ---
 lab:
-    title: 'Create a conversational speech agent'
-    description: 'Use Azure Speech Voice Live in Microsoft Foundry Tools to create a conversational agent.'
-    level: 300
-    duration: 30
+  title: Create a conversational speech agent
+  description: Use Azure Speech Voice Live in Microsoft Foundry Tools to create a
+    conversational agent.
+  level: 300
+  duration: 30
+  islab: true
+  primarytopics:
+  - Azure
+  - Microsoft Foundry
 ---
 
 # Create a conversational speech agent
