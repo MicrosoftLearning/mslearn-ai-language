@@ -1,7 +1,10 @@
 ---
 lab:
-    title: 'Translate Speech  (deprecated)'
-    description: "Translate language speech to speech and implement in your own app."
+  title: Translate Speech  (deprecated)
+  description: Translate language speech to speech and implement in your own app.
+  duration: 30 minutes
+  level: 300
+  islab: true
 ---
 
 # Translate Speech
