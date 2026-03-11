@@ -35,7 +35,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Foundry resource**: *Enter a valid name for your AI Foundry resource.*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: Select any of the **AI Foundry recommended** regions
+    - **Region**: Select any available region
 
 1. Select **Create**. Wait for your project to be created.
 
@@ -117,6 +117,8 @@ To use your agent in a custom application, you need to write code that uses the 
 1. In the **Command Palette**, use the command `python:select interpreter`. Then select an existing environment if you have one, or create a new **Venv** environment based on your Python 3.13.xx installation.
 
     > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/06-voice-live/Python/chat-client* folder; but it's OK if you - don't we'll install them later!
+
+    > **Tip**: If you prefer to use the terminal, you can create your **Venv** environment with `python -m venv labenv`, then activate it with `\labenv\Scripts\activate`.
 
 1. In the **Explorer** pane, right-click the **chat-client** folder containing the application files, and select **Open in integrated terminal** (or open a terminal in the **Terminal** menu and navigate to the */Labfiles/06-voice-live/Python/chat-client* folder.)
 

@@ -80,6 +80,8 @@ The initial application files you'll need to develop speech applications are pro
 
     > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/03-gen-ai-speech/Python/generate-speech* folder; but it's OK if you don't - we'll install them later!
 
+    > **Tip**: If you prefer to use the terminal, you can create your **Venv** environment with `python -m venv labenv`, then activate it with `\labenv\Scripts\activate`.
+
 ## Create a speech-generation app
 
 1. After the repo has been cloned, in the Explorer pane, navigate to the folder containing the application code files at **/Labfiles/03-gen-ai-speech/Python/generate-speech**. The application files include:
