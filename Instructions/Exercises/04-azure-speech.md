@@ -1,9 +1,12 @@
 ---
 lab:
-    title: 'Recognize and synthesize speech'
-    description: Implement speech functionality using Azure Speech in Foundry Tools.
-    duration: 30
-    level: 300
+  title: Recognize and synthesize speech
+  description: Implement speech functionality using Azure Speech in Foundry Tools.
+  duration: 30
+  level: 300
+  islab: true
+  primarytopics:
+  - Azure
 ---
 
 # Recognize and synthesize speech
