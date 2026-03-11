@@ -1,7 +1,13 @@
 ---
 lab:
-    title: 'Create a language understanding model with the Azure AI Language service  (deprecated)'
-    description: "Create a custom language understanding model to interpret input, predict intent, and identify entities."
+  title: Create a language understanding model with the Azure AI Language service  (deprecated)
+  description: Create a custom language understanding model to interpret input, predict
+    intent, and identify entities.
+  duration: 35 minutes
+  level: 300
+  islab: true
+  primarytopics:
+  - Azure
 ---
 
 # Create a language understanding model with the Language service
