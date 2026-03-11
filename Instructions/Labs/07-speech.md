@@ -1,7 +1,11 @@
 ---
 lab:
-    title: 'Recognize and Synthesize Speech  (deprecated)'
-    description: "Implement a speaking clock that converts speech to text, and text to speech."
+  title: Recognize and Synthesize Speech  (deprecated)
+  description: Implement a speaking clock that converts speech to text, and text to
+    speech.
+  duration: 30 minutes
+  level: 300
+  islab: true
 ---
 
 # Recognize and synthesize speech
