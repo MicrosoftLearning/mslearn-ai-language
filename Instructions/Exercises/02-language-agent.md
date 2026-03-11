@@ -1,9 +1,13 @@
 ---
 lab:
-    title: 'Develop a text analysis agent'
-    description: 'Use Azure Language in Foundry Tools to add text analysis capabilities to an AI agent.'
-    duration: 30
-    level: 300
+  title: Develop a text analysis agent
+  description: Use Azure Language in Foundry Tools to add text analysis capabilities to an AI agent.
+  duration: 30
+  level: 300
+  islab: true
+  primarytopics:
+    - Azure
+    - Azure Language
 ---
 
 # Develop a text analysis agent
