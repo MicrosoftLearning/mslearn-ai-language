@@ -1,9 +1,10 @@
 ---
 lab:
-    title: 'Use speech-capable generative AI models'
-    description: Implement speech functionality using generative AI.
-    duration: 30
-    level: 300
+  title: Use speech-capable generative AI models
+  description: Implement speech functionality using generative AI.
+  duration: 30
+  level: 300
+  islab: true
 ---
 
 # Use speech-capable generative AI models
