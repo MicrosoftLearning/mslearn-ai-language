@@ -1,7 +1,13 @@
 ---
 lab:
-    title: 'Analyze text (deprecated)'
-    description: "Use Azure AI Language to analyze text, including language detection, sentiment analysis, key phrase extraction, and entity recognition."
+  title: Analyze text (deprecated)
+  description: Use Azure AI Language to analyze text, including language detection,
+    sentiment analysis, key phrase extraction, and entity recognition.
+  duration: 30 minutes
+  level: 300
+  islab: true
+  primarytopics:
+  - Azure
 ---
 
 # Analyze Text
