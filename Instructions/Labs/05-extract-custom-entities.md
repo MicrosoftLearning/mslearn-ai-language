@@ -2,6 +2,7 @@
 lab:
     title: 'Extract custom entities  (deprecated)'
     description: "Train a model to extract customized entities from text input using Azure AI Language."
+    islab: false
 ---
 
 # Extract custom entities

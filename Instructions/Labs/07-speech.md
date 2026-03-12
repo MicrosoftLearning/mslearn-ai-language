@@ -2,6 +2,7 @@
 lab:
     title: 'Recognize and Synthesize Speech  (deprecated)'
     description: "Implement a speaking clock that converts speech to text, and text to speech."
+    islab: false
 ---
 
 # Recognize and synthesize speech

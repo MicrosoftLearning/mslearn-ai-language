@@ -2,6 +2,7 @@
 lab:
     title: 'Develop an audio-enabled chat app  (deprecated)'
     description: 'Learn how to use Azure AI Foundry to build a generative AI app that supports audio input.'
+    islab: false
 ---
 
 # Develop an audio-enabled chat app

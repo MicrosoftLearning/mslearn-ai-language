@@ -2,6 +2,7 @@
 lab:
     title: 'Create a language understanding model with the Azure AI Language service  (deprecated)'
     description: "Create a custom language understanding model to interpret input, predict intent, and identify entities."
+    islab: false
 ---
 
 # Create a language understanding model with the Language service

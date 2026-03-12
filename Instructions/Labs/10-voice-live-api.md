@@ -2,6 +2,7 @@
 lab:
     title: 'Explore the Voice Live API  (deprecated)'
     description: 'Learn how to use, and customize, the Voice Live API available in the Azure AI Foundry Playground.'
+    islab: false
 ---
 
 # Explore the Voice Live API

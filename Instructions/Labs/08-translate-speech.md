@@ -2,6 +2,7 @@
 lab:
     title: 'Translate Speech  (deprecated)'
     description: "Translate language speech to speech and implement in your own app."
+    islab: false
 ---
 
 # Translate Speech

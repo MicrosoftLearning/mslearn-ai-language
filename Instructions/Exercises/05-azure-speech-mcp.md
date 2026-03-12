@@ -4,6 +4,7 @@ lab:
     description: Use the Azure Speech in Foundry Tools MCP server to add speech capabilities to an agent.
     duration: 30
     level: 300
+    islab: true
 ---
 
 # Use Azure Speech in an agent

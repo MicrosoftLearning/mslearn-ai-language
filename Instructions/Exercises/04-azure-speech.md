@@ -4,6 +4,7 @@ lab:
     description: Implement speech functionality using Azure Speech in Foundry Tools.
     duration: 30
     level: 300
+    islab: true
 ---
 
 # Recognize and synthesize speech

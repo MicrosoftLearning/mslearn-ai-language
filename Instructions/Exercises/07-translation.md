@@ -4,6 +4,7 @@ lab:
     description: Implement translation with Azure Translator and Azure Speech in Foundry Tools.
     duration: 30
     level: 300
+    islab: true
 ---
 
 # Translate text and speech

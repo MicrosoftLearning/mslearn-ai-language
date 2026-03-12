@@ -2,6 +2,7 @@
 lab:
     title: 'Develop an Azure AI Voice Live voice agent  (deprecated)'
     description: 'Learn how to create a web app to enable real-time voice interactions with an Azure AI Voice Live agent.'
+    islab: false
 ---
 
 # Develop an Azure AI Voice Live voice agent

@@ -2,6 +2,7 @@
 lab:
     title: 'Custom text classification  (deprecated)'
     description: "Apply custom classifications to text input using Azure AI Language."
+    islab: false
 ---
 
 # Custom text classification

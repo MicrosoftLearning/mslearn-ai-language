@@ -2,6 +2,7 @@
 lab:
     title: 'Create a Question Answering solution  (deprecated)'
     description: "Use Azure AI Language to create a custom question answering solution."
+    islab: false
 ---
 
 # Create a Question Answering Solution

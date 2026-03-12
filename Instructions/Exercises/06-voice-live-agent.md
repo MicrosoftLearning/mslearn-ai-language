@@ -4,6 +4,7 @@ lab:
     description: 'Use Azure Speech Voice Live in Microsoft Foundry Tools to create a conversational agent.'
     level: 300
     duration: 30
+    islab: true
 ---
 
 # Develop a Voice Live agent

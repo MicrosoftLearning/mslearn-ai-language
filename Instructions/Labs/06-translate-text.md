@@ -2,6 +2,7 @@
 lab:
     title: 'Translate Text  (deprecated)'
     description: "Translate provided text between any supported languages with Azure AI Translator."
+    islab: false
 ---
 
 # Translate Text
