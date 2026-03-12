@@ -43,14 +43,27 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Resource group**: *Create or select a resource group*
     - **Region**: Select any available region
 
-    > **Tip**: Make a note of the region you selected. You'll need it later!
-
 1. Select **Create**. Wait for your project to be created.
-1. On the home page for your project, note the project endpoint, key, and OpenAI endpoint.
+1. On the home page for your project, note the project API key, project endpoint, and OpenAI endpoint.
 
-    > **TIP**: You're going to need the project key later!
+    > **TIP**: You're going to need the project API key later!
 
-## Get the application files from GitHub
+## Explore Azure Translator in Foundry Tools in the portal
+
+You can use the Azure Translator playground in the Foundry portal to experiment with the service.
+
+1. In the Foundry Portal home page, select the **Build** menu, and then view the **Models** page.
+1. In the **Models** page, select the **Ai services** tab to view the list of Azure services in Foundry Tools.
+1. In the list of tools, select **Azure Translator - Text translation**.
+1. In the Text translator playground, in the **Source text** area, enter the text `Hello world!`. Then, in the **Translation** area, select any language and use the **Translate** button to generate the translation.
+1. Try a few more languages.
+1. Select the **Code** tab to view sample code for using Azure Translator; and note the **ENDPOINT** variable used in the code for the REST API, which should be similar to `https://{foundry-resource-name}.cognitiveservices.azure.com/`.
+
+    This endpoint uses an older format for Azure AI Services, but is still used to connect to the Azure Translator resource in a Foundry resource. You can also use it to connect to Azure Speech tools.
+
+    > **TIP**: You're going to need the endpoint later!
+
+## Get application files from GitHub
 
 The initial application files you'll need to develop the translation application are provided in a GitHub repo.
 
@@ -78,9 +91,9 @@ Now you're ready to use Azure Translator to implement text translation.
 
 ### Configure your text translation application
 
-1. In the **Explorer** pane, in the **translators** folder, select the **.env** file to open it. Then update the configuration values to include the **region** and **key** for your Foundry project.
+1. In the **Explorer** pane, in the **translators** folder, select the **.env** file to open it. Then update the configuration values to include the **endpoint** and **key** for your Foundry resource.
 
-    > **Important**:Be sure to add the *region* for your resource, <u>not</u> the endpoint!
+    > **Important**:Be sure to add the `https://{foundry-resource-name}.cognitiveservices.azure.com/` from the Azure Translator sample code, <u>not</u> the project endpoint or OpenAI endpoint! Get the API key from the project home page.
 
     Save the modified configuration file.
 
@@ -117,8 +130,8 @@ Now you're ready to use Azure Translator to implement text translation.
 
     ```python
    # Create client using endpoint and key
-   credential = AzureKeyCredential(translatorKey)
-   client = TextTranslationClient(credential=credential, region=translatorRegion)
+   credential = AzureKeyCredential(foundry_key)
+   client = TextTranslationClient(credential=credential, endpoint=foundry_endpoint)
     ```
 
 1. Find the comment **Choose target language** and add the following code, which uses the Text Translator service to return list of supported languages for translation, and prompts the user to select a language code for the target language:
@@ -172,7 +185,7 @@ Now you're ready to use Azure Speech to implement text translation.
 
 ### Configure your speech translation application
 
-1. In the **translators** folder, verify that the .env file contains the  **region** and **key** for your Foundry project (Azure Speech can use the same information as Azure Translator to connect to your Foundry resource).
+1. In the **translators** folder, verify that the .env file contains the  **endpoint** and **key** for your Foundry resource (Azure Speech can use the same information as Azure Translator to connect to your Foundry resource).
 1. Ensure that the terminal is open in the **translators** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
 1. Install the Azure Speech SDK package and other required packages by running the following command:
 
@@ -202,7 +215,8 @@ Now you're ready to use Azure Speech to implement text translation.
 
     ```python
    # Configure translation
-   translation_config = speech_sdk.translation.SpeechTranslationConfig(speech_key, speech_region)
+   translation_config = speech_sdk.translation.SpeechTranslationConfig( subscription=foundry_key,
+                                                                        endpoint=foundry_endpoint)
    translation_config.speech_recognition_language = 'en-US'
    translation_config.add_target_language('fr')
    translation_config.add_target_language('es')
@@ -214,8 +228,9 @@ Now you're ready to use Azure Speech to implement text translation.
 
     ```python
    # Configure speech
-   speech_config = speech_sdk.SpeechConfig(subscription=speech_key, region=speech_region)
-   print('Ready to use speech service in:', speech_config.region)
+   speech_config = speech_sdk.SpeechConfig( subscription=foundry_key,
+                                            endpoint=foundry_endpoint)
+   print('Ready to use speech service.')
     ```
 
 1. In the code file, note that the code uses the **Translate** function to translate spoken input. Then in the **Translate** function, under the comment **Translate speech**, add the following code to create a **TranslationRecognizer** client that can be used to recognize and translate speech from the default system microphone.

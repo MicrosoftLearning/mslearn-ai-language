@@ -12,8 +12,8 @@ def main():
 
         # Get Configuration Settings
         load_dotenv()
-        translatorRegion = os.getenv('FOUNDRY_REGION')
-        translatorKey = os.getenv('FOUNDRY_KEY')
+        foundry_key = os.getenv('FOUNDRY_KEY')
+        foundry_endpoint = os.getenv('FOUNDRY_ENDPOINT')
 
         # Create client using endpoint and key
         

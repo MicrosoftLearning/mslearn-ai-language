@@ -15,8 +15,8 @@ def main():
 
         # Get Configuration Settings
         load_dotenv()
-        speech_key = os.getenv('FOUNDRY_KEY')
-        speech_region = os.getenv('FOUNDRY_REGION')
+        foundry_key = os.getenv('FOUNDRY_KEY')
+        foundry_endpoint = os.getenv('FOUNDRY_ENDPOINT')
 
         # Configure translation
 
