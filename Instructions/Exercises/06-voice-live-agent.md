@@ -1,12 +1,12 @@
 ---
 lab:
-    title: 'Create a conversational speech agent'
+    title: 'Develop a Voice Live agent'
     description: 'Use Azure Speech Voice Live in Microsoft Foundry Tools to create a conversational agent.'
     level: 300
     duration: 30
 ---
 
-# Create a conversational speech agent
+# Develop a Voice Live agent
 
 Speech-capable AI agents enable users to interact conversationally - using spoken command and questions that generate vocal responses.
 
