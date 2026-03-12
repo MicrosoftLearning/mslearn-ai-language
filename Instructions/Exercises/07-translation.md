@@ -271,7 +271,7 @@ Now you're ready to use Azure Speech to implement text translation.
 
 1. When prompted, enter a valid language code (*fr*, *es*, or *hi*). Then, when prompted to speak, say something aloud (for example, "*Hello world!"*).
 
-     The program shouldtranslate it to the language you specified (French, Spanish, or Hindi), and synthesize the translation.
+     The program should translate it to the language you specified (French, Spanish, or Hindi), and synthesize the translation.
 
     > **NOTE**: The code in your application translates the input to all three languages in a single call. Only the translation for the specific language is displayed, but you could retrieve any of the translations by specifying the target language code in the **translations** collection of the result.
 
