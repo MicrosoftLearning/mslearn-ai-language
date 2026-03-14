@@ -201,66 +201,75 @@ Now you're ready to use Azure Speech to implement text translation.
 
     > **Tip**: As you add code to the code file, be sure to maintain the correct indentation.
 
-1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces** and add the following code to import the namespaces you will need to use the Speech SDK:
+1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces** and add the following code to import the namespace you will need to use the Speech SDK:
 
    ```python
    # Import namespaces
-   from azure.core.credentials import AzureKeyCredential
    import azure.cognitiveservices.speech as speech_sdk
     ```
 
-1. In the **main** function, under the comment **Get config settings**, note that the code loads the key and region you defined in the configuration file.
+1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the key and endpoint you defined in the configuration file.
 
-1. Find the following code under the comment **Configure translation**, and add the following code to configure your connection to the Azure AI Services Speech endpoint:
+1. Find the following code under the comment **Configure translation**, and add the following code to configure your connection to the Foundry endpoint for Azure Speech, and prepare to translate speech in US English to French, Spanish, and Hindi:
 
     ```python
    # Configure translation
-   translation_config = speech_sdk.translation.SpeechTranslationConfig( subscription=foundry_key,
-                                                                        endpoint=foundry_endpoint)
-   translation_config.speech_recognition_language = 'en-US'
-   translation_config.add_target_language('fr')
-   translation_config.add_target_language('es')
-   translation_config.add_target_language('hi')
-   print('Ready to translate from',translation_config.speech_recognition_language)
+   translation_cfg = speech_sdk.translation.SpeechTranslationConfig(
+            subscription=foundry_key,
+            endpoint=foundry_endpoint
+   )
+   translation_cfg.speech_recognition_language = 'en-US'
+   translation_cfg.add_target_language('fr')
+   translation_cfg.add_target_language('es')
+   translation_cfg.add_target_language('hi')
+   audio_in_cfg = speech_sdk.AudioConfig(use_default_microphone=True)
+   translator = speech_sdk.translation.TranslationRecognizer(
+        translation_config=translation_cfg,
+        audio_config=audio_in_cfg
+   )
+   print('Ready to translate from',translation_cfg.speech_recognition_language)
     ```
 
-1. You will use the **SpeechTranslationConfig** to translate speech into text, but you will also use a **SpeechConfig** to synthesize translations into speech. Add the following code under the comment **Configure speech**:
+1. You will use the **SpeechTranslationConfig** to translate speech into text, but you will also use a **SpeechConfig** to synthesize translations into speech. Add the following code under the comment **Configure speech for synthesis of translations**:
 
     ```python
-   # Configure speech
-   speech_config = speech_sdk.SpeechConfig( subscription=foundry_key,
-                                            endpoint=foundry_endpoint)
+   # Configure speech for synthesis of translations
+   speech_cfg = speech_sdk.SpeechConfig(
+        subscription=foundry_key, endpoint=foundry_endpoint)
+   audio_out_cfg = speech_sdk.audio.AudioOutputConfig(use_default_speaker=True)
+   voices = {
+        "fr": "fr-FR-HenriNeural",
+        "es": "es-ES-ElviraNeural",
+        "hi": "hi-IN-MadhurNeural"
+   }
    print('Ready to use speech service.')
     ```
 
-1. In the code file, note that the code uses the **Translate** function to translate spoken input. Then in the **Translate** function, under the comment **Translate speech**, add the following code to create a **TranslationRecognizer** client that can be used to recognize and translate speech from the default system microphone.
+1. Now it's time to add the code to translate the user's speech int the system microphone. Find the comment **Translate user speech**, and add the following code:
 
     ```python
-   # Translate speech
-   audio_config_in = speech_sdk.AudioConfig(use_default_microphone=True)
-   translator = speech_sdk.translation.TranslationRecognizer(translation_config, audio_config = audio_config_in)
+   # Translate user speech
    print("Speak now...")
-   result = translator.recognize_once_async().get()
-   print('Translating "{}"'.format(result.text))
-   translation = result.translations[targetLanguage]
-   print(translation)
+   translation_results = translator.recognize_once_async().get()
+   print(f"Translating '{translation_results.text}'")
     ```
 
-1. In the **Translate** function, find the comment **Synthesize translation**, and add the following code to use a **SpeechSynthesizer** client to synthesize the translation as speech and play it through the default system speaker:
+1. When the results are returned, the application will iterate through the translations, printing the text and playing the synthesized speech through the default system speaker. Find the comment **** and add he following code:
 
     ```python
-   # Synthesize translation
-   voices = {
-            "fr": "fr-FR-HenriNeural",
-            "es": "es-ES-ElviraNeural",
-            "hi": "hi-IN-MadhurNeural"
-   }
-   speech_config.speech_synthesis_voice_name = voices.get(targetLanguage)
-   audio_config_out = speech_sdk.audio.AudioOutputConfig(use_default_speaker=True)
-   speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config, audio_config_out)
-   speak = speech_synthesizer.speak_text_async(translation).get()
-   if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
-        print(speak.reason)
+   # Print and speak the translation results
+   translations = translation_results.translations
+   for translation_language in translations:
+
+        print(f"{translation_language}: '{translations[translation_language]}'")
+
+        speech_cfg.speech_synthesis_voice_name = voices.get(translation_language)
+        audio_out_cfg = speech_sdk.audio.AudioOutputConfig(use_default_speaker=True)
+        speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_cfg, audio_out_cfg)
+        speak = speech_synthesizer.speak_text_async(translations[translation_language]).get()
+        
+        if speak.reason != speech_sdk.ResultReason.SynthesizingAudioCompleted:
+            print(speak.reason)
     ```
 
 1. Save your changes. Then, in the terminal pane, enter the following command to run the program:
@@ -269,17 +278,11 @@ Now you're ready to use Azure Speech to implement text translation.
    python translate-speech.py
     ```
 
-1. When prompted, enter a valid language code (*fr*, *es*, or *hi*). Then, when prompted to speak, say something aloud (for example, "*Hello world!"*).
+1. When prompted, say something aloud (for example, "*Hello!"*).
 
-     The program should translate it to the language you specified (French, Spanish, or Hindi), and synthesize the translation.
-
-    > **NOTE**: The code in your application translates the input to all three languages in a single call. Only the translation for the specific language is displayed, but you could retrieve any of the translations by specifying the target language code in the **translations** collection of the result.
-
-    Repeat this process, trying each language supported by the application.
+     The program should translate it to the languages specified in the code (French, Spanish, and Hindi), and print and speak the translations.
 
     > **NOTE**: The translation to Hindi may not always be displayed correctly in the terminal due to character encoding issues.
-
-1. When you're finished, press ENTER to end the program.
 
 ## Clean up resources
 
