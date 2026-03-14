@@ -246,7 +246,7 @@ The Azure Language in Foundry Tools tool provides a wide range of functionality,
 
 ## Clean up resources
 
-If you're finished exploring the Azure AI Language service, you can delete the resources you created in this exercise. Here's how:
+If you're finished exploring the Azure Language service, you can delete the resources you created in this exercise. Here's how:
 
 1. In the Azure portal, browse to the Foundry resource you created in this lab.
 1. On the resource page, select **Delete** and follow the instructions to delete the resource.
