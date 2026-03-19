@@ -25,6 +25,7 @@ Before starting this exercise, ensure you have:
 - [Visual Studio Code](https://code.visualstudio.com/) installed
 - [Python version 3.13 or higher](https://www.python.org/downloads/) installed
 - [Git](https://git-scm.com/install/) installed and configured
+- [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) installed
 
 ## Create an Azure storage account
 

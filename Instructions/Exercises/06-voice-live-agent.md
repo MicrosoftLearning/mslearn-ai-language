@@ -23,6 +23,7 @@ Before starting this exercise, ensure you have:
 - [Visual Studio Code](https://code.visualstudio.com/) installed
 - [Python version **3.13.xx**](https://www.python.org/downloads/release/python-31312/) installed\*
 - [Git](https://git-scm.com/install/) installed and configured
+- [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) installed
 
 > \* Python 3.14 is available, but some dependencies in this exercise are not yet compiled for that release. The lab has been successfully tested with Python 3.13.12.
 
