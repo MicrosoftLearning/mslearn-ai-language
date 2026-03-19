@@ -5,7 +5,9 @@ lab:
     islab: false
 ---
 
-# Create a Question Answering Solution
+# Create a Question Answering Solution (deprecated)
+
+> **Note**: This exercise is deprecated. Consider reviewing the QuickStart tutorial at <https://learn.microsoft.com/azure/ai-services/language-service/question-answering/quickstart>
 
 One of the most common conversational scenarios is providing support through a knowledge base of frequently asked questions (FAQs). Many organizations publish FAQs as documents or web pages, which works well for a small set of question and answer pairs, but large documents can be difficult and time-consuming to search.
 

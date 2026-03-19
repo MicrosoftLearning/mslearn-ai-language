@@ -5,7 +5,9 @@ lab:
     islab: false
 ---
 
-# Custom text classification
+# Custom text classification (deprecated)
+
+> **Note**: This exercise is deprecated. Consider reviewing the QuickStart tutorial at <https://learn.microsoft.com/azure/ai-services/language-service/custom-text-classification/quickstart>.
 
 Azure AI Language provides several NLP capabilities, including the key phrase identification, text summarization, and sentiment analysis. The Language service also provides custom features like custom question answering and custom text classification.
 

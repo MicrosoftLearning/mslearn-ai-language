@@ -5,7 +5,9 @@ lab:
     islab: false
 ---
 
-# Explore the Voice Live API
+# Explore the Voice Live API (deprecated)
+
+> **Note**: This exercise is deprecated. Consider completing the replacement exercise at <https://go.microsoft.com/fwlink/?linkid=2356168>.
 
 In this exercise you create an agent in the Azure AI Foundry and explore the Voice Live API in the Speech Playground.
 

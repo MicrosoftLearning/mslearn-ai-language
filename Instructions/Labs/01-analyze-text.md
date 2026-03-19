@@ -5,7 +5,9 @@ lab:
     islab: false
 ---
 
-# Analyze Text
+# Analyze Text (deprecated)
+
+> **Note**: This exercise is deprecated. Consider completing the replacement exercise at <https://go.microsoft.com/fwlink/?linkid=2356343>.
 
 **Azure AI Language** supports analysis of text, including language detection, sentiment analysis, key phrase extraction, and entity recognition.
 

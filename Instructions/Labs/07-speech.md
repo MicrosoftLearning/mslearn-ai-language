@@ -5,7 +5,9 @@ lab:
     islab: false
 ---
 
-# Recognize and synthesize speech
+# Recognize and synthesize speech (deprecated)
+
+> **Note**: This exercise is deprecated. Consider completing the replacement exercise at <https://go.microsoft.com/fwlink/?linkid=2356350>.
 
 **Azure AI Speech** is a service that provides speech-related functionality, including:
 

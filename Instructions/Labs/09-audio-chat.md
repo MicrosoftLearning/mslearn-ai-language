@@ -5,7 +5,9 @@ lab:
     islab: false
 ---
 
-# Develop an audio-enabled chat app
+# Develop an audio-enabled chat app (deprecated)
+
+> **Note**: This exercise is deprecated. Consider completing the replacement exercise at <https://go.microsoft.com/fwlink/?linkid=2356363>.
 
 In this exercise, you use the *Phi-4-multimodal-instruct* generative AI model to generate responses to prompts that include audio files. You'll develop an app that provides AI assistance for a produce supplier company by using Azure AI Foundry and the Python OpenAI SDK to summarize voice messages left by customers.
 

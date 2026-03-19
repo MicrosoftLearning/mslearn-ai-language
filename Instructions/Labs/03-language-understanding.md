@@ -5,7 +5,9 @@ lab:
     islab: false
 ---
 
-# Create a language understanding model with the Language service
+# Create a language understanding model with the Language service (deprecated)
+
+> **Note**: This exercise is deprecated. Consider reviewing the QuickStart tutorial at <https://learn.microsoft.com/azure/ai-services/language-service/conversational-language-understanding/quickstart>.
 
 The Azure AI Language service enables you to define a *conversational language understanding* model that applications can use to interpret natural language *utterances* from users (text or spoken input),  predict the users *intent* (what they want to achieve), and identify any *entities* to which the intent should be applied.
 

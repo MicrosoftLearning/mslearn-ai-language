@@ -5,7 +5,9 @@ lab:
     islab: false
 ---
 
-# Extract custom entities
+# Extract custom entities (deprecated)
+
+> **Note**: This exercise is deprecated. Consider reviewing the QuickStart tutorial at <https://learn.microsoft.com/azure/ai-services/language-service/custom-named-entity-recognition/quickstart>.
 
 In addition to other natural language processing capabilities, Azure AI Language Service enables you to define custom entities, and extract instances of them from text.
 
