@@ -16,7 +16,7 @@ def main():
         foundry_endpoint = os.getenv('FOUNDRY_ENDPOINT')
         foundry_key = os.getenv('FOUNDRY_KEY')
 
-        # Create speech_config using key and region
+        # Create speech_config using Entra ID authentication
 
 
 

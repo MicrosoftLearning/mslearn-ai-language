@@ -13,9 +13,11 @@ lab:
 
 You can use the service directly in an application through its REST API and several language-specific SDKs. You can also use the **Azure Language in Foundry Tools MCP server** to integrate its capabilities into an AI agent; which is what you'll do in this exercise.
 
-> **Tip**: The code used in this exercise is based on the for Microsoft Foundry SDK for Python. You can develop similar solutions using the SDKs for Microsoft .NET, JavaScript, and Java. Refer to [Microsoft Foundry SDK client libraries](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview) for details.
+The code used in this exercise is based on the for Microsoft Foundry Tools SDK for Python. You can develop similar solutions using the SDKs for Microsoft .NET, JavaScript, and Java. Refer to [Microsoft Foundry SDK client libraries](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview) for details.
 
 This exercise takes approximately **30** minutes.
+
+> **Note**: Some of the technologies used in this exercise are in preview or in active development. You may experience some unexpected behavior, warnings, or errors.
 
 ## Prerequisites
 
@@ -23,9 +25,11 @@ Before starting this exercise, ensure you have:
 
 - An active [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account)
 - [Visual Studio Code](https://code.visualstudio.com/) installed
-- [Python version 3.13 or higher](https://www.python.org/downloads/) installed
+- [Python version **3.13.xx**](https://www.python.org/downloads/release/python-31312/) installed\*
 - [Git](https://git-scm.com/install/) installed and configured
 - [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) installed
+
+> \* Python 3.14 is available, but some dependencies are not yet compiled for that release. The lab has been successfully tested with Python 3.13.12.
 
 ## Create a Microsoft Foundry project
 
@@ -80,6 +84,8 @@ Foundry includes an MCP server for Azure Language in Foundry Tools, which you ca
     - **Authentication**: Key-based
     - **Credential** (**Ocp-Apim-Subscription-Key**): *enter (or paste) the key for your Foundry project*
 
+    > **Note**: If key-based authentication is disabled by a policy in your Azure subscription, you can use Entra ID authentication to connect the agent to the Azure Language service.
+
 1. Wait for the MCP tool connection to be created, and then view its details page.
 1. On the details page for the Azure Language in Foundry Tools connection, select **Use in an agent**, and then select the **Text-Analysis-Agent** agent you created previously.
 
@@ -109,6 +115,14 @@ Now let's test the agent's ability to use the tool you connected.
 1. When prompted, approve use of the Azure Language tool by selecting **Always approve all Azure Language in Foundry Tools tools** (you may need to do this twice because the prompt asked for two distinct text analysis tasks).
 1. Review the response, which should summarize the article about the founding of Microsoft and list the key people, places, and dates it mentions.
 1. Review the **Logs** for the chat and verify that the Azure Language tool was used by the agent to process the prompt.
+
+## Configure tool approval
+
+As you've seen in the playground, to use the tool, the agent needs approval.
+
+1. In the playground, in the list of **Tools** under the **Instructions**, in the menu for the Azure language tool you added, select **Configure**.
+1. Ensure that the **Approval setting for tools in this MCP server for this agent** setting is **Always auto-approve all tools** (if not, change it and add it).
+1. Save any changes to the agent.
 
 ## Create a client application
 
@@ -143,7 +157,7 @@ Now that you have a working agent, you can create a client application that uses
 1. Install the Foundry SDK package, the Azure Identity package, and other required packages by running the following command:
 
     ```
-    pip install -r requirements.txt azure-identity --pre azure-ai-projects==2.0.0b4
+    pip install -r requirements.txt
     ```
 
 1. In the **Explorer** pane, in the **text-agent** folder, select the **.env** file to open it. Then update the configuration values to include your project **endpoint** (from the project home page in Foundry Portal) and the name of your agent (which should be **Text-Analysis-Agent** - note that this name is case-sensitive).
@@ -206,11 +220,10 @@ Now let's test the application by running it in a Python environment and authent
     az login
     ```
 
-    When prompted, sign into Azure using your credentials.
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
 
-    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See *[Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively)* for details.
-
-1. In the Visual Studio Code terminal, confirm the details of your Azure subscription; and then enter the following command to run the client application:
+1. When prompted, follow the instructions to sign into Azure. Then complete the sign in process in the command line, viewing (and confirming if necessary) the details of the subscription containing your Foundry resource.
+1. After you have signed in, enter the following command to run the application:
 
     ```powershell
     python text-agent.py

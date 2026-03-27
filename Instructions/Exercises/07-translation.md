@@ -22,14 +22,19 @@ While this exercise is based on Python, you can develop text translation applica
 
 This exercise takes approximately **30** minutes.
 
+> **Note**: Some of the technologies used in this exercise are in preview or in active development. You may experience some unexpected behavior, warnings, or errors.
+
 ## Prerequisites
 
 Before starting this exercise, ensure you have:
 
 - An active [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account)
 - [Visual Studio Code](https://code.visualstudio.com/) installed
-- [Python version 3.13 or higher](https://www.python.org/downloads/) installed
+- [Python version **3.13.xx**](https://www.python.org/downloads/release/python-31312/) installed\*
 - [Git](https://git-scm.com/install/) installed and configured
+- [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) installed
+
+> \* Python 3.14 is available, but some dependencies are not yet compiled for that release. The lab has been successfully tested with Python 3.13.12.
 
 ## Create a Microsoft Foundry project
 
@@ -38,15 +43,15 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 1. In a web browser, open the [Microsoft Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
 
 1. If it is not already enabled, in the tool bar the top of the page, enable the **New Foundry** option. Then, if prompted, create a new project with a unique name; expanding the **Advanced options** area to specify the following settings for your project:
-    - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
+    - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*\*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
     - **Region**: Select any available region
 
-1. Select **Create**. Wait for your project to be created.
-1. On the home page for your project, note the project API key, project endpoint, and OpenAI endpoint.
+    > **TIP**: \* Remember the Foundry resource name - you'll need it later!
 
-    > **TIP**: You're going to need the project API key later!
+1. Select **Create**. Wait for your project to be created.
+1. View the home page for your project.
 
 ## Explore Azure Translator in Foundry Tools in the portal
 
@@ -91,9 +96,9 @@ Now you're ready to use Azure Translator to implement text translation.
 
 ### Configure your text translation application
 
-1. In the **Explorer** pane, in the **translators** folder, select the **.env** file to open it. Then update the configuration values to include the **endpoint** and **key** for your Foundry resource.
+1. In the **Explorer** pane, in the **translators** folder, select the **.env** file to open it. Then update the configuration values to reflect the Cognitive Services **endpoint** for your Foundry resource.
 
-    > **Important**:Be sure to add the `https://{foundry-resource-name}.cognitiveservices.azure.com/` from the Azure Translator sample code, <u>not</u> the project endpoint or OpenAI endpoint! Get the API key from the project home page.
+    > **Important**: The endpoint should be *https://{YOUR_FOUNDRY_RESOURCE}.cognitiveservices.azure.com/*. The Foundry Resource name usually takes the form *{project_name}-resource*.
 
     Save the modified configuration file.
 
@@ -102,10 +107,10 @@ Now you're ready to use Azure Translator to implement text translation.
     > **Note**: Opening the terminal in Visual Studio Code will automatically activate the Python environment. You may need to enable running scripts on your system.
 
 1. Ensure that the terminal is open in the **translators** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
-1. Install the Azure Translator SDK package and other required packages by running the following command:
+1. Install the Azure Translator SDK, Speech SDK, and other required packages by running the following command:
 
     ```
-    pip install -r requirements.txt azure-ai-translation-text==1.0.1
+    pip install -r requirements.txt
     ```
 
 ### Add code to translate text
@@ -120,17 +125,17 @@ Now you're ready to use Azure Translator to implement text translation.
 
     ```python
    # import namespaces
-   from azure.core.credentials import AzureKeyCredential
+   from azure.identity import DefaultAzureCredential
    from azure.ai.translation.text import *
    from azure.ai.translation.text.models import InputTextItem
     ```
 
 1. In the **main** function, note that the existing code reads the configuration settings.
-1. Find the comment **Create client using endpoint and key** and add the following code:
+1. Find the comment **Create client using endpoint and credential** and add the following code:
 
     ```python
-   # Create client using endpoint and key
-   credential = AzureKeyCredential(foundry_key)
+   # Create client using endpoint and credential
+   credential = DefaultAzureCredential()
    client = TextTranslationClient(credential=credential, endpoint=foundry_endpoint)
     ```
 
@@ -169,7 +174,16 @@ Now you're ready to use Azure Translator to implement text translation.
                     print(f"'{inputText}' was translated from {sourceLanguage.language} to {translated_text.to} as '{translated_text.text}'.")
     ```
 
-1. Save your changes. Then, in the terminal pane, enter the following command to run the program:
+1. Save the changes to the code file. Then, in the terminal pane, use the following command to sign into Azure.
+
+    ```powershell
+    az login
+    ```
+
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
+
+1. When prompted, follow the instructions to sign into Azure. Then complete the sign in process in the command line, viewing (and confirming if necessary) the details of the subscription containing your Foundry resource.
+1. After you have signed in, enter the following command to run the application:
 
     ```
    python translate-text.py
@@ -185,12 +199,12 @@ Now you're ready to use Azure Speech to implement text translation.
 
 ### Configure your speech translation application
 
-1. In the **translators** folder, verify that the .env file contains the  **endpoint** and **key** for your Foundry resource (Azure Speech can use the same information as Azure Translator to connect to your Foundry resource).
+1. In the **translators** folder, verify that the .env file contains the  **endpoint** for your Foundry resource (Azure Speech can use the same information as Azure Translator to connect to your Foundry resource).
 1. Ensure that the terminal is open in the **translators** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
-1. Install the Azure Speech SDK package and other required packages by running the following command:
+1. If you did not previously install the required packages, enter the following command to do so now:
 
     ```
-    pip install -r requirements.txt azure-cognitiveservices-speech==1.48.2
+    pip install -r requirements.txt
     ```
 
 ### Add code to translate speech
@@ -205,6 +219,7 @@ Now you're ready to use Azure Speech to implement text translation.
 
    ```python
    # Import namespaces
+   from azure.identity import DefaultAzureCredential
    import azure.cognitiveservices.speech as speech_sdk
     ```
 
@@ -214,8 +229,9 @@ Now you're ready to use Azure Speech to implement text translation.
 
     ```python
    # Configure translation
+   credential = DefaultAzureCredential()
    translation_cfg = speech_sdk.translation.SpeechTranslationConfig(
-            subscription=foundry_key,
+            token_credential=credential,
             endpoint=foundry_endpoint
    )
    translation_cfg.speech_recognition_language = 'en-US'
@@ -235,7 +251,7 @@ Now you're ready to use Azure Speech to implement text translation.
     ```python
    # Configure speech for synthesis of translations
    speech_cfg = speech_sdk.SpeechConfig(
-        subscription=foundry_key, endpoint=foundry_endpoint)
+        token_credential=credential, endpoint=foundry_endpoint)
    audio_out_cfg = speech_sdk.audio.AudioOutputConfig(use_default_speaker=True)
    voices = {
         "fr": "fr-FR-HenriNeural",
@@ -272,7 +288,16 @@ Now you're ready to use Azure Speech to implement text translation.
             print(speak.reason)
     ```
 
-1. Save your changes. Then, in the terminal pane, enter the following command to run the program:
+1. Save the changes to the code file. Then, in the terminal pane, if you are not already signed into Azure (or your session may have expired) use the following command to sign into Azure.
+
+    ```powershell
+    az login
+    ```
+
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
+
+1. When prompted, follow the instructions to sign into Azure. Then complete the sign in process in the command line, viewing (and confirming if necessary) the details of the subscription containing your Foundry resource.
+1. After you have signed in, enter the following command to run the application:
 
     ```
    python translate-speech.py

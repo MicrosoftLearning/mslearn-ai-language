@@ -13,9 +13,11 @@ lab:
 
 In this exercise, you'll configure the Azure Speech in Foundry Tools MCP server, and connect it to an agent.
 
-> **Tip**: The code used in this exercise is based on the for Microsoft Foundry SDK for Python. You can develop similar solutions using the SDKs for Microsoft .NET, JavaScript, and Java. Refer to [Microsoft Foundry SDK client libraries](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview) for details.
+The code used in this exercise is based on the Foundry Tools SDK for Python. You can develop similar solutions using the SDKs for Microsoft .NET, JavaScript, and Java. Refer to [Microsoft Foundry SDK client libraries](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview) for details.
 
 This exercise takes approximately **30** minutes.
+
+> **Note**: Some of the technologies used in this exercise are in preview or in active development. You may experience some unexpected behavior, warnings, or errors.
 
 ## Prerequisites
 
@@ -23,9 +25,11 @@ Before starting this exercise, ensure you have:
 
 - An active [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account)
 - [Visual Studio Code](https://code.visualstudio.com/) installed
-- [Python version 3.13 or higher](https://www.python.org/downloads/) installed
+- [Python version **3.13.xx**](https://www.python.org/downloads/release/python-31312/) installed\*
 - [Git](https://git-scm.com/install/) installed and configured
 - [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) installed
+
+> \* Python 3.14 is available, but some dependencies are not yet compiled for that release. The lab has been successfully tested with Python 3.13.12.
 
 ## Create an Azure storage account
 
@@ -115,6 +119,8 @@ Foundry includes an MCP server for Azure Speech in Foundry Tools, which you can 
     - **Authentication**: Key-based
     - **Bearer** (**Ocp-Apim-Subscription-Key**): *The key for your Foundry project*
     - **X-Blob-Container-Url**: *The SAS URL for your storage container*
+
+    > **Note**: If key-based authentication is disabled by a policy in your Azure subscription, you can use Entra ID authentication to connect the agent to the Azure Language service.
 
 1. Wait for the MCP tool connection to be created, and then view its details page.
 1. On the details page for the Azure Speech in Foundry Tools connection, select **Use in an agent**, and then select the **Speech-Agent** agent you created previously.
@@ -232,17 +238,16 @@ Now that you have a working agent, you can create a client application that uses
 
 Now let's test the application by running it in a Python environment and authenticating the connection to your project.
 
-1. In the Visual Studio Code terminal, enter the following command to sign into Azure
+1. In the terminal pane, use the following command to sign into Azure.
 
-   ```powershell
+    ```powershell
     az login
     ```
 
-    When prompted, sign into Azure using your credentials.
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
 
-    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See *[Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively)* for details.
-
-1. In the Visual Studio Code terminal, confirm the details of your Azure subscription; and then enter the following command to run the client application:
+1. When prompted, follow the instructions to sign into Azure. Then complete the sign in process in the command line, viewing (and confirming if necessary) the details of the subscription containing your Foundry resource.
+1. After you have signed in, enter the following command to run the application:
 
     ```powershell
     python speech-client.py

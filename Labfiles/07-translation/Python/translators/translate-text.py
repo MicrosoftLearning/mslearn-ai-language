@@ -12,10 +12,9 @@ def main():
 
         # Get Configuration Settings
         load_dotenv()
-        foundry_key = os.getenv('FOUNDRY_KEY')
         foundry_endpoint = os.getenv('FOUNDRY_ENDPOINT')
 
-        # Create client using endpoint and key
+        # Create client using endpoint and credential
         
 
 

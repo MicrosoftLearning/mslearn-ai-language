@@ -15,11 +15,11 @@ For example, suppose a travel agency wants to process hotel reviews that have be
 
 While this exercise is based on Python, you can develop text analytics applications using multiple language-specific SDKs; including:
 
-- [Microsoft Azure Text Analytics Client Library for Python](https://pypi.org/project/azure-ai-textanalytics/)
-- [Microsoft Azure Text Analytics Client Library for .NET](https://www.nuget.org/packages/Azure.AI.TextAnalytics)
-- [Microsoft Azure Text Analytics Client Library for JavaScript](https://www.npmjs.com/package/@azure/ai-text-analytics)
+The code used in this exercise is based on the for Microsoft Foundry Tools SDK for Python. You can develop similar solutions using the SDKs for Microsoft .NET, JavaScript, and Java. Refer to [Microsoft Foundry SDK client libraries](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview) for details.
 
 This exercise takes approximately **30** minutes.
+
+> **Note**: Some of the technologies used in this exercise are in preview or in active development. You may experience some unexpected behavior, warnings, or errors.
 
 ## Prerequisites
 
@@ -27,8 +27,11 @@ Before starting this exercise, ensure you have:
 
 - An active [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account)
 - [Visual Studio Code](https://code.visualstudio.com/) installed
-- [Python version 3.13 or higher](https://www.python.org/downloads/) installed
+- [Python version **3.13.xx**](https://www.python.org/downloads/release/python-31312/) installed\*
 - [Git](https://git-scm.com/install/) installed and configured
+- [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) installed
+
+> \* Python 3.14 is available, but some dependencies are not yet compiled for that release. The lab has been successfully tested with Python 3.13.12.
 
 ## Create a Microsoft Foundry project
 
@@ -45,7 +48,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 1. Select **Create**. Wait for your project to be created.
 1. On the home page for your project, note the project endpoint, key, and OpenAI endpoint.
 
-    > **TIP**: You're going to need these values later!
+    > **TIP**: You're going to need the project endpoint later!
 
 ## Get the application files from GitHub
 
@@ -76,10 +79,10 @@ The initial application files you'll need to develop the review analysis applica
     > **Note**: Opening the terminal in Visual Studio Code will automatically activate the Python environment. You may need to enable running scripts on your system.
 
 1. Ensure that the terminal is open in the **text-analysis** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
-1. Install the Azure Language Text Analytics SDK package and other required packages by running the following command:
+1. Install the Azure Language Text Analytics SDK and other required packages by running the following command:
 
     ```
-    pip install -r requirements.txt azure-ai-textanalytics==5.3.0
+    pip install -r requirements.txt
     ```
 
 1. In the **Explorer** pane, in the **text-analysis** folder, select the **.env** file to open it. Then update the configuration values to include the **endpoint** (up to the *.com* domain) and **key** for your Foundry project (copy these from the Foundry portal).
@@ -99,19 +102,28 @@ The initial application files you'll need to develop the review analysis applica
 
     ```python
    # import namespaces
-   from azure.core.credentials import AzureKeyCredential
+   from azure.identity import DefaultAzureCredential
    from azure.ai.textanalytics import TextAnalyticsClient
     ```
 
-1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create client using endpoint and key**, and add the following code to create a client for the Text Analysis API:
+1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create client using endpoint**, and add the following code to create a client for the Text Analysis API:
 
     ```Python
-   # Create client using endpoint and key
-   credential = AzureKeyCredential(foundry_key)
+   # Create client using endpoint
+   credential = DefaultAzureCredential()
    ai_client = TextAnalyticsClient(endpoint=foundry_endpoint, credential=credential)
     ```
 
-1. Save your changes, then in the terminal pane, enter the following command to run the program (you can maximize or resize the terminal pane to see more output):
+1. Save the changes to the code file. Then, in the terminal pane, use the following command to sign into Azure.
+
+    ```powershell
+    az login
+    ```
+
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
+
+1. When prompted, follow the instructions to sign into Azure. Then complete the sign in process in the command line, viewing (and confirming if necessary) the details of the subscription containing your Foundry resource.
+1. After you have signed in, enter the following command to run the application:
 
     ```
    python text-analysis.py
@@ -199,7 +211,7 @@ In addition to categorized entities, the Text Analytics API can detect entities 
    if len(linked_entities) > 0:
        print("\nLinks")
        for linked_entity in linked_entities:
-           print('\t{} ({})'.format(linked_entity.name, linked_entity.url))
+            print('\t{} ({})'.format(linked_entity.name, linked_entity.url))
     ```
 
 1. Save your changes and re-run the program.

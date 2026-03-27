@@ -24,14 +24,19 @@ While this exercise is based on Python, you can develop generative AI speech app
 
 This exercise takes approximately **30** minutes.
 
+> **Note**: Some of the technologies used in this exercise are in preview or in active development. You may experience some unexpected behavior, warnings, or errors.
+
 ## Prerequisites
 
 Before starting this exercise, ensure you have:
 
 - An active [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account)
 - [Visual Studio Code](https://code.visualstudio.com/) installed
-- [Python version 3.13 or higher](https://www.python.org/downloads/) installed
+- [Python version **3.13.xx**](https://www.python.org/downloads/release/python-31312/) installed\*
 - [Git](https://git-scm.com/install/) installed and configured
+- [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) installed
+
+> \* Python 3.14 is available, but some dependencies are not yet compiled for that release. The lab has been successfully tested with Python 3.13.12.
 
 ## Create a Microsoft Foundry project
 
@@ -55,17 +60,18 @@ To develop speech-enables apps, we're going to need speech-enabled models. Speci
 
 ### Deploy a speech-generation model
 
-1. On the project home page, in the **Start building** menu, select **Browse models**.
+1. On the project home page, in the **Start building** menu, select **Find models**.
 1. In the model catalog, search for `gpt-4o-mini-tts`.
 1. Review the model card, and then deploy it using the default settings.
-1. When the model has been deployed, view its details, noting that the **Target URI** and **Key** required to use it are available here (you'll need these later).
+1. When the model has been deployed, view its details, noting that the **Target URI** and **Key** required to use it are available here (you'll need the Target URI later).
 
 ### Deploy a speech-recognition model
 
 1. In the Foundry portal menu bar, select **Build**; and then view the **Models** page. Note that the *gpt-4o-mini-tts* model you deployed is listed.
 1. Select **Deploy a base model, and search the catalog for `gpt-4o-mini-transcribe`.
 1. Deploy a *gpt-4o-mini-transcribe* model using the default settings.
-1. Return to the **Models** page and verify that both pf the model you deployed are listed.
+1. Return to the **Models** page and verify that both of the model you deployed are listed.
+1. Select either of the models to view the Target URI you need to use in your code.
 
 ## Get the application files from GitHub
 
@@ -100,12 +106,12 @@ The initial application files you'll need to develop speech applications are pro
 1. Install the OpenAI SDK package and other required packages by running the following command:
 
     ```
-    pip install -r requirements.txt openai
+    pip install -r requirements.txt
     ```
 
-1. In the **Explorer** pane, in the **generate-speech** folder, select the **.env** file to open it. Then update the configuration values to include the **Target URI** (endpoint) and **key** for your **gpt-4o-mini-tts** model.
+1. In the **Explorer** pane, in the **generate-speech** folder, select the **.env** file to open it. Then update the configuration values to include the **Target URI** (endpoint) for your **gpt-4o-mini-tts** model.
 
-    > **Tip**: Copy the Target URI and key from the model details page in the Foundry portal.
+    > **Tip**: Copy the Target URI from the model details page in the Foundry portal.
 
     Save the modified configuration file.
 
@@ -121,17 +127,22 @@ The initial application files you'll need to develop speech applications are pro
     ```python
    # import namespaces
    from openai import AzureOpenAI
+   from azure.identity import DefaultAzureCredential, get_bearer_token_provider
     ```
 
 1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create the Azure OpenAI client**, and add the following code to create a client for the OpenAI API:
 
     ```Python
    # Create the Azure OpenAI client
+   token_provider = get_bearer_token_provider(                    
+        DefaultAzureCredential(), "https://ai.azure.com/.default"
+    )
+
    client = AzureOpenAI(
-            azure_endpoint=endpoint,
-            api_key=key,
-            api_version="2025-03-01-preview"
-        )
+        azure_endpoint=endpoint,
+        azure_ad_token_provider = token_provider,
+        api_version="2025-03-01-preview"
+   )
     ```
 
 1. Find the comment **Generate speech and save to file**, and add the following code to submit a prompt to the speech-generation model save the response as a file.
@@ -151,7 +162,16 @@ The initial application files you'll need to develop speech applications are pro
 
 ### Run the application
 
-1. In the terminal pane, enter the following command to run the program (you can maximize or resize the terminal pane to see more output):
+1. In the terminal pane, use the following command to sign into Azure.
+
+    ```powershell
+    az login
+    ```
+
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
+
+1. When prompted, follow the instructions to sign into Azure. Then complete the sign in process in the command line, viewing (and confirming if necessary) the details of the subscription containing your Foundry resource.
+1. After you have signed in, enter the following command to run the application:
 
     ```
    python generate-speech.py
@@ -176,14 +196,14 @@ The initial application files you'll need to develop speech applications are pro
 1. Install the OpenAI SDK package and other required packages by running the following command:
 
     ```
-    pip install -r requirements.txt openai
+    pip install -r requirements.txt
     ```
 
     > **Note**: This step isn't actually necessary if you completed the previous part of this exercise, as botg apps use the same environment and have the same dependencies - but it won't do any harm!
 
-1. In the **Explorer** pane, in the **transcribe-speech** folder, select the **.env** file to open it. Then update the configuration values to include the **Target URI** (endpoint) and **key** for your **gpt-4o-mini-transcribe** model.
+1. In the **Explorer** pane, in the **transcribe-speech** folder, select the **.env** file to open it. Then update the configuration values to include the **Target URI** (endpoint) for your **gpt-4o-mini-transcribe** model.
 
-    > **Tip**: Copy the Target URI and key from the model details page in the Foundry portal.
+    > **Tip**: Copy the Target URI from the model details page in the Foundry portal.
 
     Save the modified configuration file.
 
@@ -199,17 +219,22 @@ The initial application files you'll need to develop speech applications are pro
     ```python
    # import namespaces
    from openai import AzureOpenAI
+   from azure.identity import DefaultAzureCredential, get_bearer_token_provider
     ```
 
 1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create the Azure OpenAI client**, and add the following code to create a client for the OpenAI API:
 
     ```Python
    # Create the Azure OpenAI client
+   token_provider = get_bearer_token_provider(                    
+        DefaultAzureCredential(), "https://ai.azure.com/.default"
+    )
+
    client = AzureOpenAI(
-            azure_endpoint=endpoint,
-            api_key=key,
-            api_version="2025-03-01-preview"
-        )
+        azure_endpoint=endpoint,
+        azure_ad_token_provider = token_provider,
+        api_version="2025-03-01-preview"
+   )
     ```
 
 1. Find the comment **Call model to transcribe audio file**, and add the following code to submit an audio file to the speech-transcription model generate a transcript.
@@ -231,7 +256,16 @@ The initial application files you'll need to develop speech applications are pro
 
 ### Run the application
 
-1. In the terminal pane, enter the following command to run the program (you can maximize or resize the terminal pane to see more output):
+1. In the terminal pane, use the following command to sign into Azure.
+
+    ```powershell
+    az login
+    ```
+
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
+
+1. When prompted, follow the instructions to sign into Azure. Then complete the sign in process in the command line, viewing (and confirming if necessary) the details of the subscription containing your Foundry resource.
+1. After you have signed in, enter the following command to run the application:
 
     ```
    python transcribe-speech.py

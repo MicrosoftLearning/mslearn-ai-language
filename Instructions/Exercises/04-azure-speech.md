@@ -24,14 +24,19 @@ While this exercise is based on Python, you can develop speech applications usin
 
 This exercise takes approximately **30** minutes.
 
+> **Note**: Some of the technologies used in this exercise are in preview or in active development. You may experience some unexpected behavior, warnings, or errors.
+
 ## Prerequisites
 
 Before starting this exercise, ensure you have:
 
 - An active [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account)
 - [Visual Studio Code](https://code.visualstudio.com/) installed
-- [Python version 3.13 or higher](https://www.python.org/downloads/) installed
+- [Python version **3.13.xx**](https://www.python.org/downloads/release/python-31312/) installed\*
 - [Git](https://git-scm.com/install/) installed and configured
+- [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) installed
+
+> \* Python 3.14 is available, but some dependencies are not yet compiled for that release. The lab has been successfully tested with Python 3.13.12.
 
 ## Create a Microsoft Foundry project
 
@@ -40,15 +45,15 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 1. In a web browser, open the [Microsoft Foundry portal](https://ai.azure.com) at `https://ai.azure.com` and sign in using your Azure credentials. Close any tips or quick start panes that are opened the first time you sign in, and if necessary use the Foundry logo at the top left to navigate to the home page.
 
 1. If it is not already enabled, in the tool bar the top of the page, enable the **New Foundry** option. Then, if prompted, create a new project with a unique name; expanding the **Advanced options** area to specify the following settings for your project:
-    - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
+    - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*\*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
     - **Region**: Select any available region
 
-1. Select **Create**. Wait for your project to be created.
-1. On the home page for your project, note the project endpoint, key, and OpenAI endpoint.
+    > **TIP**: \* Remember the Foundry resource name - you'll need it later!
 
-    > **TIP**: You're going to need the project endpoint and key later!
+1. Select **Create**. Wait for your project to be created.
+1. View the home page for your project.
 
 ## Get the application files from GitHub
 
@@ -79,15 +84,15 @@ The initial application files you'll need to develop the voice application are p
     > **Note**: Opening the terminal in Visual Studio Code will automatically activate the Python environment. You may need to enable running scripts on your system.
 
 1. Ensure that the terminal is open in the **voice-mail** folder with the prefix **(.venv)** to indicate that the Python environment you created is active.
-1. Install the Azure AI Language Text Analytics SDK package and other required packages by running the following command:
+1. Install the Azure AI Speech SDK package and other required packages by running the following command:
 
     ```
-    pip install -r requirements.txt azure-cognitiveservices-speech==1.48.2
+    pip install -r requirements.txt
     ```
 
-1. In the **Explorer** pane, in the **voice-mail** folder, select the **.env** file to open it. Then update the configuration values to include the **endpoint** (up to the *.com* domain) and **key** for your Foundry project (copy these from the Foundry portal).
+1. In the **Explorer** pane, in the **voice-mail** folder, select the **.env** file to open it. Then update the configuration values to reflect the Cognitive Services **endpoint** for your Foundry resource.
 
-    > **Important**: Modify the pasted endpoint to remove the "/api/projects/{project_name}" suffix - the endpoint should be *https://{your-foundry-resource-name}.services.ai.azure.com*.
+    > **Important**: The endpoint should be *https://{YOUR_FOUNDRY_RESOURCE}.cognitiveservices.azure.com/*. The Foundry Resource name usually takes the form *{project_name}-resource*.
 
     Save the modified configuration file.
 
@@ -98,19 +103,22 @@ The initial application files you'll need to develop the voice application are p
 
     > **Tip**: As you add code to the code file, be sure to maintain the correct indentation.
 
-1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces** and add the following code to import the namespaces you will need to use the Text Analytics SDK:
+1. At the top of the code file, under the existing namespace references, find the comment **Import namespaces** and add the following code to import the namespaces you will need to use the Speech SDK:
 
     ```python
    # import namespaces
+   from azure.identity import DefaultAzureCredential
    import azure.cognitiveservices.speech as speech_sdk
     ```
 
-1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create speech_config using key and region**, and add the following code to create a Speech Configuration object:
+1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create speech_config using Entra ID authentication**, and add the following code to create a Speech Configuration object:
 
     ```Python
-   # Create speech_config using key and region
-   speech_config = speech_sdk.SpeechConfig(subscription=foundry_key,
-                                           endpoint=foundry_endpoint)
+   # Create speech_config using Entra ID authentication
+   credential = DefaultAzureCredential()
+   speech_config = speech_sdk.SpeechConfig(    
+        token_credential=credential,
+        endpoint=foundry_endpoint)
     ```
 
 1. Review the rest of the **main** function, and note that a loop has been implemented that enables the user to choose one of three options:
@@ -124,20 +132,29 @@ The initial application files you'll need to develop the voice application are p
     ```python
    # Synthesize the greeting message to an audio file
    output_file = "greeting.wav"
-   audio_config = speech_sdk.audio.AudioConfig(filename=output_file)
+   audio_config = speech_sdk.audio.AudioOutputConfig(filename=output_file)
    speech_config.speech_synthesis_voice_name = "en-US-Serena:DragonHDLatestNeural"
-   speech_synthesizer = speech_sdk.SpeechSynthesizer(speech_config=speech_config,
-                                                    audio_config=audio_config)
+   speech_synthesizer = speech_sdk.SpeechSynthesizer
+        (speech_config=speech_config,
+         audio_config=audio_config)
    result = speech_synthesizer.speak_text_async(greeting_message).get()
    if result.reason == speech_sdk.ResultReason.SynthesizingAudioCompleted:
         print(f"Greeting recorded and saved to {output_file}")
         speech_synthesizer = None  # Release the synthesizer resources
-        playsound(output_file)
    else:
         print("Error recording greeting: {}".format(result.reason))
     ```
 
-1. Save the changes to the code file. Then, in the terminal, enter the following command to run the application:
+1. Save the changes to the code file. Then, in the terminal pane, use the following command to sign into Azure.
+
+    ```powershell
+    az login
+    ```
+
+    > **Note**: In most scenarios, just using *az login* will be sufficient. However, if you have subscriptions in multiple tenants, you may need to specify the tenant by using the *--tenant* parameter. See [Sign into Azure interactively using the Azure CLI](https://learn.microsoft.com/cli/azure/authenticate-azure-cli-interactively) for details.
+
+1. When prompted, follow the instructions to sign into Azure. Then complete the sign in process in the command line, viewing (and confirming if necessary) the details of the subscription containing your Foundry resource.
+1. After you have signed in, enter the following command to run the application:
 
     ```powershell
    python voice-mail.py
@@ -147,7 +164,7 @@ The initial application files you'll need to develop the voice application are p
 1. Enter a greeting, like `Hi. The person you called is not available right now. Leave a message.`
 1. Wait while the speech is synthesized and saved as an audio file.
 
-    The file is played back automatically, so you can hear the greeting.
+    You can select the *greeting.wav* file that is generated in the voice-mail folder to play it in Visual Studio Code.
 
 ## Add code to recognize speech
 

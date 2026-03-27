@@ -12,9 +12,9 @@ def main():
         # Get Configuration Settings
         load_dotenv()
         foundry_endpoint = os.getenv('FOUNDRY_ENDPOINT')
-        foundry_key = os.getenv('FOUNDRY_KEY')
 
-        # Create client using endpoint and key
+
+        # Create client using endpoint
 
 
         # Analyze each text file in the reviews folder

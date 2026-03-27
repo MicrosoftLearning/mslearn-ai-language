@@ -14,8 +14,7 @@ def main():
 
         # Get Configuration Settings
         load_dotenv()
-        endpoint=os.getenv("AZURE_OPENAI_ENDPOINT")
-        key=os.getenv("AZURE_OPENAI_API_KEY")
+        endpoint=os.getenv("MODEL_ENDPOINT")
         model_deployment=os.getenv("MODEL_NAME")
         speech_file_path = Path(__file__).parent / "speech.mp3"
 

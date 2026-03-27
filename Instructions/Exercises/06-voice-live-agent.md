@@ -15,6 +15,8 @@ In this exercise, you'll the Voice Live capability of Azure Speech in Microsoft 
 
 This exercise takes approximately **30** minutes.
 
+> **Note**: Some of the technologies used in this exercise are in preview or in active development. You may experience some unexpected behavior, warnings, or errors.
+
 ## Prerequisites
 
 Before starting this exercise, ensure you have:
@@ -25,7 +27,7 @@ Before starting this exercise, ensure you have:
 - [Git](https://git-scm.com/install/) installed and configured
 - [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli?view=azure-cli-latest) installed
 
-> \* Python 3.14 is available, but some dependencies in this exercise are not yet compiled for that release. The lab has been successfully tested with Python 3.13.12.
+> \* Python 3.14 is available, but some dependencies are not yet compiled for that release. The lab has been successfully tested with Python 3.13.12.
 
 ## Create a Microsoft Foundry project
 

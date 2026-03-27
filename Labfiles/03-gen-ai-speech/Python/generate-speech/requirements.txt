@@ -1,2 +1,4 @@
-dotenv
+python-dotenv
 playsound3
+azure-identity
+openai

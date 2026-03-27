@@ -1,2 +1,4 @@
 python-dotenv
 playsound3
+azure-identity
+azure-cognitiveservices-speech==1.48.2
