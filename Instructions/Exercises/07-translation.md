@@ -270,7 +270,7 @@ Now you're ready to use Azure Speech to implement text translation.
    print(f"Translating '{translation_results.text}'")
     ```
 
-1. When the results are returned, the application will iterate through the translations, printing the text and playing the synthesized speech through the default system speaker. Find the comment **** and add he following code:
+1. When the results are returned, the application will iterate through the translations, printing the text and playing the synthesized speech through the default system speaker. Find the comment **Print and speak the translation results** and add he following code:
 
     ```python
    # Print and speak the translation results
