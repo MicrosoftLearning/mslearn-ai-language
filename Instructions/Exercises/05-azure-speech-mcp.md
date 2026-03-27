@@ -81,7 +81,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     > **TIP**: Remember (or make a note of) the Foundry resource name - you're going to need it later!
 
 1. Select **Create**. Wait for your project to be created.
-1. On the home page for your project, note the project endpoint, key, and OpenAI endpoint.
+1. On the home page for your project, note that the API key, project endpoint, and OpenAI endpoint are displayed here.
 
     > **TIP**: Copy the project key to the clipboard - you're going to need it later!
 
@@ -89,9 +89,9 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 Now that you have a Foundry project, you can create an agent.
 
-1. In the **Start building** menu, select **Create agent**; and when prompted, name the agent `Speech-Agent`.
+1. On the home page, select **Create agents** (or on the **Build** page, select the **Agents** tab); and create a new agent named `speech-agent`.
 
-    When ready, your agent opens in the agent playground.
+     When ready, your agent opens in the agent playground.
 
 1. In the model drop-down list, ensure that a **gpt-4.1** model has been deployed and selected for your agent.
 1. Assign your agent the following **Instructions**:
@@ -131,7 +131,7 @@ Foundry includes an MCP server for Azure Speech in Foundry Tools, which you can 
 
 Now let's test the agent's ability to use the tool you connected.
 
-1. In the agent playground for the **Speech-Agent** agent, enter the following prompt:
+1. In the agent playground for the **speech-agent** agent, enter the following prompt:
 
     ```
     Generate "To be or not to be, that is the question." as speech
@@ -181,7 +181,7 @@ Now that you have a working agent, you can create a client application that uses
 1. Install the Foundry SDK package, the Azure Identity package, and other required packages by running the following command:
 
     ```
-    pip install -r requirements.txt azure-identity --pre azure-ai-projects==2.0.0b4
+    pip install -r requirements.txt
     ```
 
 1. In the **Explorer** pane, in the **speech-client** folder, select the **.env** file to open it. Then update the configuration values to include your project **endpoint** (from the project home page in Foundry Portal)and the name of your agent (which should be **Speech-Agent** - note that this name is case-sensitive).

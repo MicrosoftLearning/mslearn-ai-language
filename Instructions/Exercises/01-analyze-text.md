@@ -46,7 +46,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Region**: Select any available region
 
 1. Select **Create**. Wait for your project to be created.
-1. On the home page for your project, note the project endpoint, key, and OpenAI endpoint.
+1. On the home page for your project, note that the API key, project endpoint, and OpenAI endpoint are displayed here.
 
     > **TIP**: You're going to need the project endpoint later!
 
@@ -68,7 +68,7 @@ The initial application files you'll need to develop the review analysis applica
 ## Configure your application
 
 1. In Visual Studio Code, view the **Extensions** pane; and if it is not already installed, install the **Python** extension.
-1. In the **Command Palette**, use the command `python:select interpreter`. Then select an existing environment if you have one, or create a new **Venv** environment based on your Python 3.1x installation.
+1. In the **Command Palette**, use the command `python:select interpreter`. Then select an existing environment if you have one, or create a new **Venv** environment based on your Python 3.13.x installation.
 
     > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/01-analyze-text/Python/text-analysis* folder; but it's OK if you don't - we'll install them later!
 

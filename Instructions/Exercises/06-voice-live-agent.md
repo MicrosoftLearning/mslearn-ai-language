@@ -47,7 +47,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 Now let's create an agent.
 
-1. In the **Start building** menu, select **Create agent**; and when prompted, name the agent `Chat-Agent`.
+1. On the home page, select **Create agents** (or on the **Build** page, select the **Agents** tab); and create a new agent named `chat-agent`.
 
      When ready, your agent opens in the agent playground.
 

@@ -48,9 +48,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: Select East US 2 (For this exercises some models are only available in this location.)
-
-    > **Tip**: Make a note of the region you selected. You'll need it later!
+    - **Region**: Select *East US 2* (For this exercises some models are only available in this location.)
 
 1. Select **Create**. Wait for your project to be created.
 
@@ -60,7 +58,7 @@ To develop speech-enables apps, we're going to need speech-enabled models. Speci
 
 ### Deploy a speech-generation model
 
-1. On the project home page, in the **Start building** menu, select **Find models**.
+1. On the home page, select **Find models** (or on the **Discover** page, select the **Models** tab) to view the Microsoft Foundry model catalog.
 1. In the model catalog, search for `gpt-4o-mini-tts`.
 1. Review the model card, and then deploy it using the default settings.
 1. When the model has been deployed, view its details, noting that the **Target URI** and **Key** required to use it are available here (you'll need the Target URI later).

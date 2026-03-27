@@ -52,8 +52,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
     > **TIP**: \* Remember the Foundry resource name - you'll need it later!
 
-1. Select **Create**. Wait for your project to be created.
-1. View the home page for your project.
+1. Wait for your project to be created. Then view the home page for your project.
 
 ## Get the application files from GitHub
 
