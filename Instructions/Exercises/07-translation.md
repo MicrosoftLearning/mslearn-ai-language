@@ -56,8 +56,8 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 You can use the Azure Translator playground in the Foundry portal to experiment with the service.
 
-1. On the home page, select **Find models** (or on the **Discover** page, select the **Models** tab) to view the Microsoft Foundry model catalog.
-1. In the **Models** page, select the **Ai services** tab to view the list of Azure services in Foundry Tools.
+1. In the **Start building** menu, select **Explore playgrounds** (or on the **Build** page, select the **Models** tab) to view the models in your project.
+1. In the **Models** page, select the **AI services** tab to view the list of Azure services in Foundry Tools.
 1. In the list of tools, select **Azure Translator - Text translation**.
 1. In the Text translator playground, in the **Source text** area, enter the text `Hello world!`. Then, in the **Translation** area, select any language and use the **Translate** button to generate the translation.
 1. Try a few more languages.

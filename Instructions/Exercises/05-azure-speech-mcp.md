@@ -80,7 +80,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
     > **TIP**: Remember (or make a note of) the Foundry resource name - you're going to need it later!
 
-1. Select **Create**. Wait for your project to be created.
+1. Wait for your project to be created.
 1. On the home page for your project, note that the API key, project endpoint, and OpenAI endpoint are displayed here.
 
     > **TIP**: Copy the project key to the clipboard - you're going to need it later!
@@ -89,7 +89,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 Now that you have a Foundry project, you can create an agent.
 
-1. On the home page, select **Create agents** (or on the **Build** page, select the **Agents** tab); and create a new agent named `speech-agent`.
+1. In the **Start building** menu, select **Create agents** (or on the **Build** page, select the **Agents** tab); and create a new agent named `speech-agent`.
 
      When ready, your agent opens in the agent playground.
 
