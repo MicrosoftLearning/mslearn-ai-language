@@ -24,8 +24,7 @@ def main():
         # Get user input
         prompt = ""
         while prompt != "quit":
-            prompt = input("User prompt (or 'quit'): ")
-            if prompt != "quit":
+
 
                 # Use the agent to get a response
                 
