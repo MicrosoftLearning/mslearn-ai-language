@@ -223,7 +223,6 @@ Now that you have a working agent, you can create a client application that uses
 
     ```python
    # Use the agent to get a response
-   prompt = input("User prompt (or 'quit'): ")
    response = openai_client.responses.create(
         input=[{"role": "user", "content": prompt}],
         extra_body={"agent_reference": {"name": agent_name, "type": "agent_reference"}},
@@ -267,6 +266,7 @@ Now let's test the application by running it in a Python environment and authent
      ```
 
 1. Review the response.
+1. To exit the program, enter "quit" (or just press return)
 
 ## Clean up resources
 

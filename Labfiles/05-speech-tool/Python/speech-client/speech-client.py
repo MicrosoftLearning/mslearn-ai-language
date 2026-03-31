@@ -21,11 +21,13 @@ def main():
         # Get an OpenAI client
         
         
-        # Get user input
-        prompt = ""
-        while prompt != "quit":
-
-
+        # Main loop
+        while True:
+            # Get user input
+            prompt = input("User prompt (or 'quit'): ")
+            if prompt == "quit" or len(prompt) == 0:
+                break
+            else:
                 # Use the agent to get a response
                 
                 
