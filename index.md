@@ -1,5 +1,5 @@
 ---
-title: Azure Language Exercises
+title: Develop AI Language and Speech solutions on Azure
 permalink: index.html
 layout: home
 ---
