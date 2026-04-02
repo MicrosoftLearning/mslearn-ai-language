@@ -209,13 +209,33 @@ In addition to categorized entities, the Text Analytics API can detect entities 
    # Get linked entities
    linked_entities = ai_client.recognize_linked_entities(documents=[text])[0].entities
    if len(linked_entities) > 0:
-       print("\nLinks")
-       for linked_entity in linked_entities:
+        print("\nLinks")
+        for linked_entity in linked_entities:
             print('\t{} ({})'.format(linked_entity.name, linked_entity.url))
     ```
 
 1. Save your changes and re-run the program.
 1. Observe the output, noting the linked entities that are identified.
+
+## Add code to extract PII
+
+Often, privacy policies and legislation can require that personally identifiable information (PII). such as names, addresses, phone numbers, and other private details be redacted from documents.
+
+1. In the code editor, find the comment **Get PII**. Then, add the code necessary to identify PII entities that are mentioned in each review:
+
+    ```python
+   # Get PII
+   pii_result = ai_client.recognize_pii_entities(documents=[text])[0]
+   pii_entities = pii_result.entities
+   if len(pii_entities) > 0:
+        print("\nPII Entities")
+        for pii_entity in pii_entities:
+            print('\t{} ({})'.format(pii_entity.text, pii_entity.category)) 
+        print("Redacted Text:\n {}".format(pii_result.redacted_text))
+    ```
+
+1. Save your changes and re-run the program.
+1. Observe the output, noting the PII entities that are identified, and reviewing the redacted version on each document that is generated.
 
 ## Clean up
 
