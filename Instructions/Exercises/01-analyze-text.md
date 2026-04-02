@@ -1,7 +1,7 @@
 ---
 lab:
     title: 'Analyze text'
-    description: "Use Azure Language in Foundry Tools to analyze text, including language detection, sentiment analysis, key phrase extraction, and entity recognition."
+    description: "Use Azure Language in Foundry Tools to analyze text."
     level: 300
     duration: 30
     islab: true
@@ -9,9 +9,9 @@ lab:
 
 # Analyze Text
 
-**Azure Language in Foundry Tools** supports analysis of text, including language detection, sentiment analysis, key phrase extraction, and entity recognition.
+**Azure Language in Foundry Tools** supports analysis of text, including language detection, entity recognition, and PII redaction.
 
-For example, suppose a travel agency wants to process hotel reviews that have been submitted to the company's web site. By using the Azure Language, they can determine the language each review is written in, the sentiment (positive, neutral, or negative) of the reviews, key phrases that might indicate the main topics discussed in the review, and named entities, such as places, landmarks, or people mentioned in the reviews. In this exercise, you'll use the Azure Language Python SDK for text analytics to implement a simple hotel review application.
+For example, suppose a travel agency wants to process hotel reviews that have been submitted to the company's web site. By using the Azure Language, they can determine the language each review is written in, identify named entities, such as places, landmarks, or people mentioned in the reviews, and redact any personally identifiable information before publishing them on the company's website. In this exercise, you'll use the Azure Language Python SDK for text analytics to implement a simple hotel review application.
 
 While this exercise is based on Python, you can develop text analytics applications using multiple language-specific SDKs; including:
 
@@ -148,39 +148,6 @@ Now that you have created a client for the API, let's use it to detect the langu
 1. Save your changes. Then re-run the program.
 1. Observe the output, noting that this time the language for each review is identified.
 
-## Add code to evaluate sentiment
-
-*Sentiment analysis* is a commonly used technique to classify text as *positive* or *negative* (or possible *neutral* or *mixed*). It's commonly used to analyze social media posts, product reviews, and other items where the sentiment of the text may provide useful insights.
-
-1. In the code editor, find the comment **Get sentiment**. Then add the code necessary to detect the sentiment of each review document:
-
-    ```python
-   # Get sentiment
-   sentimentAnalysis = ai_client.analyze_sentiment(documents=[text])[0]
-   print("\nSentiment: {}".format(sentimentAnalysis.sentiment))
-    ```
-
-1. Save your changes. Then re-run the program.
-1. Observe the output, noting that the sentiment of the reviews is detected.
-
-## Add code to identify key phrases
-
-It can be useful to identify key phrases in a body of text to help determine the main topics that it discusses.
-
-1. In the code editor, find the comment **Get key phrases**. Then add the code necessary to detect the key phrases in each review document:
-
-    ```python
-   # Get key phrases
-   phrases = ai_client.extract_key_phrases(documents=[text])[0].key_phrases
-   if len(phrases) > 0:
-        print("\nKey Phrases:")
-        for phrase in phrases:
-            print('\t{}'.format(phrase))
-    ```
-
-1. Save your changes and re-run the program.
-1. Observe the output, noting that each document contains key phrases that give some insights into what the review is about.
-
 ## Add code to extract entities
 
 Often, documents or other bodies of text mention people, places, time periods, or other entities. The text Analytics API can detect multiple categories (and subcategories) of entity in your text.
@@ -199,25 +166,7 @@ Often, documents or other bodies of text mention people, places, time periods, o
 1. Save your changes and re-run the program.
 1. Observe the output, noting the entities that have been detected in the text.
 
-## Add code to extract linked entities
-
-In addition to categorized entities, the Text Analytics API can detect entities for which there are known links to data sources, such as Wikipedia.
-
-1. In the code editor, find the comment **Get linked entities**. Then, add the code necessary to identify linked entities that are mentioned in each review:
-
-    ```python
-   # Get linked entities
-   linked_entities = ai_client.recognize_linked_entities(documents=[text])[0].entities
-   if len(linked_entities) > 0:
-        print("\nLinks")
-        for linked_entity in linked_entities:
-            print('\t{} ({})'.format(linked_entity.name, linked_entity.url))
-    ```
-
-1. Save your changes and re-run the program.
-1. Observe the output, noting the linked entities that are identified.
-
-## Add code to extract PII
+## Add code to redact PII
 
 Often, privacy policies and legislation can require that personally identifiable information (PII). such as names, addresses, phone numbers, and other private details be redacted from documents.
 

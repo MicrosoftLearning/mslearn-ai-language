@@ -28,16 +28,9 @@ def main():
             # Get language
 
 
-            # Get sentiment
-
-
-            # Get key phrases
-
 
             # Get entities
 
-
-            # Get linked entities
 
 
             # Get PII
