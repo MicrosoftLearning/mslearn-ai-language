@@ -62,7 +62,7 @@ Now that you have a Foundry project, you can create an agent.
 1. Assign your agent the following **Instructions**:
 
     ```
-   You are an AI agent that assists users by helping them analyze and summarize text.
+   You are an AI agent that assists users by helping them analyze text.
     ```
 
 1. Use the **Save** button to save the changes.
@@ -98,22 +98,22 @@ Now let's test the agent's ability to use the tool you connected.
 1. In the agent playground for the **Text-Analysis-Agent** agent, modify the instructions as follows:
 
     ```
-   You are an AI agent that assists users by helping them analyze and summarize text. Use the Azure Language tool to perform text analysis tasks.
+   You are an AI agent that assists users by helping them analyze text. Use the Azure Language tool to perform text analysis tasks.
     ```
 
 1. Use the **Save** button to save the changes.
 1. Test the agent by entering the following prompt in the **Chat** pane:
 
     ```
-    Summarize this article, and use named entity recognition to identify people, places, and dates:
+    Identify the PII entities in this article, and generate a redacted version:
 
-    Microsoft was founded on April 4, 1975, by childhood friends Bill Gates (then 19) and Paul Allen (22) after they were inspired by the Altair 8800, one of the first personal computers, featured on the cover of *Popular Electronics*. They contacted the Altair’s maker, MITS, and successfully developed a version of the BASIC programming language, despite initially not owning the machine themselves. The pair formed a partnership called “Micro‑Soft” in Albuquerque, New Mexico, close to MITS’s headquarters, with the goal of writing software for emerging microcomputers.
-
+    Microsoft was founded on April 4, 1975, by childhood friends Bill Gates (then 19) and Paul Allen (22) after they were inspired by the Altair 8800, one of the first personal computers, featured on the cover of Popular Electronics. They contacted the Altair’s maker, MITS, and successfully developed a version of the BASIC programming language, despite initially not owning the machine themselves. The pair formed a partnership called “Micro‑Soft” in Albuquerque, New Mexico, close to MITS’s headquarters, with the goal of writing software for emerging microcomputers.
+    
     In the late 1970s, Microsoft grew by supplying programming languages to multiple hardware vendors, then relocated to the Seattle area in 1979. A pivotal moment came in 1980 when Microsoft partnered with IBM to provide an operating system for the IBM PC, leading to MS‑DOS and establishing the company’s dominance in personal computing. Gates guided the company’s long-term strategy as CEO, while Allen contributed key technical vision in its early years, setting Microsoft on a path that would reshape the software industry.
     ```
 
 1. When prompted, approve use of the Azure Language tool by selecting **Always approve all Azure Language in Foundry Tools tools** (you may need to do this twice because the prompt asked for two distinct text analysis tasks).
-1. Review the response, which should summarize the article about the founding of Microsoft and list the key people, places, and dates it mentions.
+1. Review the response, which should identify any personally identifiable information in the article about the founding of Microsoft, and create a version of the article with this information redacted.
 1. Review the **Logs** for the chat and verify that the Azure Language tool was used by the agent to process the prompt.
 
 ## Configure tool approval
