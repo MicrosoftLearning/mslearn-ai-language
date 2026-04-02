@@ -235,7 +235,7 @@ Often, privacy policies and legislation can require that personally identifiable
     ```
 
 1. Save your changes and re-run the program.
-1. Observe the output, noting the PII entities that are identified, and reviewing the redacted version on each document that is generated.
+1. Observe the output, noting the PII entities that are identified, and reviewing the redacted version of each document that is produced.
 
 ## Clean up
 
