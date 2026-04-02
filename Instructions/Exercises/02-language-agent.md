@@ -9,7 +9,7 @@ lab:
 
 # Develop a text analysis agent
 
-**Azure Language in Foundry Tools** supports analysis of text, including language detection, sentiment analysis, key phrase extraction, entity recognition, and summarization.
+**Azure Language in Foundry Tools** supports analysis of text, including language detection, entity recognition, and PII redaction.
 
 You can use the service directly in an application through its REST API and several language-specific SDKs. You can also use the **Azure Language in Foundry Tools MCP server** to integrate its capabilities into an AI agent; which is what you'll do in this exercise.
 
