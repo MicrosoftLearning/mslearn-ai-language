@@ -166,7 +166,7 @@ To use your agent in a custom application, you need to write code that uses the 
    ) 
     ```
 
-1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided, as has code to get an authentication credential and to create and run a **VoiceAssistant** object.
+1. In the **main** function, note that code to load the endpoint from the configuration file has already been provided, as has code to get an authentication credential and to create and run a **VoiceAssistant** object.
 
     The **VoiceAssistant** class encapsulates the logic to manage the Voice Live conversation.
 

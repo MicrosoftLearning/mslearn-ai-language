@@ -202,7 +202,7 @@ Now that you have a working agent, you can create a client application that uses
    from azure.ai.projects import AIProjectClient
     ```
 
-1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Get project client**, and add the following code to create a client for your Foundry project:
+1. In the **main** function, note that code to load the endpoint from the configuration file has already been provided. Then find the comment **Get project client**, and add the following code to create a client for your Foundry project:
 
     ```python
    # Get project client

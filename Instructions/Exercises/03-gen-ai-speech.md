@@ -128,7 +128,7 @@ The initial application files you'll need to develop speech applications are pro
    from azure.identity import DefaultAzureCredential, get_bearer_token_provider
     ```
 
-1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create the Azure OpenAI client**, and add the following code to create a client for the OpenAI API:
+1. In the **main** function, note that code to load the endpoint from the configuration file has already been provided. Then find the comment **Create the Azure OpenAI client**, and add the following code to create a client for the OpenAI API:
 
     ```Python
    # Create the Azure OpenAI client
@@ -220,7 +220,7 @@ The initial application files you'll need to develop speech applications are pro
    from azure.identity import DefaultAzureCredential, get_bearer_token_provider
     ```
 
-1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create the Azure OpenAI client**, and add the following code to create a client for the OpenAI API:
+1. In the **main** function, note that code to load the endpoint from the configuration file has already been provided. Then find the comment **Create the Azure OpenAI client**, and add the following code to create a client for the OpenAI API:
 
     ```Python
    # Create the Azure OpenAI client

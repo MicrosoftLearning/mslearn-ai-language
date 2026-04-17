@@ -85,7 +85,7 @@ The initial application files you'll need to develop the review analysis applica
     pip install -r requirements.txt
     ```
 
-1. In the **Explorer** pane, in the **text-analysis** folder, select the **.env** file to open it. Then update the configuration values to include the **endpoint** (up to the *.com* domain) and **key** for your Foundry project (copy these from the Foundry portal).
+1. In the **Explorer** pane, in the **text-analysis** folder, select the **.env** file to open it. Then update the configuration values to include the **endpoint** (up to the *.com* domain) for your Foundry project (copy these from the Foundry portal).
 
     > **Important**: Modify the pasted endpoint to remove the "/api/projects/{project_name}" suffix - the endpoint should be *https://{your-foundry-resource-name}.services.ai.azure.com*.
 
@@ -106,7 +106,7 @@ The initial application files you'll need to develop the review analysis applica
    from azure.ai.textanalytics import TextAnalyticsClient
     ```
 
-1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create client using endpoint**, and add the following code to create a client for the Text Analysis API:
+1. In the **main** function, note that code to load the endpoint from the configuration file has already been provided. Then find the comment **Create client using endpoint**, and add the following code to create a client for the Text Analysis API:
 
     ```Python
    # Create client using endpoint

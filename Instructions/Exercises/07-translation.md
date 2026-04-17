@@ -222,7 +222,7 @@ Now you're ready to use Azure Speech to implement text translation.
    import azure.cognitiveservices.speech as speech_sdk
     ```
 
-1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the key and endpoint you defined in the configuration file.
+1. In the **main** function, under the comment **Get configuration settings**, note that the code loads the endpoint you defined in the configuration file.
 
 1. Find the following code under the comment **Configure translation**, and add the following code to configure your connection to the Foundry endpoint for Azure Speech, and prepare to translate speech in US English to French, Spanish, and Hindi:
 

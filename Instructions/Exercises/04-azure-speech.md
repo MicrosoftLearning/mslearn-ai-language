@@ -110,7 +110,7 @@ The initial application files you'll need to develop the voice application are p
    import azure.cognitiveservices.speech as speech_sdk
     ```
 
-1. In the **main** function, note that code to load the endpoint and key from the configuration file has already been provided. Then find the comment **Create speech_config using Entra ID authentication**, and add the following code to create a Speech Configuration object:
+1. In the **main** function, note that code to load the endpoint from the configuration file has already been provided. Then find the comment **Create speech_config using Entra ID authentication**, and add the following code to create a Speech Configuration object:
 
     ```Python
    # Create speech_config using Entra ID authentication
