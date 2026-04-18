@@ -114,11 +114,16 @@ Now that you have a Foundry project, you can create an agent.
 Foundry includes an MCP server for Azure Speech in Foundry Tools, which you can connect to your project and use in your agent.
 
 1. In the navigation pane on the left, select the **Tools** page.
-1. Connect a tool; selecting **Azure Speech MCP Server** in the **Catalog** and specifying the following configuration
-    - **Foundry resource name**: *Enter the name of your Foundry resource (for example, `{project_name}-resource)`*
-    - **Authentication**: Key-based
-    - **Bearer** (**Ocp-Apim-Subscription-Key**): *The key for your Foundry project*
-    - **X-Blob-Container-Url**: *The SAS URL for your storage container*
+1. Connect a tool; selecting **Azure Speech MCP Server** in the **Catalog** and connecting it to an endpoint. specifying the following configuration
+    - **Name**: A unique name for your tool/
+    - **Remote MCP Server endpoint**: `https://{foundry-resource-name}.cognitiveservices.azure.com/speech/mcp?api-version=2025-11-15-preview`
+    - **Parameters**: foundry-resource-name: *Your foundry resource name*
+    - **Authentication**: Key-based:
+    - **Credential**:
+        - `Ocp-Apim-Subscription-Key`: *API Key for your Foundry project*
+
+    - **Add key value pair**
+        - `X-Blob-Container-Url`: *The SAS URL for your storage container*
 
     > **Note**: If key-based authentication is disabled by a policy in your Azure subscription, you can use Entra ID authentication to connect the agent to the Azure Language service.
 
