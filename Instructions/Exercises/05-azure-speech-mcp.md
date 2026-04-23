@@ -116,7 +116,7 @@ Now that you have a Foundry project, you can create an agent.
 Foundry includes an MCP server for Azure Speech in Foundry Tools, which you can connect to your project and use in your agent.
 
 1. In the navigation pane on the left, select the **Tools** page.
-1. Connect a tool; selecting **Azure Speech MCP Server** in the **Catalog** and connecting it to an endpoint. specifying the following configuration
+1. On the **Tolls** tab, connect a tool; selecting **Azure Speech MCP Server** in the **Catalog** and connecting it to an endpoint. specifying the following configuration
     - **Name**: *A unique name for your tool.*
     - **Remote MCP Server endpoint**: `https://{foundry-resource-name}.cognitiveservices.azure.com/speech/mcp?api-version=2025-11-15-preview`
     - **Parameters**: foundry-resource-name: *Your foundry resource name*
