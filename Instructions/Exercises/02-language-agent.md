@@ -79,7 +79,8 @@ Now that you have a Foundry project, you can create an agent.
 Foundry includes an MCP server for Azure Language in Foundry Tools, which you can connect to your project and use in your agent.
 
 1. In the navigation pane on the left, select the **Tools** page.
-1. On the **Tolls** tab, connect a tool; selecting **Azure Language in Foundry Tools** in the **Catalog** and connecting it to an endpoint. specifying the following configuration
+1. Within the Tools page select the **Tools** tab.
+1. Connect a tool; selecting **Azure Language in Foundry Tools** in the **Catalog** and connecting it to an endpoint. specifying the following configuration
     - **Name**: A unique name for your tool/
     - **Remote MCP Server endpoint**: `https://{foundry-resource-name}.cognitiveservices.azure.com/language/mcp?api-version=2025-11-15-preview`
     - **Parameters**: foundry-resource-name: *Your foundry resource name*
@@ -93,6 +94,8 @@ Foundry includes an MCP server for Azure Language in Foundry Tools, which you ca
 1. On the details page for the Azure Language in Foundry Tools connection, select **Use in an agent**, and then select the **Text-Analysis-Agent** agent you created previously.
 
     The agent should open in the playground, with the Azure Language in Foundry Tools tool connected.
+
+    > **Note**: In some cases, the MCP tool is not added to the agent automatically. In the side panel, under **Tools**, verify that **Azure Language in Foundry Tools** appears. If it does not, select **Add** > **Browse all tools**, and then add **Azure Language in Foundry Tools** manually.
 
 ## Test the Azure Language tool in the playground
 
@@ -116,6 +119,9 @@ Now let's test the agent's ability to use the tool you connected.
     ```
 
 1. When prompted, approve use of the Azure Language tool by selecting **Always approve all Azure Language in Foundry Tools tools** (you may need to do this twice because the prompt asked for two distinct text analysis tasks).
+
+    > **Note**: If you receive a 403 error, save the agent again, refresh the page, and re-enter the prompt. The MCP tool should not prompt again for approval if permission has already been configured.
+
 1. Review the response, which should identify any personally identifiable information in the article about the founding of Microsoft, and create a version of the article with this information redacted.
 1. Review the **Logs** for the chat and verify that the Azure Language tool was used by the agent to process the prompt.
 
