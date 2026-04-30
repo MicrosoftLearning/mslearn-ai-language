@@ -129,14 +129,18 @@ The initial application files you'll need to develop the voice application are p
 1. In the **record_greeting** function, find the comment **Synthesize the greeting message to an audio file**, and add the following code to synthesize speech from the text entered by the user and save it as an audio file.
 
     ```python
-   # Synthesize the greeting message to an audio file
    output_file = "greeting.wav"
    audio_config = speech_sdk.audio.AudioOutputConfig(filename=output_file)
+
    speech_config.speech_synthesis_voice_name = "en-US-Serena:DragonHDLatestNeural"
-   speech_synthesizer = speech_sdk.SpeechSynthesizer
-        (speech_config=speech_config,
-         audio_config=audio_config)
+
+   speech_synthesizer = speech_sdk.SpeechSynthesizer(
+        speech_config=speech_config,
+        audio_config=audio_config
+   )
+
    result = speech_synthesizer.speak_text_async(greeting_message).get()
+
    if result.reason == speech_sdk.ResultReason.SynthesizingAudioCompleted:
         print(f"Greeting recorded and saved to {output_file}")
         speech_synthesizer = None  # Release the synthesizer resources
@@ -176,8 +180,10 @@ The initial application files you'll need to develop the voice application are p
     ```python
    # Transcribe the audio file
    audio_config = speech_sdk.audio.AudioConfig(filename=file_path)
-   speech_recognizer = speech_sdk.SpeechRecognizer(speech_config=speech_config,
-                                                    audio_config=audio_config)
+   speech_recognizer = speech_sdk.SpeechRecognizer(
+        speech_config=speech_config,
+        audio_config=audio_config
+   )
    result = speech_recognizer.recognize_once_async().get()
    if result.reason == speech_sdk.ResultReason.RecognizedSpeech:
         print(f"Transcription: {result.text}")
