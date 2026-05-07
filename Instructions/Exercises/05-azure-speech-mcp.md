@@ -9,8 +9,6 @@ lab:
 
 # Use Azure Speech in an agent
 
-> <font color="red"><b>WARNING</b>:</font> You may experience a blocking error in this lab. The issue is under investigation. We apologize for the inconvenience.
-
 **Azure Speech in Foundry Tools** provides an MCP server that you can use to enable an agent to call its speech recognition and synthesis capabilities.
 
 In this exercise, you'll configure the Azure Speech in Foundry Tools MCP server, and connect it to an agent.
