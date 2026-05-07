@@ -11,9 +11,9 @@ lab:
 
 **Azure Language in Foundry Tools** supports analysis of text, including language detection, entity recognition, and PII redaction.
 
-You can use the service directly in an application through its REST API and several language-specific SDKs. You can also use the **Azure Language in Foundry Tools MCP server** to integrate its capabilities into an AI agent; which is what you'll do in this exercise.
+You can use the service directly in an application through its REST API and several language-specific SDKs. You can also use the **Azure Language in Foundry Tools MCP server** to integrate its capabilities into an AI agent, which is what you'll do in this exercise.
 
-The code used in this exercise is based on the for Microsoft Foundry Tools SDK for Python. You can develop similar solutions using the SDKs for Microsoft .NET, JavaScript, and Java. Refer to [Microsoft Foundry SDK client libraries](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview) for details.
+The code used in this exercise is based on the Microsoft Foundry SDK for Python. You can develop similar solutions using the SDKs for Microsoft .NET, JavaScript, and Java. Refer to [Microsoft Foundry SDK client libraries](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview) for details.
 
 This exercise takes approximately **30** minutes.
 
@@ -85,8 +85,7 @@ Foundry includes an MCP server for Azure Language in Foundry Tools, which you ca
     - **Remote MCP Server endpoint**: `https://{foundry-resource-name}.cognitiveservices.azure.com/language/mcp?api-version=2025-11-15-preview`
     - **Parameters**: foundry-resource-name: *Your foundry resource name*
     - **Authentication**: Key-based:
-    - **Credential**:
-        - `Ocp-Apim-Subscription-Key`: *API Key for your Foundry project*
+    - **Ocp-Apim-Subscription-Key**: *API Key for your Foundry project*
 
     > **Note**: If key-based authentication is disabled by a policy in your Azure subscription, you can use Entra ID authentication to connect the agent to the Azure Language service.
 
@@ -95,7 +94,7 @@ Foundry includes an MCP server for Azure Language in Foundry Tools, which you ca
 
     The agent should open in the playground, with the Azure Language in Foundry Tools tool connected.
 
-    > **Note**: In some cases, the MCP tool is not added to the agent automatically. In the side panel, under **Tools**, verify that **Azure Language in Foundry Tools** appears. If it does not, select **Add** > **Browse all tools**, and then add **Azure Language in Foundry Tools** manually.
+    > **Note**: In some cases, the MCP tool is not added to the agent automatically. Verify that **Azure Language in Foundry Tools** appears in the agent's tool list. If it does not, add it manually from the available tools for the agent.
 
 ## Test the Azure Language tool in the playground
 
@@ -154,7 +153,7 @@ Now that you have a working agent, you can create a client application that uses
 1. In Visual Studio Code, view the **Extensions** pane; and if it is not already installed, install the **Python** extension.
 1. In the **Command Palette**, use the command `python:select interpreter`. Then select an existing environment if you have one, or create a new **Venv** environment based on your Python 3.1x installation.
 
-    > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/02-language-agent/Python/text-agent* folder; but it's OK if you - don't we'll install them later!
+    > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/02-language-agent/Python/text-agent* folder; but it's OK if you don't, we'll install them later.
 
     > **Tip**: If you prefer to use the terminal, you can create your **Venv** environment with `python -m venv labenv`, then activate it with `\labenv\Scripts\activate`.
 
