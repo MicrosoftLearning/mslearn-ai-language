@@ -119,7 +119,7 @@ Now let's test the agent's ability to use the tool you connected.
 
 1. When prompted, approve use of the Azure Language tool by selecting **Always approve all Azure Language in Foundry Tools tools** (you may need to do this twice because the prompt asked for two distinct text analysis tasks).
 
-    > **Note**: If you receive a 403 error, save the agent again, refresh the page, and re-enter the prompt. The MCP tool should not prompt again for approval if permission has already been configured.
+    > **Note**: Depending on your environment, you may occasionally receive a 403, 502, or other transient error after approving the tool. These errors are usually not blocking. Refresh the page and retry the same prompt.
 
 1. Review the response, which should identify any personally identifiable information in the article about the founding of Microsoft, and create a version of the article with this information redacted.
 1. Review the **Logs** for the chat and verify that the Azure Language tool was used by the agent to process the prompt.

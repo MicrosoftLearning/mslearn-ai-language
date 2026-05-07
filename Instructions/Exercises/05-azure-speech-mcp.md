@@ -142,8 +142,6 @@ Now let's test the agent's ability to use the tool you connected.
 
 1. When prompted, approve use of the Azure Speech tool by selecting **Always approve all Azure Speech MCP Server tools**.
 
-    > <font color="red"><b>NOTE</b>:</font> You may encounter the error ***HTTP 404 (not found)***. This issue is currently under investigation. If this occurs, the rest of the lab exercise will not work. We apologize for the inconvenience.
-
 1. Review the response, which should include a link to the generated audio file. Then click the link to hear the synthesized speech.
 1. Enter the following prompt:
 
@@ -152,6 +150,8 @@ Now let's test the agent's ability to use the tool you connected.
     ```
 
 1. If prompted, approve use of the Azure Speech tool by selecting **Always approve all Azure Speech MCP Server tools**.
+
+    > **Note**: If a transient error occurs while calling the tool, refresh the page and retry the same prompt.
 1. Review the output, which should be a transcription of the audio file.
 
 ## Create a client application
