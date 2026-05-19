@@ -9,13 +9,11 @@ lab:
 
 # Use Azure Speech in an agent
 
-> <font color="red"><b>WARNING</b>:</font> You may experience a bocking error in this lab. The issue is under investigation. We apologize for the inconvenience.
-
-**Azure Speech in Foundry Tools** provides an MCP server that you can use to enable and agent to call its speech recognition and synthesis capabilities.
+**Azure Speech in Foundry Tools** provides an MCP server that you can use to enable an agent to call its speech recognition and synthesis capabilities.
 
 In this exercise, you'll configure the Azure Speech in Foundry Tools MCP server, and connect it to an agent.
 
-The code used in this exercise is based on the Foundry Tools SDK for Python. You can develop similar solutions using the SDKs for Microsoft .NET, JavaScript, and Java. Refer to [Microsoft Foundry SDK client libraries](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview) for details.
+The code used in this exercise is based on the Microsoft Foundry SDK for Python. You can develop similar solutions using the SDKs for Microsoft .NET, JavaScript, and Java. Refer to [Microsoft Foundry SDK client libraries](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview) for details.
 
 This exercise takes approximately **30** minutes.
 
@@ -99,7 +97,7 @@ Now that you have a Foundry project, you can create an agent.
 1. Assign your agent the following **Instructions**:
 
     ```
-   You are an AI agent that uses the Azure AI Speech tool to transcribe and generates speech.
+    You are an AI agent that uses the Azure AI Speech tool to transcribe and generate speech.
     ```
 
 1. Use the **Save** button to save the changes.
@@ -121,13 +119,11 @@ Foundry includes an MCP server for Azure Speech in Foundry Tools, which you can 
     - **Remote MCP Server endpoint**: `https://{foundry-resource-name}.cognitiveservices.azure.com/speech/mcp?api-version=2025-11-15-preview`
     - **Parameters**: foundry-resource-name: *Your foundry resource name*
     - **Authentication**: Key-based:
-    - **Credential**:
-        - `Ocp-Apim-Subscription-Key`: *API Key for your Foundry project*
+    - **Ocp-Apim-Subscription-Key**: *API Key for your Foundry project*
 
-    - **Add key value pair**
-        - `X-Blob-Container-Url`: *The SAS URL for your storage container*
+    - **X-Blob-Container-Url**: *The SAS URL for your storage container*
 
-    > **Note**: If key-based authentication is disabled by a policy in your Azure subscription, you can use Entra ID authentication to connect the agent to the Azure Language service.
+    > **Note**: If key-based authentication is disabled by a policy in your Azure subscription, you can use Entra ID authentication to connect the agent to the Azure Speech service.
 
 1. Wait for the MCP tool connection to be created, and then view its details page.
 1. On the details page for the Azure Speech in Foundry Tools connection, select **Use in an agent**, and then select the **Speech-Agent** agent you created previously.
@@ -146,8 +142,6 @@ Now let's test the agent's ability to use the tool you connected.
 
 1. When prompted, approve use of the Azure Speech tool by selecting **Always approve all Azure Speech MCP Server tools**.
 
-    > <font color="red"><b>NOTE</b>:</font> You may encounter the error ***HTTP 404 (not found)***. This issue is currently under investigation. If this occurs, the rest of the lab exercise will not work. We apologize for the inconvenience.
-
 1. Review the response, which should include a link to the generated audio file. Then click the link to hear the synthesized speech.
 1. Enter the following prompt:
 
@@ -156,6 +150,8 @@ Now let's test the agent's ability to use the tool you connected.
     ```
 
 1. If prompted, approve use of the Azure Speech tool by selecting **Always approve all Azure Speech MCP Server tools**.
+
+    > **Note**: If a transient error occurs while calling the tool, refresh the page and retry the same prompt.
 1. Review the output, which should be a transcription of the audio file.
 
 ## Create a client application
@@ -183,7 +179,7 @@ Now that you have a working agent, you can create a client application that uses
 
     > **Tip**: If you prefer to use the terminal, you can create your **Venv** environment with `python -m venv labenv`, then activate it with `\labenv\Scripts\activate`.
 
-1. In the **Explorer** pane, right-click the **text-agent** folder containing the application files, and select **Open in integrated terminal** (or open a terminal in the **Terminal** menu and navigate to the */Labfiles/05-speech-tool/Python/speech-client* folder.)
+1. In the **Explorer** pane, right-click the **speech-client** folder containing the application files, and select **Open in integrated terminal** (or open a terminal in the **Terminal** menu and navigate to the */Labfiles/05-speech-tool/Python/speech-client* folder.)
 
     > **Note**: Opening the terminal in Visual Studio Code will automatically activate the Python environment. You may need to enable running scripts on your system.
 
@@ -194,7 +190,7 @@ Now that you have a working agent, you can create a client application that uses
     pip install -r requirements.txt
     ```
 
-1. In the **Explorer** pane, in the **speech-client** folder, select the **.env** file to open it. Then update the configuration values to include your project **endpoint** (from the project home page in Foundry Portal)and the name of your agent (which should be **Speech-Agent** - note that this name is case-sensitive).
+1. In the **Explorer** pane, in the **speech-client** folder, select the **.env** file to open it. Then update the configuration values to include your project **endpoint** (from the project home page in Foundry Portal) and the name of your agent (which should be **speech-agent** - note that this name is case-sensitive).
 1. Save the modified configuration file.
 
 ### Implement application code

@@ -11,9 +11,9 @@ lab:
 
 **Azure Language in Foundry Tools** supports analysis of text, including language detection, entity recognition, and PII redaction.
 
-You can use the service directly in an application through its REST API and several language-specific SDKs. You can also use the **Azure Language in Foundry Tools MCP server** to integrate its capabilities into an AI agent; which is what you'll do in this exercise.
+You can use the service directly in an application through its REST API and several language-specific SDKs. You can also use the **Azure Language in Foundry Tools MCP server** to integrate its capabilities into an AI agent, which is what you'll do in this exercise.
 
-The code used in this exercise is based on the for Microsoft Foundry Tools SDK for Python. You can develop similar solutions using the SDKs for Microsoft .NET, JavaScript, and Java. Refer to [Microsoft Foundry SDK client libraries](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview) for details.
+The code used in this exercise is based on the Microsoft Foundry SDK for Python. You can develop similar solutions using the SDKs for Microsoft .NET, JavaScript, and Java. Refer to [Microsoft Foundry SDK client libraries](https://learn.microsoft.com/azure/ai-foundry/how-to/develop/sdk-overview) for details.
 
 This exercise takes approximately **30** minutes.
 
@@ -79,13 +79,13 @@ Now that you have a Foundry project, you can create an agent.
 Foundry includes an MCP server for Azure Language in Foundry Tools, which you can connect to your project and use in your agent.
 
 1. In the navigation pane on the left, select the **Tools** page.
-1. On the **Tolls** tab, connect a tool; selecting **Azure Language in Foundry Tools** in the **Catalog** and connecting it to an endpoint. specifying the following configuration
+1. Within the Tools page select the **Tools** tab.
+1. Connect a tool; selecting **Azure Language in Foundry Tools** in the **Catalog** and connecting it to an endpoint. specifying the following configuration
     - **Name**: A unique name for your tool/
     - **Remote MCP Server endpoint**: `https://{foundry-resource-name}.cognitiveservices.azure.com/language/mcp?api-version=2025-11-15-preview`
     - **Parameters**: foundry-resource-name: *Your foundry resource name*
     - **Authentication**: Key-based:
-    - **Credential**:
-        - `Ocp-Apim-Subscription-Key`: *API Key for your Foundry project*
+    - **Ocp-Apim-Subscription-Key**: *API Key for your Foundry project*
 
     > **Note**: If key-based authentication is disabled by a policy in your Azure subscription, you can use Entra ID authentication to connect the agent to the Azure Language service.
 
@@ -93,6 +93,8 @@ Foundry includes an MCP server for Azure Language in Foundry Tools, which you ca
 1. On the details page for the Azure Language in Foundry Tools connection, select **Use in an agent**, and then select the **Text-Analysis-Agent** agent you created previously.
 
     The agent should open in the playground, with the Azure Language in Foundry Tools tool connected.
+
+    > **Note**: In some cases, the MCP tool is not added to the agent automatically. Verify that **Azure Language in Foundry Tools** appears in the agent's tool list. If it does not, add it manually from the available tools for the agent.
 
 ## Test the Azure Language tool in the playground
 
@@ -116,6 +118,9 @@ Now let's test the agent's ability to use the tool you connected.
     ```
 
 1. When prompted, approve use of the Azure Language tool by selecting **Always approve all Azure Language in Foundry Tools tools** (you may need to do this twice because the prompt asked for two distinct text analysis tasks).
+
+    > **Note**: Depending on your environment, you may occasionally receive a 403, 502, or other transient error after approving the tool. These errors are usually not blocking. Refresh the page and retry the same prompt.
+
 1. Review the response, which should identify any personally identifiable information in the article about the founding of Microsoft, and create a version of the article with this information redacted.
 1. Review the **Logs** for the chat and verify that the Azure Language tool was used by the agent to process the prompt.
 
@@ -148,7 +153,7 @@ Now that you have a working agent, you can create a client application that uses
 1. In Visual Studio Code, view the **Extensions** pane; and if it is not already installed, install the **Python** extension.
 1. In the **Command Palette**, use the command `python:select interpreter`. Then select an existing environment if you have one, or create a new **Venv** environment based on your Python 3.1x installation.
 
-    > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/02-language-agent/Python/text-agent* folder; but it's OK if you - don't we'll install them later!
+    > **Tip**: If you are prompted to install dependencies, you can install the ones in the *requirements.txt* file in the */Labfiles/02-language-agent/Python/text-agent* folder; but it's OK if you don't, we'll install them later.
 
     > **Tip**: If you prefer to use the terminal, you can create your **Venv** environment with `python -m venv labenv`, then activate it with `\labenv\Scripts\activate`.
 
