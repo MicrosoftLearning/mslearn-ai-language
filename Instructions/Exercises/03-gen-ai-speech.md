@@ -65,10 +65,10 @@ To develop speech-enables apps, we're going to need speech-enabled models. Speci
 
 ### Deploy a speech-recognition model
 
-1. In the Foundry portal menu bar, select **Build**; and then view the **Models** page. Note that the *gpt-4o-mini-tts* model you deployed is listed.
+1. In the Foundry portal menu bar, select **Build**; and then view the **Deployments** page. Note that the *gpt-4o-mini-tts* model you deployed is listed.
 1. Select **Deploy a base model, and search the catalog for `gpt-4o-mini-transcribe`.
 1. Deploy a *gpt-4o-mini-transcribe* model using the default settings.
-1. Return to the **Models** page and verify that both of the model you deployed are listed.
+1. Return to the **Deployments** page and verify that both of the model you deployed are listed.
 1. Select either of the models to view the Target URI you need to use in your code.
 
 ## Get the application files from GitHub
