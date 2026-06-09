@@ -5,6 +5,7 @@ lab:
     duration: 30
     level: 300
     islab: true
+    status: 'released'
 ---
 
 # Translate text and speech
