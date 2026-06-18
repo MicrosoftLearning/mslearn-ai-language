@@ -21,6 +21,8 @@ def main():
         endpoint = os.environ.get("AZURE_VOICELIVE_ENDPOINT")
         agent_name = os.environ.get("AZURE_VOICELIVE_AGENT_ID")
         project_name = os.environ.get("AZURE_VOICELIVE_PROJECT_NAME")
+        agent_config = AgentConfig({ "agent_name": agent_name, "project_name": project_name })
+
         
         # Create credential for authentication
         credential = AzureCliCredential()
@@ -29,8 +31,7 @@ def main():
         assistant = VoiceAssistant(
             endpoint=endpoint,
             credential=credential,
-            agent_name=agent_name,
-            project_name=project_name
+            agent_config = agent_config
         )
         
         # Run the assistant
@@ -57,16 +58,10 @@ class VoiceAssistant:
     4. Process events from the service
     """
     
-    def __init__(self, endpoint, credential, agent_name, project_name):
+    def __init__(self, endpoint, credential, agent_config):
         self.endpoint = endpoint
         self.credential = credential
-        
-        # Agent configuration
-        self.agent_config = {
-            "agent_name": agent_name,
-            "project_name": project_name
-        }
-    
+        self.agent_config = agent_config
     async def start(self):
         """Start the voice assistant."""
         print("\n" + "=" * 60)
