@@ -163,7 +163,8 @@ To use your agent in a custom application, you need to write code that uses the 
         ServerEventType,
         AudioNoiseReduction,
         AudioEchoCancellation,
-        AzureSemanticVadMultilingual
+        AzureSemanticVadMultilingual,
+        AgentConfig
    ) 
     ```
 
