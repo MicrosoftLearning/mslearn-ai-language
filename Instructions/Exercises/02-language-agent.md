@@ -59,7 +59,7 @@ Now that you have a Foundry project, you can create an agent.
 
     When ready, your agent opens in the agent playground.
 
-1. In the model drop-down list, ensure that a **gpt-4.1** model has been deployed and selected for your agent.
+1. In the model drop-down list, ensure that a **gpt-5** model has been deployed and selected for your agent.
 1. Assign your agent the following **Instructions**:
 
     ```
