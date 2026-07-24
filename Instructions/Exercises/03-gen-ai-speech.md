@@ -60,17 +60,21 @@ To develop speech-enables apps, we're going to need speech-enabled models. Speci
 ### Deploy a speech-generation model
 
 1. Now you're ready to **Start building**. Let's **Explore models** (or on the **Discover** page, select the **Models** tab) to view the Microsoft Foundry model catalog.
-1. In the model catalog, search for `gpt-4o-mini-tts`.
-1. Review the model card, and then deploy it using the default settings.
+1. In the model catalog, search for `gpt-4o-mini-tts` or another text-to-speech model available in your region.
+1. Review the model card, and then deploy an available text-to-speech model using the default settings.
 1. When the model has been deployed, view its details, noting that the **Target URI** and **Key** required to use it are available here (you'll need the Target URI later).
+
+    > **IMPORTANT**: `gpt-4o-mini-tts` is a recommended model for this exercise, not a required one. If it is unavailable in your region, deploy a supported text-to-speech model instead.
 
 ### Deploy a speech-recognition model
 
-1. In the Foundry portal menu bar, select **Build**; and then view the **Deployments** page. Note that the *gpt-4o-mini-tts* model you deployed is listed.
-1. Select **Deploy a base model**, and search the catalog for `gpt-4o-mini-transcribe`.
-1. Deploy a *gpt-4o-mini-transcribe* model using the default settings.
+1. In the Foundry portal menu bar, select **Build**; and then view the **Deployments** page. Note that the text-to-speech model you deployed is listed.
+1. Select **Deploy a base model**, and search the catalog for `gpt-4o-mini-transcribe` or another speech-to-text model available in your region.
+1. Deploy an available speech-to-text model using the default settings.
 1. Return to the **Deployments** page and verify that both of the model you deployed are listed.
 1. Select either of the models to view the Target URI you need to use in your code.
+
+    > **IMPORTANT**: `gpt-4o-mini-transcribe` is a recommended model for this exercise, not a required one. If it is unavailable in your region, deploy a supported speech-to-text model instead.
 
 ## Get the application files from GitHub
 

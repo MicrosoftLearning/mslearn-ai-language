@@ -42,6 +42,8 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Resource group**: *Create or select a resource group*
     - **Region**: Select any available region
 
+    > **Note**: Use a recommended Microsoft Foundry region. Model and feature availability may vary by region.
+
 1. Select **Create**. Wait for your project to be created. Then view its home page.
 
 ## Create an agent
