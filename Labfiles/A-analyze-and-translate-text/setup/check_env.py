@@ -27,7 +27,42 @@ import argparse
 import os
 from pathlib import Path
 
-from dotenv import dotenv_values
+try:
+    from dotenv import dotenv_values
+except ModuleNotFoundError:
+    # python-dotenv is installed into the lab's virtual environment, but this
+    # preflight check is meant to run BEFORE you install anything - and from a
+    # terminal where labenv may not be activated. Fall back to a small stdlib
+    # parser so the check always works.
+    def dotenv_values(env_path):
+        """Minimal .env reader: KEY=VALUE, ignoring blanks and # comments."""
+        values = {}
+        try:
+            # utf-8-sig so a BOM-prefixed .env parses cleanly too.
+            with open(env_path, encoding="utf-8-sig") as handle:
+                lines = handle.readlines()
+        except OSError:
+            return values
+        for raw_line in lines:
+            line = raw_line.strip()
+            if not line or line.startswith("#"):
+                continue
+            if line.startswith("export "):
+                line = line[len("export "):].lstrip()
+            key, separator, value = line.partition("=")
+            if not separator:
+                continue
+            key = key.strip()
+            value = value.strip()
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in ("'", '"'):
+                value = value[1:-1]
+            else:
+                # Strip an unquoted trailing comment, as python-dotenv does.
+                comment = value.find(" #")
+                if comment != -1:
+                    value = value[:comment].rstrip()
+            values[key] = value
+        return values
 
 # Which .env keys each task needs to run on its own.
 TASK_REQUIREMENTS = {

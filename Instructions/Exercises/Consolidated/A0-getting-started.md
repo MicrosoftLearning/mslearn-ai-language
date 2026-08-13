@@ -131,6 +131,10 @@ what (if anything) is missing:
 python ../setup/check_env.py --task 2
 ```
 
+> **Tip**: The preflight check uses only the Python standard library, so it works even if
+> you haven't run `pip install` yet or your `labenv` environment isn't activated. That
+> makes it safe to run first when you jump straight into a task.
+
 Swap `2` for the task number you're about to start. That's it - head to any task:
 
 | Task | Page |
