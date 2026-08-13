@@ -13,13 +13,14 @@ lab:
 *Part of the **Build speech-enabled apps and agents** lab. New here? Start with [Getting started](B0-getting-started.md).*
 
 > **Set up (start here):** This task needs a Foundry project, the starter code, and a working
-> **microphone and speakers**. If you haven't already, complete
-> [Getting started](B0-getting-started.md) to create your project, clone the code, and set
-> `SPEECH_ENDPOINT` in `Python/.env`. You do **not** need any model deployments for this
-> task. Then verify you're ready:
+> **microphone and speakers**. If you haven't already, complete [Getting
+> started](B0-getting-started.md) to create your project, clone the code, and set
+> `SPEECH_ENDPOINT` in `Python/.env`. You do **not** need any model deployments for this task.
+> Then verify you're ready - run this from the `Python` folder, where your terminal is already
+> open:
 
 ```
-python setup/check_env.py --task 3
+python ../setup/check_env.py --task 3
 ```
 
 > **Continuing from a previous task?** If you completed Task 1, this task needs nothing new -

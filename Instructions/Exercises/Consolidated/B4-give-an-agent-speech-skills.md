@@ -12,15 +12,16 @@ lab:
 
 *Part of the **Build speech-enabled apps and agents** lab. New here? Start with [Getting started](B0-getting-started.md).*
 
-> **Set up (start here):** This task needs a Foundry project, the starter code, your
-> project's **API key**, and an **Azure storage account** that you create below. If you
-> haven't already, complete [Getting started](B0-getting-started.md), then set
-> `PROJECT_ENDPOINT` and `AGENT_NAME` in `Python/.env`. Note that `PROJECT_ENDPOINT` is the
-> **full** endpoint including the `/api/projects/{project_name}` suffix. You do **not** need
-> any model deployments or a microphone for this task. Then verify you're ready:
+> **Set up (start here):** This task needs a Foundry project, the starter code, your project's
+> **API key**, and an **Azure storage account** that you create below. If you haven't already,
+> complete [Getting started](B0-getting-started.md), then set `PROJECT_ENDPOINT` and
+> `AGENT_NAME` in `Python/.env`. Note that `PROJECT_ENDPOINT` is the **full** endpoint
+> including the `/api/projects/{project_name}` suffix. You do **not** need any model
+> deployments or a microphone for this task. Then verify you're ready - run this from the
+> `Python` folder, where your terminal is already open:
 
 ```
-python setup/check_env.py --task 4
+python ../setup/check_env.py --task 4
 ```
 
 > **Continuing from a previous task?** If you completed an earlier task in the same `Python`

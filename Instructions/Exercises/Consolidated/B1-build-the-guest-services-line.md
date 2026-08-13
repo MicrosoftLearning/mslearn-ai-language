@@ -16,10 +16,11 @@ lab:
 > haven't already, complete [Getting started](B0-getting-started.md) to create your project,
 > clone the code, and set `SPEECH_ENDPOINT` in `Python/.env`. The sample voicemail recordings
 > are already in the starter folder. You do **not** need to deploy any models for this task.
-> Then verify you're ready:
+> Then verify you're ready - run this from the `Python` folder, where your terminal is already
+> open:
 
 ```
-python setup/check_env.py --task 1
+python ../setup/check_env.py --task 1
 ```
 
 ---

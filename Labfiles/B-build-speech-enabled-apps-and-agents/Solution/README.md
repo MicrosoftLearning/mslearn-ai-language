@@ -6,6 +6,12 @@ apps and agents** lab. Use these if you get stuck, or to check your own work.
 Each file here is the finished version of the matching starter file in
 `Labfiles/B-build-speech-enabled-apps-and-agents/Python/`.
 
+> **Note on `check_env.py`**: the preflight check lives at the **lab root**
+> (`Labfiles/B-build-speech-enabled-apps-and-agents/setup/check_env.py`) and is meant to be
+> run from the **starter** `Python/` folder as `python ../setup/check_env.py --task N` -
+> *not* from this `Solution/Python/` folder, where `../setup/` would resolve to a
+> `Solution/setup/` folder that doesn't exist. The solution files below don't need it.
+
 ## File tree
 
 ```

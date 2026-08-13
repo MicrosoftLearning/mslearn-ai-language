@@ -14,10 +14,11 @@ lab:
 
 > **Set up (start here):** This task needs a Foundry project and the starter code. If you
 > haven't already, complete [Getting started](A0-getting-started.md) to create your project,
-> clone the code, and set `TRANSLATOR_ENDPOINT` in `Python/.env`. Then verify you're ready:
+> clone the code, and set `TRANSLATOR_ENDPOINT` in `Python/.env`. Then verify you're ready -
+> run this from the `Python` folder, where your terminal is already open:
 
 ```
-python setup/check_env.py --task 2
+python ../setup/check_env.py --task 2
 ```
 
 > **Continuing from a previous task?** If you just finished Task 1 in the same `Python`

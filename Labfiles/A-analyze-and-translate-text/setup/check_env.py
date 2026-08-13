@@ -2,9 +2,16 @@
 Preflight check for the Alpine Ski House guest feedback lab (Lab A).
 
 Each task in this lab can be completed on its own. Before you start a task,
-run this script to confirm your .env file has everything that task needs:
+run this script to confirm your .env file has everything that task needs.
 
-    python setup/check_env.py --task 2
+Run it from the starter code folder - Labfiles/A-analyze-and-translate-text/Python -
+which is the folder you opened in VS Code and where your terminal is already open:
+
+    python ../setup/check_env.py --task 2
+
+(If you run it from the lab root instead, drop the '../' and use
+'python setup/check_env.py --task 2'. Note that this script is NOT reachable from
+Solution/Python, because there is no Solution/setup folder.)
 
 It never changes anything - it only reads your .env and tells you what (if
 anything) is missing, so you can fix it before running the task.

@@ -123,11 +123,12 @@ CLI sign-in.
 ## Check you're ready for a task
 
 Each task needs specific values in your `.env`. Before starting a task, run the preflight
-check from the `Labfiles/A-analyze-and-translate-text` folder - it reads your `.env` and
-tells you what (if anything) is missing:
+check from the `Labfiles/A-analyze-and-translate-text/Python` folder - the same folder you
+opened in VS Code, where your terminal is already open. It reads your `.env` and tells you
+what (if anything) is missing:
 
 ```
-python setup/check_env.py --task 2
+python ../setup/check_env.py --task 2
 ```
 
 Swap `2` for the task number you're about to start. That's it - head to any task:

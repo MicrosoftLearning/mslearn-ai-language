@@ -12,14 +12,15 @@ lab:
 
 *Part of the **Build speech-enabled apps and agents** lab. New here? Start with [Getting started](B0-getting-started.md).*
 
-> **Set up (start here):** This task needs a Foundry project **plus two deployed models** -
-> one text-to-speech and one speech-to-text. If you haven't already, complete
-> [Getting started](B0-getting-started.md) to create your project, deploy both models, clone
-> the code, and set `TTS_MODEL_ENDPOINT`, `TTS_MODEL_NAME`, `STT_MODEL_ENDPOINT`, and
-> `STT_MODEL_NAME` in `Python/.env`. Then verify you're ready:
+> **Set up (start here):** This task needs a Foundry project **plus two deployed models** - one
+> text-to-speech and one speech-to-text. If you haven't already, complete [Getting
+> started](B0-getting-started.md) to create your project, deploy both models, clone the code,
+> and set `TTS_MODEL_ENDPOINT`, `TTS_MODEL_NAME`, `STT_MODEL_ENDPOINT`, and `STT_MODEL_NAME` in
+> `Python/.env`. Then verify you're ready - run this from the `Python` folder, where your
+> terminal is already open:
 
 ```
-python setup/check_env.py --task 2
+python ../setup/check_env.py --task 2
 ```
 
 > **Continuing from a previous task?** If you just finished Task 1 in the same `Python`

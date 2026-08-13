@@ -12,15 +12,16 @@ lab:
 
 *Part of the **Analyze and translate guest feedback** lab. New here? Start with [Getting started](A0-getting-started.md).*
 
-> **Set up (start here):** This task needs a Foundry project, the starter code, and the
-> **API key** and **project endpoint** from your project's home page in the Foundry portal.
-> If you haven't already, complete [Getting started](A0-getting-started.md), then set
+> **Set up (start here):** This task needs a Foundry project, the starter code, and the **API
+> key** and **project endpoint** from your project's home page in the Foundry portal. If you
+> haven't already, complete [Getting started](A0-getting-started.md), then set
 > `PROJECT_ENDPOINT` and `AGENT_NAME` in `Python/.env`. Note that `PROJECT_ENDPOINT` is the
 > **full** endpoint including the `/api/projects/{project_name}` suffix - unlike the endpoint
-> Task 1 used. Then verify you're ready:
+> Task 1 used. Then verify you're ready - run this from the `Python` folder, where your
+> terminal is already open:
 
 ```
-python setup/check_env.py --task 3
+python ../setup/check_env.py --task 3
 ```
 
 > **Continuing from a previous task?** If you just finished an earlier task in the same

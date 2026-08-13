@@ -15,10 +15,11 @@ lab:
 > **Set up (start here):** This task needs a Foundry project and the starter code. If you
 > haven't already, complete [Getting started](A0-getting-started.md) to create your project,
 > clone the code, and set `FOUNDRY_ENDPOINT` in `Python/.env`. The sample reviews are already
-> in the starter folder. Then verify you're ready:
+> in the starter folder. Then verify you're ready - run this from the `Python` folder, where
+> your terminal is already open:
 
 ```
-python setup/check_env.py --task 1
+python ../setup/check_env.py --task 1
 ```
 
 ---

@@ -13,14 +13,14 @@ lab:
 *Part of the **Build speech-enabled apps and agents** lab. New here? Start with [Getting started](B0-getting-started.md).*
 
 > **Set up (start here):** This task needs a Foundry project, the starter code, and a working
-> **microphone and speakers** - ideally a headset. If you haven't already, complete
-> [Getting started](B0-getting-started.md) to create your project, clone the code, and set
+> **microphone and speakers** - ideally a headset. If you haven't already, complete [Getting
+> started](B0-getting-started.md) to create your project, clone the code, and set
 > `VOICELIVE_ENDPOINT`, `VOICELIVE_PROJECT_NAME`, and `VOICELIVE_AGENT_NAME` in `Python/.env`.
 > You do **not** need any model deployments or a storage account for this task. Then verify
-> you're ready:
+> you're ready - run this from the `Python` folder, where your terminal is already open:
 
 ```
-python setup/check_env.py --task 5
+python ../setup/check_env.py --task 5
 ```
 
 > **Continuing from a previous task?** If you completed an earlier task in the same `Python`
