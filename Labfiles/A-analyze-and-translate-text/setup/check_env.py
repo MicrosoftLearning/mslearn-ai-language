@@ -39,19 +39,26 @@ def _parse_env_file(env_path):
     can be imported and tested directly. Behaviour matches python-dotenv for the
     syntax a lab .env realistically uses: comments, blank lines, "export KEY=value",
     single/double-quoted values, inline comments, escapes inside double quotes,
-    bare keys, and a UTF-8 BOM. An unterminated quoted value is discarded, and a
-    missing or unreadable file yields {}.
+    bare keys, and a UTF-8 BOM.
+
+    A quoted value that doesn't close on its own line continues onto the following
+    lines, exactly as python-dotenv does - so an unclosed quote really does consume
+    the settings after it. If the quote never closes, or there's stray text after
+    the closing quote, the entry is discarded (again matching python-dotenv).
+    A missing or unreadable file yields {}.
     """
     values = {}
     try:
         # utf-8-sig so a BOM-prefixed .env parses cleanly too.
         with open(env_path, encoding="utf-8-sig") as handle:
-            lines = handle.readlines()
+            lines = handle.read().splitlines()
     except OSError:
         return values
 
-    for raw_line in lines:
-        line = raw_line.strip()
+    index = 0
+    while index < len(lines):
+        line = lines[index].strip()
+        index += 1
         if not line or line.startswith("#"):
             continue
 
@@ -71,26 +78,31 @@ def _parse_env_file(env_path):
 
         value = value.strip()
         if value and value[0] in ("'", '"'):
-            # Quoted: scan to the matching close quote so anything after it (such
-            # as an inline comment) is ignored, and a "#" inside the quotes is
-            # kept. Inside double quotes a backslash escapes the next character.
             quote = value[0]
-            body = []
-            index = 1
-            closed = False
-            while index < len(value):
-                char = value[index]
-                if quote == '"' and char == "\\" and index + 1 < len(value):
-                    body.append(value[index:index + 2])
-                    index += 2
-                    continue
-                if char == quote:
-                    closed = True
-                    break
-                body.append(char)
-                index += 1
+            body, closed, rest = _scan_quoted(value[1:], quote)
             if not closed:
-                # python-dotenv discards an entry whose quote is never closed.
+                # Only continue onto the following lines if the quote actually
+                # closes somewhere below. python-dotenv consumes those lines (so
+                # an unclosed quote really does swallow the settings after it),
+                # but when nothing ever closes it, it drops just this entry and
+                # carries on - so look ahead before committing.
+                lookahead = index
+                while lookahead < len(lines):
+                    _more, shut, _r = _scan_quoted(lines[lookahead], quote)
+                    if shut:
+                        break
+                    lookahead += 1
+                else:
+                    continue  # never closes: discard this entry only
+                while not closed and index < len(lines):
+                    body.append("\n")
+                    more, closed, rest = _scan_quoted(lines[index], quote)
+                    body.extend(more)
+                    index += 1
+            # python-dotenv can't parse stray text after the closing quote and
+            # drops the whole entry; a trailing comment is fine.
+            leftover = rest.strip()
+            if leftover and not leftover.startswith("#"):
                 continue
             value = "".join(body)
             if quote == '"':
@@ -107,6 +119,57 @@ def _parse_env_file(env_path):
         values[key] = value
 
     return values
+
+
+def _scan_quoted(text, quote):
+    """Scan text for the closing quote.
+
+    Returns (characters_before_it, closed, text_after_it). Inside double quotes a
+    backslash escapes the next character, so an escaped quote doesn't end the value.
+    """
+    body = []
+    index = 0
+    while index < len(text):
+        char = text[index]
+        if quote == '"' and char == "\\" and index + 1 < len(text):
+            body.append(text[index:index + 2])
+            index += 2
+            continue
+        if char == quote:
+            return body, True, text[index + 1:]
+        body.append(char)
+        index += 1
+    return body, False, ""
+
+
+def find_unclosed_quote(env_path):
+    """Return (line_number, key) for a quoted value that doesn't close on its line.
+
+    Such a value continues onto the following lines, so every setting after it is
+    read as part of one value and the app never sees them. Returns (None, None)
+    when there's nothing wrong.
+    """
+    try:
+        with open(env_path, encoding="utf-8-sig") as handle:
+            lines = handle.read().splitlines()
+    except OSError:
+        return None, None
+
+    for number, raw_line in enumerate(lines, start=1):
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("export") and len(line) > 6 and line[6] in " \t":
+            line = line[6:].lstrip()
+        key, separator, value = line.partition("=")
+        if not separator:
+            continue
+        value = value.strip()
+        if value and value[0] in ("'", '"'):
+            _body, closed, _rest = _scan_quoted(value[1:], value[0])
+            if not closed:
+                return number, key.strip()
+    return None, None
 
 
 try:
@@ -161,6 +224,26 @@ FIX_HINTS = {
 }
 
 
+BOM_HINT = (
+    "\n  .env encoding\n"
+    "    Your .env was saved as 'UTF-8 with BOM' (Notepad does this by default).\n"
+    "    The BOM becomes part of the first setting's name, so the app reads that\n"
+    "    setting as empty even though the file looks correct.\n"
+    "    Re-save it as plain UTF-8: in VS Code, click the encoding in the status\n"
+    "    bar, choose 'Save with Encoding', then 'UTF-8' (not 'UTF-8 with BOM')."
+)
+
+
+QUOTE_HINT = (
+    "\n  .env line {line} ({key})\n"
+    "    This value opens a quote that is never closed on the same line, so it\n"
+    "    keeps reading into the lines below it. Every setting after it becomes\n"
+    "    part of one long value and the app never sees them.\n"
+    "    Close the quote on line {line} (or remove both quotes - the lab values\n"
+    "    don't need them)."
+)
+
+
 def find_env_file():
     """Return the .env next to the lab's Python folder, wherever this is run from."""
     here = Path(__file__).resolve().parent
@@ -176,6 +259,20 @@ def find_env_file():
     return here.parent / "Python" / ".env"
 
 
+def has_utf8_bom(env_path):
+    """True if the .env starts with a UTF-8 BOM.
+
+    This matters because it genuinely breaks the lab apps, not just this check:
+    load_dotenv() keeps the BOM on the first setting's name, so the app's
+    os.getenv("FOUNDRY_ENDPOINT") returns None even though the file looks right.
+    """
+    try:
+        with open(env_path, "rb") as handle:
+            return handle.read(3) == b"\xef\xbb\xbf"
+    except OSError:
+        return False
+
+
 def load_values(env_path):
     """Merge real environment variables over .env file values (env wins)."""
     values = {}
@@ -183,10 +280,10 @@ def load_values(env_path):
         for key, value in dotenv_values(env_path).items():
             if value is None:
                 continue
-            # A .env saved by Windows Notepad starts with a UTF-8 BOM, and
-            # python-dotenv keeps it on the first key ("\ufeffFOUNDRY_ENDPOINT"),
-            # which would report a correctly set key as missing. Strip it so both
-            # this and the stdlib fallback agree.
+            # Normalize a BOM off the first key so the per-key listing reflects
+            # what you actually typed. The BOM is still reported as a problem by
+            # has_utf8_bom() - it is fatal for the app, so it must not pass
+            # silently just because the value is present.
             values[key.lstrip("\ufeff").strip()] = value
     for key in ALL_KEYS:
         if os.environ.get(key):
@@ -222,20 +319,39 @@ def main():
     print()
 
     missing = [key for key in required if not is_set(values, key)]
+    bom = env_path.exists() and has_utf8_bom(env_path)
+    quote_line, quote_key = (None, None)
+    if env_path.exists():
+        quote_line, quote_key = find_unclosed_quote(env_path)
 
     for key in required:
         mark = "OK " if is_set(values, key) else "MISSING"
         print(f"  [{mark}] {key}")
 
-    if not missing:
+    if bom:
+        print("  [PROBLEM] .env starts with a UTF-8 BOM")
+    if quote_line:
+        print(f"  [NOTE] .env line {quote_line}: unterminated quote")
+
+    if not missing and not bom:
+        if quote_line:
+            print()
+            print(QUOTE_HINT.format(line=quote_line, key=quote_key))
+            print("  (Nothing this task needs is affected, but it's worth fixing.)")
         print()
         print(f"You're ready to start Task {args.task}.")
         return 0
 
     print()
-    print("Set the following before starting this task:")
-    for key in missing:
-        print(f"\n  {key}\n    {FIX_HINTS.get(key, 'Add this key to your .env file.')}")
+    if bom:
+        print("Fix the following before starting this task:")
+        print(BOM_HINT)
+    if quote_line:
+        print(QUOTE_HINT.format(line=quote_line, key=quote_key))
+    if missing:
+        print("Set the following before starting this task:")
+        for key in missing:
+            print(f"\n  {key}\n    {FIX_HINTS.get(key, 'Add this key to your .env file.')}")
     return 1
 
 
