@@ -27,42 +27,68 @@ import argparse
 import os
 from pathlib import Path
 
+
+def _parse_env_file(env_path):
+    """Minimal stdlib .env reader, used when python-dotenv isn't installed.
+
+    Kept at module level (rather than hidden inside the ImportError branch) so it
+    can be imported and tested directly. Behaviour matches python-dotenv for the
+    syntax a lab .env realistically uses: comments, blank lines, "export KEY=value",
+    single/double-quoted values, inline comments, bare keys, and a UTF-8 BOM.
+    Returns {} for a missing or unreadable file.
+    """
+    values = {}
+    try:
+        # utf-8-sig so a BOM-prefixed .env parses cleanly too.
+        with open(env_path, encoding="utf-8-sig") as handle:
+            lines = handle.readlines()
+    except OSError:
+        return values
+
+    for raw_line in lines:
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+
+        # "export KEY=value" - the separator may be a space or a tab. Guard the
+        # length/character check so a key such as "exported" isn't truncated.
+        if line.startswith("export") and len(line) > 6 and line[6] in " \t":
+            line = line[6:].lstrip()
+
+        key, separator, value = line.partition("=")
+        key = key.strip()
+        if not key:
+            continue
+        if not separator:
+            # python-dotenv reports a key with no "=" as present but unset.
+            values[key] = None
+            continue
+
+        value = value.strip()
+        if value and value[0] in ("'", '"'):
+            # Quoted: take the contents verbatim and ignore anything after the
+            # closing quote, so 'FOO="bar" # note' yields bar, and a '#' inside
+            # the quotes is preserved rather than treated as a comment.
+            quote = value[0]
+            closing = value.find(quote, 1)
+            value = value[1:closing] if closing != -1 else value[1:]
+        else:
+            # Unquoted: " #" starts an inline comment, but "bar#x" does not.
+            comment = value.find(" #")
+            if comment != -1:
+                value = value[:comment].rstrip()
+        values[key] = value
+
+    return values
+
+
 try:
     from dotenv import dotenv_values
 except ModuleNotFoundError:
     # python-dotenv is installed into the lab's virtual environment, but this
     # preflight check is meant to run BEFORE you install anything - and from a
-    # terminal where labenv may not be activated. Fall back to a small stdlib
-    # parser so the check always works.
-    def dotenv_values(env_path):
-        """Minimal .env reader: KEY=VALUE, ignoring blanks and # comments."""
-        values = {}
-        try:
-            # utf-8-sig so a BOM-prefixed .env parses cleanly too.
-            with open(env_path, encoding="utf-8-sig") as handle:
-                lines = handle.readlines()
-        except OSError:
-            return values
-        for raw_line in lines:
-            line = raw_line.strip()
-            if not line or line.startswith("#"):
-                continue
-            if line.startswith("export "):
-                line = line[len("export "):].lstrip()
-            key, separator, value = line.partition("=")
-            if not separator:
-                continue
-            key = key.strip()
-            value = value.strip()
-            if len(value) >= 2 and value[0] == value[-1] and value[0] in ("'", '"'):
-                value = value[1:-1]
-            else:
-                # Strip an unquoted trailing comment, as python-dotenv does.
-                comment = value.find(" #")
-                if comment != -1:
-                    value = value[:comment].rstrip()
-            values[key] = value
-        return values
+    # terminal where labenv may not be activated. Fall back to the stdlib parser.
+    dotenv_values = _parse_env_file
 
 # Which .env keys each task needs to run on its own.
 TASK_REQUIREMENTS = {
@@ -127,7 +153,14 @@ def load_values(env_path):
     """Merge real environment variables over .env file values (env wins)."""
     values = {}
     if env_path.exists():
-        values.update({k: v for k, v in dotenv_values(env_path).items() if v is not None})
+        for key, value in dotenv_values(env_path).items():
+            if value is None:
+                continue
+            # A .env saved by Windows Notepad starts with a UTF-8 BOM, and
+            # python-dotenv keeps it on the first key ("\ufeffFOUNDRY_ENDPOINT"),
+            # which would report a correctly set key as missing. Strip it so both
+            # this and the stdlib fallback agree.
+            values[key.lstrip("\ufeff").strip()] = value
     for key in ALL_KEYS:
         if os.environ.get(key):
             values[key] = os.environ[key]
