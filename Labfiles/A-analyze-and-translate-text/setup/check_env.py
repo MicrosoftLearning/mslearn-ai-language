@@ -29,7 +29,10 @@ import re
 from pathlib import Path
 
 # Escape sequences python-dotenv expands inside double-quoted values.
-_ESCAPES = {"n": "\n", "t": "\t", "r": "\r", "\\": "\\", '"': '"', "'": "'"}
+_ESCAPES = {
+    "n": "\n", "t": "\t", "r": "\r", "a": "\a", "b": "\b", "f": "\f", "v": "\v",
+    "\\": "\\", '"': '"', "'": "'",
+}
 # Single-quoted values only unescape the quote itself and a literal backslash;
 # "\n" and friends stay literal in single quotes.
 _ESCAPES_SINGLE = {"\\": "\\", "'": "'"}
