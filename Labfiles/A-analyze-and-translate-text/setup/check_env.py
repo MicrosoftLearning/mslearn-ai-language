@@ -52,10 +52,18 @@ def _parse_env_file(env_path):
     the settings after it. If the quote never closes, or there's stray text after
     the closing quote, the entry is discarded (again matching python-dotenv).
     A missing or unreadable file yields {}.
+
+    INTENTIONAL DIVERGENCE - do not "fix" this to match python-dotenv:
+    reading with utf-8-sig strips a UTF-8 BOM, whereas python-dotenv keeps it and
+    returns a first key of "\ufeffFOUNDRY_ENDPOINT". Matching dotenv here would
+    make this parser more faithful and the check less useful: the BOM is reported
+    separately by has_utf8_bom(), which is what blocks, and that detector reads raw
+    bytes so it stays correct however this parser changes. A parity test cannot
+    catch a regression here, because dotenv's own behaviour is the broken one.
     """
     values = {}
     try:
-        # utf-8-sig so a BOM-prefixed .env parses cleanly too.
+        # utf-8-sig: see the INTENTIONAL DIVERGENCE note above.
         with open(env_path, encoding="utf-8-sig") as handle:
             lines = handle.read().splitlines()
     except OSError:
@@ -162,6 +170,30 @@ def _find_closing_line(lines, start, quote, escape_aware):
         if closed:
             return offset
     return None
+
+
+def find_placeholders():
+    """PLACEHOLDERS plus any placeholder-shaped value in the shipped .env.example.
+
+    Keeping the two in sync by hand rots: edit .env.example, forget the list, and
+    an unedited .env is reported ready. Reading the example at runtime removes the
+    coupling.
+
+    Only placeholder-SHAPED values are absorbed. Some example values are
+    deliberately real - the agent names a learner is told to create, the model
+    deployment names - and treating those as placeholders would reject a correctly
+    filled .env.
+    """
+    placeholders = set(PLACEHOLDERS)
+    example = Path(__file__).resolve().parent.parent / "Python" / ".env.example"
+    for value in _parse_env_file(example).values():
+        if not value:
+            continue
+        value = value.strip()
+        if value.startswith("your_") or value.startswith("your-") or (
+                value.startswith("<") and value.endswith(">")):
+            placeholders.add(value)
+    return placeholders
 
 
 def key_line_numbers(env_path):
@@ -338,10 +370,20 @@ def load_values(env_path):
     return values
 
 
-def is_set(values, key):
-    """A key counts as set if it's present and not a leftover placeholder."""
+def is_set(values, key, placeholders=None):
+    """A key counts as set if it's present, not a placeholder, and plausible.
+
+    Endpoint settings are URLs, so anything that isn't one is still template text
+    however it's worded - that catches a renamed placeholder the list hasn't
+    learned yet, and a learner who pasted the wrong thing.
+    """
     value = (values.get(key) or "").strip()
-    return bool(value) and value not in PLACEHOLDERS
+    known = PLACEHOLDERS if placeholders is None else placeholders
+    if not value or value in known:
+        return False
+    if key.endswith("_ENDPOINT") and not value.lower().startswith("http"):
+        return False
+    return True
 
 
 def main():
@@ -359,13 +401,14 @@ def main():
 
     env_path = find_env_file()
     values = load_values(env_path)
+    placeholders = find_placeholders()
     required = TASK_REQUIREMENTS[args.task]
 
     print(f"Checking readiness for Task {args.task}")
     print(f"Reading: {env_path}{'' if env_path.exists() else '  (not found yet)'}")
     print()
 
-    missing = [key for key in required if not is_set(values, key)]
+    missing = [key for key in required if not is_set(values, key, placeholders)]
     bom = env_path.exists() and has_utf8_bom(env_path)
     quote_line, quote_key = (None, None)
     if env_path.exists():
@@ -385,7 +428,7 @@ def main():
     for key in required:
         if key in suspect:
             mark = "UNSURE"
-        elif is_set(values, key):
+        elif is_set(values, key, placeholders):
             mark = "OK "
         else:
             mark = "MISSING"
