@@ -25,7 +25,11 @@ Tasks and what they need:
 
 import argparse
 import os
+import re
 from pathlib import Path
+
+# Escape sequences python-dotenv expands inside double-quoted values.
+_ESCAPES = {"n": "\n", "t": "\t", "r": "\r", "\\": "\\", '"': '"', "'": "'"}
 
 
 def _parse_env_file(env_path):
@@ -34,8 +38,9 @@ def _parse_env_file(env_path):
     Kept at module level (rather than hidden inside the ImportError branch) so it
     can be imported and tested directly. Behaviour matches python-dotenv for the
     syntax a lab .env realistically uses: comments, blank lines, "export KEY=value",
-    single/double-quoted values, inline comments, bare keys, and a UTF-8 BOM.
-    Returns {} for a missing or unreadable file.
+    single/double-quoted values, inline comments, escapes inside double quotes,
+    bare keys, and a UTF-8 BOM. An unterminated quoted value is discarded, and a
+    missing or unreadable file yields {}.
     """
     values = {}
     try:
@@ -66,12 +71,34 @@ def _parse_env_file(env_path):
 
         value = value.strip()
         if value and value[0] in ("'", '"'):
-            # Quoted: take the contents verbatim and ignore anything after the
-            # closing quote, so 'FOO="bar" # note' yields bar, and a '#' inside
-            # the quotes is preserved rather than treated as a comment.
+            # Quoted: scan to the matching close quote so anything after it (such
+            # as an inline comment) is ignored, and a "#" inside the quotes is
+            # kept. Inside double quotes a backslash escapes the next character.
             quote = value[0]
-            closing = value.find(quote, 1)
-            value = value[1:closing] if closing != -1 else value[1:]
+            body = []
+            index = 1
+            closed = False
+            while index < len(value):
+                char = value[index]
+                if quote == '"' and char == "\\" and index + 1 < len(value):
+                    body.append(value[index:index + 2])
+                    index += 2
+                    continue
+                if char == quote:
+                    closed = True
+                    break
+                body.append(char)
+                index += 1
+            if not closed:
+                # python-dotenv discards an entry whose quote is never closed.
+                continue
+            value = "".join(body)
+            if quote == '"':
+                value = re.sub(
+                    r"\\(.)",
+                    lambda match: _ESCAPES.get(match.group(1), "\\" + match.group(1)),
+                    value,
+                )
         else:
             # Unquoted: " #" starts an inline comment, but "bar#x" does not.
             comment = value.find(" #")
