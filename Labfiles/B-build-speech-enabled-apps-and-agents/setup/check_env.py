@@ -32,6 +32,9 @@ from pathlib import Path
 
 # Escape sequences python-dotenv expands inside double-quoted values.
 _ESCAPES = {"n": "\n", "t": "\t", "r": "\r", "\\": "\\", '"': '"', "'": "'"}
+# Single-quoted values only unescape the quote itself and a literal backslash;
+# "\n" and friends stay literal in single quotes.
+_ESCAPES_SINGLE = {"\\": "\\", "'": "'"}
 
 
 def _parse_env_file(env_path):
@@ -85,17 +88,22 @@ def _parse_env_file(env_path):
                 # an unclosed quote really does swallow the settings after it),
                 # but when nothing ever closes it, it drops just this entry and
                 # carries on - so look ahead before committing.
-                lookahead = index
-                while lookahead < len(lines):
-                    _more, shut, _r = _scan_quoted(lines[lookahead], quote)
-                    if shut:
-                        break
-                    lookahead += 1
-                else:
+                #
+                # It looks ahead escape-aware first; only if that finds nothing
+                # does it fall back to treating a backslash-escaped quote as a
+                # real one. Both passes are needed: escape-aware alone misses a
+                # line whose only quote is \" (dotenv still closes there), and
+                # raw alone closes too early when a genuine quote follows later.
+                escape_aware = True
+                closer = _find_closing_line(lines, index, quote, True)
+                if closer is None:
+                    escape_aware = False
+                    closer = _find_closing_line(lines, index, quote, False)
+                if closer is None:
                     continue  # never closes: discard this entry only
                 while not closed and index < len(lines):
                     body.append("\n")
-                    more, closed, rest = _scan_quoted(lines[index], quote)
+                    more, closed, rest = _scan_quoted(lines[index], quote, escape_aware)
                     body.extend(more)
                     index += 1
             # python-dotenv can't parse stray text after the closing quote and
@@ -104,12 +112,12 @@ def _parse_env_file(env_path):
             if leftover and not leftover.startswith("#"):
                 continue
             value = "".join(body)
-            if quote == '"':
-                value = re.sub(
-                    r"\\(.)",
-                    lambda match: _ESCAPES.get(match.group(1), "\\" + match.group(1)),
-                    value,
-                )
+            escapes = _ESCAPES if quote == '"' else _ESCAPES_SINGLE
+            value = re.sub(
+                r"\\(.)",
+                lambda match: escapes.get(match.group(1), "\\" + match.group(1)),
+                value,
+            )
         else:
             # Unquoted: " #" starts an inline comment, but "bar#x" does not.
             comment = value.find(" #")
@@ -120,17 +128,19 @@ def _parse_env_file(env_path):
     return values
 
 
-def _scan_quoted(text, quote):
+def _scan_quoted(text, quote, escape_aware=True):
     """Scan text for the closing quote.
 
-    Returns (characters_before_it, closed, text_after_it). Inside double quotes a
-    backslash escapes the next character, so an escaped quote doesn't end the value.
+    Returns (characters_before_it, closed, text_after_it). A backslash escapes the
+    next character for BOTH quote styles - python-dotenv honours \\' inside single
+    quotes as well as \\" inside double quotes - except when recovering from a
+    quote that never closes, where it stops honouring them (escape_aware=False).
     """
     body = []
     index = 0
     while index < len(text):
         char = text[index]
-        if quote == '"' and char == "\\" and index + 1 < len(text):
+        if escape_aware and char == "\\" and index + 1 < len(text):
             body.append(text[index:index + 2])
             index += 2
             continue
@@ -139,6 +149,40 @@ def _scan_quoted(text, quote):
         body.append(char)
         index += 1
     return body, False, ""
+
+
+def _find_closing_line(lines, start, quote, escape_aware):
+    """Index of the first line at or after start that closes quote, else None."""
+    for offset in range(start, len(lines)):
+        _body, closed, _rest = _scan_quoted(lines[offset], quote, escape_aware)
+        if closed:
+            return offset
+    return None
+
+
+def key_line_numbers(env_path):
+    """Map each KEY to the line number where it's assigned (last wins).
+
+    Used to decide whether a setting appears before or after an unclosed quote.
+    Scans the raw text, so it doesn't depend on how the value parses.
+    """
+    numbers = {}
+    try:
+        with open(env_path, encoding="utf-8-sig") as handle:
+            lines = handle.read().splitlines()
+    except OSError:
+        return numbers
+
+    for number, raw_line in enumerate(lines, start=1):
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("export") and len(line) > 6 and line[6] in " \t":
+            line = line[6:].lstrip()
+        key, separator, _value = line.partition("=")
+        if separator:
+            numbers[key.strip().lstrip("\ufeff")] = number
+    return numbers
 
 
 def find_unclosed_quote(env_path):
@@ -362,8 +406,24 @@ def main():
     if env_path.exists():
         quote_line, quote_key = find_unclosed_quote(env_path)
 
+    # Anything written at or below an unclosed quote may have been swallowed into
+    # that value, so its apparent presence here can't be trusted - the app may not
+    # see it. Treat those as unverified rather than reporting them as ready.
+    suspect = []
+    if quote_line:
+        line_of = key_line_numbers(env_path)
+        suspect = [
+            key for key in required
+            if key not in missing and line_of.get(key, 0) >= quote_line
+        ]
+
     for key in required:
-        mark = "OK " if is_set(values, key) else "MISSING"
+        if key in suspect:
+            mark = "UNSURE"
+        elif is_set(values, key):
+            mark = "OK "
+        else:
+            mark = "MISSING"
         print(f"  [{mark}] {key}")
 
     if bom:
@@ -371,7 +431,7 @@ def main():
     if quote_line:
         print(f"  [NOTE] .env line {quote_line}: unterminated quote")
 
-    if not missing and not bom:
+    if not missing and not bom and not suspect:
         if quote_line:
             print()
             print(QUOTE_HINT.format(line=quote_line, key=quote_key))
