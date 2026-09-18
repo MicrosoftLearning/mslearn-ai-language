@@ -62,6 +62,9 @@ Now that you have a Foundry project, you can create an agent.
     When ready, your agent opens in the agent playground.
 
 1. In the model drop-down list, ensure that a **gpt-5** model has been deployed and selected for your agent.
+
+    > **Note**: If prompts fail with `deployment_disabled` and "Instant inference quota is still being initialized for this subscription", use a deployed model instead. Select **Models** in the side panel, search for **gpt-5**, and select **Custom deploy**. Keep the default settings, deploy the model, and note the deployment name for later use. Once deployment completes, select that deployment in your agent's model drop-down list, save, and retry your prompt.
+
 1. Assign your agent the following **Instructions**:
 
     ```
