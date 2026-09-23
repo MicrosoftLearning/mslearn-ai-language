@@ -20,14 +20,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
     - name: Create Voice Live zip
       run: |
         rm -f ./downloads/python/voice-live-web.zip
         cd ./Labfiles/11-voice-live-agent/python/
         zip -r -q ../../../downloads/python/voice-live-web.zip .
     - name: Commit and push
-      uses: Endbug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5 # v9.1.4
+      uses: Endbug/add-and-commit@cc9c08ba6c8df3b93a8f2db63e89b98368ae2ae8 # v11.1.1
       with:
         add: 'downloads/python/voice-live-web.zip'
         message: 'Updating Zip for python source files'
