@@ -49,7 +49,9 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: Select *East US 2* (For this exercises some models are only available in this location.)
+    - **Region**: Select *East US 2* for the model versions and deployment type used in this exercise.
+
+    > **Important**: Model availability depends on the resource region, model version, and deployment type. This exercise uses `gpt-4o-mini-tts` and `gpt-4o-mini-transcribe`, version deployments in **East US 2**. Global Standard does not mean that a model can be deployed in every resource region. Deployment also depends on your subscription's quota and available capacity.
 
 1. Select **Create**. Wait for your project to be created. Then view its home page.
 
@@ -62,7 +64,7 @@ To develop speech-enables apps, we're going to need speech-enabled models. Speci
 1. Now you're ready to **Start building**. Let's **Explore models** (or on the **Discover** page, select the **Models** tab) to view the Microsoft Foundry model catalog.
 1. In the model catalog, search for `gpt-4o-mini-tts` or another text-to-speech model available in your region.
 1. Review the model card, and then deploy an available text-to-speech model using the default settings.
-1. When the model has been deployed, view its details, noting that the **Target URI** and **Key** required to use it are available here (you'll need the Target URI later).
+1. When the model has been deployed, view its details, noting that the **Endpoint** required to use it are available here (you'll need the Endpoint later).
 
     > **IMPORTANT**: `gpt-4o-mini-tts` is a recommended model for this exercise, not a required one. If it is unavailable in your region, deploy a supported text-to-speech model instead.
 
@@ -72,7 +74,7 @@ To develop speech-enables apps, we're going to need speech-enabled models. Speci
 1. Select **Deploy a base model**, and search the catalog for `gpt-4o-mini-transcribe` or another speech-to-text model available in your region.
 1. Deploy an available speech-to-text model using the default settings.
 1. Return to the **Deployments** page and verify that both of the model you deployed are listed.
-1. Select either of the models to view the Target URI you need to use in your code.
+1. Select each model to view its **Endpoint** and deployment name for use in your code.
 
     > **IMPORTANT**: `gpt-4o-mini-transcribe` is a recommended model for this exercise, not a required one. If it is unavailable in your region, deploy a supported speech-to-text model instead.
 
@@ -112,9 +114,9 @@ The initial application files you'll need to develop speech applications are pro
     pip install -r requirements.txt
     ```
 
-1. In the **Explorer** pane, in the **generate-speech** folder, select the **.env** file to open it. Then update the configuration values to include the **Target URI** (endpoint) for your **gpt-4o-mini-tts** model.
+1. In the **Explorer** pane, in the **generate-speech** folder, select the **.env** file to open it. Then update the configuration values to include the **Endpoint** and deployment name for your **gpt-4o-mini-tts** model.
 
-    > **Tip**: Copy the Target URI from the model details page in the Foundry portal.
+    > **Tip**: Copy the **Endpoint** from the model deployment details page in the Foundry portal. The `AzureOpenAI` client used here expects an Azure OpenAI resource endpoint, such as `https://<resource-name>.openai.azure.com/`, not a Foundry project URL ending in `/api/projects/<project-name>` or a URL with `/openai/v1/` appended. Use your deployment name, which may differ from the model name.
 
     Save the modified configuration file.
 
@@ -204,9 +206,9 @@ The initial application files you'll need to develop speech applications are pro
 
     > **Note**: This step isn't actually necessary if you completed the previous part of this exercise, as botg apps use the same environment and have the same dependencies - but it won't do any harm!
 
-1. In the **Explorer** pane, in the **transcribe-speech** folder, select the **.env** file to open it. Then update the configuration values to include the **Target URI** (endpoint) for your **gpt-4o-mini-transcribe** model.
+1. In the **Explorer** pane, in the **transcribe-speech** folder, select the **.env** file to open it. Then update the configuration values to include the **Endpoint** and deployment name for your **gpt-4o-mini-transcribe** model.
 
-    > **Tip**: Copy the Target URI from the model details page in the Foundry portal.
+    > **Tip**: Copy the **Endpoint** from the model deployment details page in the Foundry portal. As with the speech-generation app, use the Azure OpenAI resource endpoint and your deployment name, not a Foundry project URL.
 
     Save the modified configuration file.
 
