@@ -1,0 +1,8 @@
+python-dotenv==1.2.2
+azure-identity==1.25.3
+azure-ai-textanalytics==5.4.0
+azure-ai-translation-text==2.0.0
+azure-ai-projects==2.4.0
+# azure-ai-projects imports httpx directly but does not declare it as a
+# dependency; openai 3.x no longer installs it, so pin it explicitly.
+httpx==0.28.1
