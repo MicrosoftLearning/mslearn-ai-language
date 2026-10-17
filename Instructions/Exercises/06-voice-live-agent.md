@@ -12,7 +12,7 @@ lab:
 
 Speech-capable AI agents enable users to interact conversationally - using spoken command and questions that generate vocal responses.
 
-In this exercise, you'll the Voice Live capability of Azure Speech in Microsoft Foundry Tools to create a real-time voice-based agent.
+In this exercise, you'll use the Voice Live capability of Azure Speech in Microsoft Foundry Tools to create a real-time voice-based agent.
 
 This exercise takes approximately **30** minutes.
 
