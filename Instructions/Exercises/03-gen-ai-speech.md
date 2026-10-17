@@ -57,7 +57,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 ## Deploy models
 
-To develop speech-enables apps, we're going to need speech-enabled models. Specifically, we need a model that can perform speech-generation, and a model that can process speech input.
+To develop speech-enabled apps, we're going to need speech-enabled models. Specifically, we need a model that can perform speech-generation, and a model that can process speech input.
 
 ### Deploy a speech-generation model
 
