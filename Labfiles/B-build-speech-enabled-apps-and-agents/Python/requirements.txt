@@ -1,0 +1,13 @@
+python-dotenv==1.2.2
+azure-identity==1.25.3
+playsound3==3.3.2
+azure-cognitiveservices-speech==1.51.1
+openai==3.0.0
+azure-ai-projects==2.4.0
+# azure-ai-projects imports httpx directly but does not declare it as a
+# dependency; openai 3.x no longer installs it, so pin it explicitly.
+httpx==0.28.1
+# Task 5 (Voice Live) only. The aiohttp extra is required by the SDK, and
+# pyaudio has no wheel for Python 3.14 - use Python 3.13 for this lab.
+azure-ai-voicelive[aiohttp]==1.3.0
+pyaudio==0.2.14
