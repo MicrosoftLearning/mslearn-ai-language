@@ -6,6 +6,19 @@ from dotenv import load_dotenv
 import pyaudio
 
 # import namespaces
+from azure.identity.aio import AzureCliCredential
+from azure.ai.voicelive.aio import connect
+from azure.ai.voicelive.models import (
+    InputAudioFormat,
+    Modality,
+    OutputAudioFormat,
+    RequestSession,
+    ServerEventType,
+    AudioNoiseReduction,
+    AudioEchoCancellation,
+    AzureSemanticVadMultilingual,
+    AgentConfig
+)
 
 
 
@@ -71,21 +84,29 @@ class VoiceAssistant:
         # Add your code in this try block!
         try:
             # STEP 1: Connect Azure VoiceLive to the agent
+            async with connect(
+                endpoint=self.endpoint,
+                credential=self.credential,
+                api_version="2026-01-01-preview",
+                agent_config=self.agent_config
+            ) as connection:
+                self.connection = connection
 
-                
                 # STEP 2: Initialize audio processor
-                
-                
-                # STEP 3: Configure the session
-                
-                
-                # STEP 4: Start audio systems
-                
-                
-                # STEP 5: Process events
-                
+                self.audio_processor = AudioProcessor(connection)
 
-        
+                # STEP 3: Configure the session
+                await self.setup_session()
+
+                # STEP 4: Start audio systems
+                self.audio_processor.start_playback()
+
+                print("\n✅ Ready! Start speaking...")
+                print("Press Ctrl+C to exit\n")
+
+                # STEP 5: Process events
+                await self.process_events()
+
         finally:
             if hasattr(self, 'audio_processor'):
                 self.audio_processor.shutdown()
