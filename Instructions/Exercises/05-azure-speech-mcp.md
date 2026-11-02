@@ -43,8 +43,7 @@ The Azure Speech MCP server uses an Azure storage account to save generated audi
     - **Resource group**: *Create or select a resource group*
     - **Storage account name**: *A unique name for your storage account*
     - **Region**: *Any available region*
-    - **Preferred storage type**: Azure blob storage or Azure Data Lake Storage Gen2
-    - **Primary workload**: Cloud native
+    - **Primary service**: Azure blob storage or Azure Data Lake Storage Gen2
     - **Performance**: Standard
     - **Redundancy**: Locally-redundant storage (LRS)
 1. When the Azure storage account resource has been created, go to it in the portal.
@@ -78,7 +77,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: Select any [supported region](https://learn.microsoft.com/azure/ai-services/speech-service/regions?tabs=mcp) other than **West US 3**, where model initialization issues have been reported.
+    - **Region**: Select any [supported region](https://learn.microsoft.com/azure/ai-services/speech-service/regions?tabs=mcp) other than **West US 3**.
 
     If you reuse an existing project, verify that its Foundry resource is in a supported region other than **West US 3**. Otherwise, create a new resource and project in a suitable region.
 
@@ -93,12 +92,10 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 Now that you have a Foundry project, you can create an agent.
 
-1. Select **Models** in the side panel, search for **gpt-5**, and deploy the model using the default settings. Wait for deployment to complete.
 1. Now you're ready to **Start building**. Select **Create agents** (or on the **Build** page, select the **Agents** tab); and create a new agent named `speech-agent`.
 
      When ready, your agent opens in the agent playground.
 
-1. In the model drop-down list, select the **gpt-5** deployment you created for your agent.
 1. Assign your agent the following **Instructions**:
 
     ```

@@ -43,7 +43,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: Select any [supported region](https://learn.microsoft.com/azure/foundry/agents/concepts/limits-quotas-regions#supported-regions) other than **West US 3**, where model initialization issues have been reported. Verify that the region also supports the model and Azure Language tool used in this exercise.
+    - **Region**: Select any [supported region](https://learn.microsoft.com/azure/foundry/agents/concepts/limits-quotas-regions#supported-regions) other than **West US 3**. Verify that the region also supports the model and Azure Language tool used in this exercise.
 
     If you reuse an existing project, verify that its Foundry resource is in a supported region other than **West US 3**. Otherwise, create a new resource and project in a suitable region.
 
@@ -58,12 +58,10 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 Now that you have a Foundry project, you can create an agent.
 
-1. Select **Models** in the side panel, search for **gpt-5**, and deploy the model using the default settings. Wait for deployment to complete.
 1. Now you're ready to **Start building**. Select **Create agents** (or on the **Build** page, select the **Agents** tab); and create a new agent named `Text-Analysis-Agent`.
 
     When ready, your agent opens in the agent playground.
 
-1. In the model drop-down list, select the **gpt-5** deployment you created for your agent.
 1. Assign your agent the following **Instructions**:
 
     ```

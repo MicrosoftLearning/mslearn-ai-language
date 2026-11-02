@@ -40,7 +40,7 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Foundry resource**: *Enter a valid name for your AI Foundry resource.*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: Select any region that supports [Voice Live](https://learn.microsoft.com/azure/ai-services/speech-service/regions?tabs=voice-live) and [Foundry voice-based agents](https://learn.microsoft.com/azure/foundry/agents/concepts/limits-quotas-regions#supported-regions), other than **West US 3**, where model initialization issues have been reported. Verify that the region also supports the model used in this exercise.
+    - **Region**: Select any region that supports [Voice Live](https://learn.microsoft.com/azure/ai-services/speech-service/regions?tabs=voice-live) and [Foundry voice-based agents](https://learn.microsoft.com/azure/foundry/agents/concepts/limits-quotas-regions#supported-regions), other than **West US 3**. Verify that the region also supports the model used in this exercise.
 
     If you reuse an existing project, verify that its Foundry resource is in a supported region other than **West US 3**. Otherwise, create a new resource and project in a suitable region.
 
@@ -50,12 +50,10 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
 
 Now let's create an agent.
 
-1. Select **Models** in the side panel, search for **gpt-5**, and deploy the model using the default settings. Wait for deployment to complete.
 1. Now you're ready to **Start building**. Select **Create agents** (or on the **Build** page, select the **Agents** tab); and create a new agent named `chat-agent`.
 
      When ready, your agent opens in the agent playground.
 
-1. In the model drop-down list, select the **gpt-5** deployment you created for your agent.
 1. Assign your agent the following **Instructions**:
 
     ```
@@ -79,7 +77,7 @@ Enabling speech mode for a Foundry agent integrates Azure Speech Voice Live - ad
 
     If the **Configuration** pane does not open automatically, use the "cog" icon above the chat interface to open it.
 
-1. In the **Configuration** pane, under **Voice Live**, review the default speech input and output configuration. You can try different voices, previewing them until you decide which one to use.
+1. In the **Configuration** pane, under **Voice mode**, review the default speech input and output configuration. You can try different voices, previewing them until you decide which one to use.
 1. Close the **Configuration** pane and use the **Save** button to save the agent.
 
 ## Use speech to interact with the agent
