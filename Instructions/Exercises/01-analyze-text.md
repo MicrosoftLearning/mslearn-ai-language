@@ -44,9 +44,9 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: Select any available region
+    - **Region**: Select any region that supports [Azure Language](https://learn.microsoft.com/azure/ai-services/language-service/concepts/regional-support).
 
-    > **Note**: Use a recommended Microsoft Foundry region. Model availability may vary by region.
+    If you reuse an existing project, verify that its Foundry resource is in a supported region. Otherwise, create a new resource and project in a suitable region.
 
 1. Select **Create**. Wait for your project to be created.
 1. On the home page for your project, note that the API key, project endpoint, and OpenAI endpoint are displayed here.

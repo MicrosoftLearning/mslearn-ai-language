@@ -25,6 +25,7 @@ This exercise takes approximately **30** minutes.
 Before starting this exercise, ensure you have:
 
 - An active [Azure subscription](https://azure.microsoft.com/pricing/purchase-options/azure-account)
+- Access to [MCP tools in Foundry Agent Service](https://learn.microsoft.com/azure/foundry/agents/how-to/tools/azure-ai-speech#prerequisites) (Enterprise tier)
 - [Visual Studio Code](https://code.visualstudio.com/) installed
 - [Python version **3.13.xx**](https://www.python.org/downloads/release/python-31312/) installed\*
 - [Git](https://git-scm.com/install/) installed and configured
@@ -42,8 +43,7 @@ The Azure Speech MCP server uses an Azure storage account to save generated audi
     - **Resource group**: *Create or select a resource group*
     - **Storage account name**: *A unique name for your storage account*
     - **Region**: *Any available region*
-    - **Preferred storage type**: Azure blob storage or Azure Data Lake Storage Gen2
-    - **Primary workload**: Cloud native
+    - **Primary service**: Azure blob storage or Azure Data Lake Storage Gen2
     - **Performance**: Standard
     - **Redundancy**: Locally-redundant storage (LRS)
 1. When the Azure storage account resource has been created, go to it in the portal.
@@ -77,9 +77,9 @@ Microsoft Foundry uses projects to organize models, resources, data, and other a
     - **Foundry resource**: *Use the default name for your resource (usually {project_name}-resource)*
     - **Subscription**: *Your Azure subscription*
     - **Resource group**: *Create or select a resource group*
-    - **Region**: Select any available region
+    - **Region**: Select any [supported region](https://learn.microsoft.com/azure/ai-services/speech-service/regions?tabs=mcp) other than **West US 3**.
 
-    > **Note**: Use a recommended Microsoft Foundry region. Model availability may vary by region.
+    If you reuse an existing project, verify that its Foundry resource is in a supported region other than **West US 3**. Otherwise, create a new resource and project in a suitable region.
 
     > **TIP**: Remember (or make a note of) the Foundry resource name - you're going to need it later!
 
@@ -96,7 +96,6 @@ Now that you have a Foundry project, you can create an agent.
 
      When ready, your agent opens in the agent playground.
 
-1. In the model drop-down list, ensure that a **gpt-5** model has been deployed and selected for your agent.
 1. Assign your agent the following **Instructions**:
 
     ```
