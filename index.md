@@ -14,7 +14,12 @@ This page lists exercises associated with Microsoft skilling content on [Microso
 
 {% assign labs = site.pages | where_exp:"page", "page.url contains '/Instructions/Exercises'" %}
 {% for activity in labs  %}
-{% if activity.lab.title %}
+{% comment %}
+Skip draft pages so in-progress labs don't appear in the published list.
+A page with no status is treated as publishable, so existing exercises are unaffected.
+{% endcomment %}
+{% assign lab_status = activity.lab.status | default: '' | downcase %}
+{% if activity.lab.title and lab_status != 'draft' %}
 
 ### [{{ activity.lab.title }}]({{ site.github.url }}{{ activity.url }})
 
